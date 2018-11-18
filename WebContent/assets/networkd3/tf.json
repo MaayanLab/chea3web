@@ -1,0 +1,10224 @@
+{
+	"nodes_dat": [
+		{
+			"name": "ADNP"
+		},
+		{
+			"name": "ADNP2"
+		},
+		{
+			"name": "AEBP1"
+		},
+		{
+			"name": "AEBP2"
+		},
+		{
+			"name": "AHCTF1"
+		},
+		{
+			"name": "AHDC1"
+		},
+		{
+			"name": "AHR"
+		},
+		{
+			"name": "AHRR"
+		},
+		{
+			"name": "AIRE"
+		},
+		{
+			"name": "AKAP8"
+		},
+		{
+			"name": "AKAP8L"
+		},
+		{
+			"name": "AKNA"
+		},
+		{
+			"name": "ALX1"
+		},
+		{
+			"name": "ALX3"
+		},
+		{
+			"name": "ALX4"
+		},
+		{
+			"name": "ANKZF1"
+		},
+		{
+			"name": "AR"
+		},
+		{
+			"name": "ARID2"
+		},
+		{
+			"name": "ARID3A"
+		},
+		{
+			"name": "ARID3B"
+		},
+		{
+			"name": "ARID5A"
+		},
+		{
+			"name": "ARID5B"
+		},
+		{
+			"name": "ARNT"
+		},
+		{
+			"name": "ARNT2"
+		},
+		{
+			"name": "ARNTL"
+		},
+		{
+			"name": "ARNTL2"
+		},
+		{
+			"name": "ARX"
+		},
+		{
+			"name": "ASCL1"
+		},
+		{
+			"name": "ASCL2"
+		},
+		{
+			"name": "ASCL3"
+		},
+		{
+			"name": "ASCL4"
+		},
+		{
+			"name": "ASCL5"
+		},
+		{
+			"name": "ASH1L"
+		},
+		{
+			"name": "ATF1"
+		},
+		{
+			"name": "ATF2"
+		},
+		{
+			"name": "ATF3"
+		},
+		{
+			"name": "ATF4"
+		},
+		{
+			"name": "ATF6"
+		},
+		{
+			"name": "ATF6B"
+		},
+		{
+			"name": "ATF7"
+		},
+		{
+			"name": "ATMIN"
+		},
+		{
+			"name": "ATOH1"
+		},
+		{
+			"name": "ATOH7"
+		},
+		{
+			"name": "ATOH8"
+		},
+		{
+			"name": "BACH1"
+		},
+		{
+			"name": "BACH2"
+		},
+		{
+			"name": "BATF"
+		},
+		{
+			"name": "BATF2"
+		},
+		{
+			"name": "BATF3"
+		},
+		{
+			"name": "BAZ2A"
+		},
+		{
+			"name": "BAZ2B"
+		},
+		{
+			"name": "BBX"
+		},
+		{
+			"name": "BCL11A"
+		},
+		{
+			"name": "BCL11B"
+		},
+		{
+			"name": "BCL6"
+		},
+		{
+			"name": "BCL6B"
+		},
+		{
+			"name": "BHLHA15"
+		},
+		{
+			"name": "BHLHA9"
+		},
+		{
+			"name": "BHLHE22"
+		},
+		{
+			"name": "BHLHE23"
+		},
+		{
+			"name": "BHLHE40"
+		},
+		{
+			"name": "BNC1"
+		},
+		{
+			"name": "BNC2"
+		},
+		{
+			"name": "BPTF"
+		},
+		{
+			"name": "BSX"
+		},
+		{
+			"name": "CAMTA1"
+		},
+		{
+			"name": "CAMTA2"
+		},
+		{
+			"name": "CARF"
+		},
+		{
+			"name": "CASZ1"
+		},
+		{
+			"name": "CBX2"
+		},
+		{
+			"name": "CC2D1A"
+		},
+		{
+			"name": "CCDC17"
+		},
+		{
+			"name": "CDC5L"
+		},
+		{
+			"name": "CDX2"
+		},
+		{
+			"name": "CEBPA"
+		},
+		{
+			"name": "CEBPB"
+		},
+		{
+			"name": "CEBPD"
+		},
+		{
+			"name": "CEBPE"
+		},
+		{
+			"name": "CEBPG"
+		},
+		{
+			"name": "CEBPZ"
+		},
+		{
+			"name": "CENPA"
+		},
+		{
+			"name": "CENPBD1"
+		},
+		{
+			"name": "CENPT"
+		},
+		{
+			"name": "CGGBP1"
+		},
+		{
+			"name": "CHAMP1"
+		},
+		{
+			"name": "CIC"
+		},
+		{
+			"name": "CLOCK"
+		},
+		{
+			"name": "CPXCR1"
+		},
+		{
+			"name": "CREB1"
+		},
+		{
+			"name": "CREB3"
+		},
+		{
+			"name": "CREB3L1"
+		},
+		{
+			"name": "CREB3L2"
+		},
+		{
+			"name": "CREB3L3"
+		},
+		{
+			"name": "CREB3L4"
+		},
+		{
+			"name": "CREB5"
+		},
+		{
+			"name": "CREBZF"
+		},
+		{
+			"name": "CREM"
+		},
+		{
+			"name": "CRX"
+		},
+		{
+			"name": "CSRNP1"
+		},
+		{
+			"name": "CSRNP2"
+		},
+		{
+			"name": "CSRNP3"
+		},
+		{
+			"name": "CTCF"
+		},
+		{
+			"name": "CTCFL"
+		},
+		{
+			"name": "CUX1"
+		},
+		{
+			"name": "CUX2"
+		},
+		{
+			"name": "CXXC1"
+		},
+		{
+			"name": "CXXC4"
+		},
+		{
+			"name": "CXXC5"
+		},
+		{
+			"name": "DACH1"
+		},
+		{
+			"name": "DBX2"
+		},
+		{
+			"name": "DDIT3"
+		},
+		{
+			"name": "DEAF1"
+		},
+		{
+			"name": "DLX2"
+		},
+		{
+			"name": "DLX4"
+		},
+		{
+			"name": "DMBX1"
+		},
+		{
+			"name": "DMRT1"
+		},
+		{
+			"name": "DMRT3"
+		},
+		{
+			"name": "DMTF1"
+		},
+		{
+			"name": "DNMT1"
+		},
+		{
+			"name": "DNTTIP1"
+		},
+		{
+			"name": "DOT1L"
+		},
+		{
+			"name": "DPF1"
+		},
+		{
+			"name": "DPF3"
+		},
+		{
+			"name": "DR1"
+		},
+		{
+			"name": "DRAP1"
+		},
+		{
+			"name": "DRGX"
+		},
+		{
+			"name": "DZIP1"
+		},
+		{
+			"name": "E2F1"
+		},
+		{
+			"name": "E2F2"
+		},
+		{
+			"name": "E2F4"
+		},
+		{
+			"name": "E2F5"
+		},
+		{
+			"name": "E2F6"
+		},
+		{
+			"name": "E2F7"
+		},
+		{
+			"name": "E2F8"
+		},
+		{
+			"name": "E4F1"
+		},
+		{
+			"name": "EBF1"
+		},
+		{
+			"name": "EBF2"
+		},
+		{
+			"name": "EBF3"
+		},
+		{
+			"name": "EBF4"
+		},
+		{
+			"name": "EEA1"
+		},
+		{
+			"name": "EGR1"
+		},
+		{
+			"name": "EGR2"
+		},
+		{
+			"name": "EGR3"
+		},
+		{
+			"name": "EGR4"
+		},
+		{
+			"name": "EHF"
+		},
+		{
+			"name": "ELF1"
+		},
+		{
+			"name": "ELF2"
+		},
+		{
+			"name": "ELF3"
+		},
+		{
+			"name": "ELF4"
+		},
+		{
+			"name": "ELF5"
+		},
+		{
+			"name": "ELK1"
+		},
+		{
+			"name": "ELK3"
+		},
+		{
+			"name": "ELK4"
+		},
+		{
+			"name": "EOMES"
+		},
+		{
+			"name": "EPAS1"
+		},
+		{
+			"name": "ERF"
+		},
+		{
+			"name": "ERG"
+		},
+		{
+			"name": "ESR1"
+		},
+		{
+			"name": "ESR2"
+		},
+		{
+			"name": "ESRRA"
+		},
+		{
+			"name": "ESRRB"
+		},
+		{
+			"name": "ESRRG"
+		},
+		{
+			"name": "ESX1"
+		},
+		{
+			"name": "ETS1"
+		},
+		{
+			"name": "ETS2"
+		},
+		{
+			"name": "ETV1"
+		},
+		{
+			"name": "ETV2"
+		},
+		{
+			"name": "ETV3"
+		},
+		{
+			"name": "ETV3L"
+		},
+		{
+			"name": "ETV4"
+		},
+		{
+			"name": "ETV5"
+		},
+		{
+			"name": "ETV6"
+		},
+		{
+			"name": "ETV7"
+		},
+		{
+			"name": "FAM170A"
+		},
+		{
+			"name": "FAM200B"
+		},
+		{
+			"name": "FBXL19"
+		},
+		{
+			"name": "FERD3L"
+		},
+		{
+			"name": "FEV"
+		},
+		{
+			"name": "FEZF1"
+		},
+		{
+			"name": "FEZF2"
+		},
+		{
+			"name": "FIGLA"
+		},
+		{
+			"name": "FIZ1"
+		},
+		{
+			"name": "FLI1"
+		},
+		{
+			"name": "FLYWCH1"
+		},
+		{
+			"name": "FOS"
+		},
+		{
+			"name": "FOSB"
+		},
+		{
+			"name": "FOSL1"
+		},
+		{
+			"name": "FOSL2"
+		},
+		{
+			"name": "FOXA1"
+		},
+		{
+			"name": "FOXA2"
+		},
+		{
+			"name": "FOXA3"
+		},
+		{
+			"name": "FOXB1"
+		},
+		{
+			"name": "FOXB2"
+		},
+		{
+			"name": "FOXC1"
+		},
+		{
+			"name": "FOXC2"
+		},
+		{
+			"name": "FOXD1"
+		},
+		{
+			"name": "FOXD2"
+		},
+		{
+			"name": "FOXD3"
+		},
+		{
+			"name": "FOXD4"
+		},
+		{
+			"name": "FOXD4L1"
+		},
+		{
+			"name": "FOXD4L3"
+		},
+		{
+			"name": "FOXD4L4"
+		},
+		{
+			"name": "FOXD4L5"
+		},
+		{
+			"name": "FOXD4L6"
+		},
+		{
+			"name": "FOXE1"
+		},
+		{
+			"name": "FOXE3"
+		},
+		{
+			"name": "FOXF1"
+		},
+		{
+			"name": "FOXF2"
+		},
+		{
+			"name": "FOXG1"
+		},
+		{
+			"name": "FOXH1"
+		},
+		{
+			"name": "FOXI1"
+		},
+		{
+			"name": "FOXI2"
+		},
+		{
+			"name": "FOXJ1"
+		},
+		{
+			"name": "FOXJ2"
+		},
+		{
+			"name": "FOXJ3"
+		},
+		{
+			"name": "FOXK1"
+		},
+		{
+			"name": "FOXK2"
+		},
+		{
+			"name": "FOXL1"
+		},
+		{
+			"name": "FOXL2"
+		},
+		{
+			"name": "FOXM1"
+		},
+		{
+			"name": "FOXN1"
+		},
+		{
+			"name": "FOXN2"
+		},
+		{
+			"name": "FOXN3"
+		},
+		{
+			"name": "FOXO1"
+		},
+		{
+			"name": "FOXO3"
+		},
+		{
+			"name": "FOXO4"
+		},
+		{
+			"name": "FOXP1"
+		},
+		{
+			"name": "FOXP2"
+		},
+		{
+			"name": "FOXP3"
+		},
+		{
+			"name": "FOXP4"
+		},
+		{
+			"name": "FOXQ1"
+		},
+		{
+			"name": "FOXR1"
+		},
+		{
+			"name": "FOXR2"
+		},
+		{
+			"name": "FOXS1"
+		},
+		{
+			"name": "GABPA"
+		},
+		{
+			"name": "GATA1"
+		},
+		{
+			"name": "GATA2"
+		},
+		{
+			"name": "GATA3"
+		},
+		{
+			"name": "GATA4"
+		},
+		{
+			"name": "GATA5"
+		},
+		{
+			"name": "GATA6"
+		},
+		{
+			"name": "GATAD2A"
+		},
+		{
+			"name": "GATAD2B"
+		},
+		{
+			"name": "GBX2"
+		},
+		{
+			"name": "GCM1"
+		},
+		{
+			"name": "GCM2"
+		},
+		{
+			"name": "GFI1"
+		},
+		{
+			"name": "GFI1B"
+		},
+		{
+			"name": "GLI1"
+		},
+		{
+			"name": "GLI2"
+		},
+		{
+			"name": "GLI3"
+		},
+		{
+			"name": "GLI4"
+		},
+		{
+			"name": "GLIS1"
+		},
+		{
+			"name": "GLIS2"
+		},
+		{
+			"name": "GLIS3"
+		},
+		{
+			"name": "GLYR1"
+		},
+		{
+			"name": "GMEB1"
+		},
+		{
+			"name": "GMEB2"
+		},
+		{
+			"name": "GPBP1"
+		},
+		{
+			"name": "GPBP1L1"
+		},
+		{
+			"name": "GRHL1"
+		},
+		{
+			"name": "GRHL2"
+		},
+		{
+			"name": "GRHL3"
+		},
+		{
+			"name": "GSC2"
+		},
+		{
+			"name": "GSX1"
+		},
+		{
+			"name": "GSX2"
+		},
+		{
+			"name": "GTF2B"
+		},
+		{
+			"name": "GTF2IRD2"
+		},
+		{
+			"name": "GZF1"
+		},
+		{
+			"name": "HAND1"
+		},
+		{
+			"name": "HAND2"
+		},
+		{
+			"name": "HBP1"
+		},
+		{
+			"name": "HDX"
+		},
+		{
+			"name": "HELT"
+		},
+		{
+			"name": "HES1"
+		},
+		{
+			"name": "HES2"
+		},
+		{
+			"name": "HES3"
+		},
+		{
+			"name": "HES4"
+		},
+		{
+			"name": "HES5"
+		},
+		{
+			"name": "HES6"
+		},
+		{
+			"name": "HES7"
+		},
+		{
+			"name": "HESX1"
+		},
+		{
+			"name": "HEY1"
+		},
+		{
+			"name": "HEY2"
+		},
+		{
+			"name": "HEYL"
+		},
+		{
+			"name": "HHEX"
+		},
+		{
+			"name": "HIC1"
+		},
+		{
+			"name": "HIC2"
+		},
+		{
+			"name": "HIF1A"
+		},
+		{
+			"name": "HIF3A"
+		},
+		{
+			"name": "HINFP"
+		},
+		{
+			"name": "HIVEP1"
+		},
+		{
+			"name": "HIVEP2"
+		},
+		{
+			"name": "HIVEP3"
+		},
+		{
+			"name": "HKR1"
+		},
+		{
+			"name": "HLF"
+		},
+		{
+			"name": "HLX"
+		},
+		{
+			"name": "HMBOX1"
+		},
+		{
+			"name": "HMG20A"
+		},
+		{
+			"name": "HMG20B"
+		},
+		{
+			"name": "HMGA1"
+		},
+		{
+			"name": "HMGA2"
+		},
+		{
+			"name": "HMGN3"
+		},
+		{
+			"name": "HMX1"
+		},
+		{
+			"name": "HMX2"
+		},
+		{
+			"name": "HMX3"
+		},
+		{
+			"name": "HNF1A"
+		},
+		{
+			"name": "HNF1B"
+		},
+		{
+			"name": "HNF4A"
+		},
+		{
+			"name": "HNF4G"
+		},
+		{
+			"name": "HOMEZ"
+		},
+		{
+			"name": "HOXA1"
+		},
+		{
+			"name": "HOXA10"
+		},
+		{
+			"name": "HOXA11"
+		},
+		{
+			"name": "HOXA13"
+		},
+		{
+			"name": "HOXA2"
+		},
+		{
+			"name": "HOXA3"
+		},
+		{
+			"name": "HOXA4"
+		},
+		{
+			"name": "HOXA5"
+		},
+		{
+			"name": "HOXA6"
+		},
+		{
+			"name": "HOXA7"
+		},
+		{
+			"name": "HOXA9"
+		},
+		{
+			"name": "HOXB1"
+		},
+		{
+			"name": "HOXB13"
+		},
+		{
+			"name": "HOXB2"
+		},
+		{
+			"name": "HOXB3"
+		},
+		{
+			"name": "HOXB4"
+		},
+		{
+			"name": "HOXB5"
+		},
+		{
+			"name": "HOXB6"
+		},
+		{
+			"name": "HOXB7"
+		},
+		{
+			"name": "HOXB8"
+		},
+		{
+			"name": "HOXB9"
+		},
+		{
+			"name": "HOXC10"
+		},
+		{
+			"name": "HOXC11"
+		},
+		{
+			"name": "HOXC12"
+		},
+		{
+			"name": "HOXC13"
+		},
+		{
+			"name": "HOXC4"
+		},
+		{
+			"name": "HOXC5"
+		},
+		{
+			"name": "HOXC6"
+		},
+		{
+			"name": "HOXC8"
+		},
+		{
+			"name": "HOXC9"
+		},
+		{
+			"name": "HOXD1"
+		},
+		{
+			"name": "HOXD10"
+		},
+		{
+			"name": "HOXD11"
+		},
+		{
+			"name": "HOXD12"
+		},
+		{
+			"name": "HOXD13"
+		},
+		{
+			"name": "HOXD3"
+		},
+		{
+			"name": "HOXD4"
+		},
+		{
+			"name": "HOXD8"
+		},
+		{
+			"name": "HOXD9"
+		},
+		{
+			"name": "HSF1"
+		},
+		{
+			"name": "HSF4"
+		},
+		{
+			"name": "HSF5"
+		},
+		{
+			"name": "HSFX1"
+		},
+		{
+			"name": "HSFY1"
+		},
+		{
+			"name": "IKZF1"
+		},
+		{
+			"name": "IKZF2"
+		},
+		{
+			"name": "IKZF3"
+		},
+		{
+			"name": "IKZF4"
+		},
+		{
+			"name": "IKZF5"
+		},
+		{
+			"name": "INSM1"
+		},
+		{
+			"name": "INSM2"
+		},
+		{
+			"name": "IRF1"
+		},
+		{
+			"name": "IRF2"
+		},
+		{
+			"name": "IRF3"
+		},
+		{
+			"name": "IRF4"
+		},
+		{
+			"name": "IRF6"
+		},
+		{
+			"name": "IRF8"
+		},
+		{
+			"name": "IRF9"
+		},
+		{
+			"name": "IRX1"
+		},
+		{
+			"name": "IRX3"
+		},
+		{
+			"name": "IRX5"
+		},
+		{
+			"name": "IRX6"
+		},
+		{
+			"name": "ISL1"
+		},
+		{
+			"name": "ISL2"
+		},
+		{
+			"name": "ISX"
+		},
+		{
+			"name": "JAZF1"
+		},
+		{
+			"name": "JDP2"
+		},
+		{
+			"name": "JRK"
+		},
+		{
+			"name": "JRKL"
+		},
+		{
+			"name": "JUN"
+		},
+		{
+			"name": "JUNB"
+		},
+		{
+			"name": "JUND"
+		},
+		{
+			"name": "KAT7"
+		},
+		{
+			"name": "KCMF1"
+		},
+		{
+			"name": "KCNIP3"
+		},
+		{
+			"name": "KDM2A"
+		},
+		{
+			"name": "KDM2B"
+		},
+		{
+			"name": "KDM5B"
+		},
+		{
+			"name": "KIN"
+		},
+		{
+			"name": "KLF1"
+		},
+		{
+			"name": "KLF10"
+		},
+		{
+			"name": "KLF11"
+		},
+		{
+			"name": "KLF12"
+		},
+		{
+			"name": "KLF13"
+		},
+		{
+			"name": "KLF15"
+		},
+		{
+			"name": "KLF16"
+		},
+		{
+			"name": "KLF17"
+		},
+		{
+			"name": "KLF2"
+		},
+		{
+			"name": "KLF3"
+		},
+		{
+			"name": "KLF4"
+		},
+		{
+			"name": "KLF5"
+		},
+		{
+			"name": "KLF6"
+		},
+		{
+			"name": "KLF7"
+		},
+		{
+			"name": "KLF8"
+		},
+		{
+			"name": "KLF9"
+		},
+		{
+			"name": "KMT2A"
+		},
+		{
+			"name": "KMT2B"
+		},
+		{
+			"name": "L3MBTL1"
+		},
+		{
+			"name": "LBX1"
+		},
+		{
+			"name": "LCOR"
+		},
+		{
+			"name": "LCORL"
+		},
+		{
+			"name": "LEF1"
+		},
+		{
+			"name": "LHX1"
+		},
+		{
+			"name": "LHX2"
+		},
+		{
+			"name": "LHX4"
+		},
+		{
+			"name": "LHX6"
+		},
+		{
+			"name": "LHX8"
+		},
+		{
+			"name": "LIN28B"
+		},
+		{
+			"name": "LIN54"
+		},
+		{
+			"name": "LMX1A"
+		},
+		{
+			"name": "LMX1B"
+		},
+		{
+			"name": "LTF"
+		},
+		{
+			"name": "LYL1"
+		},
+		{
+			"name": "MAF"
+		},
+		{
+			"name": "MAFB"
+		},
+		{
+			"name": "MAFF"
+		},
+		{
+			"name": "MAFG"
+		},
+		{
+			"name": "MAFK"
+		},
+		{
+			"name": "MAX"
+		},
+		{
+			"name": "MAZ"
+		},
+		{
+			"name": "MBD1"
+		},
+		{
+			"name": "MBD2"
+		},
+		{
+			"name": "MBD3"
+		},
+		{
+			"name": "MBD4"
+		},
+		{
+			"name": "MBD6"
+		},
+		{
+			"name": "MBNL2"
+		},
+		{
+			"name": "MECOM"
+		},
+		{
+			"name": "MECP2"
+		},
+		{
+			"name": "MEF2A"
+		},
+		{
+			"name": "MEF2B"
+		},
+		{
+			"name": "MEF2C"
+		},
+		{
+			"name": "MEIS1"
+		},
+		{
+			"name": "MEIS2"
+		},
+		{
+			"name": "MEOX1"
+		},
+		{
+			"name": "MEOX2"
+		},
+		{
+			"name": "MESP1"
+		},
+		{
+			"name": "MESP2"
+		},
+		{
+			"name": "MITF"
+		},
+		{
+			"name": "MIXL1"
+		},
+		{
+			"name": "MKX"
+		},
+		{
+			"name": "MLX"
+		},
+		{
+			"name": "MLXIP"
+		},
+		{
+			"name": "MLXIPL"
+		},
+		{
+			"name": "MNT"
+		},
+		{
+			"name": "MNX1"
+		},
+		{
+			"name": "MSANTD4"
+		},
+		{
+			"name": "MSC"
+		},
+		{
+			"name": "MSGN1"
+		},
+		{
+			"name": "MSX1"
+		},
+		{
+			"name": "MSX2"
+		},
+		{
+			"name": "MTERF1"
+		},
+		{
+			"name": "MTERF2"
+		},
+		{
+			"name": "MTERF3"
+		},
+		{
+			"name": "MTERF4"
+		},
+		{
+			"name": "MTF2"
+		},
+		{
+			"name": "MXD1"
+		},
+		{
+			"name": "MXD3"
+		},
+		{
+			"name": "MXD4"
+		},
+		{
+			"name": "MXI1"
+		},
+		{
+			"name": "MYB"
+		},
+		{
+			"name": "MYBL1"
+		},
+		{
+			"name": "MYBL2"
+		},
+		{
+			"name": "MYC"
+		},
+		{
+			"name": "MYCL"
+		},
+		{
+			"name": "MYCN"
+		},
+		{
+			"name": "MYF5"
+		},
+		{
+			"name": "MYF6"
+		},
+		{
+			"name": "MYNN"
+		},
+		{
+			"name": "MYOD1"
+		},
+		{
+			"name": "MYOG"
+		},
+		{
+			"name": "MYPOP"
+		},
+		{
+			"name": "MYRF"
+		},
+		{
+			"name": "MYRFL"
+		},
+		{
+			"name": "MYSM1"
+		},
+		{
+			"name": "MYT1"
+		},
+		{
+			"name": "MYT1L"
+		},
+		{
+			"name": "MZF1"
+		},
+		{
+			"name": "NACC2"
+		},
+		{
+			"name": "NAIF1"
+		},
+		{
+			"name": "NANOG"
+		},
+		{
+			"name": "NCOA1"
+		},
+		{
+			"name": "NCOA2"
+		},
+		{
+			"name": "NCOA3"
+		},
+		{
+			"name": "NEUROD1"
+		},
+		{
+			"name": "NEUROD2"
+		},
+		{
+			"name": "NEUROD4"
+		},
+		{
+			"name": "NEUROD6"
+		},
+		{
+			"name": "NEUROG1"
+		},
+		{
+			"name": "NEUROG2"
+		},
+		{
+			"name": "NEUROG3"
+		},
+		{
+			"name": "NFAT5"
+		},
+		{
+			"name": "NFATC1"
+		},
+		{
+			"name": "NFATC2"
+		},
+		{
+			"name": "NFATC3"
+		},
+		{
+			"name": "NFATC4"
+		},
+		{
+			"name": "NFE2"
+		},
+		{
+			"name": "NFE2L1"
+		},
+		{
+			"name": "NFE2L2"
+		},
+		{
+			"name": "NFE2L3"
+		},
+		{
+			"name": "NFIA"
+		},
+		{
+			"name": "NFIB"
+		},
+		{
+			"name": "NFIC"
+		},
+		{
+			"name": "NFIL3"
+		},
+		{
+			"name": "NFIX"
+		},
+		{
+			"name": "NFKB1"
+		},
+		{
+			"name": "NFKB2"
+		},
+		{
+			"name": "NFX1"
+		},
+		{
+			"name": "NFXL1"
+		},
+		{
+			"name": "NFYA"
+		},
+		{
+			"name": "NFYB"
+		},
+		{
+			"name": "NFYC"
+		},
+		{
+			"name": "NHLH1"
+		},
+		{
+			"name": "NHLH2"
+		},
+		{
+			"name": "NKRF"
+		},
+		{
+			"name": "NOBOX"
+		},
+		{
+			"name": "NPAS1"
+		},
+		{
+			"name": "NPAS2"
+		},
+		{
+			"name": "NPAS3"
+		},
+		{
+			"name": "NPAS4"
+		},
+		{
+			"name": "NR0B1"
+		},
+		{
+			"name": "NR1D1"
+		},
+		{
+			"name": "NR1D2"
+		},
+		{
+			"name": "NR1H2"
+		},
+		{
+			"name": "NR1H3"
+		},
+		{
+			"name": "NR1H4"
+		},
+		{
+			"name": "NR1I2"
+		},
+		{
+			"name": "NR1I3"
+		},
+		{
+			"name": "NR2C1"
+		},
+		{
+			"name": "NR2C2"
+		},
+		{
+			"name": "NR2E1"
+		},
+		{
+			"name": "NR2E3"
+		},
+		{
+			"name": "NR2F1"
+		},
+		{
+			"name": "NR2F2"
+		},
+		{
+			"name": "NR2F6"
+		},
+		{
+			"name": "NR3C1"
+		},
+		{
+			"name": "NR3C2"
+		},
+		{
+			"name": "NR4A1"
+		},
+		{
+			"name": "NR4A2"
+		},
+		{
+			"name": "NR4A3"
+		},
+		{
+			"name": "NR5A1"
+		},
+		{
+			"name": "NR5A2"
+		},
+		{
+			"name": "NR6A1"
+		},
+		{
+			"name": "NRF1"
+		},
+		{
+			"name": "NRL"
+		},
+		{
+			"name": "OLIG1"
+		},
+		{
+			"name": "OLIG2"
+		},
+		{
+			"name": "OLIG3"
+		},
+		{
+			"name": "ONECUT1"
+		},
+		{
+			"name": "ONECUT2"
+		},
+		{
+			"name": "OSR2"
+		},
+		{
+			"name": "OTX2"
+		},
+		{
+			"name": "OVOL1"
+		},
+		{
+			"name": "OVOL2"
+		},
+		{
+			"name": "PATZ1"
+		},
+		{
+			"name": "PAX3"
+		},
+		{
+			"name": "PAX4"
+		},
+		{
+			"name": "PAX5"
+		},
+		{
+			"name": "PAX6"
+		},
+		{
+			"name": "PAX7"
+		},
+		{
+			"name": "PAX8"
+		},
+		{
+			"name": "PBX1"
+		},
+		{
+			"name": "PBX2"
+		},
+		{
+			"name": "PBX3"
+		},
+		{
+			"name": "PCGF2"
+		},
+		{
+			"name": "PDX1"
+		},
+		{
+			"name": "PEG3"
+		},
+		{
+			"name": "PGR"
+		},
+		{
+			"name": "PHF1"
+		},
+		{
+			"name": "PHF20"
+		},
+		{
+			"name": "PHF21A"
+		},
+		{
+			"name": "PHOX2A"
+		},
+		{
+			"name": "PHOX2B"
+		},
+		{
+			"name": "PITX1"
+		},
+		{
+			"name": "PITX2"
+		},
+		{
+			"name": "PITX3"
+		},
+		{
+			"name": "PKNOX1"
+		},
+		{
+			"name": "PLAG1"
+		},
+		{
+			"name": "PLAGL1"
+		},
+		{
+			"name": "PLAGL2"
+		},
+		{
+			"name": "PLSCR1"
+		},
+		{
+			"name": "POGK"
+		},
+		{
+			"name": "POU1F1"
+		},
+		{
+			"name": "POU2AF1"
+		},
+		{
+			"name": "POU2F1"
+		},
+		{
+			"name": "POU2F2"
+		},
+		{
+			"name": "POU2F3"
+		},
+		{
+			"name": "POU3F1"
+		},
+		{
+			"name": "POU3F2"
+		},
+		{
+			"name": "POU3F3"
+		},
+		{
+			"name": "POU3F4"
+		},
+		{
+			"name": "POU4F1"
+		},
+		{
+			"name": "POU4F2"
+		},
+		{
+			"name": "POU4F3"
+		},
+		{
+			"name": "POU5F1"
+		},
+		{
+			"name": "POU6F1"
+		},
+		{
+			"name": "POU6F2"
+		},
+		{
+			"name": "PPARA"
+		},
+		{
+			"name": "PPARD"
+		},
+		{
+			"name": "PPARG"
+		},
+		{
+			"name": "PRDM1"
+		},
+		{
+			"name": "PRDM10"
+		},
+		{
+			"name": "PRDM12"
+		},
+		{
+			"name": "PRDM13"
+		},
+		{
+			"name": "PRDM14"
+		},
+		{
+			"name": "PRDM15"
+		},
+		{
+			"name": "PRDM16"
+		},
+		{
+			"name": "PRDM2"
+		},
+		{
+			"name": "PRDM4"
+		},
+		{
+			"name": "PRDM5"
+		},
+		{
+			"name": "PRDM6"
+		},
+		{
+			"name": "PRDM8"
+		},
+		{
+			"name": "PREB"
+		},
+		{
+			"name": "PROX1"
+		},
+		{
+			"name": "PROX2"
+		},
+		{
+			"name": "PRR12"
+		},
+		{
+			"name": "PRRX1"
+		},
+		{
+			"name": "PRRX2"
+		},
+		{
+			"name": "PTF1A"
+		},
+		{
+			"name": "PURB"
+		},
+		{
+			"name": "PURG"
+		},
+		{
+			"name": "RAG1"
+		},
+		{
+			"name": "RARA"
+		},
+		{
+			"name": "RARB"
+		},
+		{
+			"name": "RARG"
+		},
+		{
+			"name": "RAX"
+		},
+		{
+			"name": "RAX2"
+		},
+		{
+			"name": "RBAK"
+		},
+		{
+			"name": "RBCK1"
+		},
+		{
+			"name": "RBPJ"
+		},
+		{
+			"name": "RBPJL"
+		},
+		{
+			"name": "RBSN"
+		},
+		{
+			"name": "REL"
+		},
+		{
+			"name": "RELA"
+		},
+		{
+			"name": "RELB"
+		},
+		{
+			"name": "REPIN1"
+		},
+		{
+			"name": "REST"
+		},
+		{
+			"name": "REXO4"
+		},
+		{
+			"name": "RFX1"
+		},
+		{
+			"name": "RFX2"
+		},
+		{
+			"name": "RFX5"
+		},
+		{
+			"name": "RFX6"
+		},
+		{
+			"name": "RFX7"
+		},
+		{
+			"name": "RFX8"
+		},
+		{
+			"name": "RHOXF1"
+		},
+		{
+			"name": "RHOXF2"
+		},
+		{
+			"name": "RORA"
+		},
+		{
+			"name": "RORB"
+		},
+		{
+			"name": "RORC"
+		},
+		{
+			"name": "RREB1"
+		},
+		{
+			"name": "RUNX1"
+		},
+		{
+			"name": "RUNX2"
+		},
+		{
+			"name": "RUNX3"
+		},
+		{
+			"name": "RXRA"
+		},
+		{
+			"name": "RXRB"
+		},
+		{
+			"name": "RXRG"
+		},
+		{
+			"name": "SAFB"
+		},
+		{
+			"name": "SAFB2"
+		},
+		{
+			"name": "SALL1"
+		},
+		{
+			"name": "SALL2"
+		},
+		{
+			"name": "SALL3"
+		},
+		{
+			"name": "SALL4"
+		},
+		{
+			"name": "SATB2"
+		},
+		{
+			"name": "SCMH1"
+		},
+		{
+			"name": "SCML4"
+		},
+		{
+			"name": "SCRT1"
+		},
+		{
+			"name": "SCRT2"
+		},
+		{
+			"name": "SEBOX"
+		},
+		{
+			"name": "SETBP1"
+		},
+		{
+			"name": "SETDB1"
+		},
+		{
+			"name": "SETDB2"
+		},
+		{
+			"name": "SGSM2"
+		},
+		{
+			"name": "SHOX"
+		},
+		{
+			"name": "SHOX2"
+		},
+		{
+			"name": "SIM1"
+		},
+		{
+			"name": "SIM2"
+		},
+		{
+			"name": "SIX1"
+		},
+		{
+			"name": "SIX2"
+		},
+		{
+			"name": "SIX3"
+		},
+		{
+			"name": "SIX4"
+		},
+		{
+			"name": "SIX5"
+		},
+		{
+			"name": "SIX6"
+		},
+		{
+			"name": "SKIL"
+		},
+		{
+			"name": "SKOR1"
+		},
+		{
+			"name": "SKOR2"
+		},
+		{
+			"name": "SLC2A4RG"
+		},
+		{
+			"name": "SMAD1"
+		},
+		{
+			"name": "SMAD3"
+		},
+		{
+			"name": "SMAD4"
+		},
+		{
+			"name": "SMAD5"
+		},
+		{
+			"name": "SMAD9"
+		},
+		{
+			"name": "SNAI1"
+		},
+		{
+			"name": "SNAI2"
+		},
+		{
+			"name": "SNAI3"
+		},
+		{
+			"name": "SNAPC2"
+		},
+		{
+			"name": "SNAPC4"
+		},
+		{
+			"name": "SOHLH1"
+		},
+		{
+			"name": "SON"
+		},
+		{
+			"name": "SOX10"
+		},
+		{
+			"name": "SOX11"
+		},
+		{
+			"name": "SOX12"
+		},
+		{
+			"name": "SOX13"
+		},
+		{
+			"name": "SOX14"
+		},
+		{
+			"name": "SOX15"
+		},
+		{
+			"name": "SOX17"
+		},
+		{
+			"name": "SOX2"
+		},
+		{
+			"name": "SOX21"
+		},
+		{
+			"name": "SOX3"
+		},
+		{
+			"name": "SOX5"
+		},
+		{
+			"name": "SOX6"
+		},
+		{
+			"name": "SOX9"
+		},
+		{
+			"name": "SP1"
+		},
+		{
+			"name": "SP110"
+		},
+		{
+			"name": "SP140"
+		},
+		{
+			"name": "SP2"
+		},
+		{
+			"name": "SP3"
+		},
+		{
+			"name": "SP4"
+		},
+		{
+			"name": "SP6"
+		},
+		{
+			"name": "SP7"
+		},
+		{
+			"name": "SP9"
+		},
+		{
+			"name": "SPDEF"
+		},
+		{
+			"name": "SPEN"
+		},
+		{
+			"name": "SPI1"
+		},
+		{
+			"name": "SPIB"
+		},
+		{
+			"name": "SPIC"
+		},
+		{
+			"name": "SRCAP"
+		},
+		{
+			"name": "SREBF1"
+		},
+		{
+			"name": "SREBF2"
+		},
+		{
+			"name": "SRF"
+		},
+		{
+			"name": "SRY"
+		},
+		{
+			"name": "ST18"
+		},
+		{
+			"name": "STAT1"
+		},
+		{
+			"name": "STAT2"
+		},
+		{
+			"name": "STAT3"
+		},
+		{
+			"name": "STAT4"
+		},
+		{
+			"name": "STAT5A"
+		},
+		{
+			"name": "STAT5B"
+		},
+		{
+			"name": "STAT6"
+		},
+		{
+			"name": "T"
+		},
+		{
+			"name": "TAL1"
+		},
+		{
+			"name": "TAL2"
+		},
+		{
+			"name": "TBP"
+		},
+		{
+			"name": "TBPL2"
+		},
+		{
+			"name": "TBX1"
+		},
+		{
+			"name": "TBX10"
+		},
+		{
+			"name": "TBX15"
+		},
+		{
+			"name": "TBX19"
+		},
+		{
+			"name": "TBX20"
+		},
+		{
+			"name": "TBX21"
+		},
+		{
+			"name": "TBX22"
+		},
+		{
+			"name": "TBX3"
+		},
+		{
+			"name": "TBX5"
+		},
+		{
+			"name": "TCF12"
+		},
+		{
+			"name": "TCF15"
+		},
+		{
+			"name": "TCF20"
+		},
+		{
+			"name": "TCF21"
+		},
+		{
+			"name": "TCF23"
+		},
+		{
+			"name": "TCF3"
+		},
+		{
+			"name": "TCF4"
+		},
+		{
+			"name": "TCF7"
+		},
+		{
+			"name": "TCF7L1"
+		},
+		{
+			"name": "TCF7L2"
+		},
+		{
+			"name": "TCFL5"
+		},
+		{
+			"name": "TEAD1"
+		},
+		{
+			"name": "TEAD2"
+		},
+		{
+			"name": "TEAD3"
+		},
+		{
+			"name": "TEAD4"
+		},
+		{
+			"name": "TEF"
+		},
+		{
+			"name": "TERF1"
+		},
+		{
+			"name": "TERF2"
+		},
+		{
+			"name": "TET1"
+		},
+		{
+			"name": "TET2"
+		},
+		{
+			"name": "TET3"
+		},
+		{
+			"name": "TFAP2A"
+		},
+		{
+			"name": "TFAP2B"
+		},
+		{
+			"name": "TFAP2C"
+		},
+		{
+			"name": "TFAP2D"
+		},
+		{
+			"name": "TFAP2E"
+		},
+		{
+			"name": "TFAP4"
+		},
+		{
+			"name": "TFCP2"
+		},
+		{
+			"name": "TFCP2L1"
+		},
+		{
+			"name": "TFDP1"
+		},
+		{
+			"name": "TFDP2"
+		},
+		{
+			"name": "TFDP3"
+		},
+		{
+			"name": "TFE3"
+		},
+		{
+			"name": "TFEB"
+		},
+		{
+			"name": "TFEC"
+		},
+		{
+			"name": "TGIF1"
+		},
+		{
+			"name": "TGIF2"
+		},
+		{
+			"name": "THAP1"
+		},
+		{
+			"name": "THAP11"
+		},
+		{
+			"name": "THAP2"
+		},
+		{
+			"name": "THAP4"
+		},
+		{
+			"name": "THAP5"
+		},
+		{
+			"name": "THAP6"
+		},
+		{
+			"name": "THAP7"
+		},
+		{
+			"name": "THAP8"
+		},
+		{
+			"name": "THAP9"
+		},
+		{
+			"name": "THRA"
+		},
+		{
+			"name": "THRB"
+		},
+		{
+			"name": "TIGD1"
+		},
+		{
+			"name": "TIGD5"
+		},
+		{
+			"name": "TIGD6"
+		},
+		{
+			"name": "TIGD7"
+		},
+		{
+			"name": "TLX1"
+		},
+		{
+			"name": "TLX2"
+		},
+		{
+			"name": "TLX3"
+		},
+		{
+			"name": "TMF1"
+		},
+		{
+			"name": "TOPORS"
+		},
+		{
+			"name": "TP53"
+		},
+		{
+			"name": "TP63"
+		},
+		{
+			"name": "TP73"
+		},
+		{
+			"name": "TPRX1"
+		},
+		{
+			"name": "TRAFD1"
+		},
+		{
+			"name": "TRERF1"
+		},
+		{
+			"name": "TRPS1"
+		},
+		{
+			"name": "TSC22D1"
+		},
+		{
+			"name": "TSHZ1"
+		},
+		{
+			"name": "TSHZ2"
+		},
+		{
+			"name": "TSHZ3"
+		},
+		{
+			"name": "TWIST1"
+		},
+		{
+			"name": "TWIST2"
+		},
+		{
+			"name": "UBP1"
+		},
+		{
+			"name": "UNCX"
+		},
+		{
+			"name": "USF1"
+		},
+		{
+			"name": "USF2"
+		},
+		{
+			"name": "VAX2"
+		},
+		{
+			"name": "VDR"
+		},
+		{
+			"name": "VENTX"
+		},
+		{
+			"name": "VEZF1"
+		},
+		{
+			"name": "VSX1"
+		},
+		{
+			"name": "VSX2"
+		},
+		{
+			"name": "WIZ"
+		},
+		{
+			"name": "WT1"
+		},
+		{
+			"name": "XBP1"
+		},
+		{
+			"name": "XPA"
+		},
+		{
+			"name": "YBX1"
+		},
+		{
+			"name": "YBX2"
+		},
+		{
+			"name": "YBX3"
+		},
+		{
+			"name": "YY1"
+		},
+		{
+			"name": "YY2"
+		},
+		{
+			"name": "ZBED1"
+		},
+		{
+			"name": "ZBED2"
+		},
+		{
+			"name": "ZBED3"
+		},
+		{
+			"name": "ZBED4"
+		},
+		{
+			"name": "ZBED5"
+		},
+		{
+			"name": "ZBED9"
+		},
+		{
+			"name": "ZBTB1"
+		},
+		{
+			"name": "ZBTB10"
+		},
+		{
+			"name": "ZBTB11"
+		},
+		{
+			"name": "ZBTB12"
+		},
+		{
+			"name": "ZBTB14"
+		},
+		{
+			"name": "ZBTB16"
+		},
+		{
+			"name": "ZBTB17"
+		},
+		{
+			"name": "ZBTB18"
+		},
+		{
+			"name": "ZBTB2"
+		},
+		{
+			"name": "ZBTB20"
+		},
+		{
+			"name": "ZBTB21"
+		},
+		{
+			"name": "ZBTB22"
+		},
+		{
+			"name": "ZBTB24"
+		},
+		{
+			"name": "ZBTB25"
+		},
+		{
+			"name": "ZBTB26"
+		},
+		{
+			"name": "ZBTB3"
+		},
+		{
+			"name": "ZBTB32"
+		},
+		{
+			"name": "ZBTB33"
+		},
+		{
+			"name": "ZBTB34"
+		},
+		{
+			"name": "ZBTB37"
+		},
+		{
+			"name": "ZBTB38"
+		},
+		{
+			"name": "ZBTB39"
+		},
+		{
+			"name": "ZBTB4"
+		},
+		{
+			"name": "ZBTB40"
+		},
+		{
+			"name": "ZBTB41"
+		},
+		{
+			"name": "ZBTB42"
+		},
+		{
+			"name": "ZBTB43"
+		},
+		{
+			"name": "ZBTB44"
+		},
+		{
+			"name": "ZBTB45"
+		},
+		{
+			"name": "ZBTB46"
+		},
+		{
+			"name": "ZBTB47"
+		},
+		{
+			"name": "ZBTB48"
+		},
+		{
+			"name": "ZBTB5"
+		},
+		{
+			"name": "ZBTB6"
+		},
+		{
+			"name": "ZBTB7A"
+		},
+		{
+			"name": "ZBTB7B"
+		},
+		{
+			"name": "ZBTB7C"
+		},
+		{
+			"name": "ZBTB8A"
+		},
+		{
+			"name": "ZBTB9"
+		},
+		{
+			"name": "ZC3H8"
+		},
+		{
+			"name": "ZEB1"
+		},
+		{
+			"name": "ZEB2"
+		},
+		{
+			"name": "ZFAT"
+		},
+		{
+			"name": "ZFHX2"
+		},
+		{
+			"name": "ZFHX3"
+		},
+		{
+			"name": "ZFHX4"
+		},
+		{
+			"name": "ZFP1"
+		},
+		{
+			"name": "ZFP14"
+		},
+		{
+			"name": "ZFP2"
+		},
+		{
+			"name": "ZFP28"
+		},
+		{
+			"name": "ZFP3"
+		},
+		{
+			"name": "ZFP30"
+		},
+		{
+			"name": "ZFP37"
+		},
+		{
+			"name": "ZFP41"
+		},
+		{
+			"name": "ZFP42"
+		},
+		{
+			"name": "ZFP57"
+		},
+		{
+			"name": "ZFP62"
+		},
+		{
+			"name": "ZFP64"
+		},
+		{
+			"name": "ZFP69"
+		},
+		{
+			"name": "ZFP69B"
+		},
+		{
+			"name": "ZFP82"
+		},
+		{
+			"name": "ZFP90"
+		},
+		{
+			"name": "ZFP91"
+		},
+		{
+			"name": "ZFPM1"
+		},
+		{
+			"name": "ZFPM2"
+		},
+		{
+			"name": "ZFX"
+		},
+		{
+			"name": "ZFY"
+		},
+		{
+			"name": "ZGPAT"
+		},
+		{
+			"name": "ZHX1"
+		},
+		{
+			"name": "ZHX2"
+		},
+		{
+			"name": "ZHX3"
+		},
+		{
+			"name": "ZIC1"
+		},
+		{
+			"name": "ZIC2"
+		},
+		{
+			"name": "ZIC3"
+		},
+		{
+			"name": "ZIK1"
+		},
+		{
+			"name": "ZIM2"
+		},
+		{
+			"name": "ZIM3"
+		},
+		{
+			"name": "ZKSCAN1"
+		},
+		{
+			"name": "ZKSCAN2"
+		},
+		{
+			"name": "ZKSCAN3"
+		},
+		{
+			"name": "ZKSCAN5"
+		},
+		{
+			"name": "ZKSCAN7"
+		},
+		{
+			"name": "ZKSCAN8"
+		},
+		{
+			"name": "ZMAT1"
+		},
+		{
+			"name": "ZMAT4"
+		},
+		{
+			"name": "ZNF10"
+		},
+		{
+			"name": "ZNF101"
+		},
+		{
+			"name": "ZNF107"
+		},
+		{
+			"name": "ZNF112"
+		},
+		{
+			"name": "ZNF114"
+		},
+		{
+			"name": "ZNF117"
+		},
+		{
+			"name": "ZNF12"
+		},
+		{
+			"name": "ZNF121"
+		},
+		{
+			"name": "ZNF124"
+		},
+		{
+			"name": "ZNF131"
+		},
+		{
+			"name": "ZNF132"
+		},
+		{
+			"name": "ZNF133"
+		},
+		{
+			"name": "ZNF134"
+		},
+		{
+			"name": "ZNF135"
+		},
+		{
+			"name": "ZNF136"
+		},
+		{
+			"name": "ZNF138"
+		},
+		{
+			"name": "ZNF14"
+		},
+		{
+			"name": "ZNF140"
+		},
+		{
+			"name": "ZNF141"
+		},
+		{
+			"name": "ZNF142"
+		},
+		{
+			"name": "ZNF143"
+		},
+		{
+			"name": "ZNF146"
+		},
+		{
+			"name": "ZNF148"
+		},
+		{
+			"name": "ZNF154"
+		},
+		{
+			"name": "ZNF155"
+		},
+		{
+			"name": "ZNF157"
+		},
+		{
+			"name": "ZNF16"
+		},
+		{
+			"name": "ZNF160"
+		},
+		{
+			"name": "ZNF165"
+		},
+		{
+			"name": "ZNF169"
+		},
+		{
+			"name": "ZNF17"
+		},
+		{
+			"name": "ZNF174"
+		},
+		{
+			"name": "ZNF175"
+		},
+		{
+			"name": "ZNF18"
+		},
+		{
+			"name": "ZNF180"
+		},
+		{
+			"name": "ZNF181"
+		},
+		{
+			"name": "ZNF182"
+		},
+		{
+			"name": "ZNF19"
+		},
+		{
+			"name": "ZNF197"
+		},
+		{
+			"name": "ZNF2"
+		},
+		{
+			"name": "ZNF20"
+		},
+		{
+			"name": "ZNF202"
+		},
+		{
+			"name": "ZNF205"
+		},
+		{
+			"name": "ZNF207"
+		},
+		{
+			"name": "ZNF208"
+		},
+		{
+			"name": "ZNF211"
+		},
+		{
+			"name": "ZNF212"
+		},
+		{
+			"name": "ZNF213"
+		},
+		{
+			"name": "ZNF215"
+		},
+		{
+			"name": "ZNF217"
+		},
+		{
+			"name": "ZNF22"
+		},
+		{
+			"name": "ZNF224"
+		},
+		{
+			"name": "ZNF23"
+		},
+		{
+			"name": "ZNF230"
+		},
+		{
+			"name": "ZNF232"
+		},
+		{
+			"name": "ZNF233"
+		},
+		{
+			"name": "ZNF234"
+		},
+		{
+			"name": "ZNF235"
+		},
+		{
+			"name": "ZNF24"
+		},
+		{
+			"name": "ZNF248"
+		},
+		{
+			"name": "ZNF25"
+		},
+		{
+			"name": "ZNF250"
+		},
+		{
+			"name": "ZNF253"
+		},
+		{
+			"name": "ZNF254"
+		},
+		{
+			"name": "ZNF256"
+		},
+		{
+			"name": "ZNF257"
+		},
+		{
+			"name": "ZNF26"
+		},
+		{
+			"name": "ZNF260"
+		},
+		{
+			"name": "ZNF263"
+		},
+		{
+			"name": "ZNF264"
+		},
+		{
+			"name": "ZNF266"
+		},
+		{
+			"name": "ZNF267"
+		},
+		{
+			"name": "ZNF268"
+		},
+		{
+			"name": "ZNF273"
+		},
+		{
+			"name": "ZNF274"
+		},
+		{
+			"name": "ZNF276"
+		},
+		{
+			"name": "ZNF277"
+		},
+		{
+			"name": "ZNF28"
+		},
+		{
+			"name": "ZNF280B"
+		},
+		{
+			"name": "ZNF280C"
+		},
+		{
+			"name": "ZNF280D"
+		},
+		{
+			"name": "ZNF281"
+		},
+		{
+			"name": "ZNF282"
+		},
+		{
+			"name": "ZNF284"
+		},
+		{
+			"name": "ZNF285"
+		},
+		{
+			"name": "ZNF286A"
+		},
+		{
+			"name": "ZNF286B"
+		},
+		{
+			"name": "ZNF287"
+		},
+		{
+			"name": "ZNF292"
+		},
+		{
+			"name": "ZNF296"
+		},
+		{
+			"name": "ZNF3"
+		},
+		{
+			"name": "ZNF30"
+		},
+		{
+			"name": "ZNF302"
+		},
+		{
+			"name": "ZNF316"
+		},
+		{
+			"name": "ZNF318"
+		},
+		{
+			"name": "ZNF319"
+		},
+		{
+			"name": "ZNF32"
+		},
+		{
+			"name": "ZNF320"
+		},
+		{
+			"name": "ZNF324"
+		},
+		{
+			"name": "ZNF324B"
+		},
+		{
+			"name": "ZNF326"
+		},
+		{
+			"name": "ZNF329"
+		},
+		{
+			"name": "ZNF331"
+		},
+		{
+			"name": "ZNF333"
+		},
+		{
+			"name": "ZNF334"
+		},
+		{
+			"name": "ZNF335"
+		},
+		{
+			"name": "ZNF337"
+		},
+		{
+			"name": "ZNF33A"
+		},
+		{
+			"name": "ZNF33B"
+		},
+		{
+			"name": "ZNF34"
+		},
+		{
+			"name": "ZNF341"
+		},
+		{
+			"name": "ZNF343"
+		},
+		{
+			"name": "ZNF345"
+		},
+		{
+			"name": "ZNF346"
+		},
+		{
+			"name": "ZNF347"
+		},
+		{
+			"name": "ZNF35"
+		},
+		{
+			"name": "ZNF350"
+		},
+		{
+			"name": "ZNF354A"
+		},
+		{
+			"name": "ZNF354B"
+		},
+		{
+			"name": "ZNF354C"
+		},
+		{
+			"name": "ZNF358"
+		},
+		{
+			"name": "ZNF362"
+		},
+		{
+			"name": "ZNF365"
+		},
+		{
+			"name": "ZNF366"
+		},
+		{
+			"name": "ZNF367"
+		},
+		{
+			"name": "ZNF37A"
+		},
+		{
+			"name": "ZNF382"
+		},
+		{
+			"name": "ZNF383"
+		},
+		{
+			"name": "ZNF384"
+		},
+		{
+			"name": "ZNF385A"
+		},
+		{
+			"name": "ZNF385B"
+		},
+		{
+			"name": "ZNF385D"
+		},
+		{
+			"name": "ZNF391"
+		},
+		{
+			"name": "ZNF394"
+		},
+		{
+			"name": "ZNF395"
+		},
+		{
+			"name": "ZNF396"
+		},
+		{
+			"name": "ZNF397"
+		},
+		{
+			"name": "ZNF398"
+		},
+		{
+			"name": "ZNF407"
+		},
+		{
+			"name": "ZNF408"
+		},
+		{
+			"name": "ZNF41"
+		},
+		{
+			"name": "ZNF410"
+		},
+		{
+			"name": "ZNF414"
+		},
+		{
+			"name": "ZNF416"
+		},
+		{
+			"name": "ZNF417"
+		},
+		{
+			"name": "ZNF418"
+		},
+		{
+			"name": "ZNF419"
+		},
+		{
+			"name": "ZNF420"
+		},
+		{
+			"name": "ZNF423"
+		},
+		{
+			"name": "ZNF426"
+		},
+		{
+			"name": "ZNF428"
+		},
+		{
+			"name": "ZNF43"
+		},
+		{
+			"name": "ZNF430"
+		},
+		{
+			"name": "ZNF431"
+		},
+		{
+			"name": "ZNF432"
+		},
+		{
+			"name": "ZNF433"
+		},
+		{
+			"name": "ZNF436"
+		},
+		{
+			"name": "ZNF438"
+		},
+		{
+			"name": "ZNF439"
+		},
+		{
+			"name": "ZNF44"
+		},
+		{
+			"name": "ZNF440"
+		},
+		{
+			"name": "ZNF441"
+		},
+		{
+			"name": "ZNF442"
+		},
+		{
+			"name": "ZNF443"
+		},
+		{
+			"name": "ZNF444"
+		},
+		{
+			"name": "ZNF445"
+		},
+		{
+			"name": "ZNF446"
+		},
+		{
+			"name": "ZNF449"
+		},
+		{
+			"name": "ZNF45"
+		},
+		{
+			"name": "ZNF451"
+		},
+		{
+			"name": "ZNF454"
+		},
+		{
+			"name": "ZNF460"
+		},
+		{
+			"name": "ZNF461"
+		},
+		{
+			"name": "ZNF462"
+		},
+		{
+			"name": "ZNF467"
+		},
+		{
+			"name": "ZNF469"
+		},
+		{
+			"name": "ZNF470"
+		},
+		{
+			"name": "ZNF471"
+		},
+		{
+			"name": "ZNF479"
+		},
+		{
+			"name": "ZNF48"
+		},
+		{
+			"name": "ZNF480"
+		},
+		{
+			"name": "ZNF483"
+		},
+		{
+			"name": "ZNF484"
+		},
+		{
+			"name": "ZNF486"
+		},
+		{
+			"name": "ZNF487"
+		},
+		{
+			"name": "ZNF490"
+		},
+		{
+			"name": "ZNF491"
+		},
+		{
+			"name": "ZNF493"
+		},
+		{
+			"name": "ZNF496"
+		},
+		{
+			"name": "ZNF497"
+		},
+		{
+			"name": "ZNF500"
+		},
+		{
+			"name": "ZNF501"
+		},
+		{
+			"name": "ZNF502"
+		},
+		{
+			"name": "ZNF503"
+		},
+		{
+			"name": "ZNF506"
+		},
+		{
+			"name": "ZNF507"
+		},
+		{
+			"name": "ZNF510"
+		},
+		{
+			"name": "ZNF511"
+		},
+		{
+			"name": "ZNF512"
+		},
+		{
+			"name": "ZNF512B"
+		},
+		{
+			"name": "ZNF513"
+		},
+		{
+			"name": "ZNF514"
+		},
+		{
+			"name": "ZNF516"
+		},
+		{
+			"name": "ZNF518A"
+		},
+		{
+			"name": "ZNF518B"
+		},
+		{
+			"name": "ZNF519"
+		},
+		{
+			"name": "ZNF521"
+		},
+		{
+			"name": "ZNF524"
+		},
+		{
+			"name": "ZNF525"
+		},
+		{
+			"name": "ZNF526"
+		},
+		{
+			"name": "ZNF527"
+		},
+		{
+			"name": "ZNF528"
+		},
+		{
+			"name": "ZNF529"
+		},
+		{
+			"name": "ZNF530"
+		},
+		{
+			"name": "ZNF532"
+		},
+		{
+			"name": "ZNF536"
+		},
+		{
+			"name": "ZNF540"
+		},
+		{
+			"name": "ZNF541"
+		},
+		{
+			"name": "ZNF543"
+		},
+		{
+			"name": "ZNF544"
+		},
+		{
+			"name": "ZNF546"
+		},
+		{
+			"name": "ZNF547"
+		},
+		{
+			"name": "ZNF548"
+		},
+		{
+			"name": "ZNF549"
+		},
+		{
+			"name": "ZNF550"
+		},
+		{
+			"name": "ZNF551"
+		},
+		{
+			"name": "ZNF552"
+		},
+		{
+			"name": "ZNF554"
+		},
+		{
+			"name": "ZNF555"
+		},
+		{
+			"name": "ZNF556"
+		},
+		{
+			"name": "ZNF557"
+		},
+		{
+			"name": "ZNF558"
+		},
+		{
+			"name": "ZNF559"
+		},
+		{
+			"name": "ZNF560"
+		},
+		{
+			"name": "ZNF561"
+		},
+		{
+			"name": "ZNF562"
+		},
+		{
+			"name": "ZNF563"
+		},
+		{
+			"name": "ZNF564"
+		},
+		{
+			"name": "ZNF565"
+		},
+		{
+			"name": "ZNF566"
+		},
+		{
+			"name": "ZNF567"
+		},
+		{
+			"name": "ZNF568"
+		},
+		{
+			"name": "ZNF569"
+		},
+		{
+			"name": "ZNF57"
+		},
+		{
+			"name": "ZNF570"
+		},
+		{
+			"name": "ZNF571"
+		},
+		{
+			"name": "ZNF572"
+		},
+		{
+			"name": "ZNF573"
+		},
+		{
+			"name": "ZNF574"
+		},
+		{
+			"name": "ZNF575"
+		},
+		{
+			"name": "ZNF576"
+		},
+		{
+			"name": "ZNF577"
+		},
+		{
+			"name": "ZNF578"
+		},
+		{
+			"name": "ZNF579"
+		},
+		{
+			"name": "ZNF581"
+		},
+		{
+			"name": "ZNF582"
+		},
+		{
+			"name": "ZNF583"
+		},
+		{
+			"name": "ZNF584"
+		},
+		{
+			"name": "ZNF585A"
+		},
+		{
+			"name": "ZNF585B"
+		},
+		{
+			"name": "ZNF586"
+		},
+		{
+			"name": "ZNF587"
+		},
+		{
+			"name": "ZNF589"
+		},
+		{
+			"name": "ZNF592"
+		},
+		{
+			"name": "ZNF594"
+		},
+		{
+			"name": "ZNF595"
+		},
+		{
+			"name": "ZNF597"
+		},
+		{
+			"name": "ZNF598"
+		},
+		{
+			"name": "ZNF599"
+		},
+		{
+			"name": "ZNF600"
+		},
+		{
+			"name": "ZNF606"
+		},
+		{
+			"name": "ZNF607"
+		},
+		{
+			"name": "ZNF608"
+		},
+		{
+			"name": "ZNF609"
+		},
+		{
+			"name": "ZNF610"
+		},
+		{
+			"name": "ZNF611"
+		},
+		{
+			"name": "ZNF613"
+		},
+		{
+			"name": "ZNF614"
+		},
+		{
+			"name": "ZNF615"
+		},
+		{
+			"name": "ZNF616"
+		},
+		{
+			"name": "ZNF618"
+		},
+		{
+			"name": "ZNF619"
+		},
+		{
+			"name": "ZNF620"
+		},
+		{
+			"name": "ZNF621"
+		},
+		{
+			"name": "ZNF623"
+		},
+		{
+			"name": "ZNF624"
+		},
+		{
+			"name": "ZNF627"
+		},
+		{
+			"name": "ZNF628"
+		},
+		{
+			"name": "ZNF629"
+		},
+		{
+			"name": "ZNF630"
+		},
+		{
+			"name": "ZNF639"
+		},
+		{
+			"name": "ZNF641"
+		},
+		{
+			"name": "ZNF644"
+		},
+		{
+			"name": "ZNF646"
+		},
+		{
+			"name": "ZNF648"
+		},
+		{
+			"name": "ZNF649"
+		},
+		{
+			"name": "ZNF652"
+		},
+		{
+			"name": "ZNF653"
+		},
+		{
+			"name": "ZNF654"
+		},
+		{
+			"name": "ZNF655"
+		},
+		{
+			"name": "ZNF66"
+		},
+		{
+			"name": "ZNF660"
+		},
+		{
+			"name": "ZNF662"
+		},
+		{
+			"name": "ZNF664"
+		},
+		{
+			"name": "ZNF665"
+		},
+		{
+			"name": "ZNF667"
+		},
+		{
+			"name": "ZNF668"
+		},
+		{
+			"name": "ZNF669"
+		},
+		{
+			"name": "ZNF670"
+		},
+		{
+			"name": "ZNF671"
+		},
+		{
+			"name": "ZNF672"
+		},
+		{
+			"name": "ZNF674"
+		},
+		{
+			"name": "ZNF675"
+		},
+		{
+			"name": "ZNF677"
+		},
+		{
+			"name": "ZNF678"
+		},
+		{
+			"name": "ZNF679"
+		},
+		{
+			"name": "ZNF680"
+		},
+		{
+			"name": "ZNF681"
+		},
+		{
+			"name": "ZNF682"
+		},
+		{
+			"name": "ZNF683"
+		},
+		{
+			"name": "ZNF684"
+		},
+		{
+			"name": "ZNF687"
+		},
+		{
+			"name": "ZNF689"
+		},
+		{
+			"name": "ZNF69"
+		},
+		{
+			"name": "ZNF691"
+		},
+		{
+			"name": "ZNF692"
+		},
+		{
+			"name": "ZNF695"
+		},
+		{
+			"name": "ZNF696"
+		},
+		{
+			"name": "ZNF697"
+		},
+		{
+			"name": "ZNF699"
+		},
+		{
+			"name": "ZNF7"
+		},
+		{
+			"name": "ZNF70"
+		},
+		{
+			"name": "ZNF700"
+		},
+		{
+			"name": "ZNF701"
+		},
+		{
+			"name": "ZNF703"
+		},
+		{
+			"name": "ZNF704"
+		},
+		{
+			"name": "ZNF706"
+		},
+		{
+			"name": "ZNF708"
+		},
+		{
+			"name": "ZNF709"
+		},
+		{
+			"name": "ZNF71"
+		},
+		{
+			"name": "ZNF710"
+		},
+		{
+			"name": "ZNF711"
+		},
+		{
+			"name": "ZNF713"
+		},
+		{
+			"name": "ZNF716"
+		},
+		{
+			"name": "ZNF717"
+		},
+		{
+			"name": "ZNF718"
+		},
+		{
+			"name": "ZNF721"
+		},
+		{
+			"name": "ZNF724"
+		},
+		{
+			"name": "ZNF727"
+		},
+		{
+			"name": "ZNF732"
+		},
+		{
+			"name": "ZNF735"
+		},
+		{
+			"name": "ZNF737"
+		},
+		{
+			"name": "ZNF74"
+		},
+		{
+			"name": "ZNF740"
+		},
+		{
+			"name": "ZNF746"
+		},
+		{
+			"name": "ZNF747"
+		},
+		{
+			"name": "ZNF749"
+		},
+		{
+			"name": "ZNF750"
+		},
+		{
+			"name": "ZNF75A"
+		},
+		{
+			"name": "ZNF75D"
+		},
+		{
+			"name": "ZNF76"
+		},
+		{
+			"name": "ZNF761"
+		},
+		{
+			"name": "ZNF763"
+		},
+		{
+			"name": "ZNF764"
+		},
+		{
+			"name": "ZNF766"
+		},
+		{
+			"name": "ZNF768"
+		},
+		{
+			"name": "ZNF77"
+		},
+		{
+			"name": "ZNF770"
+		},
+		{
+			"name": "ZNF771"
+		},
+		{
+			"name": "ZNF772"
+		},
+		{
+			"name": "ZNF773"
+		},
+		{
+			"name": "ZNF774"
+		},
+		{
+			"name": "ZNF775"
+		},
+		{
+			"name": "ZNF776"
+		},
+		{
+			"name": "ZNF777"
+		},
+		{
+			"name": "ZNF778"
+		},
+		{
+			"name": "ZNF780A"
+		},
+		{
+			"name": "ZNF780B"
+		},
+		{
+			"name": "ZNF781"
+		},
+		{
+			"name": "ZNF782"
+		},
+		{
+			"name": "ZNF783"
+		},
+		{
+			"name": "ZNF784"
+		},
+		{
+			"name": "ZNF785"
+		},
+		{
+			"name": "ZNF786"
+		},
+		{
+			"name": "ZNF79"
+		},
+		{
+			"name": "ZNF790"
+		},
+		{
+			"name": "ZNF791"
+		},
+		{
+			"name": "ZNF792"
+		},
+		{
+			"name": "ZNF799"
+		},
+		{
+			"name": "ZNF8"
+		},
+		{
+			"name": "ZNF80"
+		},
+		{
+			"name": "ZNF804A"
+		},
+		{
+			"name": "ZNF804B"
+		},
+		{
+			"name": "ZNF81"
+		},
+		{
+			"name": "ZNF813"
+		},
+		{
+			"name": "ZNF816"
+		},
+		{
+			"name": "ZNF823"
+		},
+		{
+			"name": "ZNF829"
+		},
+		{
+			"name": "ZNF83"
+		},
+		{
+			"name": "ZNF830"
+		},
+		{
+			"name": "ZNF831"
+		},
+		{
+			"name": "ZNF835"
+		},
+		{
+			"name": "ZNF836"
+		},
+		{
+			"name": "ZNF84"
+		},
+		{
+			"name": "ZNF841"
+		},
+		{
+			"name": "ZNF843"
+		},
+		{
+			"name": "ZNF844"
+		},
+		{
+			"name": "ZNF85"
+		},
+		{
+			"name": "ZNF850"
+		},
+		{
+			"name": "ZNF853"
+		},
+		{
+			"name": "ZNF879"
+		},
+		{
+			"name": "ZNF90"
+		},
+		{
+			"name": "ZNF91"
+		},
+		{
+			"name": "ZNF92"
+		},
+		{
+			"name": "ZNF93"
+		},
+		{
+			"name": "ZNF98"
+		},
+		{
+			"name": "ZNF99"
+		},
+		{
+			"name": "ZSCAN1"
+		},
+		{
+			"name": "ZSCAN10"
+		},
+		{
+			"name": "ZSCAN12"
+		},
+		{
+			"name": "ZSCAN16"
+		},
+		{
+			"name": "ZSCAN18"
+		},
+		{
+			"name": "ZSCAN20"
+		},
+		{
+			"name": "ZSCAN21"
+		},
+		{
+			"name": "ZSCAN22"
+		},
+		{
+			"name": "ZSCAN23"
+		},
+		{
+			"name": "ZSCAN25"
+		},
+		{
+			"name": "ZSCAN26"
+		},
+		{
+			"name": "ZSCAN29"
+		},
+		{
+			"name": "ZSCAN30"
+		},
+		{
+			"name": "ZSCAN4"
+		},
+		{
+			"name": "ZSCAN5B"
+		},
+		{
+			"name": "ZSCAN5C"
+		},
+		{
+			"name": "ZSCAN9"
+		},
+		{
+			"name": "ZXDA"
+		},
+		{
+			"name": "ZXDB"
+		},
+		{
+			"name": "ZXDC"
+		},
+		{
+			"name": "ZZZ3"
+		},
+		{
+			"name": "ARHGAP35"
+		},
+		{
+			"name": "PRDM9"
+		},
+		{
+			"name": "SPZ1"
+		},
+		{
+			"name": "NKX2-1"
+		},
+		{
+			"name": "THYN1"
+		},
+		{
+			"name": "HSFY2"
+		},
+		{
+			"name": "BHLHE41"
+		},
+		{
+			"name": "PA2G4"
+		},
+		{
+			"name": "NKX6-2"
+		},
+		{
+			"name": "DBP"
+		},
+		{
+			"name": "EN1"
+		},
+		{
+			"name": "SP5"
+		},
+		{
+			"name": "NKX2-5"
+		},
+		{
+			"name": "CHCHD3"
+		},
+		{
+			"name": "SOX4"
+		},
+		{
+			"name": "USF3"
+		},
+		{
+			"name": "LIN28A"
+		},
+		{
+			"name": "CPEB1"
+		},
+		{
+			"name": "PIN1"
+		},
+		{
+			"name": "GTF3A"
+		},
+		{
+			"name": "TERB1"
+		},
+		{
+			"name": "ZNF492"
+		}
+	],
+	"links_dat": [
+		{
+			"source": "ADNP",
+			"target": "ARID2"
+		},
+		{
+			"source": "ADNP2",
+			"target": "ARID2"
+		},
+		{
+			"source": "AEBP1",
+			"target": "GLIS2"
+		},
+		{
+			"source": "AEBP2",
+			"target": "EEA1"
+		},
+		{
+			"source": "AHCTF1",
+			"target": "ARID2"
+		},
+		{
+			"source": "AHDC1",
+			"target": "PRR12"
+		},
+		{
+			"source": "AHR",
+			"target": "KLF6"
+		},
+		{
+			"source": "AHRR",
+			"target": "ZBTB32"
+		},
+		{
+			"source": "AIRE",
+			"target": "RUNX1"
+		},
+		{
+			"source": "AKAP8",
+			"target": "SAFB2"
+		},
+		{
+			"source": "AKAP8L",
+			"target": "CIC"
+		},
+		{
+			"source": "AKNA",
+			"target": "IKZF1"
+		},
+		{
+			"source": "ALX1",
+			"target": "SNAI2"
+		},
+		{
+			"source": "ALX3",
+			"target": "INSM1"
+		},
+		{
+			"source": "ALX4",
+			"target": "LMX1B"
+		},
+		{
+			"source": "ANKZF1",
+			"target": "ZNF692"
+		},
+		{
+			"source": "AR",
+			"target": "EHF"
+		},
+		{
+			"source": "AR",
+			"target": "KLF6"
+		},
+		{
+			"source": "ARID2",
+			"target": "KDM5B"
+		},
+		{
+			"source": "ARID3A",
+			"target": "ARID3B"
+		},
+		{
+			"source": "ARID3B",
+			"target": "ARID3A"
+		},
+		{
+			"source": "ARID5A",
+			"target": "NFKB2"
+		},
+		{
+			"source": "ARID5B",
+			"target": "FOXO3"
+		},
+		{
+			"source": "ARNT",
+			"target": "SP3"
+		},
+		{
+			"source": "ARNT",
+			"target": "RELA"
+		},
+		{
+			"source": "ARNT2",
+			"target": "THRA"
+		},
+		{
+			"source": "ARNTL",
+			"target": "BCL6"
+		},
+		{
+			"source": "ARNTL2",
+			"target": "PRDM1"
+		},
+		{
+			"source": "ARX",
+			"target": "NR4A2"
+		},
+		{
+			"source": "ASCL1",
+			"target": "POU3F3"
+		},
+		{
+			"source": "ASCL2",
+			"target": "GATA3"
+		},
+		{
+			"source": "ASCL3",
+			"target": "FOXI1"
+		},
+		{
+			"source": "ASCL4",
+			"target": "HOXC13"
+		},
+		{
+			"source": "ASCL5",
+			"target": "RBPJL"
+		},
+		{
+			"source": "ASH1L",
+			"target": "KMT2A"
+		},
+		{
+			"source": "ATF1",
+			"target": "JUNB"
+		},
+		{
+			"source": "ATF2",
+			"target": "TCF7L2"
+		},
+		{
+			"source": "ATF3",
+			"target": "KLF6"
+		},
+		{
+			"source": "ATF3",
+			"target": "FOSL1"
+		},
+		{
+			"source": "ATF4",
+			"target": "SRF"
+		},
+		{
+			"source": "ATF6",
+			"target": "PPARG"
+		},
+		{
+			"source": "ATF6B",
+			"target": "STAT6"
+		},
+		{
+			"source": "ATF7",
+			"target": "ARNT"
+		},
+		{
+			"source": "ATMIN",
+			"target": "ARHGAP35"
+		},
+		{
+			"source": "ATOH1",
+			"target": "CDX2"
+		},
+		{
+			"source": "ATOH7",
+			"target": "RORB"
+		},
+		{
+			"source": "ATOH8",
+			"target": "KLF9"
+		},
+		{
+			"source": "BACH1",
+			"target": "CEBPB"
+		},
+		{
+			"source": "BACH2",
+			"target": "IKZF1"
+		},
+		{
+			"source": "BATF",
+			"target": "SP110"
+		},
+		{
+			"source": "BATF2",
+			"target": "IRF1"
+		},
+		{
+			"source": "BATF3",
+			"target": "NFKB2"
+		},
+		{
+			"source": "BAZ2A",
+			"target": "KDM2A"
+		},
+		{
+			"source": "BAZ2B",
+			"target": "DMTF1"
+		},
+		{
+			"source": "BBX",
+			"target": "MBD1"
+		},
+		{
+			"source": "BCL11A",
+			"target": "BCL11B"
+		},
+		{
+			"source": "BCL11B",
+			"target": "BCL11A"
+		},
+		{
+			"source": "BCL6",
+			"target": "SPI1"
+		},
+		{
+			"source": "BCL6",
+			"target": "IRF1"
+		},
+		{
+			"source": "BCL6B",
+			"target": "ERG"
+		},
+		{
+			"source": "BHLHA15",
+			"target": "RBPJL"
+		},
+		{
+			"source": "BHLHA9",
+			"target": "DPF1"
+		},
+		{
+			"source": "BHLHE22",
+			"target": "ZBTB18"
+		},
+		{
+			"source": "BHLHE23",
+			"target": "IKZF2"
+		},
+		{
+			"source": "BHLHE40",
+			"target": "FOSL2"
+		},
+		{
+			"source": "BNC1",
+			"target": "KLF5"
+		},
+		{
+			"source": "BNC2",
+			"target": "TSHZ3"
+		},
+		{
+			"source": "BPTF",
+			"target": "KMT2A"
+		},
+		{
+			"source": "BSX",
+			"target": "FEZF1"
+		},
+		{
+			"source": "CAMTA1",
+			"target": "MYT1L"
+		},
+		{
+			"source": "CAMTA2",
+			"target": "CIC"
+		},
+		{
+			"source": "CARF",
+			"target": "ZNF471"
+		},
+		{
+			"source": "CASZ1",
+			"target": "IRX3"
+		},
+		{
+			"source": "CBX2",
+			"target": "KDM5B"
+		},
+		{
+			"source": "CBX2",
+			"target": "TCF7L1"
+		},
+		{
+			"source": "CBX2",
+			"target": "SALL2"
+		},
+		{
+			"source": "CC2D1A",
+			"target": "SREBF2"
+		},
+		{
+			"source": "CCDC17",
+			"target": "FOXJ1"
+		},
+		{
+			"source": "CDC5L",
+			"target": "CEBPZ"
+		},
+		{
+			"source": "CDX2",
+			"target": "ELF3"
+		},
+		{
+			"source": "CDX2",
+			"target": "SATB2"
+		},
+		{
+			"source": "CDX2",
+			"target": "HNF4A"
+		},
+		{
+			"source": "CEBPA",
+			"target": "RXRA"
+		},
+		{
+			"source": "CEBPA",
+			"target": "PPARG"
+		},
+		{
+			"source": "CEBPB",
+			"target": "BCL6"
+		},
+		{
+			"source": "CEBPB",
+			"target": "KLF6"
+		},
+		{
+			"source": "CEBPB",
+			"target": "ETV6"
+		},
+		{
+			"source": "CEBPD",
+			"target": "NFIL3"
+		},
+		{
+			"source": "CEBPE",
+			"target": "SPI1"
+		},
+		{
+			"source": "CEBPG",
+			"target": "KLF10"
+		},
+		{
+			"source": "CEBPZ",
+			"target": "CDC5L"
+		},
+		{
+			"source": "CENPA",
+			"target": "MYBL2"
+		},
+		{
+			"source": "CENPBD1",
+			"target": "ZBTB3"
+		},
+		{
+			"source": "CENPT",
+			"target": "ZNF692"
+		},
+		{
+			"source": "CGGBP1",
+			"target": "GABPA"
+		},
+		{
+			"source": "CHAMP1",
+			"target": "LTF"
+		},
+		{
+			"source": "CIC",
+			"target": "PRR12"
+		},
+		{
+			"source": "CLOCK",
+			"target": "ASH1L"
+		},
+		{
+			"source": "CPXCR1",
+			"target": "FAM170A"
+		},
+		{
+			"source": "CREB1",
+			"target": "CEBPB"
+		},
+		{
+			"source": "CREB1",
+			"target": "KLF6"
+		},
+		{
+			"source": "CREB1",
+			"target": "KDM5B"
+		},
+		{
+			"source": "CREB3",
+			"target": "CREM"
+		},
+		{
+			"source": "CREB3L1",
+			"target": "PRRX1"
+		},
+		{
+			"source": "CREB3L2",
+			"target": "ZFHX3"
+		},
+		{
+			"source": "CREB3L3",
+			"target": "NR1H4"
+		},
+		{
+			"source": "CREB3L4",
+			"target": "SPDEF"
+		},
+		{
+			"source": "CREB5",
+			"target": "SPI1"
+		},
+		{
+			"source": "CREBZF",
+			"target": "MYSM1"
+		},
+		{
+			"source": "CREM",
+			"target": "NR4A2"
+		},
+		{
+			"source": "CREM",
+			"target": "REL"
+		},
+		{
+			"source": "CRX",
+			"target": "NRL"
+		},
+		{
+			"source": "CSRNP1",
+			"target": "FOSL2"
+		},
+		{
+			"source": "CSRNP2",
+			"target": "ARHGAP35"
+		},
+		{
+			"source": "CSRNP3",
+			"target": "MYT1L"
+		},
+		{
+			"source": "CTCF",
+			"target": "GLI1"
+		},
+		{
+			"source": "CTCF",
+			"target": "FOXD2"
+		},
+		{
+			"source": "CTCF",
+			"target": "NFKB2"
+		},
+		{
+			"source": "CTCFL",
+			"target": "RHOXF2"
+		},
+		{
+			"source": "CUX1",
+			"target": "ZBTB4"
+		},
+		{
+			"source": "CUX1",
+			"target": "SRF"
+		},
+		{
+			"source": "CUX2",
+			"target": "RORB"
+		},
+		{
+			"source": "CXXC1",
+			"target": "RBCK1"
+		},
+		{
+			"source": "CXXC4",
+			"target": "CSRNP3"
+		},
+		{
+			"source": "CXXC5",
+			"target": "ZIC1"
+		},
+		{
+			"source": "DACH1",
+			"target": "NCOA3"
+		},
+		{
+			"source": "DBX2",
+			"target": "NPAS3"
+		},
+		{
+			"source": "DDIT3",
+			"target": "CSRNP1"
+		},
+		{
+			"source": "DEAF1",
+			"target": "THRA"
+		},
+		{
+			"source": "DLX2",
+			"target": "FOXG1"
+		},
+		{
+			"source": "DLX4",
+			"target": "HOXC13"
+		},
+		{
+			"source": "DMBX1",
+			"target": "INSM1"
+		},
+		{
+			"source": "DMRT1",
+			"target": "PRDM9"
+		},
+		{
+			"source": "DMRT3",
+			"target": "FOXE1"
+		},
+		{
+			"source": "DMTF1",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "DNMT1",
+			"target": "FOXM1"
+		},
+		{
+			"source": "DNTTIP1",
+			"target": "SPI1"
+		},
+		{
+			"source": "DOT1L",
+			"target": "KDM5B"
+		},
+		{
+			"source": "DPF1",
+			"target": "ARNT2"
+		},
+		{
+			"source": "DPF3",
+			"target": "NFIX"
+		},
+		{
+			"source": "DR1",
+			"target": "ARID2"
+		},
+		{
+			"source": "DRAP1",
+			"target": "HMGA1"
+		},
+		{
+			"source": "DRGX",
+			"target": "PHOX2A"
+		},
+		{
+			"source": "DZIP1",
+			"target": "ARNT2"
+		},
+		{
+			"source": "E2F1",
+			"target": "TFDP1"
+		},
+		{
+			"source": "E2F1",
+			"target": "DNMT1"
+		},
+		{
+			"source": "E2F2",
+			"target": "KLF1"
+		},
+		{
+			"source": "E2F4",
+			"target": "MAZ"
+		},
+		{
+			"source": "E2F4",
+			"target": "TP53"
+		},
+		{
+			"source": "E2F5",
+			"target": "BHLHE40"
+		},
+		{
+			"source": "E2F6",
+			"target": "TEAD4"
+		},
+		{
+			"source": "E2F7",
+			"target": "E2F2"
+		},
+		{
+			"source": "E2F8",
+			"target": "TFDP1"
+		},
+		{
+			"source": "E4F1",
+			"target": "AKAP8L"
+		},
+		{
+			"source": "EBF1",
+			"target": "PRRX1"
+		},
+		{
+			"source": "EBF2",
+			"target": "EBF3"
+		},
+		{
+			"source": "EBF3",
+			"target": "EBF2"
+		},
+		{
+			"source": "EBF4",
+			"target": "NFATC4"
+		},
+		{
+			"source": "EEA1",
+			"target": "TEAD1"
+		},
+		{
+			"source": "EGR1",
+			"target": "JUN"
+		},
+		{
+			"source": "EGR1",
+			"target": "FOSL2"
+		},
+		{
+			"source": "EGR1",
+			"target": "EGR2"
+		},
+		{
+			"source": "EGR2",
+			"target": "EGR3"
+		},
+		{
+			"source": "EGR3",
+			"target": "EGR2"
+		},
+		{
+			"source": "EGR4",
+			"target": "NPAS4"
+		},
+		{
+			"source": "EHF",
+			"target": "KLF5"
+		},
+		{
+			"source": "ELF1",
+			"target": "JUNB"
+		},
+		{
+			"source": "ELF2",
+			"target": "ARID2"
+		},
+		{
+			"source": "ELF3",
+			"target": "EHF"
+		},
+		{
+			"source": "ELF4",
+			"target": "SPI1"
+		},
+		{
+			"source": "ELF5",
+			"target": "NR4A2"
+		},
+		{
+			"source": "ELK1",
+			"target": "ZSCAN16"
+		},
+		{
+			"source": "ELK3",
+			"target": "FOSL1"
+		},
+		{
+			"source": "ELK4",
+			"target": "NFAT5"
+		},
+		{
+			"source": "EOMES",
+			"target": "ZIC2"
+		},
+		{
+			"source": "EOMES",
+			"target": "RUNX3"
+		},
+		{
+			"source": "EPAS1",
+			"target": "ETS1"
+		},
+		{
+			"source": "ERF",
+			"target": "CIC"
+		},
+		{
+			"source": "ERG",
+			"target": "BCL6B"
+		},
+		{
+			"source": "ERG",
+			"target": "EBF1"
+		},
+		{
+			"source": "ESR1",
+			"target": "PGR"
+		},
+		{
+			"source": "ESR1",
+			"target": "TRPS1"
+		},
+		{
+			"source": "ESR2",
+			"target": "NR5A1"
+		},
+		{
+			"source": "ESRRA",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "ESRRB",
+			"target": "ESRRG"
+		},
+		{
+			"source": "ESRRG",
+			"target": "MECOM"
+		},
+		{
+			"source": "ESX1",
+			"target": "DMRT1"
+		},
+		{
+			"source": "ETS1",
+			"target": "STAT1"
+		},
+		{
+			"source": "ETS1",
+			"target": "AKNA"
+		},
+		{
+			"source": "ETS2",
+			"target": "KLF5"
+		},
+		{
+			"source": "ETV1",
+			"target": "ZBTB18"
+		},
+		{
+			"source": "ETV2",
+			"target": "SPZ1"
+		},
+		{
+			"source": "ETV3",
+			"target": "KLF4"
+		},
+		{
+			"source": "ETV3L",
+			"target": "BATF"
+		},
+		{
+			"source": "ETV4",
+			"target": "HMGA1"
+		},
+		{
+			"source": "ETV5",
+			"target": "ETV4"
+		},
+		{
+			"source": "ETV6",
+			"target": "RUNX1"
+		},
+		{
+			"source": "ETV7",
+			"target": "RELB"
+		},
+		{
+			"source": "FAM170A",
+			"target": "YBX2"
+		},
+		{
+			"source": "FAM200B",
+			"target": "CAMTA1"
+		},
+		{
+			"source": "FBXL19",
+			"target": "ARHGAP35"
+		},
+		{
+			"source": "FERD3L",
+			"target": "TWIST1"
+		},
+		{
+			"source": "FEV",
+			"target": "PHOX2B"
+		},
+		{
+			"source": "FEZF1",
+			"target": "RAX"
+		},
+		{
+			"source": "FEZF2",
+			"target": "LHX2"
+		},
+		{
+			"source": "FIGLA",
+			"target": "NOBOX"
+		},
+		{
+			"source": "FIZ1",
+			"target": "ZNF428"
+		},
+		{
+			"source": "FLI1",
+			"target": "SPI1"
+		},
+		{
+			"source": "FLI1",
+			"target": "IKZF1"
+		},
+		{
+			"source": "FLI1",
+			"target": "RUNX1"
+		},
+		{
+			"source": "FLYWCH1",
+			"target": "MXD4"
+		},
+		{
+			"source": "FOS",
+			"target": "FOSB"
+		},
+		{
+			"source": "FOSB",
+			"target": "FOS"
+		},
+		{
+			"source": "FOSL1",
+			"target": "HMGA1"
+		},
+		{
+			"source": "FOSL2",
+			"target": "CSRNP1"
+		},
+		{
+			"source": "FOXA1",
+			"target": "EHF"
+		},
+		{
+			"source": "FOXA1",
+			"target": "GRHL2"
+		},
+		{
+			"source": "FOXA1",
+			"target": "SPDEF"
+		},
+		{
+			"source": "FOXA2",
+			"target": "HNF4A"
+		},
+		{
+			"source": "FOXA2",
+			"target": "MNX1"
+		},
+		{
+			"source": "FOXA3",
+			"target": "HNF4A"
+		},
+		{
+			"source": "FOXB1",
+			"target": "POU3F2"
+		},
+		{
+			"source": "FOXB2",
+			"target": "SKOR2"
+		},
+		{
+			"source": "FOXC1",
+			"target": "FOXC2"
+		},
+		{
+			"source": "FOXC2",
+			"target": "FOXL1"
+		},
+		{
+			"source": "FOXD1",
+			"target": "HMGA2"
+		},
+		{
+			"source": "FOXD2",
+			"target": "GLI1"
+		},
+		{
+			"source": "FOXD3",
+			"target": "SOX10"
+		},
+		{
+			"source": "FOXD4",
+			"target": "FOXD4L1"
+		},
+		{
+			"source": "FOXD4L1",
+			"target": "FOXD4"
+		},
+		{
+			"source": "FOXD4L3",
+			"target": "POU4F2"
+		},
+		{
+			"source": "FOXD4L4",
+			"target": "FOXD4L5"
+		},
+		{
+			"source": "FOXD4L5",
+			"target": "FOXD4L4"
+		},
+		{
+			"source": "FOXD4L6",
+			"target": "FOXD4L3"
+		},
+		{
+			"source": "FOXE1",
+			"target": "NKX2-1"
+		},
+		{
+			"source": "FOXE3",
+			"target": "FOXD2"
+		},
+		{
+			"source": "FOXF1",
+			"target": "TCF21"
+		},
+		{
+			"source": "FOXF2",
+			"target": "FOXF1"
+		},
+		{
+			"source": "FOXG1",
+			"target": "LHX2"
+		},
+		{
+			"source": "FOXH1",
+			"target": "ELF3"
+		},
+		{
+			"source": "FOXH1",
+			"target": "ZIC3"
+		},
+		{
+			"source": "FOXI1",
+			"target": "TFCP2L1"
+		},
+		{
+			"source": "FOXI2",
+			"target": "PITX1"
+		},
+		{
+			"source": "FOXJ1",
+			"target": "CCDC17"
+		},
+		{
+			"source": "FOXJ2",
+			"target": "FOXN3"
+		},
+		{
+			"source": "FOXJ3",
+			"target": "ASH1L"
+		},
+		{
+			"source": "FOXK1",
+			"target": "MNT"
+		},
+		{
+			"source": "FOXK2",
+			"target": "YBX3"
+		},
+		{
+			"source": "FOXL1",
+			"target": "FOXC2"
+		},
+		{
+			"source": "FOXL2",
+			"target": "OSR2"
+		},
+		{
+			"source": "FOXM1",
+			"target": "CENPA"
+		},
+		{
+			"source": "FOXM1",
+			"target": "MYBL2"
+		},
+		{
+			"source": "FOXN1",
+			"target": "ZNF750"
+		},
+		{
+			"source": "FOXN2",
+			"target": "ZEB2"
+		},
+		{
+			"source": "FOXN3",
+			"target": "MEF2A"
+		},
+		{
+			"source": "FOXO1",
+			"target": "FOXO3"
+		},
+		{
+			"source": "FOXO1",
+			"target": "KLF9"
+		},
+		{
+			"source": "FOXO3",
+			"target": "KLF9"
+		},
+		{
+			"source": "FOXO4",
+			"target": "USF2"
+		},
+		{
+			"source": "FOXP1",
+			"target": "SETBP1"
+		},
+		{
+			"source": "FOXP1",
+			"target": "BCL11B"
+		},
+		{
+			"source": "FOXP1",
+			"target": "BACH2"
+		},
+		{
+			"source": "FOXP2",
+			"target": "FOXP1"
+		},
+		{
+			"source": "FOXP2",
+			"target": "MEIS2"
+		},
+		{
+			"source": "FOXP3",
+			"target": "IKZF1"
+		},
+		{
+			"source": "FOXP4",
+			"target": "MECOM"
+		},
+		{
+			"source": "FOXQ1",
+			"target": "KLF5"
+		},
+		{
+			"source": "FOXR1",
+			"target": "TPRX1"
+		},
+		{
+			"source": "FOXR2",
+			"target": "FOXR1"
+		},
+		{
+			"source": "FOXS1",
+			"target": "FOXC2"
+		},
+		{
+			"source": "GABPA",
+			"target": "SP3"
+		},
+		{
+			"source": "GATA1",
+			"target": "NFE2"
+		},
+		{
+			"source": "GATA1",
+			"target": "KLF1"
+		},
+		{
+			"source": "GATA1",
+			"target": "GFI1B"
+		},
+		{
+			"source": "GATA2",
+			"target": "GATA1"
+		},
+		{
+			"source": "GATA2",
+			"target": "HMG20B"
+		},
+		{
+			"source": "GATA2",
+			"target": "HES1"
+		},
+		{
+			"source": "GATA3",
+			"target": "ETV3"
+		},
+		{
+			"source": "GATA3",
+			"target": "FOXO3"
+		},
+		{
+			"source": "GATA3",
+			"target": "FOXC1"
+		},
+		{
+			"source": "GATA4",
+			"target": "HES1"
+		},
+		{
+			"source": "GATA4",
+			"target": "FOS"
+		},
+		{
+			"source": "GATA5",
+			"target": "MECOM"
+		},
+		{
+			"source": "GATA6",
+			"target": "KLF6"
+		},
+		{
+			"source": "GATA6",
+			"target": "JUN"
+		},
+		{
+			"source": "GATAD2A",
+			"target": "DOT1L"
+		},
+		{
+			"source": "GATAD2B",
+			"target": "POU2F1"
+		},
+		{
+			"source": "GBX2",
+			"target": "NR5A2"
+		},
+		{
+			"source": "GCM1",
+			"target": "NFE2"
+		},
+		{
+			"source": "GCM2",
+			"target": "MAFB"
+		},
+		{
+			"source": "GFI1",
+			"target": "IKZF1"
+		},
+		{
+			"source": "GFI1B",
+			"target": "LYL1"
+		},
+		{
+			"source": "GLI1",
+			"target": "EGR2"
+		},
+		{
+			"source": "GLI2",
+			"target": "GLI3"
+		},
+		{
+			"source": "GLI3",
+			"target": "GLI2"
+		},
+		{
+			"source": "GLI4",
+			"target": "ZNF276"
+		},
+		{
+			"source": "GLIS1",
+			"target": "TWIST2"
+		},
+		{
+			"source": "GLIS2",
+			"target": "AEBP1"
+		},
+		{
+			"source": "GLIS3",
+			"target": "SMAD3"
+		},
+		{
+			"source": "GLYR1",
+			"target": "MAZ"
+		},
+		{
+			"source": "GMEB1",
+			"target": "ARID3A"
+		},
+		{
+			"source": "GMEB2",
+			"target": "GATAD2A"
+		},
+		{
+			"source": "GPBP1",
+			"target": "MBD1"
+		},
+		{
+			"source": "GPBP1L1",
+			"target": "KDM2A"
+		},
+		{
+			"source": "GRHL1",
+			"target": "GRHL3"
+		},
+		{
+			"source": "GRHL2",
+			"target": "GRHL1"
+		},
+		{
+			"source": "GRHL3",
+			"target": "ZNF750"
+		},
+		{
+			"source": "GSC2",
+			"target": "DMRT1"
+		},
+		{
+			"source": "GSX1",
+			"target": "SOX3"
+		},
+		{
+			"source": "GSX2",
+			"target": "NR2E1"
+		},
+		{
+			"source": "GTF2B",
+			"target": "ATF6"
+		},
+		{
+			"source": "GTF2IRD2",
+			"target": "ZBTB8A"
+		},
+		{
+			"source": "GZF1",
+			"target": "CSRNP1"
+		},
+		{
+			"source": "HAND1",
+			"target": "HAND2"
+		},
+		{
+			"source": "HAND2",
+			"target": "HAND1"
+		},
+		{
+			"source": "HBP1",
+			"target": "CEBPB"
+		},
+		{
+			"source": "HDX",
+			"target": "FOXC1"
+		},
+		{
+			"source": "HELT",
+			"target": "GATA3"
+		},
+		{
+			"source": "HES1",
+			"target": "BHLHE40"
+		},
+		{
+			"source": "HES2",
+			"target": "IRF6"
+		},
+		{
+			"source": "HES3",
+			"target": "ZSCAN10"
+		},
+		{
+			"source": "HES4",
+			"target": "FOXC1"
+		},
+		{
+			"source": "HES5",
+			"target": "SOX3"
+		},
+		{
+			"source": "HES6",
+			"target": "SOX3"
+		},
+		{
+			"source": "HES7",
+			"target": "ZIC2"
+		},
+		{
+			"source": "HESX1",
+			"target": "STAT1"
+		},
+		{
+			"source": "HEY1",
+			"target": "NPAS3"
+		},
+		{
+			"source": "HEY2",
+			"target": "FOXC1"
+		},
+		{
+			"source": "HEYL",
+			"target": "AEBP1"
+		},
+		{
+			"source": "HHEX",
+			"target": "LYL1"
+		},
+		{
+			"source": "HIC1",
+			"target": "ELK3"
+		},
+		{
+			"source": "HIC2",
+			"target": "LIN28B"
+		},
+		{
+			"source": "HIF1A",
+			"target": "FOSL1"
+		},
+		{
+			"source": "HIF3A",
+			"target": "KLF15"
+		},
+		{
+			"source": "HINFP",
+			"target": "ZNF506"
+		},
+		{
+			"source": "HIVEP1",
+			"target": "REL"
+		},
+		{
+			"source": "HIVEP2",
+			"target": "NFIX"
+		},
+		{
+			"source": "HIVEP3",
+			"target": "BCL11A"
+		},
+		{
+			"source": "HKR1",
+			"target": "ZNF211"
+		},
+		{
+			"source": "HLF",
+			"target": "TEF"
+		},
+		{
+			"source": "HLX",
+			"target": "SPI1"
+		},
+		{
+			"source": "HMBOX1",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "HMG20A",
+			"target": "MTF2"
+		},
+		{
+			"source": "HMG20B",
+			"target": "SREBF1"
+		},
+		{
+			"source": "HMGA1",
+			"target": "FOXM1"
+		},
+		{
+			"source": "HMGA2",
+			"target": "HMGA1"
+		},
+		{
+			"source": "HMGN3",
+			"target": "THYN1"
+		},
+		{
+			"source": "HMX1",
+			"target": "OLIG2"
+		},
+		{
+			"source": "HMX2",
+			"target": "HMX3"
+		},
+		{
+			"source": "HMX3",
+			"target": "HMX2"
+		},
+		{
+			"source": "HNF1A",
+			"target": "HNF4A"
+		},
+		{
+			"source": "HNF1B",
+			"target": "HNF4A"
+		},
+		{
+			"source": "HNF4A",
+			"target": "HNF1A"
+		},
+		{
+			"source": "HNF4A",
+			"target": "NR1I2"
+		},
+		{
+			"source": "HNF4A",
+			"target": "CREB3L3"
+		},
+		{
+			"source": "HNF4G",
+			"target": "NR1I2"
+		},
+		{
+			"source": "HOMEZ",
+			"target": "ZNF646"
+		},
+		{
+			"source": "HOXA1",
+			"target": "HOXB1"
+		},
+		{
+			"source": "HOXA10",
+			"target": "HOXA11"
+		},
+		{
+			"source": "HOXA11",
+			"target": "HOXA10"
+		},
+		{
+			"source": "HOXA13",
+			"target": "HOXD13"
+		},
+		{
+			"source": "HOXA2",
+			"target": "HOXA3"
+		},
+		{
+			"source": "HOXA3",
+			"target": "HOXA2"
+		},
+		{
+			"source": "HOXA4",
+			"target": "HOXA3"
+		},
+		{
+			"source": "HOXA5",
+			"target": "HOXA6"
+		},
+		{
+			"source": "HOXA6",
+			"target": "HOXA9"
+		},
+		{
+			"source": "HOXA7",
+			"target": "HOXA10"
+		},
+		{
+			"source": "HOXA9",
+			"target": "HOXA10"
+		},
+		{
+			"source": "HOXA9",
+			"target": "HOXA6"
+		},
+		{
+			"source": "HOXB1",
+			"target": "HOXA1"
+		},
+		{
+			"source": "HOXB13",
+			"target": "HOXA3"
+		},
+		{
+			"source": "HOXB2",
+			"target": "HOXB3"
+		},
+		{
+			"source": "HOXB3",
+			"target": "HOXB4"
+		},
+		{
+			"source": "HOXB4",
+			"target": "HOXB3"
+		},
+		{
+			"source": "HOXB5",
+			"target": "HOXB6"
+		},
+		{
+			"source": "HOXB6",
+			"target": "HOXB5"
+		},
+		{
+			"source": "HOXB7",
+			"target": "HOXB9"
+		},
+		{
+			"source": "HOXB8",
+			"target": "HOXB6"
+		},
+		{
+			"source": "HOXB9",
+			"target": "HOXB6"
+		},
+		{
+			"source": "HOXC10",
+			"target": "HOXC9"
+		},
+		{
+			"source": "HOXC11",
+			"target": "HOXC10"
+		},
+		{
+			"source": "HOXC12",
+			"target": "HOXC11"
+		},
+		{
+			"source": "HOXC13",
+			"target": "DLX4"
+		},
+		{
+			"source": "HOXC4",
+			"target": "HOXC6"
+		},
+		{
+			"source": "HOXC5",
+			"target": "HOXC4"
+		},
+		{
+			"source": "HOXC6",
+			"target": "HOXC9"
+		},
+		{
+			"source": "HOXC8",
+			"target": "HOXC9"
+		},
+		{
+			"source": "HOXC9",
+			"target": "HOXC8"
+		},
+		{
+			"source": "HOXD1",
+			"target": "HOXB7"
+		},
+		{
+			"source": "HOXD10",
+			"target": "HOXD9"
+		},
+		{
+			"source": "HOXD11",
+			"target": "HOXD10"
+		},
+		{
+			"source": "HOXD12",
+			"target": "HOXD13"
+		},
+		{
+			"source": "HOXD13",
+			"target": "HOXD10"
+		},
+		{
+			"source": "HOXD3",
+			"target": "HOXD4"
+		},
+		{
+			"source": "HOXD3",
+			"target": "HOXD8"
+		},
+		{
+			"source": "HOXD4",
+			"target": "HOXD3"
+		},
+		{
+			"source": "HOXD8",
+			"target": "HOXD3"
+		},
+		{
+			"source": "HOXD9",
+			"target": "HOXD10"
+		},
+		{
+			"source": "HSF1",
+			"target": "MAFK"
+		},
+		{
+			"source": "HSF4",
+			"target": "MZF1"
+		},
+		{
+			"source": "HSF5",
+			"target": "YBX2"
+		},
+		{
+			"source": "HSFX1",
+			"target": "ZBTB47"
+		},
+		{
+			"source": "HSFY1",
+			"target": "HSFY2"
+		},
+		{
+			"source": "IKZF1",
+			"target": "AKNA"
+		},
+		{
+			"source": "IKZF2",
+			"target": "STAT1"
+		},
+		{
+			"source": "IKZF3",
+			"target": "PAX5"
+		},
+		{
+			"source": "IKZF4",
+			"target": "NFIC"
+		},
+		{
+			"source": "IKZF5",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "INSM1",
+			"target": "ASCL1"
+		},
+		{
+			"source": "INSM2",
+			"target": "MYT1L"
+		},
+		{
+			"source": "IRF1",
+			"target": "SP110"
+		},
+		{
+			"source": "IRF2",
+			"target": "JUNB"
+		},
+		{
+			"source": "IRF3",
+			"target": "TCF3"
+		},
+		{
+			"source": "IRF4",
+			"target": "PAX5"
+		},
+		{
+			"source": "IRF4",
+			"target": "POU2AF1"
+		},
+		{
+			"source": "IRF6",
+			"target": "KLF5"
+		},
+		{
+			"source": "IRF8",
+			"target": "IRF4"
+		},
+		{
+			"source": "IRF9",
+			"target": "SP110"
+		},
+		{
+			"source": "IRX1",
+			"target": "IRX3"
+		},
+		{
+			"source": "IRX3",
+			"target": "IRX5"
+		},
+		{
+			"source": "IRX5",
+			"target": "IRX3"
+		},
+		{
+			"source": "IRX6",
+			"target": "PPARG"
+		},
+		{
+			"source": "ISL1",
+			"target": "MEIS2"
+		},
+		{
+			"source": "ISL2",
+			"target": "LHX4"
+		},
+		{
+			"source": "ISX",
+			"target": "CDX2"
+		},
+		{
+			"source": "JAZF1",
+			"target": "SETBP1"
+		},
+		{
+			"source": "JDP2",
+			"target": "CEBPB"
+		},
+		{
+			"source": "JRK",
+			"target": "ZBTB12"
+		},
+		{
+			"source": "JRKL",
+			"target": "TMF1"
+		},
+		{
+			"source": "JUN",
+			"target": "KLF4"
+		},
+		{
+			"source": "JUN",
+			"target": "FOSB"
+		},
+		{
+			"source": "JUNB",
+			"target": "FOS"
+		},
+		{
+			"source": "JUND",
+			"target": "FOSB"
+		},
+		{
+			"source": "JUND",
+			"target": "CSRNP1"
+		},
+		{
+			"source": "KAT7",
+			"target": "ZBTB20"
+		},
+		{
+			"source": "KCMF1",
+			"target": "YBX3"
+		},
+		{
+			"source": "KCNIP3",
+			"target": "ARNT2"
+		},
+		{
+			"source": "KDM2A",
+			"target": "BAZ2A"
+		},
+		{
+			"source": "KDM2B",
+			"target": "TET3"
+		},
+		{
+			"source": "KDM5B",
+			"target": "CBX2"
+		},
+		{
+			"source": "KIN",
+			"target": "ZNF557"
+		},
+		{
+			"source": "KLF1",
+			"target": "GFI1B"
+		},
+		{
+			"source": "KLF10",
+			"target": "MYC"
+		},
+		{
+			"source": "KLF11",
+			"target": "KLF10"
+		},
+		{
+			"source": "KLF12",
+			"target": "ZEB1"
+		},
+		{
+			"source": "KLF13",
+			"target": "ETS1"
+		},
+		{
+			"source": "KLF15",
+			"target": "PPARA"
+		},
+		{
+			"source": "KLF16",
+			"target": "FBXL19"
+		},
+		{
+			"source": "KLF17",
+			"target": "NANOG"
+		},
+		{
+			"source": "KLF2",
+			"target": "JUND"
+		},
+		{
+			"source": "KLF3",
+			"target": "KLF5"
+		},
+		{
+			"source": "KLF4",
+			"target": "KLF5"
+		},
+		{
+			"source": "KLF4",
+			"target": "ATF3"
+		},
+		{
+			"source": "KLF4",
+			"target": "RARG"
+		},
+		{
+			"source": "KLF5",
+			"target": "KLF4"
+		},
+		{
+			"source": "KLF5",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "KLF6",
+			"target": "JUN"
+		},
+		{
+			"source": "KLF6",
+			"target": "KLF4"
+		},
+		{
+			"source": "KLF7",
+			"target": "ELK3"
+		},
+		{
+			"source": "KLF8",
+			"target": "KLF4"
+		},
+		{
+			"source": "KLF9",
+			"target": "FOXO3"
+		},
+		{
+			"source": "KMT2A",
+			"target": "SPEN"
+		},
+		{
+			"source": "KMT2B",
+			"target": "CIC"
+		},
+		{
+			"source": "L3MBTL1",
+			"target": "ZNF382"
+		},
+		{
+			"source": "LBX1",
+			"target": "SIX1"
+		},
+		{
+			"source": "LCOR",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "LCORL",
+			"target": "RFX7"
+		},
+		{
+			"source": "LEF1",
+			"target": "TCF7"
+		},
+		{
+			"source": "LHX1",
+			"target": "UNCX"
+		},
+		{
+			"source": "LHX2",
+			"target": "FOXG1"
+		},
+		{
+			"source": "LHX4",
+			"target": "ESRRG"
+		},
+		{
+			"source": "LHX6",
+			"target": "EBF3"
+		},
+		{
+			"source": "LHX8",
+			"target": "FOXG1"
+		},
+		{
+			"source": "LIN28B",
+			"target": "KDM5B"
+		},
+		{
+			"source": "LIN54",
+			"target": "E2F2"
+		},
+		{
+			"source": "LMX1A",
+			"target": "INSM1"
+		},
+		{
+			"source": "LMX1B",
+			"target": "IRX5"
+		},
+		{
+			"source": "LTF",
+			"target": "CHAMP1"
+		},
+		{
+			"source": "LYL1",
+			"target": "NFE2"
+		},
+		{
+			"source": "MAF",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "MAF",
+			"target": "PRDM1"
+		},
+		{
+			"source": "MAFB",
+			"target": "KLF4"
+		},
+		{
+			"source": "MAFF",
+			"target": "NFIL3"
+		},
+		{
+			"source": "MAFG",
+			"target": "NFE2L1"
+		},
+		{
+			"source": "MAFK",
+			"target": "MAFF"
+		},
+		{
+			"source": "MAX",
+			"target": "MXD1"
+		},
+		{
+			"source": "MAZ",
+			"target": "ZNF777"
+		},
+		{
+			"source": "MBD1",
+			"target": "KMT2A"
+		},
+		{
+			"source": "MBD2",
+			"target": "DNMT1"
+		},
+		{
+			"source": "MBD3",
+			"target": "JUNB"
+		},
+		{
+			"source": "MBD4",
+			"target": "STAT1"
+		},
+		{
+			"source": "MBD6",
+			"target": "SRCAP"
+		},
+		{
+			"source": "MBNL2",
+			"target": "ZEB2"
+		},
+		{
+			"source": "MECOM",
+			"target": "ZFPM1"
+		},
+		{
+			"source": "MECP2",
+			"target": "KMT2A"
+		},
+		{
+			"source": "MEF2A",
+			"target": "FOXN3"
+		},
+		{
+			"source": "MEF2B",
+			"target": "POU2F2"
+		},
+		{
+			"source": "MEF2C",
+			"target": "BHLHE40"
+		},
+		{
+			"source": "MEIS1",
+			"target": "MEIS2"
+		},
+		{
+			"source": "MEIS1",
+			"target": "ISL1"
+		},
+		{
+			"source": "MEIS2",
+			"target": "RARB"
+		},
+		{
+			"source": "MEOX1",
+			"target": "PPARG"
+		},
+		{
+			"source": "MEOX2",
+			"target": "EBF2"
+		},
+		{
+			"source": "MESP1",
+			"target": "SPDEF"
+		},
+		{
+			"source": "MESP2",
+			"target": "MESP1"
+		},
+		{
+			"source": "MITF",
+			"target": "TEAD1"
+		},
+		{
+			"source": "MITF",
+			"target": "BHLHE41"
+		},
+		{
+			"source": "MITF",
+			"target": "ETV5"
+		},
+		{
+			"source": "MIXL1",
+			"target": "IRF4"
+		},
+		{
+			"source": "MKX",
+			"target": "NFATC4"
+		},
+		{
+			"source": "MLX",
+			"target": "ESRRA"
+		},
+		{
+			"source": "MLXIP",
+			"target": "NFIC"
+		},
+		{
+			"source": "MLXIPL",
+			"target": "NR1I2"
+		},
+		{
+			"source": "MNT",
+			"target": "RARA"
+		},
+		{
+			"source": "MNX1",
+			"target": "PDX1"
+		},
+		{
+			"source": "MNX1",
+			"target": "ONECUT1"
+		},
+		{
+			"source": "MSANTD4",
+			"target": "ZNF25"
+		},
+		{
+			"source": "MSC",
+			"target": "NFKB2"
+		},
+		{
+			"source": "MSGN1",
+			"target": "HOXB1"
+		},
+		{
+			"source": "MSX1",
+			"target": "TWIST1"
+		},
+		{
+			"source": "MSX2",
+			"target": "FOXC1"
+		},
+		{
+			"source": "MTERF1",
+			"target": "ZNF480"
+		},
+		{
+			"source": "MTERF2",
+			"target": "HMGN3"
+		},
+		{
+			"source": "MTERF3",
+			"target": "NFE2L1"
+		},
+		{
+			"source": "MTERF4",
+			"target": "ZNF776"
+		},
+		{
+			"source": "MTF2",
+			"target": "ZNF318"
+		},
+		{
+			"source": "MXD1",
+			"target": "SPI1"
+		},
+		{
+			"source": "MXD3",
+			"target": "SPI1"
+		},
+		{
+			"source": "MXD4",
+			"target": "RXRA"
+		},
+		{
+			"source": "MXI1",
+			"target": "NFIA"
+		},
+		{
+			"source": "MYB",
+			"target": "IKZF1"
+		},
+		{
+			"source": "MYB",
+			"target": "JUNB"
+		},
+		{
+			"source": "MYBL1",
+			"target": "AKNA"
+		},
+		{
+			"source": "MYBL2",
+			"target": "FOXM1"
+		},
+		{
+			"source": "MYC",
+			"target": "HMGA1"
+		},
+		{
+			"source": "MYC",
+			"target": "PA2G4"
+		},
+		{
+			"source": "MYC",
+			"target": "HES1"
+		},
+		{
+			"source": "MYCL",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "MYCN",
+			"target": "GATA2"
+		},
+		{
+			"source": "MYCN",
+			"target": "SALL1"
+		},
+		{
+			"source": "MYF5",
+			"target": "MYF6"
+		},
+		{
+			"source": "MYF6",
+			"target": "TBX15"
+		},
+		{
+			"source": "MYNN",
+			"target": "CEBPZ"
+		},
+		{
+			"source": "MYOD1",
+			"target": "MYOG"
+		},
+		{
+			"source": "MYOG",
+			"target": "MYF6"
+		},
+		{
+			"source": "MYPOP",
+			"target": "CAMTA2"
+		},
+		{
+			"source": "MYRF",
+			"target": "NKX6-2"
+		},
+		{
+			"source": "MYRFL",
+			"target": "HNF4G"
+		},
+		{
+			"source": "MYSM1",
+			"target": "NFAT5"
+		},
+		{
+			"source": "MYT1",
+			"target": "MXD1"
+		},
+		{
+			"source": "MYT1L",
+			"target": "CSRNP3"
+		},
+		{
+			"source": "MZF1",
+			"target": "ZNF692"
+		},
+		{
+			"source": "NACC2",
+			"target": "THRA"
+		},
+		{
+			"source": "NAIF1",
+			"target": "ARID3A"
+		},
+		{
+			"source": "NANOG",
+			"target": "ZFP42"
+		},
+		{
+			"source": "NANOG",
+			"target": "PAX6"
+		},
+		{
+			"source": "NANOG",
+			"target": "POU5F1"
+		},
+		{
+			"source": "NANOG",
+			"target": "GBX2"
+		},
+		{
+			"source": "NANOG",
+			"target": "NR0B1"
+		},
+		{
+			"source": "NANOG",
+			"target": "SPIC"
+		},
+		{
+			"source": "NCOA1",
+			"target": "ASH1L"
+		},
+		{
+			"source": "NCOA2",
+			"target": "TET2"
+		},
+		{
+			"source": "NCOA3",
+			"target": "STAT1"
+		},
+		{
+			"source": "NEUROD1",
+			"target": "PAX6"
+		},
+		{
+			"source": "NEUROD2",
+			"target": "NEUROD1"
+		},
+		{
+			"source": "NEUROD4",
+			"target": "INSM1"
+		},
+		{
+			"source": "NEUROD6",
+			"target": "FEZF2"
+		},
+		{
+			"source": "NEUROG1",
+			"target": "NHLH1"
+		},
+		{
+			"source": "NEUROG2",
+			"target": "BHLHE22"
+		},
+		{
+			"source": "NEUROG3",
+			"target": "PAX4"
+		},
+		{
+			"source": "NFAT5",
+			"target": "SPEN"
+		},
+		{
+			"source": "NFATC1",
+			"target": "RARA"
+		},
+		{
+			"source": "NFATC2",
+			"target": "IKZF1"
+		},
+		{
+			"source": "NFATC3",
+			"target": "NFATC1"
+		},
+		{
+			"source": "NFATC4",
+			"target": "GLI2"
+		},
+		{
+			"source": "NFE2",
+			"target": "SPI1"
+		},
+		{
+			"source": "NFE2L1",
+			"target": "YBX3"
+		},
+		{
+			"source": "NFE2L2",
+			"target": "KLF5"
+		},
+		{
+			"source": "NFE2L3",
+			"target": "ETV4"
+		},
+		{
+			"source": "NFIA",
+			"target": "NFIB"
+		},
+		{
+			"source": "NFIB",
+			"target": "NFIA"
+		},
+		{
+			"source": "NFIC",
+			"target": "NFE2L1"
+		},
+		{
+			"source": "NFIL3",
+			"target": "CEBPB"
+		},
+		{
+			"source": "NFIX",
+			"target": "TEF"
+		},
+		{
+			"source": "NFKB1",
+			"target": "NFKB2"
+		},
+		{
+			"source": "NFKB2",
+			"target": "RELB"
+		},
+		{
+			"source": "NFX1",
+			"target": "ZNF383"
+		},
+		{
+			"source": "NFXL1",
+			"target": "ZNF281"
+		},
+		{
+			"source": "NFYA",
+			"target": "KDM5B"
+		},
+		{
+			"source": "NFYB",
+			"target": "ZEB1"
+		},
+		{
+			"source": "NFYC",
+			"target": "SPI1"
+		},
+		{
+			"source": "NHLH1",
+			"target": "INSM1"
+		},
+		{
+			"source": "NHLH2",
+			"target": "UNCX"
+		},
+		{
+			"source": "NKRF",
+			"target": "AHCTF1"
+		},
+		{
+			"source": "NOBOX",
+			"target": "DMRT1"
+		},
+		{
+			"source": "NPAS1",
+			"target": "DLX2"
+		},
+		{
+			"source": "NPAS2",
+			"target": "KLF5"
+		},
+		{
+			"source": "NPAS3",
+			"target": "POU3F3"
+		},
+		{
+			"source": "NPAS4",
+			"target": "EGR4"
+		},
+		{
+			"source": "NR0B1",
+			"target": "TBX3"
+		},
+		{
+			"source": "NR1D1",
+			"target": "RORA"
+		},
+		{
+			"source": "NR1D2",
+			"target": "TEF"
+		},
+		{
+			"source": "NR1H2",
+			"target": "RARA"
+		},
+		{
+			"source": "NR1H3",
+			"target": "MAFB"
+		},
+		{
+			"source": "NR1H4",
+			"target": "CREB3L3"
+		},
+		{
+			"source": "NR1I2",
+			"target": "HNF4A"
+		},
+		{
+			"source": "NR1I3",
+			"target": "MLXIPL"
+		},
+		{
+			"source": "NR2C1",
+			"target": "SMAD4"
+		},
+		{
+			"source": "NR2C2",
+			"target": "NFATC3"
+		},
+		{
+			"source": "NR2E1",
+			"target": "FOXG1"
+		},
+		{
+			"source": "NR2E3",
+			"target": "ESR2"
+		},
+		{
+			"source": "NR2F1",
+			"target": "SOX12"
+		},
+		{
+			"source": "NR2F2",
+			"target": "AHR"
+		},
+		{
+			"source": "NR2F6",
+			"target": "ESRRA"
+		},
+		{
+			"source": "NR3C1",
+			"target": "ETS1"
+		},
+		{
+			"source": "NR3C1",
+			"target": "ZEB2"
+		},
+		{
+			"source": "NR3C2",
+			"target": "ISX"
+		},
+		{
+			"source": "NR4A1",
+			"target": "NR4A2"
+		},
+		{
+			"source": "NR4A2",
+			"target": "NR4A1"
+		},
+		{
+			"source": "NR4A3",
+			"target": "NR4A2"
+		},
+		{
+			"source": "NR5A1",
+			"target": "SREBF1"
+		},
+		{
+			"source": "NR5A2",
+			"target": "RBPJL"
+		},
+		{
+			"source": "NR6A1",
+			"target": "LIN28B"
+		},
+		{
+			"source": "NRF1",
+			"target": "JUNB"
+		},
+		{
+			"source": "NRL",
+			"target": "CRX"
+		},
+		{
+			"source": "OLIG1",
+			"target": "OLIG2"
+		},
+		{
+			"source": "OLIG2",
+			"target": "OLIG1"
+		},
+		{
+			"source": "OLIG2",
+			"target": "POU3F3"
+		},
+		{
+			"source": "OLIG3",
+			"target": "NR5A2"
+		},
+		{
+			"source": "ONECUT1",
+			"target": "NR5A2"
+		},
+		{
+			"source": "ONECUT2",
+			"target": "ONECUT1"
+		},
+		{
+			"source": "OSR2",
+			"target": "NR2F2"
+		},
+		{
+			"source": "OTX2",
+			"target": "SIX3"
+		},
+		{
+			"source": "OVOL1",
+			"target": "GRHL3"
+		},
+		{
+			"source": "OVOL2",
+			"target": "GRHL2"
+		},
+		{
+			"source": "PATZ1",
+			"target": "SOX12"
+		},
+		{
+			"source": "PAX3",
+			"target": "TBX15"
+		},
+		{
+			"source": "PAX4",
+			"target": "CDX2"
+		},
+		{
+			"source": "PAX5",
+			"target": "SPIB"
+		},
+		{
+			"source": "PAX6",
+			"target": "NEUROD1"
+		},
+		{
+			"source": "PAX6",
+			"target": "ZIC2"
+		},
+		{
+			"source": "PAX7",
+			"target": "LBX1"
+		},
+		{
+			"source": "PAX8",
+			"target": "EGR2"
+		},
+		{
+			"source": "PBX1",
+			"target": "SOX9"
+		},
+		{
+			"source": "PBX2",
+			"target": "DBP"
+		},
+		{
+			"source": "PBX3",
+			"target": "KLF6"
+		},
+		{
+			"source": "PCGF2",
+			"target": "EN1"
+		},
+		{
+			"source": "PDX1",
+			"target": "MNX1"
+		},
+		{
+			"source": "PEG3",
+			"target": "CSRNP3"
+		},
+		{
+			"source": "PGR",
+			"target": "ESR1"
+		},
+		{
+			"source": "PHF1",
+			"target": "RFX1"
+		},
+		{
+			"source": "PHF20",
+			"target": "ARID5B"
+		},
+		{
+			"source": "PHF21A",
+			"target": "SPI1"
+		},
+		{
+			"source": "PHOX2A",
+			"target": "TLX2"
+		},
+		{
+			"source": "PHOX2B",
+			"target": "PHOX2A"
+		},
+		{
+			"source": "PITX1",
+			"target": "SIM2"
+		},
+		{
+			"source": "PITX2",
+			"target": "SIX1"
+		},
+		{
+			"source": "PITX3",
+			"target": "LBX1"
+		},
+		{
+			"source": "PKNOX1",
+			"target": "NFYA"
+		},
+		{
+			"source": "PLAG1",
+			"target": "RUNX2"
+		},
+		{
+			"source": "PLAGL1",
+			"target": "ZNF662"
+		},
+		{
+			"source": "PLAGL2",
+			"target": "DOT1L"
+		},
+		{
+			"source": "PLSCR1",
+			"target": "SP110"
+		},
+		{
+			"source": "POGK",
+			"target": "ZEB2"
+		},
+		{
+			"source": "POU1F1",
+			"target": "RXRG"
+		},
+		{
+			"source": "POU2AF1",
+			"target": "PAX5"
+		},
+		{
+			"source": "POU2F1",
+			"target": "KMT2A"
+		},
+		{
+			"source": "POU2F2",
+			"target": "PAX5"
+		},
+		{
+			"source": "POU2F3",
+			"target": "GATA3"
+		},
+		{
+			"source": "POU3F1",
+			"target": "SOX21"
+		},
+		{
+			"source": "POU3F2",
+			"target": "POU3F3"
+		},
+		{
+			"source": "POU3F3",
+			"target": "POU3F2"
+		},
+		{
+			"source": "POU3F4",
+			"target": "SIX3"
+		},
+		{
+			"source": "POU4F1",
+			"target": "NEUROG2"
+		},
+		{
+			"source": "POU4F2",
+			"target": "EBF3"
+		},
+		{
+			"source": "POU4F3",
+			"target": "SHOX2"
+		},
+		{
+			"source": "POU5F1",
+			"target": "NANOG"
+		},
+		{
+			"source": "POU5F1",
+			"target": "SOX2"
+		},
+		{
+			"source": "POU5F1",
+			"target": "ETV5"
+		},
+		{
+			"source": "POU5F1",
+			"target": "TCF3"
+		},
+		{
+			"source": "POU5F1",
+			"target": "REST"
+		},
+		{
+			"source": "POU6F1",
+			"target": "TEF"
+		},
+		{
+			"source": "POU6F2",
+			"target": "RORB"
+		},
+		{
+			"source": "PPARA",
+			"target": "MLXIPL"
+		},
+		{
+			"source": "PPARD",
+			"target": "NFIC"
+		},
+		{
+			"source": "PPARG",
+			"target": "KLF6"
+		},
+		{
+			"source": "PPARG",
+			"target": "RUNX2"
+		},
+		{
+			"source": "PRDM1",
+			"target": "KLF5"
+		},
+		{
+			"source": "PRDM10",
+			"target": "NR2C2"
+		},
+		{
+			"source": "PRDM12",
+			"target": "SOX3"
+		},
+		{
+			"source": "PRDM13",
+			"target": "IRF4"
+		},
+		{
+			"source": "PRDM14",
+			"target": "MYB"
+		},
+		{
+			"source": "PRDM14",
+			"target": "EOMES"
+		},
+		{
+			"source": "PRDM15",
+			"target": "NCOA3"
+		},
+		{
+			"source": "PRDM16",
+			"target": "ZFHX3"
+		},
+		{
+			"source": "PRDM2",
+			"target": "ASH1L"
+		},
+		{
+			"source": "PRDM4",
+			"target": "EEA1"
+		},
+		{
+			"source": "PRDM5",
+			"target": "CREB3L2"
+		},
+		{
+			"source": "PRDM6",
+			"target": "FOXC1"
+		},
+		{
+			"source": "PRDM8",
+			"target": "TSHZ3"
+		},
+		{
+			"source": "PREB",
+			"target": "ESRRA"
+		},
+		{
+			"source": "PROX1",
+			"target": "SMAD3"
+		},
+		{
+			"source": "PROX2",
+			"target": "NCOA3"
+		},
+		{
+			"source": "PRR12",
+			"target": "CIC"
+		},
+		{
+			"source": "PRRX1",
+			"target": "TWIST1"
+		},
+		{
+			"source": "PRRX2",
+			"target": "TWIST2"
+		},
+		{
+			"source": "PTF1A",
+			"target": "NR5A2"
+		},
+		{
+			"source": "PURB",
+			"target": "UBP1"
+		},
+		{
+			"source": "PURG",
+			"target": "SALL2"
+		},
+		{
+			"source": "RAG1",
+			"target": "LEF1"
+		},
+		{
+			"source": "RARA",
+			"target": "CEBPB"
+		},
+		{
+			"source": "RARA",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "RARB",
+			"target": "MEIS2"
+		},
+		{
+			"source": "RARG",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "RAX",
+			"target": "SIX6"
+		},
+		{
+			"source": "RAX2",
+			"target": "CRX"
+		},
+		{
+			"source": "RBAK",
+			"target": "MYSM1"
+		},
+		{
+			"source": "RBCK1",
+			"target": "MXD4"
+		},
+		{
+			"source": "RBPJ",
+			"target": "KLF7"
+		},
+		{
+			"source": "RBPJ",
+			"target": "HLX"
+		},
+		{
+			"source": "RBPJL",
+			"target": "NR5A2"
+		},
+		{
+			"source": "RBSN",
+			"target": "POU3F3"
+		},
+		{
+			"source": "REL",
+			"target": "TET2"
+		},
+		{
+			"source": "RELA",
+			"target": "FOSL2"
+		},
+		{
+			"source": "RELA",
+			"target": "STAT6"
+		},
+		{
+			"source": "RELB",
+			"target": "NFKB2"
+		},
+		{
+			"source": "REPIN1",
+			"target": "ESRRA"
+		},
+		{
+			"source": "REST",
+			"target": "HES1"
+		},
+		{
+			"source": "REST",
+			"target": "FOSB"
+		},
+		{
+			"source": "REXO4",
+			"target": "TEAD4"
+		},
+		{
+			"source": "RFX1",
+			"target": "DOT1L"
+		},
+		{
+			"source": "RFX2",
+			"target": "JUN"
+		},
+		{
+			"source": "RFX5",
+			"target": "MXI1"
+		},
+		{
+			"source": "RFX6",
+			"target": "FOXA2"
+		},
+		{
+			"source": "RFX7",
+			"target": "ADNP"
+		},
+		{
+			"source": "RFX8",
+			"target": "TWIST2"
+		},
+		{
+			"source": "RHOXF1",
+			"target": "UNCX"
+		},
+		{
+			"source": "RHOXF2",
+			"target": "CTCFL"
+		},
+		{
+			"source": "RORA",
+			"target": "BCL11B"
+		},
+		{
+			"source": "RORB",
+			"target": "POU3F2"
+		},
+		{
+			"source": "RORC",
+			"target": "MYF6"
+		},
+		{
+			"source": "RREB1",
+			"target": "KLF3"
+		},
+		{
+			"source": "RUNX1",
+			"target": "STAT3"
+		},
+		{
+			"source": "RUNX1",
+			"target": "RUNX2"
+		},
+		{
+			"source": "RUNX1",
+			"target": "ARID5A"
+		},
+		{
+			"source": "RUNX2",
+			"target": "RUNX1"
+		},
+		{
+			"source": "RUNX2",
+			"target": "FOSL2"
+		},
+		{
+			"source": "RUNX3",
+			"target": "TCF7"
+		},
+		{
+			"source": "RXRA",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "RXRA",
+			"target": "RORA"
+		},
+		{
+			"source": "RXRB",
+			"target": "STAT6"
+		},
+		{
+			"source": "RXRG",
+			"target": "LBX1"
+		},
+		{
+			"source": "SAFB",
+			"target": "AKAP8L"
+		},
+		{
+			"source": "SAFB2",
+			"target": "AKAP8L"
+		},
+		{
+			"source": "SALL1",
+			"target": "SALL4"
+		},
+		{
+			"source": "SALL2",
+			"target": "PAX6"
+		},
+		{
+			"source": "SALL3",
+			"target": "NPAS3"
+		},
+		{
+			"source": "SALL4",
+			"target": "ZFP42"
+		},
+		{
+			"source": "SALL4",
+			"target": "SALL1"
+		},
+		{
+			"source": "SATB2",
+			"target": "TCF7L2"
+		},
+		{
+			"source": "SCMH1",
+			"target": "NFIC"
+		},
+		{
+			"source": "SCML4",
+			"target": "IKZF1"
+		},
+		{
+			"source": "SCRT1",
+			"target": "LHX1"
+		},
+		{
+			"source": "SCRT2",
+			"target": "ZIC1"
+		},
+		{
+			"source": "SEBOX",
+			"target": "RARA"
+		},
+		{
+			"source": "SETBP1",
+			"target": "ZFHX3"
+		},
+		{
+			"source": "SETDB1",
+			"target": "BAZ2A"
+		},
+		{
+			"source": "SETDB1",
+			"target": "ADNP"
+		},
+		{
+			"source": "SETDB2",
+			"target": "DMTF1"
+		},
+		{
+			"source": "SGSM2",
+			"target": "THRA"
+		},
+		{
+			"source": "SHOX",
+			"target": "SHOX2"
+		},
+		{
+			"source": "SHOX2",
+			"target": "HOXC6"
+		},
+		{
+			"source": "SIM1",
+			"target": "TWIST1"
+		},
+		{
+			"source": "SIM2",
+			"target": "PITX1"
+		},
+		{
+			"source": "SIX1",
+			"target": "SIX4"
+		},
+		{
+			"source": "SIX2",
+			"target": "SIX1"
+		},
+		{
+			"source": "SIX3",
+			"target": "FOXG1"
+		},
+		{
+			"source": "SIX4",
+			"target": "SIX1"
+		},
+		{
+			"source": "SIX5",
+			"target": "NFATC4"
+		},
+		{
+			"source": "SIX6",
+			"target": "INSM1"
+		},
+		{
+			"source": "SKIL",
+			"target": "NR4A3"
+		},
+		{
+			"source": "SKOR1",
+			"target": "UNCX"
+		},
+		{
+			"source": "SKOR2",
+			"target": "SKOR1"
+		},
+		{
+			"source": "SLC2A4RG",
+			"target": "ZGPAT"
+		},
+		{
+			"source": "SMAD1",
+			"target": "RXRA"
+		},
+		{
+			"source": "SMAD3",
+			"target": "ETS1"
+		},
+		{
+			"source": "SMAD3",
+			"target": "RREB1"
+		},
+		{
+			"source": "SMAD4",
+			"target": "TEAD1"
+		},
+		{
+			"source": "SMAD4",
+			"target": "ZBTB8A"
+		},
+		{
+			"source": "SMAD4",
+			"target": "BHLHE40"
+		},
+		{
+			"source": "SMAD4",
+			"target": "KLF6"
+		},
+		{
+			"source": "SMAD5",
+			"target": "EEA1"
+		},
+		{
+			"source": "SMAD9",
+			"target": "NFIA"
+		},
+		{
+			"source": "SNAI1",
+			"target": "CSRNP1"
+		},
+		{
+			"source": "SNAI2",
+			"target": "TWIST1"
+		},
+		{
+			"source": "SNAI3",
+			"target": "SPI1"
+		},
+		{
+			"source": "SNAPC2",
+			"target": "NR1H2"
+		},
+		{
+			"source": "SNAPC4",
+			"target": "CIC"
+		},
+		{
+			"source": "SOHLH1",
+			"target": "FOXG1"
+		},
+		{
+			"source": "SON",
+			"target": "SRCAP"
+		},
+		{
+			"source": "SOX10",
+			"target": "FOXD3"
+		},
+		{
+			"source": "SOX11",
+			"target": "MBD3"
+		},
+		{
+			"source": "SOX12",
+			"target": "PATZ1"
+		},
+		{
+			"source": "SOX13",
+			"target": "KLF9"
+		},
+		{
+			"source": "SOX14",
+			"target": "SOX3"
+		},
+		{
+			"source": "SOX15",
+			"target": "IRF6"
+		},
+		{
+			"source": "SOX17",
+			"target": "GATA3"
+		},
+		{
+			"source": "SOX2",
+			"target": "SOX2"
+		},
+		{
+			"source": "SOX2",
+			"target": "ETV1"
+		},
+		{
+			"source": "SOX2",
+			"target": "NFIB"
+		},
+		{
+			"source": "SOX2",
+			"target": "PAX6"
+		},
+		{
+			"source": "SOX21",
+			"target": "POU3F1"
+		},
+		{
+			"source": "SOX3",
+			"target": "POU3F2"
+		},
+		{
+			"source": "SOX5",
+			"target": "NFIA"
+		},
+		{
+			"source": "SOX6",
+			"target": "MEIS1"
+		},
+		{
+			"source": "SOX9",
+			"target": "MEIS1"
+		},
+		{
+			"source": "SOX9",
+			"target": "HES1"
+		},
+		{
+			"source": "SP1",
+			"target": "JUNB"
+		},
+		{
+			"source": "SP110",
+			"target": "IKZF1"
+		},
+		{
+			"source": "SP140",
+			"target": "IKZF1"
+		},
+		{
+			"source": "SP2",
+			"target": "RARA"
+		},
+		{
+			"source": "SP3",
+			"target": "ETS1"
+		},
+		{
+			"source": "SP4",
+			"target": "NR2C2"
+		},
+		{
+			"source": "SP6",
+			"target": "OVOL1"
+		},
+		{
+			"source": "SP7",
+			"target": "ZEB2"
+		},
+		{
+			"source": "SP9",
+			"target": "FOXG1"
+		},
+		{
+			"source": "SPDEF",
+			"target": "FOXA1"
+		},
+		{
+			"source": "SPEN",
+			"target": "KMT2A"
+		},
+		{
+			"source": "SPI1",
+			"target": "RUNX1"
+		},
+		{
+			"source": "SPI1",
+			"target": "MXD3"
+		},
+		{
+			"source": "SPIB",
+			"target": "PAX5"
+		},
+		{
+			"source": "SPIC",
+			"target": "IKZF1"
+		},
+		{
+			"source": "SRCAP",
+			"target": "BAZ2A"
+		},
+		{
+			"source": "SREBF1",
+			"target": "SREBF2"
+		},
+		{
+			"source": "SREBF2",
+			"target": "NFE2L1"
+		},
+		{
+			"source": "SRF",
+			"target": "ATF4"
+		},
+		{
+			"source": "SRY",
+			"target": "TFAP2C"
+		},
+		{
+			"source": "SRY",
+			"target": "IRX5"
+		},
+		{
+			"source": "ST18",
+			"target": "PAX6"
+		},
+		{
+			"source": "STAT1",
+			"target": "ETS1"
+		},
+		{
+			"source": "STAT2",
+			"target": "IRF9"
+		},
+		{
+			"source": "STAT3",
+			"target": "STAT1"
+		},
+		{
+			"source": "STAT3",
+			"target": "STAT3"
+		},
+		{
+			"source": "STAT4",
+			"target": "IRF8"
+		},
+		{
+			"source": "STAT5A",
+			"target": "ETS1"
+		},
+		{
+			"source": "STAT5B",
+			"target": "KLF6"
+		},
+		{
+			"source": "STAT6",
+			"target": "ELF4"
+		},
+		{
+			"source": "T",
+			"target": "SP5"
+		},
+		{
+			"source": "TAL1",
+			"target": "LYL1"
+		},
+		{
+			"source": "TAL1",
+			"target": "IKZF1"
+		},
+		{
+			"source": "TAL1",
+			"target": "KLF6"
+		},
+		{
+			"source": "TAL2",
+			"target": "SIX1"
+		},
+		{
+			"source": "TBP",
+			"target": "DOT1L"
+		},
+		{
+			"source": "TBPL2",
+			"target": "NOBOX"
+		},
+		{
+			"source": "TBX1",
+			"target": "SIX1"
+		},
+		{
+			"source": "TBX10",
+			"target": "HNF4A"
+		},
+		{
+			"source": "TBX15",
+			"target": "SIX1"
+		},
+		{
+			"source": "TBX19",
+			"target": "PLAGL1"
+		},
+		{
+			"source": "TBX20",
+			"target": "NR2F2"
+		},
+		{
+			"source": "TBX21",
+			"target": "IKZF1"
+		},
+		{
+			"source": "TBX22",
+			"target": "LIN28B"
+		},
+		{
+			"source": "TBX3",
+			"target": "KLF2"
+		},
+		{
+			"source": "TBX5",
+			"target": "NKX2-5"
+		},
+		{
+			"source": "TCF12",
+			"target": "ZEB1"
+		},
+		{
+			"source": "TCF15",
+			"target": "BCL6B"
+		},
+		{
+			"source": "TCF20",
+			"target": "GATAD2A"
+		},
+		{
+			"source": "TCF21",
+			"target": "FOXF1"
+		},
+		{
+			"source": "TCF23",
+			"target": "ZNF665"
+		},
+		{
+			"source": "TCF3",
+			"target": "E2F1"
+		},
+		{
+			"source": "TCF3",
+			"target": "NFIB"
+		},
+		{
+			"source": "TCF4",
+			"target": "NFIX"
+		},
+		{
+			"source": "TCF4",
+			"target": "TCF7L2"
+		},
+		{
+			"source": "TCF7",
+			"target": "LEF1"
+		},
+		{
+			"source": "TCF7",
+			"target": "IKZF1"
+		},
+		{
+			"source": "TCF7L1",
+			"target": "MYBL2"
+		},
+		{
+			"source": "TCF7L2",
+			"target": "NFIA"
+		},
+		{
+			"source": "TCF7L2",
+			"target": "NFIB"
+		},
+		{
+			"source": "TCFL5",
+			"target": "ZFP91"
+		},
+		{
+			"source": "TEAD1",
+			"target": "ZEB1"
+		},
+		{
+			"source": "TEAD2",
+			"target": "TEAD3"
+		},
+		{
+			"source": "TEAD3",
+			"target": "NFATC4"
+		},
+		{
+			"source": "TEAD4",
+			"target": "CHCHD3"
+		},
+		{
+			"source": "TEF",
+			"target": "THRA"
+		},
+		{
+			"source": "TERF1",
+			"target": "MTF2"
+		},
+		{
+			"source": "TERF2",
+			"target": "ZNF554"
+		},
+		{
+			"source": "TET1",
+			"target": "HOXC6"
+		},
+		{
+			"source": "TET2",
+			"target": "MXD1"
+		},
+		{
+			"source": "TET3",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "TFAP2A",
+			"target": "TFAP2C"
+		},
+		{
+			"source": "TFAP2A",
+			"target": "KLF5"
+		},
+		{
+			"source": "TFAP2B",
+			"target": "IRX5"
+		},
+		{
+			"source": "TFAP2C",
+			"target": "GRHL2"
+		},
+		{
+			"source": "TFAP2C",
+			"target": "TFAP2A"
+		},
+		{
+			"source": "TFAP2D",
+			"target": "LHX2"
+		},
+		{
+			"source": "TFAP2E",
+			"target": "PAX6"
+		},
+		{
+			"source": "TFAP4",
+			"target": "ZNF785"
+		},
+		{
+			"source": "TFCP2",
+			"target": "ZBTB12"
+		},
+		{
+			"source": "TFCP2L1",
+			"target": "EHF"
+		},
+		{
+			"source": "TFDP1",
+			"target": "FOXM1"
+		},
+		{
+			"source": "TFDP2",
+			"target": "ZBTB20"
+		},
+		{
+			"source": "TFDP3",
+			"target": "PRDM9"
+		},
+		{
+			"source": "TFE3",
+			"target": "RARA"
+		},
+		{
+			"source": "TFEB",
+			"target": "SPI1"
+		},
+		{
+			"source": "TFEC",
+			"target": "FLI1"
+		},
+		{
+			"source": "TGIF1",
+			"target": "RUNX1"
+		},
+		{
+			"source": "TGIF2",
+			"target": "BHLHE40"
+		},
+		{
+			"source": "THAP1",
+			"target": "CDC5L"
+		},
+		{
+			"source": "THAP11",
+			"target": "MAZ"
+		},
+		{
+			"source": "THAP2",
+			"target": "ZBTB41"
+		},
+		{
+			"source": "THAP4",
+			"target": "ESRRA"
+		},
+		{
+			"source": "THAP5",
+			"target": "ZNF302"
+		},
+		{
+			"source": "THAP6",
+			"target": "ZNF383"
+		},
+		{
+			"source": "THAP7",
+			"target": "HSF1"
+		},
+		{
+			"source": "THAP8",
+			"target": "DNTTIP1"
+		},
+		{
+			"source": "THAP9",
+			"target": "ZNF829"
+		},
+		{
+			"source": "THRA",
+			"target": "ARNT2"
+		},
+		{
+			"source": "THRB",
+			"target": "KLF12"
+		},
+		{
+			"source": "TIGD1",
+			"target": "ZSCAN30"
+		},
+		{
+			"source": "TIGD5",
+			"target": "TFAP4"
+		},
+		{
+			"source": "TIGD6",
+			"target": "ZNF287"
+		},
+		{
+			"source": "TIGD7",
+			"target": "ZNF594"
+		},
+		{
+			"source": "TLX1",
+			"target": "NR5A1"
+		},
+		{
+			"source": "TLX2",
+			"target": "PHOX2B"
+		},
+		{
+			"source": "TLX3",
+			"target": "ZIC1"
+		},
+		{
+			"source": "TMF1",
+			"target": "MBD1"
+		},
+		{
+			"source": "TOPORS",
+			"target": "ARID2"
+		},
+		{
+			"source": "TP53",
+			"target": "TFDP1"
+		},
+		{
+			"source": "TP53",
+			"target": "FOSL1"
+		},
+		{
+			"source": "TP63",
+			"target": "IRF6"
+		},
+		{
+			"source": "TP63",
+			"target": "TFAP2A"
+		},
+		{
+			"source": "TP63",
+			"target": "ZNF750"
+		},
+		{
+			"source": "TP73",
+			"target": "TFAP2A"
+		},
+		{
+			"source": "TPRX1",
+			"target": "FOXR1"
+		},
+		{
+			"source": "TRAFD1",
+			"target": "NFKB2"
+		},
+		{
+			"source": "TRERF1",
+			"target": "PRDM1"
+		},
+		{
+			"source": "TRPS1",
+			"target": "GATA3"
+		},
+		{
+			"source": "TSC22D1",
+			"target": "ARNT2"
+		},
+		{
+			"source": "TSHZ1",
+			"target": "MEIS2"
+		},
+		{
+			"source": "TSHZ2",
+			"target": "NFIB"
+		},
+		{
+			"source": "TSHZ3",
+			"target": "BNC2"
+		},
+		{
+			"source": "TWIST1",
+			"target": "TWIST2"
+		},
+		{
+			"source": "TWIST2",
+			"target": "TWIST1"
+		},
+		{
+			"source": "UBP1",
+			"target": "FOXP1"
+		},
+		{
+			"source": "UNCX",
+			"target": "NHLH2"
+		},
+		{
+			"source": "USF1",
+			"target": "SPI1"
+		},
+		{
+			"source": "USF2",
+			"target": "ZNF358"
+		},
+		{
+			"source": "VAX2",
+			"target": "UNCX"
+		},
+		{
+			"source": "VDR",
+			"target": "TBP"
+		},
+		{
+			"source": "VDR",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "VENTX",
+			"target": "SPI1"
+		},
+		{
+			"source": "VEZF1",
+			"target": "SMAD4"
+		},
+		{
+			"source": "VSX1",
+			"target": "PAX6"
+		},
+		{
+			"source": "VSX2",
+			"target": "CRX"
+		},
+		{
+			"source": "WIZ",
+			"target": "ARHGAP35"
+		},
+		{
+			"source": "WT1",
+			"target": "JUN"
+		},
+		{
+			"source": "WT1",
+			"target": "VDR"
+		},
+		{
+			"source": "XBP1",
+			"target": "SOX4"
+		},
+		{
+			"source": "XPA",
+			"target": "NFIA"
+		},
+		{
+			"source": "YBX1",
+			"target": "HMGA1"
+		},
+		{
+			"source": "YBX2",
+			"target": "FAM170A"
+		},
+		{
+			"source": "YBX3",
+			"target": "MYF6"
+		},
+		{
+			"source": "YY1",
+			"target": "ATF4"
+		},
+		{
+			"source": "YY1",
+			"target": "SON"
+		},
+		{
+			"source": "YY2",
+			"target": "SNAI2"
+		},
+		{
+			"source": "ZBED1",
+			"target": "NFE2L1"
+		},
+		{
+			"source": "ZBED2",
+			"target": "BHLHE40"
+		},
+		{
+			"source": "ZBED3",
+			"target": "ZNF664"
+		},
+		{
+			"source": "ZBED4",
+			"target": "TFDP1"
+		},
+		{
+			"source": "ZBED5",
+			"target": "ZNF280D"
+		},
+		{
+			"source": "ZBED9",
+			"target": "LIN28B"
+		},
+		{
+			"source": "ZBTB1",
+			"target": "SP3"
+		},
+		{
+			"source": "ZBTB10",
+			"target": "ZFHX3"
+		},
+		{
+			"source": "ZBTB11",
+			"target": "NCOA3"
+		},
+		{
+			"source": "ZBTB12",
+			"target": "SOX12"
+		},
+		{
+			"source": "ZBTB14",
+			"target": "FOXN2"
+		},
+		{
+			"source": "ZBTB16",
+			"target": "FOXO3"
+		},
+		{
+			"source": "ZBTB17",
+			"target": "RARA"
+		},
+		{
+			"source": "ZBTB18",
+			"target": "ZIC1"
+		},
+		{
+			"source": "ZBTB2",
+			"target": "SP3"
+		},
+		{
+			"source": "ZBTB20",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "ZBTB21",
+			"target": "ADNP2"
+		},
+		{
+			"source": "ZBTB22",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "ZBTB24",
+			"target": "ZBTB2"
+		},
+		{
+			"source": "ZBTB25",
+			"target": "ZNF506"
+		},
+		{
+			"source": "ZBTB26",
+			"target": "DMTF1"
+		},
+		{
+			"source": "ZBTB3",
+			"target": "ZNF490"
+		},
+		{
+			"source": "ZBTB32",
+			"target": "ZNF318"
+		},
+		{
+			"source": "ZBTB33",
+			"target": "RORA"
+		},
+		{
+			"source": "ZBTB34",
+			"target": "CREB5"
+		},
+		{
+			"source": "ZBTB37",
+			"target": "TET2"
+		},
+		{
+			"source": "ZBTB38",
+			"target": "ZEB1"
+		},
+		{
+			"source": "ZBTB39",
+			"target": "CBX2"
+		},
+		{
+			"source": "ZBTB4",
+			"target": "NFIA"
+		},
+		{
+			"source": "ZBTB40",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZBTB41",
+			"target": "ATF2"
+		},
+		{
+			"source": "ZBTB42",
+			"target": "ESRRA"
+		},
+		{
+			"source": "ZBTB43",
+			"target": "BACH1"
+		},
+		{
+			"source": "ZBTB44",
+			"target": "TFDP2"
+		},
+		{
+			"source": "ZBTB45",
+			"target": "MAZ"
+		},
+		{
+			"source": "ZBTB46",
+			"target": "UNCX"
+		},
+		{
+			"source": "ZBTB47",
+			"target": "ZNF358"
+		},
+		{
+			"source": "ZBTB48",
+			"target": "ZGPAT"
+		},
+		{
+			"source": "ZBTB5",
+			"target": "TET3"
+		},
+		{
+			"source": "ZBTB6",
+			"target": "ZBTB11"
+		},
+		{
+			"source": "ZBTB7A",
+			"target": "KLF16"
+		},
+		{
+			"source": "ZBTB7B",
+			"target": "RARG"
+		},
+		{
+			"source": "ZBTB7C",
+			"target": "KLF5"
+		},
+		{
+			"source": "ZBTB8A",
+			"target": "ZNF70"
+		},
+		{
+			"source": "ZBTB9",
+			"target": "HMGA1"
+		},
+		{
+			"source": "ZC3H8",
+			"target": "ZNF554"
+		},
+		{
+			"source": "ZEB1",
+			"target": "TEAD1"
+		},
+		{
+			"source": "ZEB2",
+			"target": "NFIB"
+		},
+		{
+			"source": "ZFAT",
+			"target": "NCOA3"
+		},
+		{
+			"source": "ZFHX2",
+			"target": "AHDC1"
+		},
+		{
+			"source": "ZFHX3",
+			"target": "ZBTB16"
+		},
+		{
+			"source": "ZFHX4",
+			"target": "ZEB1"
+		},
+		{
+			"source": "ZFP1",
+			"target": "CSRNP3"
+		},
+		{
+			"source": "ZFP14",
+			"target": "ZNF260"
+		},
+		{
+			"source": "ZFP2",
+			"target": "ZFP37"
+		},
+		{
+			"source": "ZFP28",
+			"target": "ZSCAN18"
+		},
+		{
+			"source": "ZFP3",
+			"target": "USF3"
+		},
+		{
+			"source": "ZFP30",
+			"target": "ZNF566"
+		},
+		{
+			"source": "ZFP37",
+			"target": "ZNF286B"
+		},
+		{
+			"source": "ZFP41",
+			"target": "FBXL19"
+		},
+		{
+			"source": "ZFP42",
+			"target": "LIN28A"
+		},
+		{
+			"source": "ZFP57",
+			"target": "ZEB2"
+		},
+		{
+			"source": "ZFP62",
+			"target": "DMTF1"
+		},
+		{
+			"source": "ZFP64",
+			"target": "GATA3"
+		},
+		{
+			"source": "ZFP69",
+			"target": "ZNF611"
+		},
+		{
+			"source": "ZFP69B",
+			"target": "ZNF281"
+		},
+		{
+			"source": "ZFP82",
+			"target": "ZNF382"
+		},
+		{
+			"source": "ZFP90",
+			"target": "ZEB2"
+		},
+		{
+			"source": "ZFP91",
+			"target": "YBX1"
+		},
+		{
+			"source": "ZFPM1",
+			"target": "FOXP4"
+		},
+		{
+			"source": "ZFPM2",
+			"target": "NFIA"
+		},
+		{
+			"source": "ZFX",
+			"target": "SMAD4"
+		},
+		{
+			"source": "ZFX",
+			"target": "TEAD1"
+		},
+		{
+			"source": "ZFY",
+			"target": "ZBED1"
+		},
+		{
+			"source": "ZGPAT",
+			"target": "ZBTB48"
+		},
+		{
+			"source": "ZHX1",
+			"target": "JUNB"
+		},
+		{
+			"source": "ZHX2",
+			"target": "BACH2"
+		},
+		{
+			"source": "ZHX3",
+			"target": "THRA"
+		},
+		{
+			"source": "ZIC1",
+			"target": "ZIC2"
+		},
+		{
+			"source": "ZIC2",
+			"target": "ZIC3"
+		},
+		{
+			"source": "ZIC3",
+			"target": "SALL2"
+		},
+		{
+			"source": "ZIK1",
+			"target": "ZFP82"
+		},
+		{
+			"source": "ZIM2",
+			"target": "SPZ1"
+		},
+		{
+			"source": "ZIM3",
+			"target": "CTCFL"
+		},
+		{
+			"source": "ZKSCAN1",
+			"target": "ZNF587"
+		},
+		{
+			"source": "ZKSCAN2",
+			"target": "MBD1"
+		},
+		{
+			"source": "ZKSCAN3",
+			"target": "ZNF665"
+		},
+		{
+			"source": "ZKSCAN5",
+			"target": "PHF20"
+		},
+		{
+			"source": "ZKSCAN7",
+			"target": "ZNF674"
+		},
+		{
+			"source": "ZKSCAN8",
+			"target": "MYSM1"
+		},
+		{
+			"source": "ZMAT1",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "ZMAT4",
+			"target": "MYT1L"
+		},
+		{
+			"source": "ZNF10",
+			"target": "ZMAT1"
+		},
+		{
+			"source": "ZNF101",
+			"target": "TCF7"
+		},
+		{
+			"source": "ZNF107",
+			"target": "ZNF92"
+		},
+		{
+			"source": "ZNF112",
+			"target": "ZNF286B"
+		},
+		{
+			"source": "ZNF114",
+			"target": "ZNF664"
+		},
+		{
+			"source": "ZNF117",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "ZNF12",
+			"target": "RBAK"
+		},
+		{
+			"source": "ZNF121",
+			"target": "ZNF562"
+		},
+		{
+			"source": "ZNF124",
+			"target": "MYBL2"
+		},
+		{
+			"source": "ZNF131",
+			"target": "CEBPZ"
+		},
+		{
+			"source": "ZNF132",
+			"target": "ZNF772"
+		},
+		{
+			"source": "ZNF133",
+			"target": "ZNF248"
+		},
+		{
+			"source": "ZNF134",
+			"target": "ZIK1"
+		},
+		{
+			"source": "ZNF135",
+			"target": "ZNF471"
+		},
+		{
+			"source": "ZNF136",
+			"target": "ZNF791"
+		},
+		{
+			"source": "ZNF138",
+			"target": "ZNF260"
+		},
+		{
+			"source": "ZNF14",
+			"target": "ZNF136"
+		},
+		{
+			"source": "ZNF140",
+			"target": "ZNF10"
+		},
+		{
+			"source": "ZNF141",
+			"target": "ZNF506"
+		},
+		{
+			"source": "ZNF142",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZNF143",
+			"target": "THAP1"
+		},
+		{
+			"source": "ZNF146",
+			"target": "ZZZ3"
+		},
+		{
+			"source": "ZNF148",
+			"target": "SP3"
+		},
+		{
+			"source": "ZNF154",
+			"target": "ZNF667"
+		},
+		{
+			"source": "ZNF155",
+			"target": "ZNF224"
+		},
+		{
+			"source": "ZNF157",
+			"target": "PAX6"
+		},
+		{
+			"source": "ZNF16",
+			"target": "ZNF7"
+		},
+		{
+			"source": "ZNF160",
+			"target": "ZNF451"
+		},
+		{
+			"source": "ZNF165",
+			"target": "NCOA3"
+		},
+		{
+			"source": "ZNF169",
+			"target": "ZNF785"
+		},
+		{
+			"source": "ZNF17",
+			"target": "ZNF550"
+		},
+		{
+			"source": "ZNF174",
+			"target": "ZNF48"
+		},
+		{
+			"source": "ZNF175",
+			"target": "ZNF585A"
+		},
+		{
+			"source": "ZNF18",
+			"target": "ARID3A"
+		},
+		{
+			"source": "ZNF180",
+			"target": "ZNF14"
+		},
+		{
+			"source": "ZNF181",
+			"target": "ZNF253"
+		},
+		{
+			"source": "ZNF182",
+			"target": "DMTF1"
+		},
+		{
+			"source": "ZNF19",
+			"target": "ZNF829"
+		},
+		{
+			"source": "ZNF197",
+			"target": "ZNF566"
+		},
+		{
+			"source": "ZNF2",
+			"target": "ZKSCAN3"
+		},
+		{
+			"source": "ZNF20",
+			"target": "ZNF829"
+		},
+		{
+			"source": "ZNF202",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZNF205",
+			"target": "NR2F6"
+		},
+		{
+			"source": "ZNF207",
+			"target": "SON"
+		},
+		{
+			"source": "ZNF208",
+			"target": "ZNF727"
+		},
+		{
+			"source": "ZNF211",
+			"target": "DMTF1"
+		},
+		{
+			"source": "ZNF212",
+			"target": "ZNF282"
+		},
+		{
+			"source": "ZNF213",
+			"target": "ZNF646"
+		},
+		{
+			"source": "ZNF215",
+			"target": "FOXM1"
+		},
+		{
+			"source": "ZNF217",
+			"target": "GATA3"
+		},
+		{
+			"source": "ZNF217",
+			"target": "RXRA"
+		},
+		{
+			"source": "ZNF22",
+			"target": "ETS1"
+		},
+		{
+			"source": "ZNF224",
+			"target": "ZNF284"
+		},
+		{
+			"source": "ZNF23",
+			"target": "DMTF1"
+		},
+		{
+			"source": "ZNF230",
+			"target": "ZNF586"
+		},
+		{
+			"source": "ZNF232",
+			"target": "ZNF202"
+		},
+		{
+			"source": "ZNF233",
+			"target": "ZNF546"
+		},
+		{
+			"source": "ZNF234",
+			"target": "ZNF383"
+		},
+		{
+			"source": "ZNF235",
+			"target": "ZNF45"
+		},
+		{
+			"source": "ZNF24",
+			"target": "VEZF1"
+		},
+		{
+			"source": "ZNF248",
+			"target": "ZFP14"
+		},
+		{
+			"source": "ZNF25",
+			"target": "MYT1L"
+		},
+		{
+			"source": "ZNF250",
+			"target": "KMT2A"
+		},
+		{
+			"source": "ZNF253",
+			"target": "ZNF566"
+		},
+		{
+			"source": "ZNF254",
+			"target": "ZNF737"
+		},
+		{
+			"source": "ZNF256",
+			"target": "ZNF134"
+		},
+		{
+			"source": "ZNF257",
+			"target": "ZNF90"
+		},
+		{
+			"source": "ZNF26",
+			"target": "ZNF850"
+		},
+		{
+			"source": "ZNF260",
+			"target": "ZNF566"
+		},
+		{
+			"source": "ZNF263",
+			"target": "ZNF274"
+		},
+		{
+			"source": "ZNF264",
+			"target": "REST"
+		},
+		{
+			"source": "ZNF266",
+			"target": "ZNF700"
+		},
+		{
+			"source": "ZNF267",
+			"target": "REL"
+		},
+		{
+			"source": "ZNF268",
+			"target": "ZZZ3"
+		},
+		{
+			"source": "ZNF273",
+			"target": "RORA"
+		},
+		{
+			"source": "ZNF274",
+			"target": "ZNF417"
+		},
+		{
+			"source": "ZNF274",
+			"target": "ZNF44"
+		},
+		{
+			"source": "ZNF276",
+			"target": "AKNA"
+		},
+		{
+			"source": "ZNF277",
+			"target": "NCOA3"
+		},
+		{
+			"source": "ZNF28",
+			"target": "ZNF813"
+		},
+		{
+			"source": "ZNF280B",
+			"target": "CPEB1"
+		},
+		{
+			"source": "ZNF280C",
+			"target": "ARID2"
+		},
+		{
+			"source": "ZNF280D",
+			"target": "ZNF471"
+		},
+		{
+			"source": "ZNF281",
+			"target": "FOXN2"
+		},
+		{
+			"source": "ZNF282",
+			"target": "ZNF777"
+		},
+		{
+			"source": "ZNF284",
+			"target": "ZNF224"
+		},
+		{
+			"source": "ZNF285",
+			"target": "ZNF382"
+		},
+		{
+			"source": "ZNF286A",
+			"target": "ZNF286B"
+		},
+		{
+			"source": "ZNF286B",
+			"target": "ZNF286A"
+		},
+		{
+			"source": "ZNF287",
+			"target": "ZNF416"
+		},
+		{
+			"source": "ZNF292",
+			"target": "BPTF"
+		},
+		{
+			"source": "ZNF296",
+			"target": "MYBL2"
+		},
+		{
+			"source": "ZNF3",
+			"target": "AKAP8"
+		},
+		{
+			"source": "ZNF30",
+			"target": "ZNF382"
+		},
+		{
+			"source": "ZNF302",
+			"target": "ZNF493"
+		},
+		{
+			"source": "ZNF316",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZNF318",
+			"target": "PAX5"
+		},
+		{
+			"source": "ZNF319",
+			"target": "ZNF467"
+		},
+		{
+			"source": "ZNF32",
+			"target": "BAZ2A"
+		},
+		{
+			"source": "ZNF320",
+			"target": "ZNF665"
+		},
+		{
+			"source": "ZNF324",
+			"target": "ZNF446"
+		},
+		{
+			"source": "ZNF324B",
+			"target": "ZNF282"
+		},
+		{
+			"source": "ZNF326",
+			"target": "ZNF621"
+		},
+		{
+			"source": "ZNF329",
+			"target": "ZNF585B"
+		},
+		{
+			"source": "ZNF331",
+			"target": "NR4A2"
+		},
+		{
+			"source": "ZNF333",
+			"target": "MECP2"
+		},
+		{
+			"source": "ZNF334",
+			"target": "SALL2"
+		},
+		{
+			"source": "ZNF335",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZNF337",
+			"target": "KMT2A"
+		},
+		{
+			"source": "ZNF33A",
+			"target": "ZNF33B"
+		},
+		{
+			"source": "ZNF33B",
+			"target": "ZNF33A"
+		},
+		{
+			"source": "ZNF34",
+			"target": "ZNF250"
+		},
+		{
+			"source": "ZNF341",
+			"target": "SPI1"
+		},
+		{
+			"source": "ZNF343",
+			"target": "ZNF12"
+		},
+		{
+			"source": "ZNF345",
+			"target": "ZNF577"
+		},
+		{
+			"source": "ZNF346",
+			"target": "PHF21A"
+		},
+		{
+			"source": "ZNF347",
+			"target": "ZNF665"
+		},
+		{
+			"source": "ZNF347",
+			"target": "ZNF320"
+		},
+		{
+			"source": "ZNF35",
+			"target": "ZSCAN20"
+		},
+		{
+			"source": "ZNF350",
+			"target": "ZNF613"
+		},
+		{
+			"source": "ZNF354A",
+			"target": "BCL6"
+		},
+		{
+			"source": "ZNF354B",
+			"target": "NFAT5"
+		},
+		{
+			"source": "ZNF354C",
+			"target": "TEAD1"
+		},
+		{
+			"source": "ZNF358",
+			"target": "ZBTB47"
+		},
+		{
+			"source": "ZNF362",
+			"target": "NFIX"
+		},
+		{
+			"source": "ZNF365",
+			"target": "ARNT2"
+		},
+		{
+			"source": "ZNF366",
+			"target": "PPARG"
+		},
+		{
+			"source": "ZNF367",
+			"target": "FOXM1"
+		},
+		{
+			"source": "ZNF37A",
+			"target": "ZNF621"
+		},
+		{
+			"source": "ZNF382",
+			"target": "ZNF461"
+		},
+		{
+			"source": "ZNF383",
+			"target": "ZNF791"
+		},
+		{
+			"source": "ZNF384",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZNF385A",
+			"target": "KLF4"
+		},
+		{
+			"source": "ZNF385B",
+			"target": "ETV1"
+		},
+		{
+			"source": "ZNF385D",
+			"target": "THRB"
+		},
+		{
+			"source": "ZNF391",
+			"target": "ZSCAN12"
+		},
+		{
+			"source": "ZNF394",
+			"target": "MXD1"
+		},
+		{
+			"source": "ZNF395",
+			"target": "BHLHE40"
+		},
+		{
+			"source": "ZNF396",
+			"target": "ZBTB3"
+		},
+		{
+			"source": "ZNF397",
+			"target": "ZNF70"
+		},
+		{
+			"source": "ZNF398",
+			"target": "ZNF282"
+		},
+		{
+			"source": "ZNF407",
+			"target": "FOXN3"
+		},
+		{
+			"source": "ZNF408",
+			"target": "ZNF668"
+		},
+		{
+			"source": "ZNF41",
+			"target": "ZNF181"
+		},
+		{
+			"source": "ZNF410",
+			"target": "GTF2B"
+		},
+		{
+			"source": "ZNF414",
+			"target": "ZBTB45"
+		},
+		{
+			"source": "ZNF416",
+			"target": "ZNF134"
+		},
+		{
+			"source": "ZNF417",
+			"target": "ZNF587"
+		},
+		{
+			"source": "ZNF417",
+			"target": "ZNF557"
+		},
+		{
+			"source": "ZNF418",
+			"target": "ZNF154"
+		},
+		{
+			"source": "ZNF419",
+			"target": "ZNF773"
+		},
+		{
+			"source": "ZNF420",
+			"target": "ZNF566"
+		},
+		{
+			"source": "ZNF423",
+			"target": "NFIX"
+		},
+		{
+			"source": "ZNF426",
+			"target": "ZNF562"
+		},
+		{
+			"source": "ZNF428",
+			"target": "PIN1"
+		},
+		{
+			"source": "ZNF43",
+			"target": "ZNF737"
+		},
+		{
+			"source": "ZNF430",
+			"target": "ZNF431"
+		},
+		{
+			"source": "ZNF431",
+			"target": "ZNF430"
+		},
+		{
+			"source": "ZNF432",
+			"target": "ZNF841"
+		},
+		{
+			"source": "ZNF433",
+			"target": "ZNF568"
+		},
+		{
+			"source": "ZNF436",
+			"target": "KLF3"
+		},
+		{
+			"source": "ZNF438",
+			"target": "SPI1"
+		},
+		{
+			"source": "ZNF439",
+			"target": "ZNF506"
+		},
+		{
+			"source": "ZNF44",
+			"target": "ZNF700"
+		},
+		{
+			"source": "ZNF440",
+			"target": "KLF5"
+		},
+		{
+			"source": "ZNF441",
+			"target": "ZNF37A"
+		},
+		{
+			"source": "ZNF442",
+			"target": "ZNF844"
+		},
+		{
+			"source": "ZNF443",
+			"target": "ZNF799"
+		},
+		{
+			"source": "ZNF444",
+			"target": "MZF1"
+		},
+		{
+			"source": "ZNF445",
+			"target": "ZFP14"
+		},
+		{
+			"source": "ZNF446",
+			"target": "ZNF324"
+		},
+		{
+			"source": "ZNF449",
+			"target": "ZNF75D"
+		},
+		{
+			"source": "ZNF45",
+			"target": "ZNF155"
+		},
+		{
+			"source": "ZNF451",
+			"target": "ARID2"
+		},
+		{
+			"source": "ZNF454",
+			"target": "ZNF568"
+		},
+		{
+			"source": "ZNF460",
+			"target": "ZNF264"
+		},
+		{
+			"source": "ZNF461",
+			"target": "ZNF382"
+		},
+		{
+			"source": "ZNF462",
+			"target": "BAZ2B"
+		},
+		{
+			"source": "ZNF467",
+			"target": "SPI1"
+		},
+		{
+			"source": "ZNF469",
+			"target": "TWIST2"
+		},
+		{
+			"source": "ZNF470",
+			"target": "ZNF583"
+		},
+		{
+			"source": "ZNF471",
+			"target": "ZNF470"
+		},
+		{
+			"source": "ZNF479",
+			"target": "SPZ1"
+		},
+		{
+			"source": "ZNF48",
+			"target": "MAZ"
+		},
+		{
+			"source": "ZNF480",
+			"target": "ZNF234"
+		},
+		{
+			"source": "ZNF483",
+			"target": "SALL2"
+		},
+		{
+			"source": "ZNF484",
+			"target": "ATF2"
+		},
+		{
+			"source": "ZNF486",
+			"target": "ZNF90"
+		},
+		{
+			"source": "ZNF487",
+			"target": "ZBTB20"
+		},
+		{
+			"source": "ZNF490",
+			"target": "ZNF557"
+		},
+		{
+			"source": "ZNF491",
+			"target": "ZNF253"
+		},
+		{
+			"source": "ZNF493",
+			"target": "ZNF519"
+		},
+		{
+			"source": "ZNF496",
+			"target": "SCMH1"
+		},
+		{
+			"source": "ZNF497",
+			"target": "MZF1"
+		},
+		{
+			"source": "ZNF500",
+			"target": "ZNF785"
+		},
+		{
+			"source": "ZNF501",
+			"target": "ZFP82"
+		},
+		{
+			"source": "ZNF502",
+			"target": "ZNF418"
+		},
+		{
+			"source": "ZNF503",
+			"target": "NR2F2"
+		},
+		{
+			"source": "ZNF506",
+			"target": "ZFP14"
+		},
+		{
+			"source": "ZNF507",
+			"target": "AHCTF1"
+		},
+		{
+			"source": "ZNF510",
+			"target": "ASH1L"
+		},
+		{
+			"source": "ZNF511",
+			"target": "GTF3A"
+		},
+		{
+			"source": "ZNF512",
+			"target": "ZFP90"
+		},
+		{
+			"source": "ZNF512B",
+			"target": "PRR12"
+		},
+		{
+			"source": "ZNF513",
+			"target": "SNAPC4"
+		},
+		{
+			"source": "ZNF514",
+			"target": "ZNF83"
+		},
+		{
+			"source": "ZNF516",
+			"target": "RREB1"
+		},
+		{
+			"source": "ZNF518A",
+			"target": "DMTF1"
+		},
+		{
+			"source": "ZNF518B",
+			"target": "ZBTB38"
+		},
+		{
+			"source": "ZNF519",
+			"target": "ZNF382"
+		},
+		{
+			"source": "ZNF521",
+			"target": "ETV1"
+		},
+		{
+			"source": "ZNF524",
+			"target": "ZBTB7B"
+		},
+		{
+			"source": "ZNF525",
+			"target": "ZNF85"
+		},
+		{
+			"source": "ZNF526",
+			"target": "ZNF581"
+		},
+		{
+			"source": "ZNF527",
+			"target": "ZNF383"
+		},
+		{
+			"source": "ZNF527",
+			"target": "ZNF567"
+		},
+		{
+			"source": "ZNF528",
+			"target": "ZNF471"
+		},
+		{
+			"source": "ZNF529",
+			"target": "ZNF382"
+		},
+		{
+			"source": "ZNF530",
+			"target": "ZNF850"
+		},
+		{
+			"source": "ZNF532",
+			"target": "NFIX"
+		},
+		{
+			"source": "ZNF536",
+			"target": "ST18"
+		},
+		{
+			"source": "ZNF540",
+			"target": "ZNF667"
+		},
+		{
+			"source": "ZNF541",
+			"target": "YBX2"
+		},
+		{
+			"source": "ZNF543",
+			"target": "ZNF264"
+		},
+		{
+			"source": "ZNF544",
+			"target": "ZNF551"
+		},
+		{
+			"source": "ZNF546",
+			"target": "ZBTB20"
+		},
+		{
+			"source": "ZNF547",
+			"target": "ZNF549"
+		},
+		{
+			"source": "ZNF548",
+			"target": "ZNF850"
+		},
+		{
+			"source": "ZNF549",
+			"target": "ZNF493"
+		},
+		{
+			"source": "ZNF550",
+			"target": "ZNF417"
+		},
+		{
+			"source": "ZNF551",
+			"target": "ZIK1"
+		},
+		{
+			"source": "ZNF552",
+			"target": "ZNF586"
+		},
+		{
+			"source": "ZNF554",
+			"target": "ZC3H8"
+		},
+		{
+			"source": "ZNF555",
+			"target": "ZNF570"
+		},
+		{
+			"source": "ZNF556",
+			"target": "ZNF774"
+		},
+		{
+			"source": "ZNF557",
+			"target": "ZNF490"
+		},
+		{
+			"source": "ZNF558",
+			"target": "ZNF12"
+		},
+		{
+			"source": "ZNF559",
+			"target": "ZNF83"
+		},
+		{
+			"source": "ZNF560",
+			"target": "DMRT1"
+		},
+		{
+			"source": "ZNF561",
+			"target": "ZNF562"
+		},
+		{
+			"source": "ZNF562",
+			"target": "ZNF121"
+		},
+		{
+			"source": "ZNF563",
+			"target": "ZNF829"
+		},
+		{
+			"source": "ZNF564",
+			"target": "ZNF799"
+		},
+		{
+			"source": "ZNF565",
+			"target": "ZNF573"
+		},
+		{
+			"source": "ZNF566",
+			"target": "ZNF568"
+		},
+		{
+			"source": "ZNF567",
+			"target": "ZNF850"
+		},
+		{
+			"source": "ZNF568",
+			"target": "ZNF471"
+		},
+		{
+			"source": "ZNF569",
+			"target": "ZNF570"
+		},
+		{
+			"source": "ZNF57",
+			"target": "KLF5"
+		},
+		{
+			"source": "ZNF570",
+			"target": "ZNF829"
+		},
+		{
+			"source": "ZNF571",
+			"target": "ZNF667"
+		},
+		{
+			"source": "ZNF572",
+			"target": "ZNF501"
+		},
+		{
+			"source": "ZNF573",
+			"target": "ZNF570"
+		},
+		{
+			"source": "ZNF574",
+			"target": "ZNF628"
+		},
+		{
+			"source": "ZNF575",
+			"target": "ZNF428"
+		},
+		{
+			"source": "ZNF576",
+			"target": "ZNF48"
+		},
+		{
+			"source": "ZNF577",
+			"target": "ZNF471"
+		},
+		{
+			"source": "ZNF578",
+			"target": "ZNF829"
+		},
+		{
+			"source": "ZNF579",
+			"target": "ZNF784"
+		},
+		{
+			"source": "ZNF581",
+			"target": "ZNF524"
+		},
+		{
+			"source": "ZNF582",
+			"target": "ZNF549"
+		},
+		{
+			"source": "ZNF583",
+			"target": "ZNF568"
+		},
+		{
+			"source": "ZNF584",
+			"target": "ZNF324B"
+		},
+		{
+			"source": "ZNF585A",
+			"target": "ZNF471"
+		},
+		{
+			"source": "ZNF585B",
+			"target": "ZNF585A"
+		},
+		{
+			"source": "ZNF586",
+			"target": "ZNF394"
+		},
+		{
+			"source": "ZNF587",
+			"target": "ZNF417"
+		},
+		{
+			"source": "ZNF589",
+			"target": "IRF8"
+		},
+		{
+			"source": "ZNF592",
+			"target": "NFATC3"
+		},
+		{
+			"source": "ZNF594",
+			"target": "ZNF253"
+		},
+		{
+			"source": "ZNF594",
+			"target": "ZNF37A"
+		},
+		{
+			"source": "ZNF595",
+			"target": "ZNF92"
+		},
+		{
+			"source": "ZNF597",
+			"target": "ZNF281"
+		},
+		{
+			"source": "ZNF598",
+			"target": "GATAD2A"
+		},
+		{
+			"source": "ZNF599",
+			"target": "ZNF607"
+		},
+		{
+			"source": "ZNF600",
+			"target": "ZNF700"
+		},
+		{
+			"source": "ZNF606",
+			"target": "ZNF254"
+		},
+		{
+			"source": "ZNF606",
+			"target": "ZNF529"
+		},
+		{
+			"source": "ZNF607",
+			"target": "ZNF569"
+		},
+		{
+			"source": "ZNF608",
+			"target": "TCF7L2"
+		},
+		{
+			"source": "ZNF609",
+			"target": "BAZ2A"
+		},
+		{
+			"source": "ZNF610",
+			"target": "ZNF677"
+		},
+		{
+			"source": "ZNF611",
+			"target": "ZNF665"
+		},
+		{
+			"source": "ZNF613",
+			"target": "ZNF649"
+		},
+		{
+			"source": "ZNF614",
+			"target": "ZIK1"
+		},
+		{
+			"source": "ZNF615",
+			"target": "ZNF614"
+		},
+		{
+			"source": "ZNF616",
+			"target": "ZNF850"
+		},
+		{
+			"source": "ZNF618",
+			"target": "ZNF704"
+		},
+		{
+			"source": "ZNF619",
+			"target": "ZKSCAN3"
+		},
+		{
+			"source": "ZNF620",
+			"target": "ZNF253"
+		},
+		{
+			"source": "ZNF621",
+			"target": "ZNF37A"
+		},
+		{
+			"source": "ZNF623",
+			"target": "ZBTB38"
+		},
+		{
+			"source": "ZNF624",
+			"target": "EEA1"
+		},
+		{
+			"source": "ZNF627",
+			"target": "ZNF136"
+		},
+		{
+			"source": "ZNF628",
+			"target": "ZNF646"
+		},
+		{
+			"source": "ZNF629",
+			"target": "NFIC"
+		},
+		{
+			"source": "ZNF630",
+			"target": "ZNF785"
+		},
+		{
+			"source": "ZNF639",
+			"target": "ZNF148"
+		},
+		{
+			"source": "ZNF641",
+			"target": "ZNF467"
+		},
+		{
+			"source": "ZNF644",
+			"target": "SMAD5"
+		},
+		{
+			"source": "ZNF646",
+			"target": "DOT1L"
+		},
+		{
+			"source": "ZNF648",
+			"target": "ESRRG"
+		},
+		{
+			"source": "ZNF649",
+			"target": "ZNF134"
+		},
+		{
+			"source": "ZNF652",
+			"target": "ZKSCAN1"
+		},
+		{
+			"source": "ZNF653",
+			"target": "CIC"
+		},
+		{
+			"source": "ZNF654",
+			"target": "SP3"
+		},
+		{
+			"source": "ZNF655",
+			"target": "ZNF207"
+		},
+		{
+			"source": "ZNF66",
+			"target": "ZNF26"
+		},
+		{
+			"source": "ZNF660",
+			"target": "ZNF445"
+		},
+		{
+			"source": "ZNF662",
+			"target": "ZNF439"
+		},
+		{
+			"source": "ZNF664",
+			"target": "TEAD1"
+		},
+		{
+			"source": "ZNF665",
+			"target": "ZKSCAN3"
+		},
+		{
+			"source": "ZNF667",
+			"target": "ZSCAN18"
+		},
+		{
+			"source": "ZNF668",
+			"target": "MAZ"
+		},
+		{
+			"source": "ZNF669",
+			"target": "ZNF557"
+		},
+		{
+			"source": "ZNF670",
+			"target": "MTF2"
+		},
+		{
+			"source": "ZNF671",
+			"target": "ZNF549"
+		},
+		{
+			"source": "ZNF672",
+			"target": "ESRRA"
+		},
+		{
+			"source": "ZNF674",
+			"target": "ZNF557"
+		},
+		{
+			"source": "ZNF675",
+			"target": "ZNF273"
+		},
+		{
+			"source": "ZNF677",
+			"target": "ZNF829"
+		},
+		{
+			"source": "ZNF678",
+			"target": "TET1"
+		},
+		{
+			"source": "ZNF679",
+			"target": "ZNF479"
+		},
+		{
+			"source": "ZNF680",
+			"target": "ZNF302"
+		},
+		{
+			"source": "ZNF681",
+			"target": "ZNF675"
+		},
+		{
+			"source": "ZNF682",
+			"target": "ZNF529"
+		},
+		{
+			"source": "ZNF683",
+			"target": "SPZ1"
+		},
+		{
+			"source": "ZNF684",
+			"target": "NR1I3"
+		},
+		{
+			"source": "ZNF687",
+			"target": "SETDB1"
+		},
+		{
+			"source": "ZNF689",
+			"target": "ZFP91"
+		},
+		{
+			"source": "ZNF69",
+			"target": "ZNF43"
+		},
+		{
+			"source": "ZNF691",
+			"target": "NR6A1"
+		},
+		{
+			"source": "ZNF692",
+			"target": "AKAP8L"
+		},
+		{
+			"source": "ZNF695",
+			"target": "CENPA"
+		},
+		{
+			"source": "ZNF696",
+			"target": "TIGD5"
+		},
+		{
+			"source": "ZNF697",
+			"target": "ETS1"
+		},
+		{
+			"source": "ZNF699",
+			"target": "ZNF611"
+		},
+		{
+			"source": "ZNF7",
+			"target": "SETDB1"
+		},
+		{
+			"source": "ZNF70",
+			"target": "ZBTB8A"
+		},
+		{
+			"source": "ZNF700",
+			"target": "ZNF44"
+		},
+		{
+			"source": "ZNF701",
+			"target": "ZNF611"
+		},
+		{
+			"source": "ZNF703",
+			"target": "NFIC"
+		},
+		{
+			"source": "ZNF704",
+			"target": "ZBTB10"
+		},
+		{
+			"source": "ZNF706",
+			"target": "YBX1"
+		},
+		{
+			"source": "ZNF708",
+			"target": "ZNF260"
+		},
+		{
+			"source": "ZNF709",
+			"target": "ZNF433"
+		},
+		{
+			"source": "ZNF71",
+			"target": "ZNF70"
+		},
+		{
+			"source": "ZNF710",
+			"target": "RXRA"
+		},
+		{
+			"source": "ZNF711",
+			"target": "KDM5B"
+		},
+		{
+			"source": "ZNF713",
+			"target": "ZBTB8A"
+		},
+		{
+			"source": "ZNF716",
+			"target": "TERB1"
+		},
+		{
+			"source": "ZNF717",
+			"target": "ZNF519"
+		},
+		{
+			"source": "ZNF718",
+			"target": "ZNF90"
+		},
+		{
+			"source": "ZNF721",
+			"target": "ZNF302"
+		},
+		{
+			"source": "ZNF724",
+			"target": "ZNF492"
+		},
+		{
+			"source": "ZNF727",
+			"target": "ZNF483"
+		},
+		{
+			"source": "ZNF732",
+			"target": "ZIC2"
+		},
+		{
+			"source": "ZNF735",
+			"target": "ZSCAN5B"
+		},
+		{
+			"source": "ZNF737",
+			"target": "ZNF486"
+		},
+		{
+			"source": "ZNF74",
+			"target": "ZNF785"
+		},
+		{
+			"source": "ZNF740",
+			"target": "KLF13"
+		},
+		{
+			"source": "ZNF740",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZNF746",
+			"target": "SPI1"
+		},
+		{
+			"source": "ZNF747",
+			"target": "ZNF48"
+		},
+		{
+			"source": "ZNF749",
+			"target": "ZBTB24"
+		},
+		{
+			"source": "ZNF750",
+			"target": "GRHL3"
+		},
+		{
+			"source": "ZNF75A",
+			"target": "ZNF606"
+		},
+		{
+			"source": "ZNF75D",
+			"target": "ZNF449"
+		},
+		{
+			"source": "ZNF76",
+			"target": "RXRB"
+		},
+		{
+			"source": "ZNF761",
+			"target": "ZNF813"
+		},
+		{
+			"source": "ZNF763",
+			"target": "ZNF564"
+		},
+		{
+			"source": "ZNF764",
+			"target": "ZNF747"
+		},
+		{
+			"source": "ZNF766",
+			"target": "AHCTF1"
+		},
+		{
+			"source": "ZNF768",
+			"target": "ESRRA"
+		},
+		{
+			"source": "ZNF77",
+			"target": "TFAP4"
+		},
+		{
+			"source": "ZNF770",
+			"target": "CEBPZ"
+		},
+		{
+			"source": "ZNF771",
+			"target": "CAMTA1"
+		},
+		{
+			"source": "ZNF772",
+			"target": "ZNF285"
+		},
+		{
+			"source": "ZNF773",
+			"target": "ZNF383"
+		},
+		{
+			"source": "ZNF774",
+			"target": "ZFP3"
+		},
+		{
+			"source": "ZNF775",
+			"target": "SOX12"
+		},
+		{
+			"source": "ZNF776",
+			"target": "ZNF551"
+		},
+		{
+			"source": "ZNF776",
+			"target": "ZNF417"
+		},
+		{
+			"source": "ZNF777",
+			"target": "MAZ"
+		},
+		{
+			"source": "ZNF778",
+			"target": "ZNF383"
+		},
+		{
+			"source": "ZNF780A",
+			"target": "ZNF224"
+		},
+		{
+			"source": "ZNF780B",
+			"target": "ZNF320"
+		},
+		{
+			"source": "ZNF781",
+			"target": "ZNF540"
+		},
+		{
+			"source": "ZNF782",
+			"target": "ZNF37A"
+		},
+		{
+			"source": "ZNF783",
+			"target": "SRCAP"
+		},
+		{
+			"source": "ZNF784",
+			"target": "ESRRA"
+		},
+		{
+			"source": "ZNF785",
+			"target": "ZNF445"
+		},
+		{
+			"source": "ZNF786",
+			"target": "ZNF398"
+		},
+		{
+			"source": "ZNF79",
+			"target": "ZNF557"
+		},
+		{
+			"source": "ZNF790",
+			"target": "ZNF527"
+		},
+		{
+			"source": "ZNF791",
+			"target": "ZNF136"
+		},
+		{
+			"source": "ZNF792",
+			"target": "ETS1"
+		},
+		{
+			"source": "ZNF799",
+			"target": "ZNF443"
+		},
+		{
+			"source": "ZNF8",
+			"target": "ZNF587"
+		},
+		{
+			"source": "ZNF80",
+			"target": "SP140"
+		},
+		{
+			"source": "ZNF804A",
+			"target": "MYT1L"
+		},
+		{
+			"source": "ZNF804B",
+			"target": "FOXE1"
+		},
+		{
+			"source": "ZNF81",
+			"target": "TET2"
+		},
+		{
+			"source": "ZNF813",
+			"target": "ZNF557"
+		},
+		{
+			"source": "ZNF816",
+			"target": "ZNF28"
+		},
+		{
+			"source": "ZNF823",
+			"target": "KLF5"
+		},
+		{
+			"source": "ZNF829",
+			"target": "ZNF677"
+		},
+		{
+			"source": "ZNF83",
+			"target": "ZNF320"
+		},
+		{
+			"source": "ZNF830",
+			"target": "GTF2B"
+		},
+		{
+			"source": "ZNF831",
+			"target": "AKNA"
+		},
+		{
+			"source": "ZNF835",
+			"target": "PAX6"
+		},
+		{
+			"source": "ZNF836",
+			"target": "ZNF616"
+		},
+		{
+			"source": "ZNF84",
+			"target": "ZNF26"
+		},
+		{
+			"source": "ZNF841",
+			"target": "ZNF83"
+		},
+		{
+			"source": "ZNF843",
+			"target": "ZNF774"
+		},
+		{
+			"source": "ZNF844",
+			"target": "ZNF442"
+		},
+		{
+			"source": "ZNF85",
+			"target": "ZNF829"
+		},
+		{
+			"source": "ZNF850",
+			"target": "ZNF26"
+		},
+		{
+			"source": "ZNF853",
+			"target": "ZBTB47"
+		},
+		{
+			"source": "ZNF879",
+			"target": "ZNF790"
+		},
+		{
+			"source": "ZNF90",
+			"target": "SALL4"
+		},
+		{
+			"source": "ZNF91",
+			"target": "ZNF253"
+		},
+		{
+			"source": "ZNF92",
+			"target": "ZNF107"
+		},
+		{
+			"source": "ZNF93",
+			"target": "ZNF90"
+		},
+		{
+			"source": "ZNF98",
+			"target": "RBPJL"
+		},
+		{
+			"source": "ZNF99",
+			"target": "LIN28B"
+		},
+		{
+			"source": "ZSCAN1",
+			"target": "ZSCAN18"
+		},
+		{
+			"source": "ZSCAN10",
+			"target": "ZIC3"
+		},
+		{
+			"source": "ZSCAN12",
+			"target": "ZFP30"
+		},
+		{
+			"source": "ZSCAN16",
+			"target": "ZNF232"
+		},
+		{
+			"source": "ZSCAN18",
+			"target": "THRA"
+		},
+		{
+			"source": "ZSCAN20",
+			"target": "ZBTB38"
+		},
+		{
+			"source": "ZSCAN21",
+			"target": "VEZF1"
+		},
+		{
+			"source": "ZSCAN22",
+			"target": "ZBTB45"
+		},
+		{
+			"source": "ZSCAN23",
+			"target": "TET1"
+		},
+		{
+			"source": "ZSCAN25",
+			"target": "ZNF264"
+		},
+		{
+			"source": "ZSCAN26",
+			"target": "ATF2"
+		},
+		{
+			"source": "ZSCAN29",
+			"target": "ZBTB39"
+		},
+		{
+			"source": "ZSCAN30",
+			"target": "ZNF471"
+		},
+		{
+			"source": "ZSCAN4",
+			"target": "KLF17"
+		},
+		{
+			"source": "ZSCAN5B",
+			"target": "TPRX1"
+		},
+		{
+			"source": "ZSCAN5C",
+			"target": "ZSCAN5B"
+		},
+		{
+			"source": "ZSCAN9",
+			"target": "SP9"
+		},
+		{
+			"source": "ZXDA",
+			"target": "ZXDB"
+		},
+		{
+			"source": "ZXDB",
+			"target": "ZXDA"
+		},
+		{
+			"source": "ZXDC",
+			"target": "RXRA"
+		},
+		{
+			"source": "ZZZ3",
+			"target": "ZNF644"
+		}
+	]
+}

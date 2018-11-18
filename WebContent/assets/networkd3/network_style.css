@@ -1,0 +1,24 @@
+.link line {
+	stroke: #aaa;
+}
+
+.label text {
+	font-family: sans-serif;
+	font-size: 5px;
+}
+
+.node circle {
+	stroke: #fff;
+	stroke-width: 3px;
+	fill: #555;
+}
+
+.network-overlay {
+	background-color: #000;
+	bottom: 0px;
+	left: 0px;
+	opacity: 1;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+}

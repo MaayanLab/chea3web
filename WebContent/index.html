@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Site made with Mobirise Website Builder v4.8.1, https://mobirise.com -->
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Mobirise v4.8.1, mobirise.com">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1">
+<link rel="shortcut icon" href="assets/images/chea-logo-112x158.png"
+	type="image/x-icon">
+<meta name="description" content="ChEA3 Web Tool">
+<title>Home</title>
+<link rel="stylesheet"
+	href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+<link rel="stylesheet" href="assets/tether/tether.min.css">
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="assets/bootstrap/css/bootstrap-grid.min.css">
+<link rel="stylesheet"
+	href="assets/bootstrap/css/bootstrap-reboot.min.css">
+<link rel="stylesheet" href="assets/socicon/css/styles.css">
+<link rel="stylesheet" href="assets/dropdown/css/style.css">
+<link rel="stylesheet" href="assets/theme/css/style.css">
+<link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css"
+	type="text/css">
+<link rel="stylesheet" href="assets/chea-query/submit-query.css">
+<link rel="stylesheet" href="assets/networkd3/network_style.css">
+<link rel="stylesheet"
+	href="assets/datatables/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="assets/datatables/buttons.dataTables.min.css">
+<link rel="stylesheet"
+	href="assets/datatables/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/tooltips/css_tooltips.css">
+<link rel="stylesheet" href="assets/networkd3/network_options.css">
+<link rel="stylesheet" href="assets/spectrum/spectrum.css">
+
+</head>
+<body>
+
+
+	<!-- Navigation Bar -->
+	<section class="menu cid-r0JOqR1tf7" once="menu" id="menu1-0">
+		<nav
+			class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<div class="hamburger">
+					<span></span> <span></span> <span></span> <span></span>
+				</div>
+			</button>
+			<div class="menu-logo">
+				<div class="navbar-brand">
+					<span class="navbar-logo"> <a href="#top"> <img
+							src="assets/images/chea_logo1.png" alt="ChEA3" title=""
+							style="height: 3.8rem;">
+					</a>
+					</span> <span class="navbar-caption-wrap"><a
+						class="navbar-caption text-white display-4" href="#top"> ChEA3</a></span>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+					<li class="nav-item"><a
+						class="nav-link link text-white display-4"
+						href="index.html#content4-o"><span
+							class="mbri-setting mbr-iconfont mbr-iconfont-btn"></span> About</a>
+					</li>
+					<li class="nav-item"><a
+						class="nav-link link text-white display-4"
+						href="index.html#content4-v"><span
+							class="mbri-idea mbr-iconfont mbr-iconfont-btn"></span>Tutorial</a></li>
+					<li class="nav-item"><a
+						class="nav-link link text-white display-4"
+						href="index.html#content4-z"><span
+							class="mbri-laptop mbr-iconfont mbr-iconfont-btn"></span>API</a></li>
+				</ul>
+				<div class="navbar-buttons mbr-section-btn">
+					<a class="btn btn-sm btn-primary display-4"
+						href="index.html#content4-13"><span
+						class="mbri-save mbr-iconfont mbr-iconfont-btn"></span>Download
+						Libraries </a>
+				</div>
+			</div>
+		</nav>
+	</section>
+
+
+	<!-- Block 1: Query Submissions / Results Page -->
+
+
+	<section class="cid-r0JOAk81nJ mbr-fullscreen" id="header15-1"
+		style="width: 100%;">
+
+		<div class="network-overlay mbr-fullscreen" id="tfnet"
+			style="opacity: 1; background-color: rgb(255, 255, 255); width: 100%;"></div>
+
+
+		<div class="mbr-overlay mbr-fullscreen" id='translucent-net'
+			style="bottom: 0px; left: 0px; position: fixed; right: 0px; top: 0px; opacity: 0.75; background-color: rgb(255, 255, 255); width: 100%;">
+		</div>
+
+
+		<!--Div that contains all the querying elements--->
+		<div class="container align-right" id="query-results"
+			style="bottom: 0px; left: 0px; right: 0px; top: 0px; width: 50%; margin-right: 0; margin-top: 4rem; padding-right: 0;">
+
+
+			<div class="row">
+
+				<div class="mbr-white col-lg-8 col-md-7 content-container"
+					id='tfea-title'>
+					<h1
+						class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-2">Transcription
+						Factor Enrichment Analysis</h1>
+					<p class="mbr-text pb-3 mbr-fonts-style display-5">Discover
+						upstream transcriptional regulators</p>
+				</div>
+
+
+				<div class="col-lg-4 col-md-5" id="tfea-submission">
+					<div class="form-container">
+						<div class="media-container-column" data-form-type="formoid">
+
+							<form class="mbr-form">
+								<div class="form-group" data-for="message">
+									<button type="button" class="btn btn-link"
+										id="example-genelist" type="submit">Example gene list
+									</button>
+									<textarea type="text" class="form-control 3px" rows="7"
+										placeholder="Submit gene list with one gene per line."
+										id="genelist"></textarea>
+
+								</div>
+
+								<button type="button" class="btn btn-primary"
+									id="submit-genelist" type="submit">Submit</button>
+
+							</form>
+
+						</div>
+					</div>
+					<!--class "form-container"--->
+				</div>
+				<!-- class="col-lg-4 col-md-5" -->
+			</div>
+			<!-- class="row" -->
+		</div>
+		<!-- class="container align-right" -->
+
+
+		<!--Results loading screen--->
+		<div id="loading-screen" class="mbr-overlay d-none">
+			<div class="loader"></div>
+		</div>
+
+		<div class="mbr-arrow hidden-sm-down" aria-hidden="true">
+			<a href="#next"> <i class="mbri-down mbr-iconfont"></i>
+			</a>
+		</div>
+
+	</section>
+
+
+	<!-- Block 2: About ChEA3 -->
+
+
+	<section class="mbr-section content4 cid-r0K1l83kKh" id="content4-o">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2">About
+						ChEA3</h2>
+					<h3
+						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						Shape your future web project with sharp design and refine coded
+						functions.</h3>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section article content12 cid-r0K1pQ9Oau"
+		id="content12-q">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div
+					class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+					<ul>
+						<li><strong>MOBILE FRIENDLY</strong> - o special actions
+							required, all sites you make with Mobirise are mobile-friendly.
+							You don't have to create a special mobile version of your site,
+							it will adapt automagically. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+						<li><strong>EASY AND SIMPLE</strong> - cut down the
+							development time with drag-and-drop website builder. Drop the
+							blocks into the page, edit content inline and publish - no
+							technical skills required. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+						<li><strong>UNIQUE STYLES</strong> - choose from the large
+							selection of latest pre-made blocks - full-screen intro,
+							bootstrap carousel, content slider, responsive image gallery with
+							lightbox, parallax scrolling, video backgrounds, hamburger menu,
+							sticky header and more. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section content7 cid-r0K1nWmL2C" id="content7-p">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="col-12 col-md-8">
+					<div class="media-container-row">
+						<div class="media-content">
+							<div class="mbr-section-text">
+								<p class="mbr-text align-right mb-0 mbr-fonts-style display-7">
+									<strong>Make your own website in a few clicks!</strong>
+									Mobirise helps you cut down development time by providing you
+									with a flexible website editor with a drag and drop interface.
+									Mobirise Website Builder creates responsive, retina and <em>mobile
+										friendly websites</em> in a few clicks. Mobirise is one of the
+									easiest website development tools available today.
+								</p>
+							</div>
+						</div>
+						<div class="mbr-figure" style="width: 110%;">
+							<img src="assets/images/01.jpg" alt="Mobirise">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section content4 cid-r0K2mj4vt0" id="content4-v">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2">
+						Tutorial</h2>
+					<h3
+						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						Shape your future web project with sharp design and refine coded
+						functions.</h3>
+					<div class="mbr-section-btn align-center py-4">
+						<a class="btn btn-black-outline display-4"
+							href="index.html#video1-b"><span
+							class="mbri-video mbr-iconfont mbr-iconfont-btn"></span>LIVE DEMO</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section article content11 cid-r0K2ncv4vg"
+		id="content11-w">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div
+					class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+					<ol>
+						<li><strong>MOBILE FRIENDLY</strong> - no special actions
+							required, all sites you make with Mobirise are mobile-friendly.
+							You don't have to create a special mobile version of your site,
+							it will adapt automagically. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+						<li><strong>EASY AND SIMPLE</strong> - cut down the
+							development time with drag-and-drop website builder. Drop the
+							blocks into the page, edit content inline and publish - no
+							technical skills required. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+						<li><strong>UNIQUE STYLES</strong> - choose from the large
+							selection of latest pre-made blocks - full-screen intro,
+							bootstrap carousel, content slider, responsive image gallery with
+							lightbox, parallax scrolling, video backgrounds, hamburger menu,
+							sticky header and more. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section article content1 cid-r0K2pjBI0m"
+		id="content1-y">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
+					<strong> Make your own website in a few clicks!</strong> Mobirise
+					helps you cut down development time by providing you with a
+					flexible website editor with a drag and drop interface. Mobirise
+					Website Builder creates responsive, retina and <em>mobile
+						friendly websites</em> in a few clicks. Mobirise is one of the easiest
+					website development tools <a href="https://mobirise.com/">available</a>
+					today. It also gives you the freedom to develop as many websites as
+					you like given the fact that it is a desktop app.
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="cid-r0JPyXePkb" id="video1-b">
+
+
+		<figure class="mbr-figure align-center container">
+			<div class="video-block" style="width: 66%;">
+				<div>
+					<iframe class="mbr-embedded-video"
+						src="https://www.youtube.com/embed/uNCr7NdOJgw?rel=0&amp;amp;showinfo=0&amp;autoplay=0&amp;loop=0"
+						width="1280" height="720" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</figure>
+	</section>
+
+	<section class="mbr-section content4 cid-r0K2ViwrYH" id="content4-z">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2">API</h2>
+					<h3
+						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						RESTful</h3>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section article content1 cid-r0K4JJbbUf"
+		id="content1-11">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
+					<strong> Make your own website in a few clicks!</strong> Mobirise
+					helps you cut down development time by providing you with a
+					flexible website editor with a drag and drop interface. Mobirise
+					Website Builder creates responsive, retina and <em>mobile
+						friendly websites</em> in a few clicks. Mobirise is one of the easiest
+					website development tools <a href="https://mobirise.com/">available</a>
+					today. It also gives you the freedom to develop as many websites as
+					you like given the fact that it is a desktop app.
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section article content11 cid-r0K4Kn3FRS"
+		id="content11-12">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div
+					class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+					<ol>
+						<li><strong>MOBILE FRIENDLY</strong> - no special actions
+							required, all sites you make with Mobirise are mobile-friendly.
+							You don't have to create a special mobile version of your site,
+							it will adapt automagically. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+						<li><strong>EASY AND SIMPLE</strong> - cut down the
+							development time with drag-and-drop website builder. Drop the
+							blocks into the page, edit content inline and publish - no
+							technical skills required. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+						<li><strong>UNIQUE STYLES</strong> - choose from the large
+							selection of latest pre-made blocks - full-screen intro,
+							bootstrap carousel, content slider, responsive image gallery with
+							lightbox, parallax scrolling, video backgrounds, hamburger menu,
+							sticky header and more. <a href="https://mobirise.com/">Try
+								it now!</a></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section content4 cid-r0K4Mm8LAA" id="content4-13">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2">
+						Download Libraries</h2>
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="features5 cid-r0K1ARyThe" id="features5-r">
+
+
+		<div class="container">
+			<div class="media-container-row">
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-bootstrap mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">No
+							Coding</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise is an easy website builder - just drop site elements to
+							your page, add content and style it to look the way you like. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-touch mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">Mobile
+							Friendly</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							All sites you make with Mobirise are mobile-friendly. You don't
+							have to create a special mobile version of your site. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-responsive mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">Unique
+							Styles</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise offers many site blocks in several themes, and though
+							these blocks are pre-made, they are flexible. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-desktop mbr-iconfont"></span>
+					</div>
+					<div class="card-box mbr-fonts-style">
+						<h4 class="card-title py-3 display-7">Unlimited Sites</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise gives you the freedom to develop as many websites as you
+							like given the fact that it is a desktop app. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="features5 cid-r0K1D0ndDf" id="features5-s">
+
+
+		<div class="container">
+			<div class="media-container-row">
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-bootstrap mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">No
+							Coding</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise is an easy website builder - just drop site elements to
+							your page, add content and style it to look the way you like. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-touch mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">Mobile
+							Friendly</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							All sites you make with Mobirise are mobile-friendly. You don't
+							have to create a special mobile version of your site. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-responsive mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">Unique
+							Styles</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise offers many site blocks in several themes, and though
+							these blocks are pre-made, they are flexible. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-desktop mbr-iconfont"></span>
+					</div>
+					<div class="card-box mbr-fonts-style">
+						<h4 class="card-title py-3 display-7">Unlimited Sites</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise gives you the freedom to develop as many websites as you
+							like given the fact that it is a desktop app. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="features5 cid-r0K4AAbyIa" id="features5-10">
+
+
+		<div class="container">
+			<div class="media-container-row">
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-bootstrap mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">No
+							Coding</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise is an easy website builder - just drop site elements to
+							your page, add content and style it to look the way you like. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-touch mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">Mobile
+							Friendly</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							All sites you make with Mobirise are mobile-friendly. You don't
+							have to create a special mobile version of your site. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-responsive mbr-iconfont"></span>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">Unique
+							Styles</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise offers many site blocks in several themes, and though
+							these blocks are pre-made, they are flexible. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<span class="mbri-desktop mbr-iconfont"></span>
+					</div>
+					<div class="card-box mbr-fonts-style">
+						<h4 class="card-title py-3 display-7">Unlimited Sites</h4>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Mobirise gives you the freedom to develop as many websites as you
+							like given the fact that it is a desktop app. <a
+								href="http://mobirise.com">Learn more...</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="toggle1 cid-r0JP9NlyE8" id="toggle1-6">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="col-12 col-md-8">
+					<div class="section-head text-center space30">
+						<h2 class="mbr-section-title pb-5 mbr-fonts-style display-2">ChEA3
+							FAQ</h2>
+					</div>
+					<div class="clearfix"></div>
+					<div id="bootstrap-toggle"
+						class="toggle-panel accordionStyles tab-content">
+						<div class="card">
+							<div class="card-header" role="tab" id="headingOne">
+								<a role="button" class="collapsed panel-title text-black"
+									data-toggle="collapse" data-parent="#accordion" data-core=""
+									href="#collapse1_6" aria-expanded="false"
+									aria-controls="collapse1">
+									<h4 class="mbr-fonts-style display-5"></h4>
+								</a>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header" role="tab" id="headingTwo">
+								<a role="button" class="collapsed panel-title text-black"
+									data-toggle="collapse" data-parent="#accordion" data-core=""
+									href="#collapse2_6" aria-expanded="false"
+									aria-controls="collapse2">
+									<h4 class="mbr-fonts-style display-5">
+										<span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
+										Which library should I use?
+									</h4>
+								</a>
+
+							</div>
+							<div id="collapse2_6" class="panel-collapse noScroll collapse"
+								role="tabpanel" aria-labelledby="headingTwo">
+								<div class="panel-body p-4">
+									<p class="mbr-fonts-style panel-text display-7">Ultimately
+										this will depend on your application, however in our
+										benchmarking studies, the "Integrated" library performed the
+										best. The Integrated library uses a rank aggregation scheme to
+										integrate results from all other ChEA3 libraries.</p>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header" role="tab" id="headingThree">
+								<a role="button" class="collapsed panel-title text-black"
+									data-toggle="collapse" data-parent="#accordion" data-core=""
+									href="#collapse3_6" aria-expanded="false"
+									aria-controls="collapse3">
+									<h4 class="mbr-fonts-style display-5">
+										<span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
+										Why ChEA3?
+									</h4>
+								</a>
+							</div>
+							<div id="collapse3_6" class="panel-collapse noScroll collapse"
+								role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body p-4">
+									<p class="mbr-fonts-style panel-text display-7">Key
+										differences between ChEA3 and other TFEA tools are that ChEA3
+										uses libraries of putative transcription factor targets
+										compiled from multiple difference sources and assays.</p>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header" role="tab" id="headingThree">
+								<a role="button" class="collapsed panel-title text-black"
+									data-toggle="collapse" data-parent="#accordion" data-core=""
+									href="#collapse4_6" aria-expanded="false"
+									aria-controls="collapse4">
+									<h4 class="mbr-fonts-style display-5">
+										<span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
+										What can I use ChEA3 for?
+									</h4>
+								</a>
+							</div>
+							<div id="collapse4_6" class="panel-collapse noScroll collapse"
+								role="tabpanel" aria-labelledby="headingThree">
+								<div class="panel-body p-4">
+									<p class="mbr-fonts-style panel-text display-7">ChEA3 will
+										rank transcription factosr according to their predicted
+										transcriptional influence over your gene set. For case
+										studies, please see the ChEA3 paper.</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="cid-r0JPhyhkBL" id="social-buttons1-7">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="col-md-8 align-center">
+					<h2 class="pb-3 mbr-section-title mbr-fonts-style display-2">
+						SHARE THIS TOOL</h2>
+					<div>
+						<div class="mbr-social-likes" data-counters="false">
+							<span class="btn btn-social facebook mx-2"
+								title="Share link on Facebook"> <i
+								class="socicon socicon-facebook"></i>
+							</span> <span class="btn btn-social twitter mx-2"
+								title="Share link on Twitter"> <i
+								class="socicon socicon-twitter"></i>
+							</span> <span class="btn btn-social plusone mx-2"
+								title="Share link on Google+"> <i
+								class="socicon socicon-googleplus"></i>
+							</span>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="cid-r0JPoDoQWj" id="footer5-9">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="col-md-3">
+					<div class="media-wrap">
+						<a href="https://mobirise.com/"> <img
+							src="assets/images/logo2.png" alt="Mobirise">
+						</a>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<p class="mbr-text align-right links mbr-fonts-style display-7">
+						<a href="#" class="text-black">ABOUT</a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="text-black">TERMS</a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="text-black">CAREERS</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a href="#" class="text-black">CONTACT</a>
+					</p>
+				</div>
+			</div>
+			<div class="footer-lower">
+				<div class="media-container-row">
+					<div class="col-md-12">
+						<hr>
+					</div>
+				</div>
+				<div class="media-container-row mbr-white">
+					<div class="col-md-6 copyright">
+						<p class="mbr-text mbr-fonts-style display-7">License&nbsp;</p>
+					</div>
+					<div class="col-md-6">
+						<div class="social-list align-right">
+							<div class="soc-item">
+								<a href="https://twitter.com/mobirise" target="_blank"> <span
+									class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
+								</a>
+							</div>
+							<div class="soc-item">
+								<a
+									href="https://www.facebook.com/pages/Mobirise/1616226671953247"
+									target="_blank"> <span
+									class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
+								</a>
+							</div>
+							<div class="soc-item">
+								<a href="https://www.youtube.com/c/mobirise" target="_blank">
+									<span
+									class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
+								</a>
+							</div>
+							<div class="soc-item">
+								<a href="https://instagram.com/mobirise" target="_blank"> <span
+									class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
+								</a>
+							</div>
+							<div class="soc-item">
+								<a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
+									<span
+									class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
+								</a>
+							</div>
+							<div class="soc-item">
+								<a href="https://www.behance.net/Mobirise" target="_blank">
+									<span
+									class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section once="" class="cid-r0JPpxZeuF" id="footer6-a">
+
+
+		<div class="container">
+			<div class="media-container-row align-center mbr-white">
+				<div class="col-12">
+					<p class="mbr-text mb-0 mbr-fonts-style display-7"></p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<script src="assets/web/assets/jquery/jquery-3.3.1.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+	<!--a bunch of d3 scripts-->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<!-- <script src="assets/d3/d3.v5.min.js"></script> -->
+
+	<!--OpenCPU--->
+	<script src="//cdn.opencpu.org/opencpu-0.4.js"></script>
+
+
+	<!--bootstrap/mobirise--->
+	<script src="assets/popper/popper.min.js"></script>
+	<script src="assets/tether/tether.min.js"></script>
+
+
+	<script src="assets/smoothscroll/smooth-scroll.js"></script>
+	<script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+	<script src="assets/datatables/jquery.dataTables.min.js"></script>
+	<script src="assets/datatables/dataTables.buttons.min.js"></script>
+	<script src="assets/datatables/jszip.min.js"></script>
+	<script src="assets/datatables/buttons.html5.min.js"></script>
+	<script src="assets/datatables/pdfmake.min.js"></script>
+	<script src="assets/datatables/vfs_fonts.js"></script>
+	<script src="assets/mbr-switch-arrow/mbr-switch-arrow.js"></script>
+	<script src="assets/sociallikes/social-likes.js"></script>
+	<script src="assets/dropdown/js/script.min.js"></script>
+	<script src="assets/theme/js/script.js"></script>
+	<script src="assets/networkd3/network.js"></script>
+	<script src="assets/datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="assets/datatables/buttons.colVis.min.js"></script>
+	<script src="assets/spectrum/spectrum.js"></script>
+
+
+	<!-- OpenCPU scripts -->
+	<script src="assets/chea-query/submit-query.js"></script>
+
+
+</body>
+</html>
