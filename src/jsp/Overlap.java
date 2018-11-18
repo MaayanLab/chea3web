@@ -31,13 +31,7 @@ public class Overlap implements Comparable<Overlap>{
 		}else if(comparep > 0) {
 			return -1;
 		}else {
-			double r = Math.random();
-			if(r < 0.5) {
-				return -1;
-			}
-			else {
-				return 1;
-			}
+			return 0;
 		}
 
 	}

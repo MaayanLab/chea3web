@@ -1,7 +1,5 @@
 package serv;
 
-
-
 import java.io.File;
 
 import java.io.IOException;
@@ -72,8 +70,6 @@ public class EnrichmentCore extends HttpServlet {
 			libpaths.add(libdir + f);
 		}
 
-		//System.out.println(libpaths);
-
 		//generate gene set library objects
 		for(String l: libpaths) {
 			try {
@@ -84,12 +80,6 @@ public class EnrichmentCore extends HttpServlet {
 			}
 		}
 	}
-
-
-
-
-
-
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -112,11 +102,11 @@ public class EnrichmentCore extends HttpServlet {
 
 		else if(pathInfo.matches("^/enrich/.*")){
 
-			response.getWriter().println("You've reached the enrichment function!");
+			
 			//http://localhost:8080/chea3-dev/api/enrich/KIAA0907,KDM5A,CDC25A,EGR1,GADD45B,RELB,TERF2IP,SMNDC1,TICAM1,NFKB2,RGS2,NCOA3,ICAM1,TEX10,CNOT4,ARID4B,CLPX,CHIC2,CXCL2,FBXO11,MTF2,CDK2,DNTTIP2,GADD45A,GOLT1B,POLR2K,NFKBIE,GABPB1,ECD,PHKG2,RAD9A,NET1,KIAA0753,EZH2,NRAS,ATP6V0B,CDK7,CCNH,SENP6,TIPARP,FOS,ARPP19,TFAP2A,KDM5B,NPC1,TP53BP2,NUSAP1,SCCPDH,KIF20A,FZD7,USP22,PIP4K2B,CRYZ,GNB5,EIF4EBP1,PHGDH,RRAGA,SLC25A46,RPA1,HADH,DAG1,RPIA,P4HA2,MACF1,TMEM97,MPZL1,PSMG1,PLK1,SLC37A4,GLRX,CBR3,PRSS23,NUDCD3,CDC20,KIAA0528,NIPSNAP1,TRAM2,STUB1,DERA,MTHFD2,BLVRA,IARS2,LIPA,PGM1,CNDP2,BNIP3,CTSL1,CDC25B,HSPA8,EPRS,PAX8,SACM1L,HOXA5,TLE1,PYGL,TUBB6,LOXL1
 
 			String truncPathInfo = pathInfo.replace("/enrich/", "");
-			response.getWriter().println(truncPathInfo);
+			
 
 			String[] genes = truncPathInfo.split(",");
 
@@ -127,12 +117,17 @@ public class EnrichmentCore extends HttpServlet {
 			HashMap<String, ArrayList<Overlap>> results = new HashMap<String, ArrayList<Overlap>>();
 
 			for(GenesetLibrary lib: EnrichmentCore.libraries) {
-				response.getWriter().println(lib.symbolsNotFound);
 				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols);
 				Collections.sort(enrichResult);
 				results.put(lib.name,enrichResult);
-			}			
-			response.getWriter().println(resultsToJSON(results));
+			}		
+			
+			String json = resultsToJSON(results);
+			
+			//respond to request
+			response.setContentType("text/plain");
+			response.getWriter().write(json);
+			
 		}
 
 		else {
@@ -143,7 +138,6 @@ public class EnrichmentCore extends HttpServlet {
 		}
 	}
 
-
 	public String resultsToJSON(HashMap<String, ArrayList<Overlap>> results) {
 		String json = "{";
 		for(String key: results.keySet()) {
@@ -151,7 +145,8 @@ public class EnrichmentCore extends HttpServlet {
 			ArrayList<Overlap> libresults = results.get(key);
 
 			for(Overlap o: libresults) {
-				String entry = "{\"Set1\":" + "\"" + o.name + "\"" + ",";
+				String entry = "{\"Set name\":" + "\"" + o.name + "\"" + ",";
+				entry = entry + "\"TF\":" + "\"" + before(o.name,"_")+ "\"" + ",";
 				entry = entry + "\"Intersect\":" + "\"" + Integer.toString(o.overlap)+ "\"" + ",";
 				entry = entry + "\"Set length\":"  + "\"" + Integer.toString(o.setsize) + "\"" + ",";
 				entry = entry + "\"FET p-value\":" + "\"" + Double.toString(o.pval) + "\"" + ",";
@@ -169,10 +164,17 @@ public class EnrichmentCore extends HttpServlet {
 
 		return json;
 	}
-
-
+	
+	
+	private static String before(String value, String a) {
+	    // Return substring containing all characters before a string.
+	    int posA = value.indexOf(a);
+	    if (posA == -1) {
+	        return value;
+	    }
+	    return value.substring(0, posA);
+	}
 }
-
 
 
 
