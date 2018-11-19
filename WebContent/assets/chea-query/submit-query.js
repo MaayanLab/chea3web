@@ -31,7 +31,7 @@ function recolorAllNodes() {
 		console.log(colorpicker_id)
 		var set1Values = chea3Results[libraryName].map(function (transcriptionFactors) {
 
-			return transcriptionFactors.set1.split('_')[0];
+			return transcriptionFactors.TF;
 
 		});
 		var set1ValuesSliderSubset = set1Values.splice(0, s.value);
@@ -117,6 +117,12 @@ var buttonCommon = {
 		}
 };
 
+function renderHeader(){
+	
+	return `
+	<h1 class="mega montserrat bold">Results by <span class="color-emphasis-1">Library</span></h1>
+	`
+}
 
 $(document).ready(function () {
 	$('#example-genelist').on('click', function () {
@@ -154,6 +160,8 @@ $(document).ready(function () {
 					chea3Results = results;
 					var lib_names = Object.keys(results);
 					var results_div = document.getElementById("query-results");
+					results_div.innerHTML = renderHeader();
+					
 					var captionAndTableMarkup = lib_names.reduce(function (accumlator, libraryName) {
 						accumlator += renderCaption(libraryName)
 						accumlator += renderTable(libraryName);

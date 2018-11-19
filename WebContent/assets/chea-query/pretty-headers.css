@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400|Playfair+Display:400,700,400italic|Libre+Baskerville:400,700,400italic|Muli:300,400|Open+Sans:400,300,700|Oswald:400,700|Raleway:400,100,300,700|Montserrat:400,700|Merriweather:400,300,300italic,400italic,700|Bree+Serif|Vollkorn:400italic,400,700|Abril+Fatface|Cardo:400,400italic);
+
+
+/* Basically just a bunch of typeface classes, some helper classes(letter-spacing, font-weight, etc.), decorative classes(line-on-headers, double-lines, etc). Three types of bg, image, gradient and solid color. I do this for testing headings/hero-image typography. Now there are ten presets here, but you can mix everything. I know that this brings to classivitis, but I still didn't dwelved into Saas, it is next on my learning roadmap, but I will create a fork soon with Saas and variables. */
+
+
+/* Preset 1 ---- Bold/cursive  */
+/* Preset 2 ---- Thin/bold  */
+/* Preset 3 ---- Add emphasis with color */
+/* Preset 4 ---- Thin/Super bold/thin */
+/* Preset 5 ---- Playing with serifs */
+/* Preset 6 ---- Super contrast */
+/* Preset 7 ---- Vertical text */
+/* Preset 8 ---- Playful type */
+/* Preset 9 ---- Middle flourish */
+/* Preset 10 ---- Overlay text */
+
+/* ==== Font sizes(based on Typeplate's scale) ==== */
+
+
+.gigantic{font-size: 11rem;}
+.supersize{font-size: 8rem;}
+.tera {
+  font-size: 6.5rem; /* 117 / 18 = 6.5 */
+  margin-bottom: 0.25385rem;
+}
+
+.giga {
+  font-size: 5rem; /* 90 / 18 = 5 */
+  margin-bottom: 0.33rem;
+}
+
+.mega {
+  font-size: 4rem; /* 72 / 18 = 4 */
+  margin-bottom: 0.4125rem;
+}
+
+.alpha {
+  font-size: 3.33333rem; /* 60 / 18 = 3.3333 */
+  margin-bottom: 0.495rem;
+}
+
+.beta {
+  font-size: 2.6667rem; /* 48 / 18 = 2.6667 */
+  margin-bottom: 0.61875rem;
+}
+
+.gamma {
+  font-size: 2rem; /* 36 / 18 = 2 */
+  margin-bottom: 0.825rem;
+}
+
+.delta {
+  font-size: 1.3333333333333333rem; /* 24 / 18 = 1.3333 */
+  margin-bottom: 1.2375rem;
+}
+
+.epsilon {
+  font-size: 1.16667rem; /* 21 / 18 = 1.1667 */
+  margin-bottom: 1.41429rem;
+}
+
+.zeta {
+  font-size: 1rem; /* 18 = 18 × 1 */
+  margin-bottom: 1.65rem;
+}
+/* ==== Typefaces  ==== */
+
+.open-sans{font-family: 'Open Sans';}
+.lato{font-family: 'Lato'}
+.playfair-display{font-family: 'Playfair Display'}
+.libre-baskerville{font-family: 'Libre Baskerville'}
+.oswald{font-family: 'Oswald'}
+.montserrat{font-family: 'Montserrat'}
+.vollkorn{font-family: 'Vollkorn'}
+.bree-serif{font-family: 'Bree Serif'}
+.raleway{font-family: 'Raleway'}
+.merriweather{font-family: 'Merriweather'}
+.cardo{font-family: 'Cardo'}
+.abril-fatface{font-family: 'Abril Fatface'}
+.muli{font-family: 'Muli'}
+
+/* ==== Weights, styles, letterspacing, etc. ==== */
+
+.thin{font-weight: 100;}
+.light{font-weight: 300;}
+.regular{font-weight: 400;}
+.bold{font-weight: 700;}
+.italic{font-style: italic;}
+.normal{font-style: normal;}
+.ls-small{letter-spacing: 2px;}
+.ls-medium{letter-spacing: 4px;}
+.ls-large{letter-spacing: 8px;}
+.ls-xlarge{letter-spacing: 12px;}
+.uppercase{text-transform: uppercase;}
+.color-emphasis-1{color: #229eca}
+.color-emphasis-2{color: #000;}
+.color-emphasis-3{color: #60547c}
+.text-left{text-align: left;}
+.line-height-small{line-height: 1.2}
+.line-height-medium{line-height: 1.45}
+.line-height-large{line-height: 1.65}
