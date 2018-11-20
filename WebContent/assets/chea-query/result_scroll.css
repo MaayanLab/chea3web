@@ -1,0 +1,22 @@
+.side{
+  position:fixed;
+  right:0px;
+  padding:0;
+}
+
+.scroll-area{
+  width:100%;
+  height:calc(100% - 200px);
+  margin-top:100px;
+  background-color:gray;
+  float:left;
+  overflow-y:scroll;
+}
+
+.ui-dialog{
+	width:50%;
+	height:50%;
+	position:fixed;
+	right:0px;
+	padding:0;
+}

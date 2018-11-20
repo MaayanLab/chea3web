@@ -65,8 +65,8 @@ function renderCaption(libraryName) {
 	var value = 0;
 
 	return `
-	<caption style="width:500%;font-weight:bold;padding-top:50px;padding-bottom:10px;font-size:medium">
-	${libraryName}
+	<caption>
+	<span class="color-emphasis-1" style = "font-size:150%">${libraryName}</span>
 	<span data-tooltip="library information text will go here" data-tooltip_position="right">
 	<span class="mbri-info mbr-iconfont mbr-iconfont-btn"></span>
 	</span>
@@ -117,11 +117,29 @@ var buttonCommon = {
 		}
 };
 
-function renderHeader(){
+function renderResultsDialog(){
+	$( function() {
+		//initialize dialog
+	    $( "#resultsdialog" ).dialog({
+	    	  appendTo: "#dialogoverlay",
+	    	  beforeClose: function(event, ui) {
+	    		  alert("Are you sure you want to close? You will lose your results. Note you can download a json of all of your results here.")
+	    	  },
+	    	  close: function(event,ui){
+	    		  $("#dialogoverlay").addClass("d-none");
+	    	  }
+	    });
+	    $("[aria-describedby='resultsdialog']").css(
+	    		{	"position":"relative",
+	    			"width":"100%",
+	    			"height":"90%",
+	    			"left":"0px",
+	    			"top":"20px",
+	    			"overflow":"scroll"
+	    });
+	 } );
 	
-	return `
-	<h1 class="mega montserrat bold">Results by <span class="color-emphasis-1">Library</span></h1>
-	`
+	
 }
 
 $(document).ready(function () {
@@ -133,7 +151,11 @@ $(document).ready(function () {
 		});
 
 	});
-
+	
+	renderResultsDialog();
+	
+	
+	
 
 	$('#submit-genelist').on('click', function (evt) {
 
@@ -146,10 +168,12 @@ $(document).ready(function () {
 		if (validateGeneSet(geneset)) {
 
 			$('#loading-screen').removeClass('d-none');
-			//remove tools
-			document.getElementById("tfea-title").remove();
-			document.getElementById('translucent-net').remove();
-			document.getElementById("tfea-submission").remove();
+//			//remove tools
+//			document.getElementById("tfea-title").remove();
+			$('#translucent-net').addClass("d-none");
+//			document.getElementById("tfea-submission").remove();
+			
+			
 
 
 			//send gene set to java servlet
@@ -159,8 +183,7 @@ $(document).ready(function () {
 					results = JSON.parse(results);
 					chea3Results = results;
 					var lib_names = Object.keys(results);
-					var results_div = document.getElementById("query-results");
-					results_div.innerHTML = renderHeader();
+					var results_div = document.getElementById("resultsdialog");
 					
 					var captionAndTableMarkup = lib_names.reduce(function (accumlator, libraryName) {
 						accumlator += renderCaption(libraryName)
@@ -204,9 +227,11 @@ $(document).ready(function () {
 						});
 					}
 					addSliderEventListeners();
-					$('#loading-screen').addClass('d-none');
+					$("#dialogoverlay").removeClass("d-none");
+					$('#loading-screen').addClass('d-none');	
 				}
 			}); //end AJAX call
+			
 		}
 	}); 
 });
