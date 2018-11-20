@@ -1,8 +1,7 @@
-//set CORS to call "appdemo" package on public server
-ocpu.seturl("http://maayanlab.ocpu.io/chea3/R")
 
 var sliderClassName = 'slider';
 var chea3Results;
+var host = "http://amp.pharm.mssm.edu/";
 
 
 function sliderChange(event) {
@@ -161,7 +160,7 @@ $(document).ready(function () {
 
 		var geneset = document.getElementById("genelist").value.split(/\n/);
 		//generate url
-		var enrich_url = "http://localhost:8080/chea3-dev/api/enrich/";
+		var enrich_url = host + "chea3-dev/api/enrich/";
 		enrich_url = enrich_url + geneset.join();
 		console.log(enrich_url);
 

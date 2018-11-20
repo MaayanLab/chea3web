@@ -22,23 +22,20 @@
 <link rel="stylesheet" href="assets/socicon/css/styles.css">
 <link rel="stylesheet" href="assets/dropdown/css/style.css">
 <link rel="stylesheet" href="assets/theme/css/style.css">
-<link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css"
-	type="text/css">
-<link rel="stylesheet" href="assets/chea-query/submit-query.css">
+<link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 <link rel="stylesheet" href="assets/networkd3/network_style.css">
-<link rel="stylesheet"
-	href="assets/datatables/jquery.dataTables.min.css">
-<link rel="stylesheet"
-	href="assets/datatables/buttons.dataTables.min.css">
-<link rel="stylesheet"
-	href="assets/datatables/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/datatables/jquery.dataTables.min.css">
+<link rel="stylesheet" href="assets/datatables/buttons.dataTables.min.css">
+<link rel="stylesheet" href="assets/datatables/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/tooltips/css_tooltips.css">
 <link rel="stylesheet" href="assets/networkd3/network_options.css">
 <link rel="stylesheet" href="assets/spectrum/spectrum.css">
 <link rel="stylesheet" href="assets/chea-query/pretty-headers.css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="assets/chea-query/result_scroll.css">
+<link rel="stylesheet" href="assets/chea-query/submit-query.css">
+
+
 
 </head>
 <body>
@@ -115,7 +112,7 @@
 
 
 			<div class="col-lg-4 col-md-5" id="tfea-submission"
-				style="max-width: 50%; width: 50%; position: absolute; left: 50%">
+				style="max-width: 50%; top: 75px; width: 50%; position: absolute; right: 50%">
 				<h1
 					class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-6 mega">Transcription
 					Factor Enrichment Analysis</h1>
@@ -148,9 +145,10 @@
 			<!-- class="col-lg-4 col-md-5" -->
 			<!--Results column--->
 			<div class="mbr-overlay d-none" id="dialogoverlay"
-				style="opacity: 1; left: 50%; background-color: #0000">
+				style="opacity: 1; right: 50%; padding-left: 10px; top: 60px; background-color: #0000">
 				<div id="resultsdialog">
 					<div id="tablecontents" style="overflow:scroll;height:100%;width:100%"></div>
+				
 				</div>
 			</div>
 		</div>
@@ -161,7 +159,8 @@
 
 		<!--Results loading screen--->
 		<div id="loading-screen" class="mbr-overlay d-none">
-			<div class="loader"></div>
+			<div class="c_spinner"></div>
+			<div class="ellipsis"></div>
 		</div>
 
 		<div class="mbr-arrow hidden-sm-down" aria-hidden="true">

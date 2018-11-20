@@ -24,8 +24,8 @@ function draw_network(){
 		
 		//initialize node positions
 		json.nodes_dat.forEach(function(d){
-			d.x = (net_width * Math.random())/4;
-			d.y = (net_height * Math.random())/2;
+			d.x = (net_width * Math.random())*.75;
+			d.y = (net_height * Math.random())*.5;
 		});
 
 //		create simulation and add nodes
@@ -40,7 +40,7 @@ function draw_network(){
 		var charge_force = d3.forceManyBody()
 		.strength(-0.5); 
 
-		var center_force = d3.forceCenter(net_width/4, net_height/2);  
+		var center_force = d3.forceCenter(net_width*.74, net_height*.5);  
 
 		simulation
 		.force("charge_force", charge_force)
