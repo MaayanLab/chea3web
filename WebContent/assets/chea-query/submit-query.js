@@ -1,5 +1,6 @@
 
 var sliderClassName = 'slider';
+var defaultNodeColor = 'gray';
 var chea3Results;
 var host = "http://amp.pharm.mssm.edu/";
 
@@ -15,12 +16,16 @@ function getColor(id) {
 	return ($("#" + id).spectrum('get').toHexString())
 }
 
-function recolorAllNodes() {
+function defaultNodeColorAll(){
 	// reset to gray
 	nodes = document.querySelectorAll("circle");
 	for (var n of nodes) {
-		n.setAttribute("fill", "gray");
+		n.setAttribute("fill", defaultNodeColor);
 	}
+}
+
+function recolorAllNodes() {
+	defaultNodeColorAll()
 
 	// loop through sliders and colorpickers
 	sliders = document.querySelectorAll(".slider");
@@ -91,7 +96,6 @@ function renderTable(libraryName) {
 	`
 }
 
-
 function renderCardHeader(libraryName){
 	return `    <div class="card-header" role="tab" id="${libraryName}_header">
 								<a role="button" class="collapsed panel-title text-black"
@@ -151,7 +155,7 @@ var buttonCommon = {
 };
 
 function renderResultsDialog(){
-	$( function() {
+	$(function() {
 		// initialize dialog
 		$( "#resultsdialog" ).dialog({
 			appendTo: "#dialogoverlay",
@@ -160,7 +164,19 @@ function renderResultsDialog(){
 				alert("Are you sure you want to close? You will lose your results. Note you can download a json of all of your results here.")
 			},
 			close: function(event,ui){
+				$("#dialogoverlay").html(`<div id="resultsdialog" class="myDialogClass">
+					<div id="tablecontents" style="overflow:scroll;height:100%;width:100%"></div></div>`);
 				$("#dialogoverlay").addClass("d-none");
+				renderResultsDialog();
+				//reset tf network to gray
+				defaultNodeColorAll();
+				//display overlay
+				$('#translucent-net').removeClass("d-none");
+				chea3Results = null;
+				//reset text box
+				
+				
+				
 			}
 		});
 		$("[aria-describedby='resultsdialog']").css(
@@ -176,6 +192,9 @@ function renderResultsDialog(){
 
 }
 
+function genesetSubmission(){}
+
+
 $(document).ready(function () {
 	$('#example-genelist').on('click', function () {
 		var gl = document.getElementById("genelist");
@@ -185,8 +204,8 @@ $(document).ready(function () {
 		});
 
 	});
-
 	renderResultsDialog();
+
 
 
 
@@ -198,6 +217,8 @@ $(document).ready(function () {
 		var enrich_url = host + "chea3-dev/api/enrich/";
 		enrich_url = enrich_url + geneset.join();
 		console.log(enrich_url);
+		
+		
 
 		if (validateGeneSet(geneset)) {
 
@@ -232,6 +253,7 @@ $(document).ready(function () {
 						renderColorPicker(lib_names[i]);
 						var lib_results = results[lib_names[i]];
 						var column_names = Object.keys(lib_results[1]);
+						
 						$(`#table_${lib_names[i]}`).DataTable({
 							data: lib_results,
 							aoColumns: [
@@ -241,11 +263,10 @@ $(document).ready(function () {
 								{mData: "Intersect", sTitle: "Intersection"},
 								{mData: "FET p-value", sTitle: "FET p-value"},
 								{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
-								scrollY: "100px",
-								scrollX: false,
+								scrollY: "200px",
+								scrollX: true,
 								scrollCollapse: true,
 								paging: false,
-								fixedColumns: true,
 								dom: "Bfrtip",
 								buttons: [
 									$.extend(true, {}, buttonCommon, {
