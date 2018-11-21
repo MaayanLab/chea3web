@@ -1,22 +1,106 @@
-.side{
-  position:fixed;
-  right:0px;
-  padding:0;
+.side {
+	position: fixed;
+	right: 0px;
+	padding: 0;
 }
 
-.scroll-area{
-  width:100%;
-  height:calc(100% - 200px);
-  margin-top:100px;
-  background-color:gray;
-  float:left;
-  overflow-y:scroll;
+.scroll-area {
+	width: 100%;
+	height: calc(100% - 200px);
+	margin-top: 100px;
+	background-color: gray;
+	float: left;
+	overflow-y: scroll;
 }
 
-.ui-dialog{
-	width:50%;
-	height:50%;
-	position:fixed;
-	right:0px;
-	padding:0;
+.ui-dialog {
+	width: 50%;
+	height: 50%;
+	position: fixed;
+	right: 0px;
+	padding: 0;
+}
+.ui-dialog-title { font-size: 30px} 
+
+/***
+	Bootstrap dropdown container fix
+	for Bootstrap 4 and Material Design Bootstrap
+	Hint : Move out the button or the link declaring the data-toggle="dropdwn" from the .dropdown div
+	Created a dropdown-sm class for smaller dropdowns when using kebabs
+***/
+
+.dropdown-menu.dropdown-unroll {
+    transition: none;
+}
+
+.kebab-link i {
+    font-size: 1.5rem;
+}
+
+.kebab-link i:active,
+.kebab-link i:hover {
+    color: #4285F4;
+}
+
+
+/*Try to delete this setting and you'll see the problem*/
+
+.kebab-dropdown {
+    position: absolute;
+}
+
+
+/* material design for dropdown */
+
+.dropdown-sm>.dropdown-menu>.dropdown-item {
+    padding: 5px;
+    margin-left: 0;
+}
+
+.dropdown-menu>.dropdown-item {
+    padding: 1rem;
+    margin-left: 0;
+}
+
+.dropdown-menu>.dropdown-item:hover {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+    color: white;
+    background: #4285F4;
+}
+
+
+/***
+	Bootstrap 4 Collapse Accordion full width clickable
+	from Jacob Lett : http://codepen.io/JacobLett/pen/GWqjPw 
+	with Material Design Bootstrap
+	enhenced by djibe
+	Just add the collapse-accordion class to the div wearing the role="tablist"
+ ***/
+
+.collapse-accordion>.card a[data-toggle=collapse] {
+    display: block;
+    padding: .75rem 1.25rem;
+}
+
+.collapse-accordion>.card a[data-toggle=collapse]:after {
+    /* symbol for "opening" panels */
+    font-family: FontAwesome;
+    font-size: .9rem;
+    content: "\f077";
+    /* adjust as needed, taken from bootstrap.css */
+    float: right;
+    /* adjust as needed */
+    vertical-align: middle;
+    color: grey;
+    /* adjust as needed */
+    transition: all .5s linear;
+    margin-right: 5%;
+}
+
+.collapse-accordion>.card a[data-toggle=collapse].collapsed:after {
+    content: "\f078";
+}
+
+.collapse-accordion>.card>.card-header {
+    padding: 0;
 }
