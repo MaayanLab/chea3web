@@ -4,9 +4,16 @@ var network_svg = d3.select("#tfnet").append("svg");
 var min_zoom = 0.1;
 var max_zoom = 7;
 
-var radius = 5
+var radius = 5;
+
+var alpha = 0.4;
+var veldecay = .5;
+var forceMB = -1.3;
+var forceLink = 2.5;
 
 var simtest;
+
+
 
 
 //Extract the width and height that was computed by CSS.
@@ -20,7 +27,7 @@ function draw_network(){
 	.attr("width", net_width)
 	.attr("height", net_height);
 
-	d3.json("assets/networkd3/tf.json", function(json){
+	d3.json("assets/networkd3/tf10perc.json", function(json){
 		
 		//initialize node positions
 		json.nodes_dat.forEach(function(d){
@@ -34,11 +41,11 @@ function draw_network(){
 		
 //		create some forces                            
 		var link_force =  d3.forceLink(json.links_dat)
-		.id(function(d) { return d.name; }).strength(2);   
+		.id(function(d) { return d.name; }).strength(forceLink);   
 
 
 		var charge_force = d3.forceManyBody()
-		.strength(-0.5); 
+		.strength(forceMB); 
 
 		var center_force = d3.forceCenter(net_width*.74, net_height*.5);  
 
@@ -46,12 +53,13 @@ function draw_network(){
 		.force("charge_force", charge_force)
 		.force("center_force", center_force)
 		.force("links",link_force)
-		;
+//		.force('collision', d3.forceCollide().radius(function(d) {
+//    return d.radius}));
 
 
 //		add tick instructions: 
 		simulation.on("tick", tickActions);
-		simulation.velocityDecay(.36);
+		simulation.velocityDecay(veldecay);
 
 
 //		add encompassing group for the zoom 
@@ -65,7 +73,7 @@ function draw_network(){
 		.data(json.links_dat)
 		.enter()
 		.append("line")
-		.attr("stroke-width", 0.3)
+		.attr("stroke-width", 1.0)
 		.style("stroke", linkColour);   
 
 //		draw circles for the nodes 
@@ -126,7 +134,7 @@ function draw_network(){
 //		Drag functions 
 //		d is the node 
 		function drag_start(d) {
-			if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+			//if (!d3.event.active) simulation.alphaTarget(alpha).restart();
 			d.fx = d.x;
 			d.fy = d.y;
 
@@ -139,7 +147,7 @@ function draw_network(){
 		}
 
 		function drag_end(d) {
-			if (!d3.event.active) simulation.alphaTarget(0);
+			//if (!d3.event.active) simulation.alphaTarget(0);
 			d.fx = d3.event.x;
 			d.fy = d3.event.y;
 		}
@@ -169,8 +177,7 @@ function draw_network(){
 		}
 		
 
-		console.log(node);
-		//console.log(net_height);
+		
 		
 
 	});//end d3.json
