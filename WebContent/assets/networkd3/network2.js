@@ -41,6 +41,7 @@ function drawNetwork(){
 
 
 		var meter = document.querySelector("#progress");
+		var loading = document.querySelector("#loadingnetwork")
 		var worker = new Worker("assets/networkd3/networker.js");
 
 		worker.postMessage({
@@ -71,6 +72,7 @@ function drawNetwork(){
 			var links = data.links;
 
 			meter.style.display = "none";
+			loading.style.display = "none";
 
 			// add encompassing group for the zoom
 			g = network_svg.append("g")
@@ -208,13 +210,6 @@ function drawNetwork(){
 			
 		}//end function "ended"
 		
-		
-//		
-		
-
-
-
-
 
 
 	});// end d3.json

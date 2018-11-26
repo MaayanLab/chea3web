@@ -104,3 +104,9 @@
 .collapse-accordion>.card>.card-header {
     padding: 0;
 }
+
+.dataTables_scroll
+{
+    overflow:auto;
+    position:relative;
+}

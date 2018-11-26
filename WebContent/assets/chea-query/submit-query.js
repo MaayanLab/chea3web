@@ -92,7 +92,7 @@ function renderColorPicker(libraryName) {
 
 function renderTable(libraryName) {
 	return `
-	<table class="display" style="width:30%" id="table_${libraryName}"></table>
+	<table class="display" style="width:4000px" id="table_${libraryName}"></table>
 	`
 }
 
@@ -264,8 +264,8 @@ $(document).ready(function () {
 								{mData: "FET p-value", sTitle: "FET p-value"},
 								{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
 								scrollY: "200px",
-								scrollX: "100%",
-								sScrollX: "100%",
+								scrollX: "4000px",
+								sScrollX: "4000px",
 								scrollCollapse: true,
 								paging: false,
 								dom: "Bfrtip",
@@ -284,10 +284,22 @@ $(document).ready(function () {
 									})
 									]
 						});
+						
+						$('#'+lib_names[i] + "_body").on('shown.bs.collapse', function () {
+							   $($.fn.dataTable.tables(true)).DataTable()
+							      .columns.adjust();
+							})
+						
 					}
 					addSliderEventListeners();
 					$("#dialogoverlay").removeClass("d-none");
 					$('#loading-screen').addClass('d-none');	
+					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
+					$(".table ").css({"width":"4000px"});
+					$('#GTEx_body').on('shown.bs.collapse', function () {
+						  console.log("hi");
+						})
+
 					
 					
 					
