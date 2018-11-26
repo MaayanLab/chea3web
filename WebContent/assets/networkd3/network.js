@@ -53,8 +53,8 @@ function draw_network(){
 		.force("charge_force", charge_force)
 		.force("center_force", center_force)
 		.force("links",link_force)
-//		.force('collision', d3.forceCollide().radius(function(d) {
-//    return d.radius}));
+		.force('collision', d3.forceCollide().radius(function(d) {
+    return d.radius}));
 
 
 //		add tick instructions: 
@@ -134,7 +134,7 @@ function draw_network(){
 //		Drag functions 
 //		d is the node 
 		function drag_start(d) {
-			//if (!d3.event.active) simulation.alphaTarget(alpha).restart();
+			if (!d3.event.active) simulation.alphaTarget(alpha).restart();
 			d.fx = d.x;
 			d.fy = d.y;
 
@@ -147,7 +147,7 @@ function draw_network(){
 		}
 
 		function drag_end(d) {
-			//if (!d3.event.active) simulation.alphaTarget(0);
+			if (!d3.event.active) simulation.alphaTarget(0);
 			d.fx = d3.event.x;
 			d.fy = d3.event.y;
 		}
@@ -177,7 +177,8 @@ function draw_network(){
 		}
 		
 
-		
+		console.log(node);
+		//console.log(net_height);
 		
 
 	});//end d3.json

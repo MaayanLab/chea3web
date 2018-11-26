@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="assets/chea-query/result_scroll.css">
 <link rel="stylesheet" href="assets/chea-query/submit-query.css">
-
+<link rel="stylesheet" href="assets/networkd3/netprogressbar.css">
 
 
 </head>
@@ -95,9 +95,13 @@
 
 	<section class="cid-r0JOAk81nJ mbr-fullscreen" id="header15-1"
 		style="width: 100%;">
-
-		<div class="network-overlay mbr-fullscreen" id="tfnet"
-			style="opacity: 1; background-color: rgb(255, 255, 255); width: 100%;"></div>
+		
+		
+		<div class="col-lg-4 col-md-5" id="tfnet"
+			style="max-width: 50%; top: 75px; width: 50%; height: 100%; position: absolute; left: 50%">
+			<div id="progress"></div>
+			
+			</div>
 
 
 		<div class="mbr-overlay mbr-fullscreen" id='translucent-net'
@@ -872,12 +876,14 @@
 	<script src="assets/sociallikes/social-likes.js" type="text/javascript"></script>
 	<script src="assets/dropdown/js/script.min.js" type="text/javascript"></script>
 	<script src="assets/theme/js/script.js" type="text/javascript"></script>
-	<script src="assets/networkd3/network.js" type="text/javascript"></script>
+	<script src="assets/networkd3/network2.js" type="text/javascript"></script>
+
 	<script src="assets/datatables/dataTables.bootstrap4.min.js"
 		type="text/javascript"></script>
 	<script src="assets/datatables/buttons.colVis.min.js"
 		type="text/javascript"></script>
 	<script src="assets/spectrum/spectrum.js" type="text/javascript"></script>
+	<script src="https://d3js.org/d3-array.v1.min.js"></script>
 
 
 
