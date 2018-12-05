@@ -17,10 +17,6 @@ function linkColour(d){
 function drawNetwork(){
 	d3.json("assets/networkd3/tf10perc.json", function(json){
 
-
-
-
-
 		var networkDiv = document.getElementById("tfnet");
 		
 		net_width = networkDiv.clientWidth;

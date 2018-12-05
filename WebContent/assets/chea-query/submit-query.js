@@ -2,7 +2,7 @@
 var sliderClassName = 'slider';
 var defaultNodeColor = 'gray';
 var chea3Results;
-var host = "http://amp.pharm.mssm.edu/";
+
 
 
 function sliderChange(event) {
@@ -299,6 +299,7 @@ $(document).ready(function () {
 					$('#GTEx_body').on('shown.bs.collapse', function () {
 						  console.log("hi");
 						})
+					updateHits();
 
 					
 					
