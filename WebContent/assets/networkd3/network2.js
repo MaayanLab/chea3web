@@ -15,7 +15,7 @@ function linkColour(d){
 
 
 function drawNetwork(){
-	d3.json("assets/networkd3/tf10perc.json", function(json){
+	d3.json("assets/networkd3/kruskal_MST_coexp.json", function(json){
 
 		var networkDiv = document.getElementById("tfnet");
 		

@@ -78,8 +78,16 @@ public class EnrichmentCore extends HttpServlet {
 		String[] filenames = new File(getServletContext().getRealPath(libdir)).list(); 
 		HashSet<String> libpaths = new HashSet<String>();
 		for(String f: filenames) {
-			libpaths.add(libdir + f);
+			System.out.println(f);
+			if(!f.equals(".DS_Store")) {
+				libpaths.add(libdir + f);
+			}
+			
 		}
+		
+		
+		
+		
 
 		//generate gene set library objects
 		for(String l: libpaths) {

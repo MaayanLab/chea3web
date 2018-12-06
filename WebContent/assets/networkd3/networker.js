@@ -6,8 +6,8 @@ importScripts("https://d3js.org/d3-force.v1.min.js");
 
 var alpha = 0.4;
 var veldecay = .5;
-var forceMB = -3;
-var forceLink = 2.5;
+var forceMB = -5;
+var forceLink = 2;
 
 
 onmessage = function(event) {
