@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -39,6 +41,7 @@ public class EnrichmentCore extends HttpServlet {
 	static HashSet<GenesetLibrary> libraries = new HashSet<GenesetLibrary>();
 
 	static Enrichment enrich = null;
+	static RankAggregate aggregate = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -55,6 +58,7 @@ public class EnrichmentCore extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		System.out.println("hi");
 
 		//initialize dictionary object
 		try {
@@ -64,14 +68,15 @@ public class EnrichmentCore extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//read hit counter file
-		this.hitCount = readHits("WEB-INF/hits.txt", this);
-		//initialize hitIncr
-		this.hitIncr = 0;
+//		//read hit counter file
+//		this.hitCount = readHits("WEB-INF/hits.txt", this);
+//		//initialize hitIncr
+//		this.hitIncr = 0;
 		
 			
 		//initialize enrichment object
 		EnrichmentCore.enrich = new Enrichment();
+		EnrichmentCore.aggregate = new RankAggregate();
 
 		//get gmt file paths
 		String libdir = "WEB-INF/tflibs/";
@@ -84,10 +89,6 @@ public class EnrichmentCore extends HttpServlet {
 			}
 			
 		}
-		
-		
-		
-		
 
 		//generate gene set library objects
 		for(String l: libpaths) {
@@ -100,11 +101,11 @@ public class EnrichmentCore extends HttpServlet {
 	}
 	public void destroy() {
 		System.out.println("destroying server instance");
-		try {
-			this.writeHits("WEB-INF/hits.txt", this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			this.writeHits("WEB-INF/hits.txt", this);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	/**
@@ -134,6 +135,8 @@ public class EnrichmentCore extends HttpServlet {
 
 		else if(pathInfo.matches("^/enrich/.*")){
 			
+			String query_name = "user query";
+			
 			//if hitCount is legitimate
 			if(this.hitCount >0) {
 				this.hitIncr++;
@@ -157,14 +160,38 @@ public class EnrichmentCore extends HttpServlet {
 			//compute enrichment for each library
 
 			HashMap<String, ArrayList<Overlap>> results = new HashMap<String, ArrayList<Overlap>>();
+			
+			float size = 0;
+			float r = 1;
 
 			for(GenesetLibrary lib: EnrichmentCore.libraries) {
-				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols);
+				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols, lib.name, query_name);
+				Collections.shuffle(enrichResult, new Random());
 				Collections.sort(enrichResult);
+				size = enrichResult.size();
+				r = 1;
+				for(Overlap o: enrichResult) {
+					o.setRank((int) r);
+					o.setScaledRank(r/size);
+					//System.out.println(Integer.toString(size));
+					r++;
+				}
 				results.put(lib.name,enrichResult);
+				
+				//integrate results
+			
 			}		
 			
-			String json = resultsToJSON(results);
+			ArrayList<IntegratedRank> top_rank = aggregate.topRank(results, query_name);
+			ArrayList<IntegratedRank> borda = aggregate.bordaCount(results, query_name);
+			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
+			
+			HashMap<String, ArrayList<IntegratedRank>> integrated_results = new HashMap<String, ArrayList<IntegratedRank>>();
+			integrated_results.put("topRank", top_rank);
+			integrated_results.put("bordaCount",borda);
+			integrated_results.put("localKemenization",kemen);
+			
+			String json = resultsToJSON(results, integrated_results);
 			
 			//respond to request
 			response.setContentType("text/plain");
@@ -184,15 +211,38 @@ public class EnrichmentCore extends HttpServlet {
 		}
 	}
 
-	public String resultsToJSON(HashMap<String, ArrayList<Overlap>> results) {
+	public String resultsToJSON(HashMap<String, ArrayList<Overlap>> results, HashMap<String, ArrayList<IntegratedRank>> integ) {
 		String json = "{";
+		
+		for(String key: integ.keySet()) {
+			json = json + "\"" + "Integrated_" + key + "\":[";
+			ArrayList<IntegratedRank> integ_results = integ.get(key);
+			for(IntegratedRank i: integ_results) {
+				String entry = "{\"Query Name\":" + "\"" + i.query_name + "\"" + ",";
+				entry = entry + "\"Rank\":" + "\"" + i.rank + "\"" + ",";
+				entry = entry + "\"TF\":" + "\"" + i.tf + "\"" + ",";
+				entry = entry + "\"Score\":" + "\"" + Float.toString(i.score) + "\"" + ",";
+				entry = entry + "\"Library\":" + "\"" + i.lib_name + "\"}," ;
+				json = json + entry;	
+				
+			}
+			
+			//remove trailing comma
+			json = json.replaceAll(",$", "");
+			json = json + "],";
+			
+		}
+		
 		for(String key: results.keySet()) {
 			json = json + "\"" + key + "\":[";
 			ArrayList<Overlap> libresults = results.get(key);
 
 			for(Overlap o: libresults) {
-				String entry = "{\"Set name\":" + "\"" + o.name + "\"" + ",";
-				entry = entry + "\"TF\":" + "\"" + before(o.name,"_")+ "\"" + ",";
+				String entry = "{\"Query Name\":" + "\"" + o.query_name + "\"" + ",";
+				entry = entry + "\"Rank\":" + "\"" + o.rank + "\"" + ",";
+				entry = entry + "\"Scaled Rank\":" + "\"" + o.scaledRank + "\"" + ",";
+				entry = entry + "\"Set name\":" + "\"" + o.libset_name + "\"" + ",";
+				entry = entry + "\"TF\":" + "\"" + o.lib_tf+ "\"" + ",";
 				entry = entry + "\"Intersect\":" + "\"" + Integer.toString(o.overlap)+ "\"" + ",";
 				entry = entry + "\"Set length\":"  + "\"" + Integer.toString(o.setsize) + "\"" + ",";
 				entry = entry + "\"FET p-value\":" + "\"" + Double.toString(o.pval) + "\"" + ",";
@@ -203,7 +253,9 @@ public class EnrichmentCore extends HttpServlet {
 			//remove trailing comma
 			json = json.replaceAll(",$", "");
 			json = json + "],";
+			
 		}
+		
 		//remove trailing comma
 		json = json.replaceAll(",$", "");
 		json = json + "}";
@@ -211,14 +263,6 @@ public class EnrichmentCore extends HttpServlet {
 		return json;
 	}
 	
-	private static String before(String value, String a) {
-	    // Return substring containing all characters before a string.
-	    int posA = value.indexOf(a);
-	    if (posA == -1) {
-	        return value;
-	    }
-	    return value.substring(0, posA);
-	}
 	
 	public int readHits(String hit_filename, EnrichmentCore c) {
 		InputStream file = c.getServletContext().getResourceAsStream(hit_filename);

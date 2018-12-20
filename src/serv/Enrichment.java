@@ -18,7 +18,7 @@ public class Enrichment {
 
 	}
 
-	public ArrayList<Overlap> calculateEnrichment(HashSet<String> queryset, HashMap<String,HashSet<String>> genesetlib) {
+	public ArrayList<Overlap> calculateEnrichment(HashSet<String> queryset, HashMap<String,HashSet<String>> genesetlib, String lib_name, String query_name) {
 
 
 		ArrayList<Overlap> pvals = new ArrayList<Overlap>();
@@ -33,7 +33,7 @@ public class Enrichment {
 			double pvalue = fet.getRightTailedP(numOverlap,(gmtListSize - numOverlap), numGeneQuery, (totalBgGenes - numGeneQuery));
 			double oddsratio = (numOverlap*1.0*(totalBgGenes - numGeneQuery))/((gmtListSize - numOverlap)*1.0*numGeneQuery);
 
-			Overlap o = new Overlap(key, numOverlap, pvalue, gmtListSize, oddsratio);
+			Overlap o = new Overlap(key, numOverlap, pvalue, gmtListSize, oddsratio, lib_name, query_name);
 			pvals.add(o);	
 		}
 
