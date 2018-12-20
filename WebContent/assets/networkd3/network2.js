@@ -68,7 +68,7 @@ function drawNetwork(){
 			var links = data.links;
 
 			meter.style.display = "none";
-			loading.style.display = "none";
+			
 
 			// add encompassing group for the zoom
 			g = network_svg.append("g")

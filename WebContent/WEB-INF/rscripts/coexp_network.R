@@ -124,7 +124,7 @@ m_coeffs = m_coeffs[!dup_idx,]
 
 #remove negative edges and edges that are not statistically significant
 m_coeffs = m_coeffs[m_coeffs$pval <= 0.05,]
-m_coeffs = m_coeffs[m_coeffs$value > 0,]
+#m_coeffs = m_coeffs[m_coeffs$value > 0,]
 
 #express factors as strings
 m_coeffs$Var1 = as.character(m_coeffs$Var1)
@@ -144,10 +144,12 @@ arcs[,3] = arcs[,3]*-1
 #Kruskal MST
 kruskal_tree = msTreeKruskal(1:length(unique_genes), arcs)
 kruskal_edges= as.data.frame(kruskal_tree$tree.arcs)
-
+kruskal_edges = data.frame(source = node_indices[match(kruskal_edges$ept1,node_indices$index),"gene_symbol"], target = node_indices[match(kruskal_edges$ept2,node_indices$index),"gene_symbol"], score = kruskal_edges$weight, stringsAsFactors = F)
 kruskal_net_json = getNetworkJSON(data.frame(source = node_indices[match(kruskal_edges$ept1,node_indices$index),"gene_symbol"], target = node_indices[match(kruskal_edges$ept2,node_indices$index),"gene_symbol"],stringsAsFactors = F))
-
+kruskal_edges$score = kruskal_edges$score * -1
+write.table(kruskal_edges,"/users/alexandrakeenan/Projects/ChEA3/kruskal_edges_ARCHS4_coexp.tsv",sep = "\t",quote = F, col.names = T, row.names = F)
 writeJSON(kruskal_net_json,"kruskal_MST_coexp.json")
+write.table()
 
 #Primm MST
 primm_tree = msTreePrim(1:length(unique_genes), arcs)
@@ -163,7 +165,7 @@ boruvka_edges= as.data.frame(boruvka_tree$tree.arcs)
 
 boruvka_net_json = getNetworkJSON(data.frame(source = node_indices[match(boruvka_edges$ept1,node_indices$index),"gene_symbol"], target = node_indices[match(boruvka_edges$ept2,node_indices$index),"gene_symbol"],stringsAsFactors = F))
 
-writeJSON(boruvka_net_json,"boruvka_MST_coexp.json")
+writeJSON(boruvka_net_json,"boruvkae_MST_coexp.json")
 
 
 

@@ -17,10 +17,22 @@ function getColor(id) {
 }
 
 function defaultNodeColorAll(){
-	// reset to gray
+	
+	var colorby_val = document.getElementById("colorby").value;
 	nodes = document.querySelectorAll("circle");
-	for (var n of nodes) {
-		n.setAttribute("fill", defaultNodeColor);
+	if(colorby_val == "Tissue (general)"){
+		n.setAttribute("fill",n.General_tissue_color);
+	}else if(colorby_val == "Tissue (specific)"){
+		n.setAttribute("fill",n.Specific_tissue_color);
+		
+	}else if(colorby_val == "WGCNA modules"){
+		n.setAttribute("fill",n.WGCNA_hex);
+		
+	}else{
+		// reset to gray
+		for (var n of nodes) {
+			n.setAttribute("fill", defaultNodeColor);
+		}
 	}
 }
 
@@ -253,37 +265,74 @@ $(document).ready(function () {
 						renderColorPicker(lib_names[i]);
 						var lib_results = results[lib_names[i]];
 						var column_names = Object.keys(lib_results[1]);
+						if(lib_names[i].includes("Integrated_")){
+							$(`#table_${lib_names[i]}`).DataTable({
+								data: lib_results,
+								aoColumns: [
+									{mData: "Query Name", sTitle: "Query Name"},
+									{mData: "Rank", sTitle: "Rank"},
+									{mData: "TF",sTitle: "TF"},
+									{mData: "Score",sTitle: "Score"},
+									{mData: "Library", sTitle: "Library"}],
+									scrollY: "200px",
+									scrollX: "4000px",
+									sScrollX: "4000px",
+									scrollCollapse: true,
+									paging: false,
+									dom: "Bfrtip",
+									buttons: [
+										$.extend(true, {}, buttonCommon, {
+											extend: 'copyHtml5'
+										}),
+										$.extend(true, {}, buttonCommon, {
+											extend: 'excelHtml5'
+										}),
+										$.extend(true, {}, buttonCommon, {
+											extend: 'pdfHtml5'
+										}),
+										$.extend(true, {}, buttonCommon, {
+											extend: 'colvis'
+										})
+										]
+							});
+						}else{
+							$(`#table_${lib_names[i]}`).DataTable({
+								data: lib_results,
+								aoColumns: [
+									{mData: "Query Name", sTitle: "Query Name"},
+									{mData: "Rank", sTitle: "Rank"},
+									{mData: "Scaled Rank", sTitle: "Scaled Rank"},
+									{mData: "TF",sTitle: "TF"},
+									{mData: "Set name", sTitle: "Set name"},
+									{mData: "Set length", sTitle: "Set size"},
+									{mData: "Intersect", sTitle: "Intersection"},
+									{mData: "FET p-value", sTitle: "FET p-value"},
+									{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
+									scrollY: "200px",
+									scrollX: "4000px",
+									sScrollX: "4000px",
+									scrollCollapse: true,
+									paging: false,
+									dom: "Bfrtip",
+									buttons: [
+										$.extend(true, {}, buttonCommon, {
+											extend: 'copyHtml5'
+										}),
+										$.extend(true, {}, buttonCommon, {
+											extend: 'excelHtml5'
+										}),
+										$.extend(true, {}, buttonCommon, {
+											extend: 'pdfHtml5'
+										}),
+										$.extend(true, {}, buttonCommon, {
+											extend: 'colvis'
+										})
+										]
+							});
+							
+						}
 						
-						$(`#table_${lib_names[i]}`).DataTable({
-							data: lib_results,
-							aoColumns: [
-								{mData: "TF",sTitle: "TF"},
-								{mData: "Set name", sTitle: "Set name"},
-								{mData: "Set length", sTitle: "Set size"},
-								{mData: "Intersect", sTitle: "Intersection"},
-								{mData: "FET p-value", sTitle: "FET p-value"},
-								{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
-								scrollY: "200px",
-								scrollX: "4000px",
-								sScrollX: "4000px",
-								scrollCollapse: true,
-								paging: false,
-								dom: "Bfrtip",
-								buttons: [
-									$.extend(true, {}, buttonCommon, {
-										extend: 'copyHtml5'
-									}),
-									$.extend(true, {}, buttonCommon, {
-										extend: 'excelHtml5'
-									}),
-									$.extend(true, {}, buttonCommon, {
-										extend: 'pdfHtml5'
-									}),
-									$.extend(true, {}, buttonCommon, {
-										extend: 'colvis'
-									})
-									]
-						});
+				
 						
 						$('#'+lib_names[i] + "_body").on('shown.bs.collapse', function () {
 							   $($.fn.dataTable.tables(true)).DataTable()
