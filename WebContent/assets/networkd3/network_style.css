@@ -28,7 +28,7 @@ body {
 }
 
 .sidenav {
-  height: 40%;
+  height: auto;
   width: 0;
   position: fixed;
   z-index: 1;

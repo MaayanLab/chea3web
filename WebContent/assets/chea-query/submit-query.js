@@ -122,6 +122,10 @@ function renderTable(libraryName) {
 }
 
 function renderCardHeader(libraryName){
+	
+	var libraryTitle = libraryName.replace("--"," ");
+	alert(libraryTitle);
+	
 	return `    <div class="card-header" style="padding:0" role="tab" id="${libraryName}_header">
 	<a role="button" class="collapsed panel-title text-black"
 	data-toggle="collapse" data-parent="#accordion" data-core=""
@@ -129,7 +133,7 @@ function renderCardHeader(libraryName){
 	aria-controls="collapse2">
 	<h4 class="mbr-fonts-style display-7" style="margin-bottom:0">
 	<span class="sign mbr-iconfont mbri-down inactive"></span>
-	<span class="color-emphasis-1" style = "font-size:100%">${libraryName}</span>
+	<span class="color-emphasis-1" style = "font-size:100%">${libraryTitle}</span>
 	<span data-tooltip="library information text will go here" data-tooltip_position="right">
 	<span class="mbri-info mbr-iconfont mbr-iconfont-btn"></span>
 	</h4>
@@ -279,7 +283,7 @@ $(document).ready(function () {
 						renderColorPicker(lib_names[i]);
 						var lib_results = results[lib_names[i]];
 						var column_names = Object.keys(lib_results[1]);
-						if(lib_names[i].includes("Integrated_")){
+						if(lib_names[i].includes("Integrated")){
 							$(`#table_${lib_names[i]}`).DataTable({
 								data: lib_results,
 								aoColumns: [
