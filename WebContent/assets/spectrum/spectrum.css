@@ -434,7 +434,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 	margin: 0;
 	overflow: hidden;
 	cursor: pointer;
-	padding: 4px;
+	padding: 1px;
 	display: inline-block;
 	*zoom: 1;
 	*display: inline;
@@ -457,16 +457,16 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 
 .sp-dd {
 	padding: 2px 0;
-	height: 16px;
-	line-height: 16px;
+	height: 12px;
+	line-height: 12px;
 	float: left;
 	font-size: 10px;
 }
 
 .sp-preview {
 	position: relative;
-	width: 25px;
-	height: 20px;
+	width: 12px;
+	height: 12px;
 	border: solid 1px #222;
 	margin-right: 5px;
 	float: left;

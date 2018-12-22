@@ -30,3 +30,51 @@ html, body {
     margin: 0;
     height: 100%;
 }
+
+.sidenavR {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 40px;
+  left: 0;
+  background-color: #333333;
+  overflow-x: scroll;
+  transition: 0.5s;
+  padding-top: 60px;
+  overflow-y: scroll;
+}
+
+.sidenavR a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenavR a:hover {
+  color: #f1f1f1;
+}
+
+.sidenavR .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 20px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+table.dataTable.squished tbody td {
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    
+}

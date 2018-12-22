@@ -14,6 +14,13 @@ function linkColour(d){
 	return("black");
 }
 
+function openNav(nav,width) {
+	  document.getElementById(nav).style.width = width;
+	}
+
+	function closeNav(nav) {
+	  document.getElementById(nav).style.width = "0";
+	}
 
 
 function drawNetwork(){
@@ -78,6 +85,8 @@ function drawNetwork(){
 			.attr("cx",function(d) {return xScale(d.x)})
 			.attr("cy",function(d) {return yScale(d.y)})
 			.attr("fill", function(d){return d.General_tissue_color})
+			.attr("stroke",0)
+			.attr("stroke-opacity", 0.3)
 			.attr("WGCNA_hex", function(d){return d.WGCNA_hex})
 			.attr("General_tissue_color", function(d){return d.General_tissue_color})
 			.attr("Specific_tissue_color", function(d){return d.Specific_tissue_color});
@@ -172,6 +181,8 @@ function drawNetwork(){
 
 	});// end d3.json
 }
+
+
 
 drawNetwork()
 

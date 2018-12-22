@@ -45,6 +45,8 @@ function defaultNodeColorAll(){
 
 }
 
+
+
 function recolorAllNodes() {
 	defaultNodeColorAll()
 
@@ -97,7 +99,7 @@ function renderCaption(libraryName) {
 	<caption>
 	</span>
 	<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
-	<span id="${captionId}_output" style="font-weight:lighter;font-size:small,font-style:italic">
+	<span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
 	${renderSliderValueString(value)}
 	</span>	
 	<input type='text' id="${libraryName}_colorpicker" />
@@ -117,13 +119,13 @@ function renderColorPicker(libraryName) {
 
 function renderTable(libraryName) {
 	return `
-	<table class="display" style="width:4000px" id="table_${libraryName}"></table>
+	<table class="display" style="width:500px" id="table_${libraryName}"></table>
 	`
 }
 
 function renderCardHeader(libraryName){
 	return `    <div class="card-header" style="padding:0" role="tab" id="${libraryName}_header">
-	<a role="button" class="collapsed panel-title text-black"
+	<a role="button" class="collapsed panel-title text-white"
 	data-toggle="collapse" data-parent="#accordion" data-core=""
 	href="#${libraryName}_body" aria-expanded="false"
 	aria-controls="collapse2">
@@ -142,7 +144,7 @@ function renderCardHeader(libraryName){
 
 function renderCardBody(libraryName) {
 
-	return `<div id="${libraryName}_body" class="panel-collapse noScroll collapse"
+	return `<div id="${libraryName}_body" class="panel-collapse noScroll collapse" style="width:100%;padding:7px"
 	role="tabpanel" aria-labelledby="${libraryName}_header">
 	<div class="panel-body">`
 	+ renderCaption(libraryName) + renderTable(libraryName)+
@@ -179,43 +181,66 @@ var buttonCommon = {
 		}
 };
 
-function renderResultsDialog(){
-	$(function() {
-		// initialize dialog
-		$( "#resultsdialog" ).dialog({
-			appendTo: "#dialogoverlay",
-			title: "Results by Library",
-			beforeClose: function(event, ui) {
-				alert("Are you sure you want to close? You will lose your results. Note you can download a json of all of your results here.")
-			},
-			close: function(event,ui){
-				$("#dialogoverlay").html(`<div id="resultsdialog" class="myDialogClass">
-				<div id="tablecontents" style="overflow:scroll;height:100%;width:100%"></div></div>`);
-				$("#dialogoverlay").addClass("d-none");
-				renderResultsDialog();
-				// reset tf network to gray
-				defaultNodeColorAll();
-				// display overlay
-				$('#translucent-net').removeClass("d-none");
-				chea3Results = null;
-				// reset text box
+//function renderResultsSideNav(){
+//	$(function() {
+//		// initialize dialog
+//		$( "#resultsdialog" ).dialog({
+////			appendTo: "#dialogoverlay",
+//			title: "Results by Library",
+//			beforeClose: function(event, ui) {
+//				alert("Are you sure you want to close? You will lose your results. Note you can download a json of all of your results here.")
+//			},
+//			close: function(event,ui){
+//				
+//
+//
+//
+//			}
+//		});
+//		$("[aria-describedby='resultsdialog']").css(
+//				{	"position":"relative",
+//					"width":"80%",
+//					"height":"50%",
+//					"left":"0px",
+//					"top":"20px",
+//					"overflow":"scroll"
+//				});
+//	} );
+//
+//
+//}
 
-
-
-			}
-		});
-		$("[aria-describedby='resultsdialog']").css(
-				{	"position":"relative",
-					"width":"80%",
-					"height":"50%",
-					"left":"0px",
-					"top":"20px",
-					"overflow":"scroll"
-				});
-	} );
-
-
+function newQuery(){
+	$("#results").addClass("d-none");
+	$("#results").html(`
+				<div id="resultssidenav" class="sidenavR">
+					<a href="javascript:void(0)" class="closebtn"
+						onclick="closeNav('resultssidenav')">&times;</a>
+				</div>
+				<div id="expandresults" style="position: absolute; left: 5%">
+					<span style="font-size: 15px; cursor: pointer"
+						onclick="openNav('resultssidenav','40%')">&#9776; Back to
+						Results</span>
+					<button type="button" class="btn btn-primary" id="newquery"
+						type="submit" onclick="newQuery()" style="padding: .5rem .5rem">New
+						Query</button>
+				</div>on>`);
+	
+	defaultNodeColorAll();
+	$('#translucent-net').removeClass("d-none");
+	$('#tfea-submission').removeClass("d-none");
+	$('#tfea-title').removeClass("d-none");
+	var gl = document.getElementById("genelist");
+	gl.value = "";
+	gl.placeholder = "Submit gene list with one gene per line."
+	chea3Results = null;
+	
+	
+	// reset text box
+	
 }
+
+
 
 function genesetSubmission(){}
 
@@ -232,7 +257,8 @@ $(document).ready(function () {
 		});
 
 	});
-	renderResultsDialog();
+	
+//	renderResultsDialog();
 	
 	
 
@@ -252,6 +278,8 @@ $(document).ready(function () {
 //			//remove tools
 //			document.getElementById("tfea-title").remove();
 			$('#translucent-net').addClass("d-none");
+			$('#tfea-submission').addClass("d-none");
+			$('#tfea-title').addClass("d-none");
 //			document.getElementById("tfea-submission").remove();
 
 
@@ -261,10 +289,12 @@ $(document).ready(function () {
 			$.ajax({
 				url : enrich_url,
 				success : function(results) {
+					
+					
 					results = JSON.parse(results);
 					chea3Results = results;
 					var lib_names = Object.keys(results);
-					var results_div = document.getElementById("resultsdialog");
+					var results_div = document.getElementById("resultssidenav");
 
 					var captionAndTableMarkup = lib_names.reduce(function (accumulator, libraryName) {
 						accumulator += renderCardHeader(libraryName)
@@ -281,7 +311,7 @@ $(document).ready(function () {
 						var column_names = Object.keys(lib_results[1]);
 						if(lib_names[i].includes("Integrated_")){
 							$(`#table_${lib_names[i]}`).DataTable({
-								data: lib_results,
+								data: lib_results.slice(0,100),
 								aoColumns: [
 									{mData: "Query Name", sTitle: "Query Name"},
 									{mData: "Rank", sTitle: "Rank"},
@@ -289,8 +319,8 @@ $(document).ready(function () {
 									{mData: "Score",sTitle: "Score"},
 									{mData: "Library", sTitle: "Library"}],
 									scrollY: "200px",
-									scrollX: "4000px",
-									sScrollX: "4000px",
+									scrollX: "500px",
+									sScrollX: "500px",
 									scrollCollapse: true,
 									paging: false,
 									dom: "Bfrtip",
@@ -298,20 +328,20 @@ $(document).ready(function () {
 										$.extend(true, {}, buttonCommon, {
 											extend: 'copyHtml5'
 										}),
-										$.extend(true, {}, buttonCommon, {
-											extend: 'excelHtml5'
-										}),
-										$.extend(true, {}, buttonCommon, {
-											extend: 'pdfHtml5'
-										}),
-										$.extend(true, {}, buttonCommon, {
-											extend: 'colvis'
-										})
+//										$.extend(true, {}, buttonCommon, {
+//											extend: 'excelHtml5'
+//										}),
+//										$.extend(true, {}, buttonCommon, {
+//											extend: 'pdfHtml5'
+//										}),
+//										$.extend(true, {}, buttonCommon, {
+//											extend: 'colvis'
+//										})
 										]
 							});
 						}else{
 							$(`#table_${lib_names[i]}`).DataTable({
-								data: lib_results,
+								data: lib_results.slice(0,100),
 								aoColumns: [
 									{mData: "Query Name", sTitle: "Query Name"},
 									{mData: "Rank", sTitle: "Rank"},
@@ -332,15 +362,15 @@ $(document).ready(function () {
 										$.extend(true, {}, buttonCommon, {
 											extend: 'copyHtml5'
 										}),
-										$.extend(true, {}, buttonCommon, {
-											extend: 'excelHtml5'
-										}),
-										$.extend(true, {}, buttonCommon, {
-											extend: 'pdfHtml5'
-										}),
-										$.extend(true, {}, buttonCommon, {
-											extend: 'colvis'
-										})
+//										$.extend(true, {}, buttonCommon, {
+//											extend: 'excelHtml5'
+//										}),
+//										$.extend(true, {}, buttonCommon, {
+//											extend: 'pdfHtml5'
+//										}),
+//										$.extend(true, {}, buttonCommon, {
+//											extend: 'colvis'
+//										})
 										]
 							});
 
@@ -355,14 +385,44 @@ $(document).ready(function () {
 
 					}
 					addSliderEventListeners();
-					$("#dialogoverlay").removeClass("d-none");
+					$("#results").removeClass("d-none");
 					$('#loading-screen').addClass('d-none');	
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
 					$(".table ").css({"width":"4000px"});
-					$('#GTEx_body').on('shown.bs.collapse', function () {
-						console.log("hi");
-					})
-					updateHits();
+
+					
+					
+					//updateHits();
+					
+					
+					openNav("resultssidenav","40%");
+					headers = document.querySelectorAll("thead");
+					for(var h of headers){
+						h.classList.add("text-white");
+						h.classList.add("compact");
+					}
+					tables = document.querySelectorAll("table")
+					for(var t of tables){
+						t.classList.add("squished");
+					}
+					
+					searches = document.querySelectorAll("input.form-control-sm")
+					for(var s of searches){
+						s.setAttribute("style","height:14px;padding: 0px 0px;font-size: 14px;min-height:16px;line-height: .75;")
+					}
+					filters = document.querySelectorAll(".dataTables_filter")
+					for(var f of filters){
+						f.setAttribute("style","font-size:14px; padding: 0px");
+						f.classList.add("text-white");
+					}
+					copies = document.querySelectorAll(".buttons-copy")
+					for(var c of copies){
+						c.setAttribute("style","font-size:14px; padding: 0px");
+						
+					}
+					
+					
+					
 
 
 
