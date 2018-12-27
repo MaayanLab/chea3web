@@ -1,64 +1,90 @@
 
 
 var sliderClassName = 'slider';
-var defaultNodeColor = 'gray';
+var defaultNodeColor = '#d3d3d3';
 var chea3Results;
+var json;
 
+//function downloadResults(filename, text) {
+//	  var element = document.createElement('a');
+//	  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+//	  element.setAttribute('download', filename);
+//
+//	  element.style.display = 'none';
+//	  document.body.appendChild(element);
+//
+//	  element.click();
+//
+//	  document.body.removeChild(element);
+//}
 
-
+function downloadResults(filename, text){
+	var blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, filename);
+    }else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+    
+}
 function sliderChange(event) {
 	// change slider output text
 	var outputId = `${event.target.id}_output`;
 	document.getElementById(outputId).innerHTML = renderSliderValueString(event.target.value);
+	document.getElementById("colorby").value = "none";
 	recolorAllNodes();
+	setLegendView();
 }
 
 function getColor(id) {
 	return ($("#" + id).spectrum('get').toHexString())
 }
 
-function defaultNodeColorAll(){
-
-	var colorby_val = document.getElementById("colorby").value;
-	nodes = document.querySelectorAll("circle");
-	if(colorby_val == "Tissue (general)"){
-		for (var n of nodes) {
-			n.setAttribute("fill",n.getAttribute("General_tissue_color"));
-			n.setAttribute("stroke-width","0")
-		}
-	}else if(colorby_val == "Tissue (specific)"){
-		for (var n of nodes) {
-			n.setAttribute("fill",n.getAttribute("Specific_tissue_color"));
-			n.setAttribute("stroke-width","0")
-		}
-	}else if(colorby_val == "WGCNA modules"){
-		for (var n of nodes) {
-			n.setAttribute("fill",n.getAttribute("WGCNA_hex"));
-			n.setAttribute("stroke-width","0")
-		}
+function translateNodeColor(val){
+	if(val == "Tissue (general)"){
+		return("General_tissue_color");
+	}else if (val == "Tissue (specific)"){
+		return("Specific_tissue_color");
+	}else if(val == "WGCNA modules"){
+		return("WGCNA_hex");
 	}else{
-		// reset to gray
-		for (var n of nodes) {
-			n.setAttribute("fill", defaultNodeColor);
-			n.setAttribute("stroke-width","0")
-		}
+		return(defaultNodeColor);
 	}
-
 }
 
 
+function defaultNodeColorAll(){
+	
+	var colorby_val = document.getElementById("colorby").value;
+	var fill = translateNodeColor(colorby_val);
+	nodes = document.querySelectorAll("circle");
+	for (var n of nodes) {
+		if(fill == defaultNodeColor){
+			n.setAttribute("fill",fill);	
+		}else{
+			n.setAttribute("fill",n.getAttribute(fill));	
+		}
+		n.setAttribute("stroke-width","0");
+		
+	}
+}
 
-function recolorAllNodes() {
-	defaultNodeColorAll()
-
-	// loop through sliders and colorpickers
-	sliders = document.querySelectorAll(".slider");
+function highlightNodes(sliders){
 	// if sliders are defined
+	
 	if(sliders.length>0){
 		for (var s of sliders) {
 			var libraryName = s.id.replace('_slider', '');
 			var colorpicker_id = libraryName + "_colorpicker";
-			console.log(colorpicker_id)
 			var set1Values = chea3Results[libraryName].map(function (transcriptionFactors) {
 
 				return transcriptionFactors.TF;
@@ -66,7 +92,7 @@ function recolorAllNodes() {
 			});
 			var set1ValuesSliderSubset = set1Values.splice(0, s.value);
 			for (var tf of set1ValuesSliderSubset) {
-				console.log(tf)
+				
 				node = document.getElementById(tf);
 
 				if (node) {
@@ -77,12 +103,17 @@ function recolorAllNodes() {
 
 		}
 	}
+	
+}
 
+function recolorAllNodes() {
+	defaultNodeColorAll();
+	var sliders = document.querySelectorAll(".slider");
+	highlightNodes(sliders);
 }
 
 function addSliderEventListeners() {
 	var sliders = document.querySelectorAll(`.${sliderClassName}`);
-
 	Array.from(sliders).forEach(function (slider) {
 		slider.addEventListener('change', sliderChange);
 	});
@@ -125,11 +156,10 @@ function renderTable(libraryName) {
 }
 
 function renderCardHeader(libraryName){
-	
 	var libraryTitle = libraryName.replace("--"," ");
 	var libraryTitle = libraryTitle.replace("--"," ");
 	return `    <div class="card-header" style="padding:0" role="tab" id="${libraryName}_header">
-	<a role="button" class="collapsed panel-title text-white"
+	<a role="button" id="${libraryName}_headerbutton" class="lablab collapsed panel-title text-white"
 	data-toggle="collapse" data-parent="#accordion" data-core=""
 	href="#${libraryName}_body" aria-expanded="false"
 	aria-controls="collapse2">
@@ -142,12 +172,10 @@ function renderCardHeader(libraryName){
 	</a>
 
 	</div>
-
 	`
 }
 
 function renderCardBody(libraryName) {
-
 	return `<div id="${libraryName}_body" class="panel-collapse noScroll collapse" style="width:100%;padding:7px"
 	role="tabpanel" aria-labelledby="${libraryName}_header">
 	<div class="panel-body">`
@@ -155,12 +183,36 @@ function renderCardBody(libraryName) {
 
 	`</div>
 	</div>`
-
 }
 
 function renderDownloadResultsBtn(){
-	return `<a id = "downloadJSON" class="btn btn-sm btn-primary display-4" style="padding:0"><span
-	class="mbri-save mbr-iconfont mbr-iconfont-btn" ></span>Download All Results as JSON</a>`
+	return `<a id = "downloadJSON" class="btn btn-sm btn-primary display-4" style="padding:0" 
+	onclick="downloadResults('results.json',json);"><span
+	class="mbri-save mbr-iconfont mbr-iconfont-btn"></span>Download All Results as JSON</a>`
+}
+
+
+function addCardHeaderEventListeners(){
+	$(".lablab").click(function() {
+		var classes = this.classList;
+		if(!(Object.values(classes).indexOf('collapsed') > -1)){
+			//reset slider
+			var card_id = this.id;
+			var slider_id = card_id.replace("headerbutton","slider");
+			var output_id = card_id.replace("headerbutton","slider_output")
+			var slider = document.getElementById(slider_id)
+			slider.value = 0;
+			document.getElementById(output_id).innerHTML = renderSliderValueString(0);
+			recolorAllNodes();
+			
+		}else{
+			var card_id = this.id;
+			var table_id = '#table_' + card_id.replace("_headerbutton","");	
+			$(table_id).css('width', '100%');
+			
+		}   
+	});
+
 }
 
 function validateGeneSet(geneset) {
@@ -185,50 +237,38 @@ var buttonCommon = {
 		}
 };
 
-//function renderResultsSideNav(){
-//	$(function() {
-//		// initialize dialog
-//		$( "#resultsdialog" ).dialog({
-////			appendTo: "#dialogoverlay",
-//			title: "Results by Library",
-//			beforeClose: function(event, ui) {
-//				alert("Are you sure you want to close? You will lose your results. Note you can download a json of all of your results here.")
-//			},
-//			close: function(event,ui){
-//				
-//
-//
-//
-//			}
-//		});
-//		$("[aria-describedby='resultsdialog']").css(
-//				{	"position":"relative",
-//					"width":"80%",
-//					"height":"50%",
-//					"left":"0px",
-//					"top":"20px",
-//					"overflow":"scroll"
-//				});
-//	} );
-//
-//
-//}
+function downloadText(element_id, filename) {
+	  var element = document.getElementById(element_id);
+	  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(json));
+	  element.setAttribute('download', filename);
+
+	  element.style.display = 'none';
+	  document.body.appendChild(element);
+
+	  element.click();
+
+	  document.body.removeChild(element);
+}
 
 function newQuery(){
 	$("#results").addClass("d-none");
 	$("#results").html(`
-				<div id="resultssidenav" class="sidenavR">
+				<div id="resultssidenav" class="sidenavR" style="height:90%;padding-top:20px;padding-bottom:20px">
 					<a href="javascript:void(0)" class="closebtn"
 						onclick="closeNav('resultssidenav')">&times;</a>
+						<h1
+					class="mbr-section-title mbr-bold mbr-fonts-style display-7 text-white"
+					align="left" style='padding-left:5%'>Results by Library</h1>
 				</div>
-				<div id="expandresults" style="position: absolute; left: 5%">
-					<span style="font-size: 15px; cursor: pointer"
-						onclick="openNav('resultssidenav','40%')">&#9776; Back to
-						Results</span>
-					<button type="button" class="btn btn-primary" id="newquery"
-						type="submit" onclick="newQuery()" style="padding: .5rem .5rem">New
-						Query</button>
-				</div>on>`);
+				
+				<div id="expandresults" style="position: absolute; left: 5%; padding-top:20px">
+					<span style="font-size: 15px; cursor: pointer;padding-top:20px"
+						onclick="openNav('resultssidenav','40%')">&#9776;<h6 class="mbr-iconfont display-7" style = "font-size:.8rem;display:inline">Back to Results</h6></span> <span> <a id="downloadJSON"
+						class="btn btn-sm btn-primary display-4" style="padding: 0;margin:0; display:block"
+						onclick="newQuery()"><span
+						class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>New Query</a><\span>
+
+				</div>`);
 	
 	defaultNodeColorAll();
 	$('#translucent-net').removeClass("d-none");
@@ -244,11 +284,6 @@ function newQuery(){
 	
 }
 
-
-
-function genesetSubmission(){}
-
-
 $(document).ready(function () {
 	
 	
@@ -262,39 +297,26 @@ $(document).ready(function () {
 
 	});
 	
-//	renderResultsDialog();
-	
-	
-
 	$('#submit-genelist').on('click', function (evt) {
 
 		var geneset = document.getElementById("genelist").value.split(/\n/);
 		// generate url
 		var enrich_url = host + "chea3-dev/api/enrich/";
 		enrich_url = enrich_url + geneset.join();
-		console.log(enrich_url);
-
-
 
 		if (validateGeneSet(geneset)) {
 
 			$('#loading-screen').removeClass('d-none');
-//			//remove tools
-//			document.getElementById("tfea-title").remove();
 			$('#translucent-net').addClass("d-none");
 			$('#tfea-submission').addClass("d-none");
 			$('#tfea-title').addClass("d-none");
-//			document.getElementById("tfea-submission").remove();
-
-
-
 
 			// send gene set to java servlet
 			$.ajax({
 				url : enrich_url,
 				success : function(results) {
 					
-					
+					json = results;
 					results = JSON.parse(results);
 					chea3Results = results;
 					var lib_names = Object.keys(results);
@@ -317,7 +339,6 @@ $(document).ready(function () {
 							$(`#table_${lib_names[i]}`).DataTable({
 								data: lib_results.slice(0,100),
 								aoColumns: [
-									{mData: "Query Name", sTitle: "Query Name"},
 									{mData: "Rank", sTitle: "Rank"},
 									{mData: "TF",sTitle: "TF"},
 									{mData: "Score",sTitle: "Score"},
@@ -347,7 +368,6 @@ $(document).ready(function () {
 							$(`#table_${lib_names[i]}`).DataTable({
 								data: lib_results.slice(0,100),
 								aoColumns: [
-									{mData: "Query Name", sTitle: "Query Name"},
 									{mData: "Rank", sTitle: "Rank"},
 									{mData: "Scaled Rank", sTitle: "Scaled Rank"},
 									{mData: "TF",sTitle: "TF"},
@@ -389,6 +409,7 @@ $(document).ready(function () {
 
 					}
 					addSliderEventListeners();
+					addCardHeaderEventListeners();
 					$("#results").removeClass("d-none");
 					$('#loading-screen').addClass('d-none');	
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
@@ -424,12 +445,6 @@ $(document).ready(function () {
 						c.setAttribute("style","font-size:14px; padding: 0px");
 						
 					}
-					
-					
-					
-
-
-
 
 
 				}
@@ -440,141 +455,6 @@ $(document).ready(function () {
 });
 
 
-
-
-
-//var request = ocpu.call("queryCheaWeb", {
-//geneset: geneset,
-//set_name: "usergeneset"
-//},
-//function (session) {
-//session.getObject(function (data) {
-//chea3Results = JSON.parse(data);
-//var lib_names = Object.keys(chea3Results);
-//var results_div = document.getElementById("query-results");
-
-//var captionAndTableMarkup = lib_names.reduce(function (accumlator,
-//libraryName) {
-//accumlator += renderCaption(libraryName)
-//accumlator += renderTable(libraryName);
-
-//return accumlator;
-//}, '');
-
-//results_div.innerHTML += captionAndTableMarkup;
-
-//for (var i = 0; i < lib_names.length; i++) {
-
-//renderColorPicker(lib_names[i]);
-
-//var lib_results = chea3Results[lib_names[i]];
-
-//$(`#table_${lib_names[i]}`).DataTable({
-//data: lib_results,
-//aoColumns: [
-//{mData: "rank", sTitle: "Rank"},
-//{mData: "set1", sTitle: "TF Gene Set", sWidth: "20em"},
-//{mData: "intersect", sTitle: "Intersection"},
-//{mData: "FET p-value", sTitle: "FET p-value"}],
-//scrollY: "100px",
-//scrollX: true,
-//scrollCollapse: true,
-//paging: false,
-
-//fixedColumns: true,
-//dom: "Bfrtip",
-//buttons: [
-//$.extend(true, {}, buttonCommon, {
-//extend: 'copyHtml5'
-//}),
-//$.extend(true, {}, buttonCommon, {
-//extend: 'excelHtml5'
-//}),
-//$.extend(true, {}, buttonCommon, {
-//extend: 'pdfHtml5'
-//}),
-//$.extend(true, {}, buttonCommon, {
-//extend: 'colvis'
-//})
-//]
-//});
-//$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
-
-
-//}
-
-//addSliderEventListeners();
-
-
-//$('#loading-screen').addClass('d-none');
-
-
-//});
-
-
-//});
-
-
-
-
-
-////FAKE RESULTS -- USE FOR TESTING
-//setTimeout(function () {
-//$('#loading-screen').addClass('d-none');
-////remove tools
-//document.getElementById("tfea-title").remove();
-//document.getElementById('translucent-net').remove();
-//document.getElementById("tfea-submission").remove();
-////load fake results
-//jQuery.get('assets/chea-query/example_results.json', function (results) {
-//chea3Results = results;
-//var lib_names = Object.keys(results);
-//var results_div = document.getElementById("query-results");
-//var captionAndTableMarkup = lib_names.reduce(function (accumlator,
-//libraryName) {
-//accumlator += renderCaption(libraryName)
-//accumlator += renderTable(libraryName);
-//return accumlator;
-//}, '');
-//results_div.innerHTML += captionAndTableMarkup;
-//for (i = 0; i < lib_names.length; i++) {
-//renderColorPicker(lib_names[i]);
-//var lib_results = results[lib_names[i]];
-//var column_names = Object.keys(lib_results[1])
-//$(`#table_${lib_names[i]}`).DataTable({
-//data: lib_results,
-//aoColumns: [
-//{mData: "set1", sTitle: "TF Gene Set", sWidth: "20em"},
-//{mData: "intersect", sTitle: "Intersection"},
-//{mData: "FET p-value", sTitle: "FET p-value"}],
-//scrollY: "100px",
-//scrollX: false,
-//scrollCollapse: true,
-//paging: false,
-//fixedColumns: true,
-//dom: "Bfrtip",
-//buttons: [
-//$.extend(true, {}, buttonCommon, {
-//extend: 'copyHtml5'
-//}),
-//$.extend(true, {}, buttonCommon, {
-//extend: 'excelHtml5'
-//}),
-//$.extend(true, {}, buttonCommon, {
-//extend: 'pdfHtml5'
-//}),
-//$.extend(true, {}, buttonCommon, {
-//extend: 'colvis'
-//})
-//]
-//});
-//$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
-//}
-//addSliderEventListeners();
-//});
-
-
-//}, 500);
 
 
 

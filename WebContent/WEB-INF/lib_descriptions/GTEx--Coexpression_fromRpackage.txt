@@ -1,0 +1,1 @@
+This library was generated from all human RNA-seq samples obtained from the GTEx consortium. The top 300 co-expressed genes with each TF were used as putative TF targets.

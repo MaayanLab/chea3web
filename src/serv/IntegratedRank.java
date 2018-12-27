@@ -2,19 +2,27 @@ package serv;
 
 public class IntegratedRank implements Comparable<IntegratedRank>{
 	String tf = "";
-	float score;
+	double score;
 	int rank;
 	String lib_name = "";
 	String query_name = "";
 	
-	public IntegratedRank(String tf, float score, String lib_name, String query_name) {
+	public IntegratedRank(String tf, double score, String lib_name, String query_name) {
 		this.tf = tf;
 		this.score = score;
 		this.lib_name = lib_name;
 		this.query_name = query_name;
 	}
 	
-	public float getScore() {
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public double getScore() {
 		return this.score;
 	}
 	

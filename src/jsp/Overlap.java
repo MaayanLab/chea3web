@@ -11,7 +11,7 @@ public class Overlap implements Comparable<Overlap>{
 	public int setsize = 0;
 	public double oddsratio = 0;
 	public int rank = 0;
-	public float scaledRank = 0;
+	public double scaledRank = 0;
 
 
 	public Overlap(String libset_name, int overlap, double pval, int setsize, double odds, String lib_name, String query_name) {
@@ -29,7 +29,7 @@ public class Overlap implements Comparable<Overlap>{
 		this.rank = rank;
 	}
 	
-	public void setScaledRank(float sc) {
+	public void setScaledRank(double sc) {
 		this.scaledRank = sc;
 	}
 

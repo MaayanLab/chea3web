@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jsp.Overlap;
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * Servlet implementation class Test
@@ -56,9 +60,10 @@ public class EnrichmentCore extends HttpServlet {
 	 * Initializes class variables
 	 * 
 	 */
+	
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		System.out.println("hi");
+//		System.out.println("hi");
 
 		//initialize dictionary object
 		try {
@@ -83,12 +88,13 @@ public class EnrichmentCore extends HttpServlet {
 		String[] filenames = new File(getServletContext().getRealPath(libdir)).list(); 
 		HashSet<String> libpaths = new HashSet<String>();
 		for(String f: filenames) {
-			System.out.println(f);
+//			System.out.println(f);
 			if(!f.equals(".DS_Store")) {
 				libpaths.add(libdir + f);
 			}
 			
 		}
+		
 
 		//generate gene set library objects
 		for(String l: libpaths) {
@@ -98,6 +104,36 @@ public class EnrichmentCore extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
+		//get library description paths
+		String libdesc = "WEB-INF/lib_descriptions/";
+		String[] fnames = new File(getServletContext().getRealPath(libdesc)).list();
+		HashSet<String> descpaths = new HashSet<String>();
+		for(String f: fnames) {
+			if(!f.equals(".DS_Store")) {
+				descpaths.add(libdesc + f);
+			}
+		}
+		
+		//set library object descriptions
+		for(String path : descpaths) {
+			String desc_name = path.replaceAll(".*/lib_descriptions/", "").split("_")[0];	
+			System.out.println(desc_name);
+			for(GenesetLibrary l : EnrichmentCore.libraries) {
+				if(l.name.equals(desc_name)) {
+					try {
+						l.loadLibDescription(path, this);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				System.out.println(l.description);
+			}
+		}
+
+		
+		
+		
 	}
 	public void destroy() {
 		System.out.println("destroying server instance");
@@ -152,8 +188,21 @@ public class EnrichmentCore extends HttpServlet {
 
 			String truncPathInfo = pathInfo.replace("/enrich/", "");
 			
-
-			String[] genes = truncPathInfo.split(",");
+			String[] genes = new String[0];
+			
+			Pattern p = Pattern.compile("(.*)/qid/(.*)");
+		    Matcher m = p.matcher(truncPathInfo);
+		    		    
+		 // if our pattern matches the URL extract groups
+		    if (m.find()){
+		    	System.out.println("HI");
+		    	String gene_identifiers = m.group(1);
+		    	genes = gene_identifiers.split(",");
+		        query_name = m.group(2);
+		    }
+		    else{	// enrichment over all geneset libraries
+		    	genes = truncPathInfo.split(",");
+		    }
 
 			Query q = new Query(genes, EnrichmentCore.dict);
 
@@ -161,8 +210,8 @@ public class EnrichmentCore extends HttpServlet {
 
 			HashMap<String, ArrayList<Overlap>> results = new HashMap<String, ArrayList<Overlap>>();
 			
-			float size = 0;
-			float r = 1;
+			double size = 0;
+			double r = 1;
 
 			for(GenesetLibrary lib: EnrichmentCore.libraries) {
 				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols, lib.name, query_name);
@@ -202,6 +251,20 @@ public class EnrichmentCore extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.write(Integer.toString(this.hitCount));
 		}
+		
+		else if(pathInfo.matches("^/libdescriptions/.*")) {
+			String json = "{";
+			for(GenesetLibrary l : EnrichmentCore.libraries ) {
+				json = json + "\"" + l.name + "\":[";
+				json = json + "\"" + l.description + "\"],";
+			}
+			json = json + "}";
+			
+			//remove trailing comma
+			json = json.replaceAll("],}", "]}");	
+			response.getWriter().write(json);
+			
+		}
 
 		else {
 			PrintWriter out = response.getWriter();
@@ -215,15 +278,15 @@ public class EnrichmentCore extends HttpServlet {
 		String json = "{";
 		
 		for(String key: integ.keySet()) {
-			json = json + "\"" + "Integrated_" + key + "\":[";
+			json = json + "\"" + "Integrated--" + key + "\":[";
 			ArrayList<IntegratedRank> integ_results = integ.get(key);
 			for(IntegratedRank i: integ_results) {
 				String entry = "{\"Query Name\":" + "\"" + i.query_name + "\"" + ",";
-				entry = entry + "\"Rank\":" + "\"" + i.rank + "\"" + ",";
+				entry = entry + "\"Rank\":" + "\"" + Integer.toString(i.rank) + "\"" + ",";
 				entry = entry + "\"TF\":" + "\"" + i.tf + "\"" + ",";
-				entry = entry + "\"Score\":" + "\"" + Float.toString(i.score) + "\"" + ",";
+				entry = entry + "\"Score\":" + "\"" + Double.toString(sigDig(i.score,3)) + "\"" + ",";
 				entry = entry + "\"Library\":" + "\"" + i.lib_name + "\"}," ;
-				json = json + entry;	
+				json = json + entry;
 				
 			}
 			
@@ -239,14 +302,14 @@ public class EnrichmentCore extends HttpServlet {
 
 			for(Overlap o: libresults) {
 				String entry = "{\"Query Name\":" + "\"" + o.query_name + "\"" + ",";
-				entry = entry + "\"Rank\":" + "\"" + o.rank + "\"" + ",";
-				entry = entry + "\"Scaled Rank\":" + "\"" + o.scaledRank + "\"" + ",";
+				entry = entry + "\"Rank\":" + "\"" + Integer.toString(o.rank) + "\"" + ",";
+				entry = entry + "\"Scaled Rank\":" + "\"" + Double.toString(sigDig(o.scaledRank,3)) + "\"" + ",";
 				entry = entry + "\"Set name\":" + "\"" + o.libset_name + "\"" + ",";
 				entry = entry + "\"TF\":" + "\"" + o.lib_tf+ "\"" + ",";
 				entry = entry + "\"Intersect\":" + "\"" + Integer.toString(o.overlap)+ "\"" + ",";
 				entry = entry + "\"Set length\":"  + "\"" + Integer.toString(o.setsize) + "\"" + ",";
-				entry = entry + "\"FET p-value\":" + "\"" + Double.toString(o.pval) + "\"" + ",";
-				entry = entry + "\"Odds Ratio\":" + "\"" + Double.toString(o.oddsratio) + "\"}," ;
+				entry = entry + "\"FET p-value\":" + "\"" + Double.toString(sigDig(o.pval,3)) + "\"" + ",";
+				entry = entry + "\"Odds Ratio\":" + "\"" + Double.toString(sigDig(o.oddsratio,3)) + "\"}," ;
 				json = json + entry;	
 			}
 
@@ -302,6 +365,19 @@ public class EnrichmentCore extends HttpServlet {
 		}
 		
 	}
+	
+
+	
+	private static double sigDig(double d, int n) {
+
+		BigDecimal bd = new BigDecimal(d);
+		bd = bd.round(new MathContext(n));
+		double rounded = bd.doubleValue();
+		return(rounded);
+
+	  }
+	
+
 	
 }
 

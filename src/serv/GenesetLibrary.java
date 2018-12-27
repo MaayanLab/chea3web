@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 public class GenesetLibrary {
 	public String name;
+	public String description = null;
 	public HashMap<String, HashSet<String>> allSymbols = new HashMap<String, HashSet<String>>();
 	public HashMap<String, HashSet<String>> mappableSymbols = new HashMap<String, HashSet<String>>();
 	public HashMap<String, short[]> encoded = new HashMap<String, short[]>();
@@ -17,7 +18,7 @@ public class GenesetLibrary {
 	 */
 	public GenesetLibrary(String gmtfilename, GeneDict dict, boolean removeGeneWeights, EnrichmentCore ec) throws IOException {
 		this.allSymbols = LoadGenesetLib(gmtfilename,removeGeneWeights, ec);
-		this.name = gmtfilename.replaceAll(".*/tflibs/", "").split("_")[0];		
+		this.name = gmtfilename.replaceAll(".*/tflibs/", "").split("_")[0];	
 		this.mappableSymbols = getMappableSymbols(this.allSymbols, dict);
 		this.symbolsNotFound = getUnmappableSymbols(this.allSymbols, dict);
 		this.encoded = EncodeLibrary(this.mappableSymbols, dict);
@@ -53,6 +54,13 @@ public class GenesetLibrary {
 
 
 		return (genesetlib);
+	}
+	
+	public void loadLibDescription(String path, EnrichmentCore ec) throws IOException{
+				// load gmt file
+				InputStream file = ec.getServletContext().getResourceAsStream(path);		
+				BufferedReader br = new BufferedReader(new InputStreamReader(file));	
+				this.description = br.readLine();
 	}
 
 	public static HashMap<String, short[]> EncodeLibrary(HashMap<String, HashSet<String>> lib, GeneDict dict) {
@@ -113,6 +121,10 @@ public class GenesetLibrary {
 
 	public static String RemoveGeneWeight(String gene) {
 		return(gene.split(",")[0]);
+	}
+	
+	private void setDescription(String desc) {
+		this.description = desc;
 	}
 
 //	public static void main(String[] args) throws IOException {

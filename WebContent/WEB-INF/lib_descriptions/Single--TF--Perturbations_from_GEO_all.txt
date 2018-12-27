@@ -1,0 +1,1 @@
+Putative TF targets are differentially expressed genes followed by single-TF perturbation (e.g. KO, KD, chemical inhibition)

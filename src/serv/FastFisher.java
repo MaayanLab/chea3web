@@ -1,6 +1,4 @@
 package serv;
-import java.util.HashSet;
-import java.util.Random;
 
 /* This class is taken from the Pal-Project: http://www.cebl.auckland.ac.nz/pal-project/ */
 
@@ -23,7 +21,6 @@ import java.util.Random;
 public class FastFisher {
     private static final boolean DEBUG = false;
     private double[] f;
-    private double[] ef;
     int maxSize;
 
 
