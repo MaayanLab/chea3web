@@ -1,0 +1,1 @@
+For each human TF, the scaled rank from each library is used as a score. The maximum score among all libraries is used for each TF and the TFws are then re-ranked.

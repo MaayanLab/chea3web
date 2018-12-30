@@ -235,12 +235,12 @@ public class EnrichmentCore extends HttpServlet {
 			
 			ArrayList<IntegratedRank> top_rank = aggregate.topRank(results, query_name);
 			ArrayList<IntegratedRank> borda = aggregate.bordaCount(results, query_name);
-			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
+//			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
 			
 			HashMap<String, ArrayList<IntegratedRank>> integrated_results = new HashMap<String, ArrayList<IntegratedRank>>();
 			integrated_results.put("topRank", top_rank);
 			integrated_results.put("bordaCount",borda);
-			integrated_results.put("localKemenization",kemen);
+//			integrated_results.put("localKemenization",kemen);
 			
 			String json = resultsToJSON(results, integrated_results);
 			
