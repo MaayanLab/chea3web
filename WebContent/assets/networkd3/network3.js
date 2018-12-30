@@ -23,7 +23,6 @@ function requestFullScreen(element_id) {
 }
 
 function saveSvg(svg_id, name) {
-	alert("hi");
 	var svgEl = document.getElementById(svg_id);
 	svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	var svgData = svgEl.outerHTML;
@@ -134,12 +133,12 @@ var div = d3.select("body").append("div")
 
 
 function drawNetwork() {
-	d3.json("assets/networkd3/wgcna_gtex_annotated.json", function(net_json) {
+	d3.json("assets/networkd3/wgcna_gtex_annotated2.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
 
 		net_width = networkDiv.clientWidth;
-		net_height = networkDiv.clientHeight;
+		net_height = networkDiv.clientHeight-100;
 
 		var network_svg = d3.select("#tfnet").append("svg");
 		// network_svg.attr("viewBox","0,0,${net_width},${net_height}");

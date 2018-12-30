@@ -38,6 +38,7 @@ function downloadResults(filename, text){
 }
 function sliderChange(event) {
 	// change slider output text
+	alert("sliderChange()")
 	var outputId = `${event.target.id}_output`;
 	document.getElementById(outputId).innerHTML = renderSliderValueString(event.target.value);
 	document.getElementById("colorby").value = "none";
@@ -138,14 +139,14 @@ function renderCaption(libraryName) {
 	</caption>`;
 }
 
-function renderColorPicker(libraryName) {
+function renderColorPicker(libraryName, i) {
 	var colorpicker_id = libraryName + "_colorpicker";
 	$("#" + colorpicker_id)
 	.on('change', function () {
 		recolorAllNodes();
 	})
 	.spectrum({
-		color: "#4dca4f"
+		color: colorArray[i]
 	});
 }
 
@@ -176,7 +177,7 @@ function renderCardHeader(libraryName){
 }
 
 function renderCardBody(libraryName) {
-	return `<div id="${libraryName}_body" class="panel-collapse noScroll collapse" style="width:100%;padding:7px"
+	return `<div id="${libraryName}_body" class="funfun panel-collapse noScroll collapse" style="width:100%;padding:7px"
 	role="tabpanel" aria-labelledby="${libraryName}_header">
 	<div class="panel-body">`
 	+ renderCaption(libraryName) + renderTable(libraryName)+
@@ -195,21 +196,38 @@ function renderDownloadResultsBtn(){
 function addCardHeaderEventListeners(){
 	$(".lablab").click(function() {
 		var classes = this.classList;
+		var card_id = this.id;
+		var slider_id = card_id.replace("headerbutton","slider");
+		var output_id = card_id.replace("headerbutton","slider_output")
+		var slider = document.getElementById(slider_id)
+		var table_id = '#table_' + card_id.replace("_headerbutton","");	
+		var body_id = card_id.replace("headerbutton","body");
+		
+		//if object is being collapsed
 		if(!(Object.values(classes).indexOf('collapsed') > -1)){
 			//reset slider
-			var card_id = this.id;
-			var slider_id = card_id.replace("headerbutton","slider");
-			var output_id = card_id.replace("headerbutton","slider_output")
-			var slider = document.getElementById(slider_id)
 			slider.value = 0;
 			document.getElementById(output_id).innerHTML = renderSliderValueString(0);
 			recolorAllNodes();
 			
-		}else{
+		}else{ //object is being expanded
 			var card_id = this.id;
-			var table_id = '#table_' + card_id.replace("_headerbutton","");	
-			$(table_id).css('width', '100%');
 			
+			
+			$(table_id).css('width', '100%');
+			slider.value = 10;
+			document.getElementById(output_id).innerHTML = renderSliderValueString(10);
+			
+			//collapse all other open nodes and set their sliders to 0
+			$(".lablab:not(#"+card_id+")").addClass("collapsed");
+			$(".lablab:not(#"+card_id+")").attr("aria-expanded",false);
+			$(".funfun:not(#"+body_id+")").removeClass("show");
+			$(".slider:not(#"+slider_id+")").val(0);
+			
+			document.getElementById("colorby").value = "none";
+			recolorAllNodes();
+			setLegendView();
+
 		}   
 	});
 
@@ -270,7 +288,7 @@ function newQuery(){
 
 				</div>`);
 	
-	defaultNodeColorAll();
+	
 	$('#translucent-net').removeClass("d-none");
 	$('#tfea-submission').removeClass("d-none");
 	$('#tfea-title').removeClass("d-none");
@@ -279,6 +297,9 @@ function newQuery(){
 	gl.placeholder = "Submit gene list with one gene per line."
 	chea3Results = null;
 	
+	document.getElementById("colorby").value = "Tissue (general)";
+	defaultNodeColorAll();
+	setLegendView();
 	
 	// reset text box
 	
@@ -301,7 +322,7 @@ $(document).ready(function () {
 
 		var geneset = document.getElementById("genelist").value.split(/\n/);
 		// generate url
-		var enrich_url = host + "chea3-dev/api/enrich/";
+		var enrich_url = host + "chea3/api/enrich/";
 		enrich_url = enrich_url + geneset.join();
 
 		if (validateGeneSet(geneset)) {
@@ -332,7 +353,7 @@ $(document).ready(function () {
 						class="toggle-panel accordionStyles tab-content">` + 
 						captionAndTableMarkup + `</div>` + renderDownloadResultsBtn();
 					for (i = 0; i < lib_names.length; i++) {
-						renderColorPicker(lib_names[i]);
+						renderColorPicker(lib_names[i],i);
 						var lib_results = results[lib_names[i]];
 						var column_names = Object.keys(lib_results[1]);
 						if(lib_names[i].includes("Integrated")){
@@ -341,7 +362,6 @@ $(document).ready(function () {
 								aoColumns: [
 									{mData: "Rank", sTitle: "Rank"},
 									{mData: "TF",sTitle: "TF"},
-									{mData: "Score",sTitle: "Score"},
 									{mData: "Library", sTitle: "Library"}],
 									scrollY: "200px",
 									scrollX: "500px",
@@ -369,7 +389,6 @@ $(document).ready(function () {
 								data: lib_results.slice(0,100),
 								aoColumns: [
 									{mData: "Rank", sTitle: "Rank"},
-									{mData: "Scaled Rank", sTitle: "Scaled Rank"},
 									{mData: "TF",sTitle: "TF"},
 									{mData: "Set name", sTitle: "Set name"},
 									{mData: "Set length", sTitle: "Set size"},
@@ -399,15 +418,12 @@ $(document).ready(function () {
 							});
 
 						}
-
-
-
 						$('#'+lib_names[i] + "_body").on('shown.bs.collapse', function () {
 							$($.fn.dataTable.tables(true)).DataTable()
 							.columns.adjust();
 						})
-
 					}
+					
 					addSliderEventListeners();
 					addCardHeaderEventListeners();
 					$("#results").removeClass("d-none");
@@ -445,9 +461,28 @@ $(document).ready(function () {
 						c.setAttribute("style","font-size:14px; padding: 0px");
 						
 					}
+					
+					//default open first table					
+					var card_id = $( ".lablab:first" ).attr('id');
+					var slider_id = card_id.replace("headerbutton","slider");
+					var output_id = card_id.replace("headerbutton","slider_output");
+					var table_id = '#table_' + card_id.replace("_headerbutton","");	
+					var body_id = card_id.replace("headerbutton","body");
+					
+					$(table_id).css('width', '100%');
+					$("#"+slider_id).val(10);
+					document.getElementById(output_id).innerHTML = renderSliderValueString(10);
+					
+					$("#"+card_id).removeClass("collapsed");
+					$("#"+card_id).attr("aria-expanded",true);
+					$("#"+body_id).addClass("show");
+					
+					document.getElementById("colorby").value = "none";
+					recolorAllNodes();
+					setLegendView();
 
 
-				}
+				}//end success function
 			}); // end AJAX call
 
 		}

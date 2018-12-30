@@ -203,7 +203,9 @@ public class EnrichmentCore extends HttpServlet {
 		    else{	// enrichment over all geneset libraries
 		    	genes = truncPathInfo.split(",");
 		    }
-
+		    
+		    genes = toUpper(genes);
+		    
 			Query q = new Query(genes, EnrichmentCore.dict);
 
 			//compute enrichment for each library
@@ -369,13 +371,22 @@ public class EnrichmentCore extends HttpServlet {
 
 	
 	private static double sigDig(double d, int n) {
-
+		if(Double.isNaN(d)|| Double.isInfinite(d)) {
+			return Double.NaN;
+		}
 		BigDecimal bd = new BigDecimal(d);
 		bd = bd.round(new MathContext(n));
 		double rounded = bd.doubleValue();
 		return(rounded);
 
 	  }
+	
+	private static String[] toUpper(String[] genes) {
+		for(int i=1; i<genes.length; i++) {
+			genes[i] = genes[i].toUpperCase();
+		}
+		return(genes);
+	}
 	
 
 	
