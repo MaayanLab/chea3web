@@ -39,10 +39,12 @@ public class EnrichmentCore extends HttpServlet {
 	private int hitIncr;
 
 
+
 	public boolean initialized = false;
 
 	static GeneDict dict = null;
 	static HashSet<GenesetLibrary> libraries = new HashSet<GenesetLibrary>();
+	static HashMap<String, String> lib_descriptions = new HashMap<String, String>();
 
 	static Enrichment enrich = null;
 	static RankAggregate aggregate = null;
@@ -60,10 +62,10 @@ public class EnrichmentCore extends HttpServlet {
 	 * Initializes class variables
 	 * 
 	 */
-	
+
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-//		System.out.println("hi");
+		//		System.out.println("hi");
 
 		//initialize dictionary object
 		try {
@@ -72,13 +74,13 @@ public class EnrichmentCore extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-//		//read hit counter file
-//		this.hitCount = readHits("WEB-INF/hits.txt", this);
-//		//initialize hitIncr
-//		this.hitIncr = 0;
-		
-			
+
+		//		//read hit counter file
+		//		this.hitCount = readHits("WEB-INF/hits.txt", this);
+		//		//initialize hitIncr
+		//		this.hitIncr = 0;
+
+
 		//initialize enrichment object
 		EnrichmentCore.enrich = new Enrichment();
 		EnrichmentCore.aggregate = new RankAggregate();
@@ -88,13 +90,13 @@ public class EnrichmentCore extends HttpServlet {
 		String[] filenames = new File(getServletContext().getRealPath(libdir)).list(); 
 		HashSet<String> libpaths = new HashSet<String>();
 		for(String f: filenames) {
-//			System.out.println(f);
+			//			System.out.println(f);
 			if(!f.equals(".DS_Store")) {
 				libpaths.add(libdir + f);
 			}
-			
+
 		}
-		
+
 
 		//generate gene set library objects
 		for(String l: libpaths) {
@@ -104,7 +106,7 @@ public class EnrichmentCore extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		//get library description paths
 		String libdesc = "WEB-INF/lib_descriptions/";
 		String[] fnames = new File(getServletContext().getRealPath(libdesc)).list();
@@ -114,34 +116,26 @@ public class EnrichmentCore extends HttpServlet {
 				descpaths.add(libdesc + f);
 			}
 		}
-		
-		//set library object descriptions
+
+		//set library descriptions
 		for(String path : descpaths) {
 			String desc_name = path.replaceAll(".*/lib_descriptions/", "").split("_")[0];	
-			System.out.println(desc_name);
-			for(GenesetLibrary l : EnrichmentCore.libraries) {
-				if(l.name.equals(desc_name)) {
-					try {
-						l.loadLibDescription(path, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				System.out.println(l.description);
+			// load gmt file
+			InputStream file = this.getServletContext().getResourceAsStream(path);		
+			BufferedReader br = new BufferedReader(new InputStreamReader(file));	
+			try {
+				EnrichmentCore.lib_descriptions.put(desc_name, br.readLine());
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		}
-
-		
-		
-		
+		}	
 	}
 	public void destroy() {
 		System.out.println("destroying server instance");
-//		try {
-//			this.writeHits("WEB-INF/hits.txt", this);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		//		try {
+		//			this.writeHits("WEB-INF/hits.txt", this);
+		//		} catch (IOEtackTrace();
+		//		}
 	}
 
 	/**
@@ -160,25 +154,25 @@ public class EnrichmentCore extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.write("index.html URL");
 			rd.include(request, response);
-			
+
 		}
 		else if(pathInfo.matches("^/submissions/.*")){
 			System.out.println(Integer.toString(this.hitCount));
 			response.setContentType("text/plain");
 			response.getWriter().write(Integer.toString(this.hitCount));
-			
+
 		}
 
 		else if(pathInfo.matches("^/enrich/.*")){
-			
+
 			String query_name = "user query";
-			
+
 			//if hitCount is legitimate
 			if(this.hitCount >0) {
 				this.hitIncr++;
 				this.hitCount++;
 			}
-			
+
 			if(this.hitIncr > this.write_hits) {
 				this.writeHits("WEB-INF/hits.txt", this);
 				this.hitIncr = 0;
@@ -187,31 +181,31 @@ public class EnrichmentCore extends HttpServlet {
 			//http://localhost:8080/chea3-dev/api/enrich/KIAA0907,KDM5A,CDC25A,EGR1,GADD45B,RELB,TERF2IP,SMNDC1,TICAM1,NFKB2,RGS2,NCOA3,ICAM1,TEX10,CNOT4,ARID4B,CLPX,CHIC2,CXCL2,FBXO11,MTF2,CDK2,DNTTIP2,GADD45A,GOLT1B,POLR2K,NFKBIE,GABPB1,ECD,PHKG2,RAD9A,NET1,KIAA0753,EZH2,NRAS,ATP6V0B,CDK7,CCNH,SENP6,TIPARP,FOS,ARPP19,TFAP2A,KDM5B,NPC1,TP53BP2,NUSAP1,SCCPDH,KIF20A,FZD7,USP22,PIP4K2B,CRYZ,GNB5,EIF4EBP1,PHGDH,RRAGA,SLC25A46,RPA1,HADH,DAG1,RPIA,P4HA2,MACF1,TMEM97,MPZL1,PSMG1,PLK1,SLC37A4,GLRX,CBR3,PRSS23,NUDCD3,CDC20,KIAA0528,NIPSNAP1,TRAM2,STUB1,DERA,MTHFD2,BLVRA,IARS2,LIPA,PGM1,CNDP2,BNIP3,CTSL1,CDC25B,HSPA8,EPRS,PAX8,SACM1L,HOXA5,TLE1,PYGL,TUBB6,LOXL1
 
 			String truncPathInfo = pathInfo.replace("/enrich/", "");
-			
+
 			String[] genes = new String[0];
-			
+
 			Pattern p = Pattern.compile("(.*)/qid/(.*)");
-		    Matcher m = p.matcher(truncPathInfo);
-		    		    
-		 // if our pattern matches the URL extract groups
-		    if (m.find()){
-		    	System.out.println("HI");
-		    	String gene_identifiers = m.group(1);
-		    	genes = gene_identifiers.split(",");
-		        query_name = m.group(2);
-		    }
-		    else{	// enrichment over all geneset libraries
-		    	genes = truncPathInfo.split(",");
-		    }
-		    
-		    genes = toUpper(genes);
-		    
+			Matcher m = p.matcher(truncPathInfo);
+
+			// if our pattern matches the URL extract groups
+			if (m.find()){
+				System.out.println("HI");
+				String gene_identifiers = m.group(1);
+				genes = gene_identifiers.split(",");
+				query_name = m.group(2);
+			}
+			else{	// enrichment over all geneset libraries
+				genes = truncPathInfo.split(",");
+			}
+
+			genes = toUpper(genes);
+
 			Query q = new Query(genes, EnrichmentCore.dict);
 
 			//compute enrichment for each library
 
 			HashMap<String, ArrayList<Overlap>> results = new HashMap<String, ArrayList<Overlap>>();
-			
+
 			double size = 0;
 			double r = 1;
 
@@ -228,44 +222,43 @@ public class EnrichmentCore extends HttpServlet {
 					r++;
 				}
 				results.put(lib.name,enrichResult);
-				
+
 				//integrate results
-			
+
 			}		
-			
+
 			ArrayList<IntegratedRank> top_rank = aggregate.topRank(results, query_name);
 			ArrayList<IntegratedRank> borda = aggregate.bordaCount(results, query_name);
-//			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
-			
+			//			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
+
 			HashMap<String, ArrayList<IntegratedRank>> integrated_results = new HashMap<String, ArrayList<IntegratedRank>>();
 			integrated_results.put("topRank", top_rank);
 			integrated_results.put("bordaCount",borda);
-//			integrated_results.put("localKemenization",kemen);
-			
+			//			integrated_results.put("localKemenization",kemen);
+
 			String json = resultsToJSON(results, integrated_results);
-			
+
 			//respond to request
 			response.setContentType("text/plain");
 			response.getWriter().write(json);
-			
+
 		}
 		else if(pathInfo.matches("^/main/.*")) {
 			PrintWriter out = response.getWriter();
 			out.write(Integer.toString(this.hitCount));
 		}
-		
+
 		else if(pathInfo.matches("^/libdescriptions/.*")) {
 			String json = "{";
-			for(GenesetLibrary l : EnrichmentCore.libraries ) {
-				json = json + "\"" + l.name + "\":[";
-				json = json + "\"" + l.description + "\"],";
+			for(String l : lib_descriptions.keySet()) {
+				json = json + "\"" + l + "\":[";
+				json = json + "\"" + lib_descriptions.get(l) + "\"],";
 			}
 			json = json + "}";
-			
+
 			//remove trailing comma
 			json = json.replaceAll("],}", "]}");	
 			response.getWriter().write(json);
-			
 		}
 
 		else {
@@ -278,7 +271,7 @@ public class EnrichmentCore extends HttpServlet {
 
 	public String resultsToJSON(HashMap<String, ArrayList<Overlap>> results, HashMap<String, ArrayList<IntegratedRank>> integ) {
 		String json = "{";
-		
+
 		for(String key: integ.keySet()) {
 			json = json + "\"" + "Integrated--" + key + "\":[";
 			ArrayList<IntegratedRank> integ_results = integ.get(key);
@@ -289,15 +282,15 @@ public class EnrichmentCore extends HttpServlet {
 				entry = entry + "\"Score\":" + "\"" + Double.toString(sigDig(i.score,3)) + "\"" + ",";
 				entry = entry + "\"Library\":" + "\"" + i.lib_name + "\"}," ;
 				json = json + entry;
-				
+
 			}
-			
+
 			//remove trailing comma
 			json = json.replaceAll(",$", "");
 			json = json + "],";
-			
+
 		}
-		
+
 		for(String key: results.keySet()) {
 			json = json + "\"" + key + "\":[";
 			ArrayList<Overlap> libresults = results.get(key);
@@ -318,39 +311,39 @@ public class EnrichmentCore extends HttpServlet {
 			//remove trailing comma
 			json = json.replaceAll(",$", "");
 			json = json + "],";
-			
+
 		}
-		
+
 		//remove trailing comma
 		json = json.replaceAll(",$", "");
 		json = json + "}";
 
 		return json;
 	}
-	
-	
+
+
 	public int readHits(String hit_filename, EnrichmentCore c) {
 		InputStream file = c.getServletContext().getResourceAsStream(hit_filename);
-		
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(file));
 		int h = -1;
 		try {
 			h = Integer.parseInt(br.readLine());
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 		return(h);	
 	}
-	
+
 	private void writeHits(String hit_filename, EnrichmentCore c) throws IOException {
-		
+
 		//only write to file if hitCount is valid
 		if(this.hitCount>0) {
 			FileWriter f;
-			
-			
+
+
 			String contextPath = c.getServletContext().getRealPath("/");
 
 			String hits_filepath=contextPath+hit_filename;
@@ -358,18 +351,18 @@ public class EnrichmentCore extends HttpServlet {
 			System.out.println(hits_filepath);
 
 			File myfile = new File(hits_filepath);
-			
+
 			f = new FileWriter(myfile,false);
 			f.write(Integer.toString(this.hitCount));
 			f.flush();
 			f.close();
 
 		}
-		
-	}
-	
 
-	
+	}
+
+
+
 	private static double sigDig(double d, int n) {
 		if(Double.isNaN(d)|| Double.isInfinite(d)) {
 			return Double.NaN;
@@ -379,17 +372,17 @@ public class EnrichmentCore extends HttpServlet {
 		double rounded = bd.doubleValue();
 		return(rounded);
 
-	  }
-	
+	}
+
 	private static String[] toUpper(String[] genes) {
 		for(int i=1; i<genes.length; i++) {
 			genes[i] = genes[i].toUpperCase();
 		}
 		return(genes);
 	}
-	
 
-	
+
+
 }
 
 

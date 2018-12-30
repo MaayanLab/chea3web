@@ -1,1 +1,1 @@
-Putative TF targets from reprocessed ChIP-seq experiments from GEO and ENCODE as part o the ReMap Project
+Putative TF targets from reprocessed TF ChIP-seq experiments from GEO and ENCODE as part of the ReMap Project.

@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class GenesetLibrary {
 	public String name;
-	public String description = null;
+//	public String description = null;
 	public HashMap<String, HashSet<String>> allSymbols = new HashMap<String, HashSet<String>>();
 	public HashMap<String, HashSet<String>> mappableSymbols = new HashMap<String, HashSet<String>>();
 	public HashMap<String, short[]> encoded = new HashMap<String, short[]>();
@@ -56,13 +56,6 @@ public class GenesetLibrary {
 		return (genesetlib);
 	}
 	
-	public void loadLibDescription(String path, EnrichmentCore ec) throws IOException{
-				// load gmt file
-				InputStream file = ec.getServletContext().getResourceAsStream(path);		
-				BufferedReader br = new BufferedReader(new InputStreamReader(file));	
-				this.description = br.readLine();
-	}
-
 	public static HashMap<String, short[]> EncodeLibrary(HashMap<String, HashSet<String>> lib, GeneDict dict) {
 
 		HashMap<String, short[]> encoded_lib = new HashMap<String, short[]>();
@@ -123,9 +116,9 @@ public class GenesetLibrary {
 		return(gene.split(",")[0]);
 	}
 	
-	private void setDescription(String desc) {
-		this.description = desc;
-	}
+//	private void setDescription(String desc) {
+//		this.description = desc;
+//	}
 
 //	public static void main(String[] args) throws IOException {
 //		//initialize dictionary object

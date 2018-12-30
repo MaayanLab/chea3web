@@ -1,1 +1,1 @@
-Reprocessed ENCODE ChIP-seq experiments from Enrichr
+Reprocessed ENCODE TF ChIP-seq experiments from Enrichr.

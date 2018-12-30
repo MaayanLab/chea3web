@@ -1,1 +1,1 @@
-Transcription factor targets mined from ChIP-seq experiments from supplemental materials in the literature
+TF targets mined from TF ChIP-seq experiments from supplemental materials in the literature.

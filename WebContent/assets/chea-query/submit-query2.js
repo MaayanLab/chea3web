@@ -4,6 +4,7 @@ var sliderClassName = 'slider';
 var defaultNodeColor = '#d3d3d3';
 var chea3Results;
 var json;
+var descriptions;
 
 //function downloadResults(filename, text) {
 //	  var element = document.createElement('a');
@@ -17,6 +18,8 @@ var json;
 //
 //	  document.body.removeChild(element);
 //}
+
+
 
 function downloadResults(filename, text){
 	var blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
@@ -36,6 +39,7 @@ function downloadResults(filename, text){
     }
     
 }
+
 function sliderChange(event) {
 	// change slider output text
 	alert("sliderChange()")
@@ -167,7 +171,7 @@ function renderCardHeader(libraryName){
 	<h4 class="mbr-fonts-style display-7" style="margin-bottom:0">
 	<span class="sign mbr-iconfont mbri-down inactive"></span>
 	<span class="color-emphasis-1" style = "font-size:100%">${libraryTitle}</span>
-	<span data-tooltip="library information text will go here" data-tooltip_position="right">
+	<span class="lib_description" id="${libraryName}_tooltip" data-tooltip="Loading library information..." data-tooltip_position="right">
 	<span class="mbri-info mbr-iconfont mbr-iconfont-btn"></span>
 	</h4>
 	</a>
@@ -254,6 +258,25 @@ var buttonCommon = {
 			}
 		}
 };
+
+function getLibraryDescriptions(){
+	var url =  host + "chea3/api/libdescriptions/";
+	$.ajax({
+		url : url,
+		success : function(results) {
+			descriptions = JSON.parse(results);
+			var lib_names = Object.keys(descriptions);
+			for(l in lib_names){
+//				console.log(l)
+				lib = lib_names[l];
+				$("#"+lib.replace(".txt","")+"_tooltip").attr("data-tooltip",descriptions[lib][0])
+//				console.log("#"+lib_names[l]+"_tooltip")
+//				console.log(descriptions[lib_names[l]][0])
+			}
+		}
+	});
+		
+}
 
 function downloadText(element_id, filename) {
 	  var element = document.getElementById(element_id);
@@ -423,7 +446,7 @@ $(document).ready(function () {
 							.columns.adjust();
 						})
 					}
-					
+					getLibraryDescriptions();
 					addSliderEventListeners();
 					addCardHeaderEventListeners();
 					$("#results").removeClass("d-none");
