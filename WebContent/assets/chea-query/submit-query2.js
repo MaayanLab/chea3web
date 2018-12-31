@@ -5,6 +5,7 @@ var defaultNodeColor = '#d3d3d3';
 var chea3Results;
 var json;
 var descriptions;
+var aucs = {"Integrated--bordaCount":"0.791", "Integrated--topRank":"0.786", "Enrichr--Queries":"0.733", "ARCHS4--Coexpression":"0.690", "GTEx--Coexpression":"0.684", "ReMap--ChIP-seq": "0.621", "ENCODE--ChIP-seq": "0.587", "Literature--ChIP-seq": "0.566"};
 
 //function downloadResults(filename, text) {
 //	  var element = document.createElement('a');
@@ -163,6 +164,7 @@ function renderTable(libraryName) {
 function renderCardHeader(libraryName){
 	var libraryTitle = libraryName.replace("--"," ");
 	var libraryTitle = libraryTitle.replace("--"," ");
+	var rocauc = aucs[libraryName];
 	return `    <div class="card-header" style="padding:0" role="tab" id="${libraryName}_header">
 	<a role="button" id="${libraryName}_headerbutton" class="lablab collapsed panel-title text-white"
 	data-toggle="collapse" data-parent="#accordion" data-core=""
@@ -173,6 +175,7 @@ function renderCardHeader(libraryName){
 	<span class="color-emphasis-1" style = "font-size:100%">${libraryTitle}</span>
 	<span class="lib_description" id="${libraryName}_tooltip" data-tooltip="Loading library information..." data-tooltip_position="right">
 	<span class="mbri-info mbr-iconfont mbr-iconfont-btn"></span>
+	<span style="font-size:70%",font-color:red">ROC AUC: ${rocauc}</span>
 	</h4>
 	</a>
 
@@ -304,7 +307,7 @@ function newQuery(){
 				
 				<div id="expandresults" style="position: absolute; left: 5%; padding-top:20px">
 					<span style="font-size: 15px; cursor: pointer;padding-top:20px"
-						onclick="openNav('resultssidenav','40%')">&#9776;<h6 class="mbr-iconfont display-7" style = "font-size:.8rem;display:inline">Back to Results</h6></span> <span> <a id="downloadJSON"
+						onclick="openNav('resultssidenav','40%')">&#9776;<h6 class="mbr-iconfont display-5" style = "font-size:1rem;display:inline">&nbspBack to Results</h6></span> <span> <a id="downloadJSON"
 						class="btn btn-sm btn-primary display-4" style="padding: 0;margin:0; display:block"
 						onclick="newQuery()"><span
 						class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>New Query</a><\span>
@@ -363,7 +366,10 @@ $(document).ready(function () {
 					json = results;
 					results = JSON.parse(results);
 					chea3Results = results;
-					var lib_names = Object.keys(results);
+					//reorder results based on ROC AUCs
+					
+					
+					var lib_names = Object.keys(aucs);
 					var results_div = document.getElementById("resultssidenav");
 
 					var captionAndTableMarkup = lib_names.reduce(function (accumulator, libraryName) {
@@ -385,6 +391,7 @@ $(document).ready(function () {
 								aoColumns: [
 									{mData: "Rank", sTitle: "Rank"},
 									{mData: "TF",sTitle: "TF"},
+									{mData: "Score", sTitle: "Score"},
 									{mData: "Library", sTitle: "Library"}],
 									scrollY: "200px",
 									scrollX: "500px",
