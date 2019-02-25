@@ -11,7 +11,7 @@ import jsp.Overlap;
 public class Enrichment {
 
 
-	private FastFisher fet = new FastFisher(50000);
+	private FastFisher fet = new FastFisher(30000);
 
 
 	public Enrichment() {

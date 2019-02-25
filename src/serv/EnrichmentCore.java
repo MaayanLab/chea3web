@@ -1,6 +1,7 @@
 package serv;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -189,7 +190,7 @@ public class EnrichmentCore extends HttpServlet {
 
 			// if our pattern matches the URL extract groups
 			if (m.find()){
-				System.out.println("HI");
+				//System.out.println("HI");
 				String gene_identifiers = m.group(1);
 				genes = gene_identifiers.split(",");
 				query_name = m.group(2);
@@ -211,8 +212,9 @@ public class EnrichmentCore extends HttpServlet {
 
 			for(GenesetLibrary lib: EnrichmentCore.libraries) {
 				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols, lib.name, query_name);
-				Collections.shuffle(enrichResult, new Random());
+				Collections.shuffle(enrichResult, new Random(4));
 				Collections.sort(enrichResult);
+				computeFDR(enrichResult);
 				size = enrichResult.size();
 				r = 1;
 				for(Overlap o: enrichResult) {
@@ -229,12 +231,12 @@ public class EnrichmentCore extends HttpServlet {
 
 			ArrayList<IntegratedRank> top_rank = aggregate.topRank(results, query_name);
 			ArrayList<IntegratedRank> borda = aggregate.bordaCount(results, query_name);
-			//			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
+//			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
 
 			HashMap<String, ArrayList<IntegratedRank>> integrated_results = new HashMap<String, ArrayList<IntegratedRank>>();
 			integrated_results.put("topRank", top_rank);
-			integrated_results.put("bordaCount",borda);
-			//			integrated_results.put("localKemenization",kemen);
+			integrated_results.put("meanRank",borda);
+//			integrated_results.put("localKemenization",kemen);
 
 			String json = resultsToJSON(results, integrated_results);
 
@@ -304,6 +306,7 @@ public class EnrichmentCore extends HttpServlet {
 				entry = entry + "\"Intersect\":" + "\"" + Integer.toString(o.overlap)+ "\"" + ",";
 				entry = entry + "\"Set length\":"  + "\"" + Integer.toString(o.setsize) + "\"" + ",";
 				entry = entry + "\"FET p-value\":" + "\"" + Double.toString(sigDig(o.pval,3)) + "\"" + ",";
+				entry = entry + "\"FDR\":" + "\"" + Double.toString(sigDig(o.fdr,3)) + "\"" + ",";
 				entry = entry + "\"Odds Ratio\":" + "\"" + Double.toString(sigDig(o.oddsratio,3)) + "\"}," ;
 				json = json + entry;	
 			}
@@ -361,8 +364,6 @@ public class EnrichmentCore extends HttpServlet {
 
 	}
 
-
-
 	private static double sigDig(double d, int n) {
 		if(Double.isNaN(d)|| Double.isInfinite(d)) {
 			return Double.NaN;
@@ -375,11 +376,38 @@ public class EnrichmentCore extends HttpServlet {
 	}
 
 	private static String[] toUpper(String[] genes) {
-		for(int i=1; i<genes.length; i++) {
+		for(int i=1; i<genes.length; i++) { //why doesn't i start at 0? come back to this.
 			genes[i] = genes[i].toUpperCase();
 		}
 		return(genes);
 	}
+	
+	private void computeFDR(ArrayList<Overlap> over){
+		 //sort Overlap object
+		 Collections.sort(over);
+		 
+		 //get pvals from overlap object
+		 double pvals[] = new double[over.size()];
+		 int i=0;
+		 for(Overlap o: over) {
+			 pvals[i] = o.getPval();
+			 i++;	 
+		 }
+		 
+	    BenjaminiHochberg bh  = new BenjaminiHochberg(pvals);
+	    bh.calculate();
+	    double[] adj_pvals = bh.getAdjustedPvalues();
+	    int j = 0;
+	    for(Overlap o: over) {
+	    	o.setFDR(adj_pvals[j]);
+	    	System.out.println(pvals[j]);
+	    	System.out.println(adj_pvals[j]);
+	    	j++;
+
+	    }
+	    
+	    	
+	 }
 
 
 

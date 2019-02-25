@@ -18,9 +18,9 @@ public class IntegratedRank implements Comparable<IntegratedRank>{
 		this.rank = rank;
 	}
 	
-	public void setScore(int score) {
-		this.score = score;
-	}
+//	public void setScore(double score) {
+//		this.score = score;
+//	}
 	
 	public double getScore() {
 		return this.score;

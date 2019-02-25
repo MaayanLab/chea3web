@@ -3,6 +3,8 @@ package serv;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
+
 import jsp.Overlap;
 
 
@@ -60,7 +62,7 @@ public class RankAggregate {
 		
 		String lib_name = "all";
 		//hashmap that stores the cumulative score for each tf
-		HashMap<String, Integer> tf_scores = new HashMap<String, Integer>();
+		HashMap<String, Double> tf_scores = new HashMap<String, Double>();
 				
 		//hashmap that stores the number of libraries that contribute to the score
 		HashMap<String, Integer> tf_libs = new HashMap<String, Integer>();
@@ -69,14 +71,14 @@ public class RankAggregate {
 			
 			//iterate through each overlap object in the lib results set
 			for(Overlap o: orig.get(lib)) {
-				//check to see if tf has been added to tf_ranks
+				//check to see if tf has been added to tf_scores
 				if(!tf_scores.containsKey(o.lib_tf)) {
 					
-					tf_scores.put(o.lib_tf, o.rank);
+					tf_scores.put(o.lib_tf, (double) o.rank);
 					tf_libs.put(o.lib_tf, 1);
 					
 				}else {
-					int score = tf_scores.get(o.lib_tf);
+					double score = tf_scores.get(o.lib_tf);
 					int count = tf_libs.get(o.lib_tf);
 					count++;
 					
@@ -90,7 +92,8 @@ public class RankAggregate {
 		
 		//iterate through integrated ranks and generate a list of IntegratedRank objects
 		for(String tf: tf_scores.keySet()) {
-			integ.add(new IntegratedRank(tf, tf_scores.get(tf)/tf_libs.get(tf),lib_name, query_name));
+			double score = tf_scores.get(tf)/tf_libs.get(tf);
+			integ.add(new IntegratedRank(tf, score,lib_name, query_name));
 		}	
 		
 		integ = sortRank(integ);
@@ -99,49 +102,50 @@ public class RankAggregate {
 	}
 	
 	
-	//function local kemenization
-	public ArrayList<IntegratedRank> localKemenization(HashMap<String, ArrayList<Overlap>> orig, String query_name){
-		//start with a borda count rank aggregation
-		ArrayList<IntegratedRank> r = bordaCount(orig, query_name);
-		Collections.shuffle(r);
-		
-		HashMap<String, HashMap<String,Integer>> votes = new HashMap<String, HashMap<String,Integer>>();
-		for(String lib_name : orig.keySet()) {
-			ArrayList<Overlap> lib_results = orig.get(lib_name);
-			HashMap<String,Integer> rankings = new HashMap<String, Integer>();
-			for(Overlap o: lib_results) {
-				rankings.put(o.lib_tf, o.rank);
-			}
-			votes.put(lib_name, rankings);
-		}
-		
-		int i = 1;
-		int j = 1;
-		
-		while(i<r.size()) {
-			j = i;	
-			while(j>0 && swap(r, votes, j)) {
-				//swap r[j] and r[j-1]
-//				System.out.println(j);
-//				System.out.println("swap");
-				Collections.swap(r, j, j-1);
-				j = j-1;	
-			}
-			i++;
-		}
-		
-		for(int k=0;k<r.size();k++) {
-			System.out.println(r.get(k).rank);
-			r.get(k).setRank(k+1);
-			r.get(k).setScore(0);
-			System.out.println(r.get(k).rank);
-		}
-		return r;
-	}
+//	//function local kemenization
+//	public ArrayList<IntegratedRank> localKemenization(HashMap<String, ArrayList<Overlap>> orig, String query_name){
+//		//start with a borda count rank aggregation
+//		ArrayList<IntegratedRank> r = bordaCount(orig, query_name);
+//		Collections.shuffle(r);
+//		
+//		HashMap<String, HashMap<String,Integer>> votes = new HashMap<String, HashMap<String,Integer>>();
+//		
+//		for(String lib_name : orig.keySet()) { //iterate over libraries 
+//			ArrayList<Overlap> lib_results = orig.get(lib_name);
+//			HashMap<String,Integer> rankings = new HashMap<String, Integer>();
+//			for(Overlap o: lib_results) {
+//				rankings.put(o.lib_tf, o.rank);
+//			}
+//			votes.put(lib_name, rankings);
+//		}
+//		
+//		int i = 1;
+//		int j = 1;
+//		
+//		while(i<r.size()) {
+//			j = i;	
+//			while(j>0 && swap(r, votes, j)) {
+//				//swap r[j] and r[j-1]
+////				System.out.println(j);
+////				System.out.println("swap");
+//				Collections.swap(r, j, j-1);
+//				j = j-1;	
+//			}
+//			i++;
+//		}
+//		
+//		for(int k=0;k<r.size();k++) {
+//			System.out.println(r.get(k).rank);
+//			r.get(k).setRank(k+1);
+//			r.get(k).setScore(0);
+//			System.out.println(r.get(k).rank);
+//		}
+//		return r;
+//	}
 	
 	
 	private ArrayList<IntegratedRank> sortRank(ArrayList<IntegratedRank> integ){
-		//Collections.shuffle(integ, new Random());
+		Collections.shuffle(integ, new Random(4));
 		Collections.sort(integ);
 		
 		//set rank
@@ -153,31 +157,35 @@ public class RankAggregate {
 		return(integ);
 	}
 	
-	private boolean swap(ArrayList<IntegratedRank> r, HashMap<String, HashMap<String,Integer>> votes, int j) {
-		
-		int j_votes = 0;
-		int jminus_votes = 0;
-
-		for(String judge: votes.keySet()) {
-			
-			HashMap<String, Integer> v = votes.get(judge);
-//			System.out.println("outwhile" + Integer.toString(j));
-			if(v.containsKey(r.get(j).tf) & v.containsKey(r.get(j-1).tf)) {
-			
-				if(r.get(j).rank < r.get(j-1).rank) {
-					j_votes++;
-				}
-				else {
-					jminus_votes++;
-				}
-			}	
-		}
-		
-		if (jminus_votes < j_votes) {
-			return true;
-		}else {
-			return false;
-		}
-		
-	}
+//	private boolean swap(ArrayList<IntegratedRank> r, HashMap<String, HashMap<String,Integer>> votes, int j) {
+//		
+//		int j_votes = 0;
+//		int jminus_votes = 0;
+//
+//		for(String judge: votes.keySet()) {
+//			
+//			HashMap<String, Integer> v = votes.get(judge);
+//			
+//			if(v.containsKey(r.get(j).tf) & v.containsKey(r.get(j-1).tf)) {
+//			
+//				if(r.get(j).rank < r.get(j-1).rank) {
+//					j_votes++;
+//				}
+//				else {
+//					jminus_votes++;
+//				}
+//			}	
+//		}
+//		
+//		if (jminus_votes < j_votes) {
+//			System.out.println("swap");
+//			return true;
+//			
+//		}else {
+//			System.out.println("don't swap");
+//			return false;
+//			
+//		}
+//		
+//	}
 }

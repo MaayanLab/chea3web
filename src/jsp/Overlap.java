@@ -12,6 +12,7 @@ public class Overlap implements Comparable<Overlap>{
 	public double oddsratio = 0;
 	public int rank = 0;
 	public double scaledRank = 0;
+	public double fdr = 0;
 
 
 	public Overlap(String libset_name, int overlap, double pval, int setsize, double odds, String lib_name, String query_name) {
@@ -27,6 +28,10 @@ public class Overlap implements Comparable<Overlap>{
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+	
+	public void setFDR(double fdr) {
+		this.fdr = fdr;
 	}
 	
 	public void setScaledRank(double sc) {
