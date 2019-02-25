@@ -45,6 +45,13 @@ html, body {
   overflow-y: scroll;
 }
 
+.sidenavR.openNav{
+	width: 40%;
+}
+.sidenavR.closeNav{
+	width: 0;
+}
+
 .sidenavR a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
@@ -66,9 +73,17 @@ html, body {
   margin-left: 50px;
 }
 
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+} */
+
+@media screen and (max-width: 825px) {
+  .sidenavR.openNav {width: 50%;}
+}
+
+@media screen and (max-width: 675px) {
+  .sidenavR.openNav {width: 100%;}
 }
 
 table.dataTable.squished tbody td {

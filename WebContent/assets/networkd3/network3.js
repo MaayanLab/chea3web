@@ -63,11 +63,13 @@ function circleColour() {
 //}
 
 function openNav(nav, width) {
-	document.getElementById(nav).style.width = width;
+	$('#'+nav).removeClass('closeNav')
+	$('#'+nav).addClass('openNav')
 }
 
 function closeNav(nav) {
-	document.getElementById(nav).style.width = "0";
+	$('#'+nav).removeClass('openNav')
+	$('#'+nav).addClass('closeNav')
 }
 
 function getLabelView(){
@@ -136,9 +138,13 @@ function drawNetwork() {
 	d3.json("assets/networkd3/wgcna_gtex_annotated2.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
-
 		net_width = networkDiv.clientWidth;
-		net_height = networkDiv.clientHeight-100;
+		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
+		console.log(net_width)
+		console.log(net_height)
+		console.log($('#tfnet').width())
+		console.log($('#tfnet').css('padding'))
+
 
 		var network_svg = d3.select("#tfnet").append("svg");
 		// network_svg.attr("viewBox","0,0,${net_width},${net_height}");

@@ -5,7 +5,7 @@ var defaultNodeColor = '#d3d3d3';
 var chea3Results;
 var json;
 var descriptions;
-var aucs = {"Integrated--bordaCount":"0.791", "Integrated--topRank":"0.786", "Enrichr--Queries":"0.733", "ARCHS4--Coexpression":"0.690", "GTEx--Coexpression":"0.684", "ReMap--ChIP-seq": "0.621", "ENCODE--ChIP-seq": "0.587", "Literature--ChIP-seq": "0.566"};
+var aucs = {"Integrated--meanRank":"0.791", "Integrated--topRank":"0.786", "Enrichr--Queries":"0.733", "ARCHS4--Coexpression":"0.690", "GTEx--Coexpression":"0.684", "ReMap--ChIP-seq": "0.621", "ENCODE--ChIP-seq": "0.587", "Literature--ChIP-seq": "0.566"};
 
 //function downloadResults(filename, text) {
 //	  var element = document.createElement('a');
@@ -43,7 +43,7 @@ function downloadResults(filename, text){
 
 function sliderChange(event) {
 	// change slider output text
-	alert("sliderChange()")
+	
 	var outputId = `${event.target.id}_output`;
 	document.getElementById(outputId).innerHTML = renderSliderValueString(event.target.value);
 	document.getElementById("colorby").value = "none";
@@ -297,20 +297,25 @@ function downloadText(element_id, filename) {
 function newQuery(){
 	$("#results").addClass("d-none");
 	$("#results").html(`
-				<div id="resultssidenav" class="sidenavR" style="height:90%;padding-top:20px;padding-bottom:20px">
+				<div id="resultssidenav" class="sidenavR"
+					style="top: 60px; height: 90%; padding-top: 20px; padding-bottom: 20px">
 					<a href="javascript:void(0)" class="closebtn"
 						onclick="closeNav('resultssidenav')">&times;</a>
-						<h1
-					class="mbr-section-title mbr-bold mbr-fonts-style display-7 text-white"
-					align="left" style='padding-left:5%'>Results by Library</h1>
+					<h1
+						class="mbr-section-title mbr-bold mbr-fonts-style display-7 text-white"
+						align="left" style='padding-left: 2em'>Results by Library</h1>
 				</div>
-				
-				<div id="expandresults" style="position: absolute; left: 5%; padding-top:20px">
-					<span style="font-size: 15px; cursor: pointer;padding-top:20px"
-						onclick="openNav('resultssidenav','40%')">&#9776;<h6 class="mbr-iconfont display-5" style = "font-size:1rem;display:inline">&nbspBack to Results</h6></span> <span> <a id="downloadJSON"
-						class="btn btn-sm btn-primary display-4" style="padding: 0;margin:0; display:block"
-						onclick="newQuery()"><span
-						class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>New Query</a><\span>
+
+				<div id="expandresults"
+					style="float:left; padding-top: 30px">
+					<span style="font-size: 15px; cursor: pointer; padding-top: 30px"
+						onclick="openNav('resultssidenav','40%')">&#9776;
+						
+					</span> <h6 class="mbr-iconfont display-5"
+							style="font-size: 1rem; display: inline">Back to Results</h6> <span><a id="newquerybutton"
+						class="btn btn-sm btn-primary display-4"
+						style="display: block; padding: 0; margin: 0" onclick="newQuery()"><span
+							class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>New Query</a></span>
 
 				</div>`);
 	
@@ -424,6 +429,7 @@ $(document).ready(function () {
 									{mData: "Set length", sTitle: "Set size"},
 									{mData: "Intersect", sTitle: "Intersection"},
 									{mData: "FET p-value", sTitle: "FET p-value"},
+									{mData: "FDR", sTitle: "FDR"},
 									{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
 									scrollY: "200px",
 									scrollX: "4000px",
@@ -499,17 +505,22 @@ $(document).ready(function () {
 					var table_id = '#table_' + card_id.replace("_headerbutton","");	
 					var body_id = card_id.replace("headerbutton","body");
 					
+					
 					$(table_id).css('width', '100%');
 					$("#"+slider_id).val(10);
 					document.getElementById(output_id).innerHTML = renderSliderValueString(10);
 					
-					$("#"+card_id).removeClass("collapsed");
-					$("#"+card_id).attr("aria-expanded",true);
-					$("#"+body_id).addClass("show");
+					$('#'+body_id).collapse()
+					
+//					$("#"+card_id).removeClass("collapsed");
+//					$("#"+card_id).attr("aria-expanded",true);
+//					$("#"+body_id).addClass("show");
+					
 					
 					document.getElementById("colorby").value = "none";
 					recolorAllNodes();
 					setLegendView();
+					location.href = '#top'
 
 
 				}//end success function

@@ -54,22 +54,12 @@
 	background: none;
 }
 
-.navbar-dropdown.navbar-short .navbar-brand {
-	padding: 0.625rem 0;
-}
 
 .navbar-dropdown.navbar-short .navbar-brand span {
 	vertical-align: -1px;
 }
 
-.navbar-dropdown.navbar-short .navbar-caption {
-	line-height: 2.375rem !important;
-	vertical-align: -2px;
-}
 
-.navbar-dropdown.navbar-short .navbar-logo {
-	margin-right: 0.5rem;
-}
 
 .navbar-dropdown.navbar-short .navbar-logo img {
 	height: 2.375rem;
