@@ -1,1 +1,0 @@
-The top 300 co-expressed genes with each TF from 50,000 reprocessed GEO RNA-seq samples were used as putative TF targets.

@@ -1,1 +1,0 @@
-User gene lists submitted to the enrichment tool Enrichr were evaluated for the genes that occur most frequently with each TF. The top 300 co-occurring genes for each TF were used as putative TF targets.
