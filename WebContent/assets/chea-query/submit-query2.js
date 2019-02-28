@@ -62,6 +62,8 @@ function translateNodeColor(val){
 		return("Specific_tissue_color");
 	}else if(val == "WGCNA modules"){
 		return("WGCNA_hex");
+	}else if(val == "GO Enrichment"){
+		return("GO_enrichment_color");
 	}else{
 		return(defaultNodeColor);
 	}
