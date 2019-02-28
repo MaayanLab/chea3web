@@ -1,4 +1,4 @@
-docker build -f DockerfileAPI -t maayanlab/chea3-dev .
+docker build -f DockerfileAPI -t maayanlab/chea3 .
 
 
-docker push maayanlab/chea3-dev
+docker push maayanlab/chea3

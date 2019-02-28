@@ -85,6 +85,7 @@ function setLegendView(){
 	var colby = document.getElementById("colorby").value;
 	var gen_hidden = $("#general_tissue_legend").hasClass("hidden");
 	var spec_hidden = $("#specific_tissue_legend").hasClass("hidden");
+	var go_hidden = $("#GO_legend").hasClass("hidden");
 	
 	if(isLegendChecked()){
 		if(colby == "Tissue (general)"){
@@ -94,6 +95,9 @@ function setLegendView(){
 			
 			if(!spec_hidden){
 				$("#specific_tissue_legend").addClass("hidden");
+			}
+			if(!go_hidden){
+				$("#GO_legend").addClass("hidden");
 			}
 		
 
@@ -105,7 +109,23 @@ function setLegendView(){
 			if(!gen_hidden){
 				$("#general_tissue_legend").addClass("hidden");
 			}
-		} else{
+			if(!go_hidden){
+				$("#GO_legend").addClass("hidden");
+			}
+		} else if(colby == "GO Enrichment"){
+			console.log("GO")
+			if(go_hidden){
+				$("#GO_legend").removeClass("hidden");
+			}
+			if(!gen_hidden){
+				$("#general_tissue_legend").addClass("hidden");
+			}
+			if(!spec_hidden){
+				$("#specific_tissue_legend").addClass("hidden");
+			}
+			
+		}
+		else{
 			if(!gen_hidden){
 				$("#general_tissue_legend").addClass("hidden");
 
@@ -114,6 +134,9 @@ function setLegendView(){
 			if(!spec_hidden){
 				$("#specific_tissue_legend").addClass("hidden");
 			}	
+			if(!go_hidden){
+				$("#GO_legend").addClass("hidden");
+			}
 		}
 	}else{
 		if(!gen_hidden){
@@ -123,6 +146,9 @@ function setLegendView(){
 
 		if(!spec_hidden){
 			$("#specific_tissue_legend").addClass("hidden");
+		}
+		if(!go_hidden){
+			$("#GO_legend").addClass("hidden");
 		}
 	}	
 }
@@ -135,15 +161,15 @@ var div = d3.select("body").append("div")
 
 
 function drawNetwork() {
-	d3.json("assets/networkd3/wgcna_gtex_annotated2.json", function(net_json) {
+	d3.json("assets/networkd3/wgcna_gtex_annotated3.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
 		net_width = networkDiv.clientWidth;
 		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
-		console.log(net_width)
-		console.log(net_height)
-		console.log($('#tfnet').width())
-		console.log($('#tfnet').css('padding'))
+		//console.log(net_width)
+		//console.log(net_height)
+		//console.log($('#tfnet').width())
+		//console.log($('#tfnet').css('padding'))
 
 
 		var network_svg = d3.select("#tfnet").append("svg");
@@ -221,7 +247,10 @@ function drawNetwork() {
 						return d.Specific_tissue_color;
 					} else if (circle_fill == "WGCNA_hex") {
 						return d.WGCNA.hex;
-					} else {
+					} else if (circle_fill == "GO_enrichment_color"){
+						return d.GO_enrichment_color
+					}
+					else {
 						return defaultNodeColor;
 					}
 				}).attr("stroke", 0).attr(
@@ -234,6 +263,9 @@ function drawNetwork() {
 								}).attr("Specific_tissue_color",
 										function(d) {
 									return d.Specific_tissue_color
+								}).attr("GO_enrichment_color",
+										function(d) {
+									return d.GO_enrichment_color
 								}).on("mouseover", function(d) {
 									div.transition()		
 									.duration(100)		
@@ -413,6 +445,54 @@ function drawNetwork() {
 			.style("font-size","10pt")
 			.text(function(d){return d.tissue});
 		});
+		
+		
+		
+		var legend = g.append("g")
+		.attr("class", "legend")
+		.attr("id","GO_legend")
+		.attr("x", net_width - 250)
+		.attr("y", net_height)
+		.attr("height", 200)
+		.attr("width", 100)
+		.attr("class","hidden")
+		.style("pointer-events","none");
+
+		legend.selectAll('g').data(GO_enrichment)
+		.enter()
+		.append('g')
+		.each(function(d, i) {
+			var g = d3.select(this);
+			g.append("rect")
+			.attr("x", net_width - 198)
+			.attr("y", i*15 + 140)
+			.attr("width", 10)
+			.attr("height", 10)
+			.style("stroke-width",1)
+			.style("stroke","white")
+			.style("fill", function(d){return d.color});
+			
+			g.append("text")
+			.attr("x", net_width - 185)
+			.attr("y", i * 15 + 150)
+			.attr("height",10)
+			.attr("width",100)
+			.style("fill", "white")
+			.style("font-size","10pt")
+			.style("stroke-width","0.4em")
+			.style("stroke","white")
+			.text(function(d){return d.GO_term});
+
+			g.append("text")
+			.attr("x", net_width - 185)
+			.attr("y", i * 15 + 150)
+			.attr("height",10)
+			.attr("width",100)
+			.style("fill", "black")
+			.style("font-size","10pt")
+			.text(function(d){return d.GO_term});
+		});
+		
 
 		var sliders = document.querySelectorAll(".slider");
 		if (sliders != null) {
