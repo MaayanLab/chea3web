@@ -1,1 +1,1 @@
-The sum of the ranks for each TF from all libraries is used as a score for each TF. The TFs are then re-ranked (ascending) based on this score.
+The mean of the integer ranks for each TF from all libraries is used as a score for each TF. The TFs are then re-ranked (ascending) based on this score.

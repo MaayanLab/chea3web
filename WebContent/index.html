@@ -88,7 +88,7 @@
 							class="mbri-laptop mbr-iconfont mbr-iconfont-btn"></span>API</a></li>
 					<li class="nav-item"><a
 						class="nav-link link text-white display-4"
-						href="https://github.com/MaayanLab/chea3web"><span
+						href="https://github.com/MaayanLab/chea3web" target = "_blank"><span
 							class="mbri-github mbr-iconfont mbr-iconfont-btn"></span>GitHub</a></li>
 							
 					<li class="nav-item"><a
@@ -332,7 +332,7 @@
 						<strong>Network Visualization</strong> - The ChEA3 application displays a scatter plot of points representing all human transcription 
 						factors based on their co-expression similarity. This TF coexpression network was constructed by conducting a <a href="https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/">Weighted Gene 
 						Co-expression Network Analysis (WGCNA)</a> over RNA-seq counts of human TFs over all <a href="https://gtexportal.org/home/">GTEx</a> samples. 
-						The network layout was determined using Allegro Strong Clustering in <a href="https://cytoscape.org">Cytoscape</a>.  WGCNA TF module summary expression profiles, also known as Eigen-genes,
+						The network layout was determined using Allegro Edge-Repulsive Strong Clustering in <a href="https://cytoscape.org">Cytoscape</a>.  WGCNA TF module summary expression profiles, also known as Eigen-genes,
 						were correlated with gene expression profiles from all GTEx tissue samples to determine strong module-tissue associations. Each WGCNA module may be colored by its most 
 						highly correlated tissue. Tissues are aggregated into more general tissue types (e.g. brain) and more specific tissue types (e.g. cerebellum, frontal cortex).
 						
@@ -340,18 +340,18 @@
 						<br> 
 						
 						<strong>Benchmarking Predictions</strong> - The performance of each library and integration method 
-						was benchmarked using <a href = "assets/tflibs/Single-TF_Perturbations.gmt" download">979 single-TF loss-of-function (LOF) and gain-of-function (GOF) experiments</a> 
+						was benchmarked using <a href = "assets/tflibs/Single-TF_Perturbations.gmt" download">946 single-TF loss-of-function (LOF) and gain-of-function (GOF) experiments</a> 
 						mined from GEO with microarray and RNA-seq readouts. Gene sets were generated from the differentially 
-						expressed genes of these experiments and the areas under the receiver operating characteristic 
-						(ROC) and precision-recall (PR) curves were used to evaluate how well ChEA3 ranked the true perturbed TF. 
+						expressed genes of these experiments and submitted to the ChEA3 API. The positive class consists of ranks assigned by ChEA3 to perturbed TFs.
+						The negative class consists of ranks assigned by ChEA3 to TFs not perturbed in the experiment. The areas under the receiver operating characteristic 
+						(ROC) and precision-recall (PR) curves were used to evaluate how well ChEA3 ranked the true perturbed TF. Each library has a different number of TFs covered. To enable comparison, the negative class
+						was downsampled to the size of the positive class to generate PR curves such that a random classifier has an AUC of 0.5. These PR curves were bootstrapped 5,000 times to generate mean PR AUCs and composite 
+						PR curves.
 						<br>
 						<br>
-						<strong>Table 1. Benchmarking Performance. Area Under the Curve (AUC) for Precision-recall (PR) and Receiver Operating Characteristic curves.</strong>
-						<img style="width:100%;position:relative;padding-top:0px;margin-top:0px" src="./assets/chea3home/images/chea3aucs.png">
-						<img style="width:95%;position:relative" src="./assets/chea3home/images/chea3curves.png">
-						<strong>Figure 1. Precision-recall (PR) and Receiver Operating Characteristic (ROC) curves for ChEA3 performance benchmarking. Due to the class imbalance, the negative control class for the PR-curve was down-sampled to equal the number of controls in the positive class. Therefore, a 'junk' classifier would have a PR AUC of 0.5.
-						</strong>
 						
+						<img style="width:95%;position:relative" src="./assets/chea3home/images/Fig1.png">
+						<strong> Figure 1. Performance of the ChEA3 libraries and integration techniques in recovering the perturbed TFs from 946 TF LOF and GOF experiments. a) ROC AUC and mean PR AUC over 5,000 bootstrapped PR curves b) ROC curves c) Composite PR curves generated from 5,000 bootstrapped curves d) The deviation of the cumulative distribution from uniform of the scaled rankings of each perturbed TF in the benchmarking dataset.</strong>
 				</div>
 			</div>
 		</div>
@@ -535,6 +535,10 @@
 			</div>
 		</div>
 	</section>
+	<h3
+						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						Libraries used for ChEA3 enrichment analysis</h3>
+	
 
 	<section class="features5 cid-r0K1ARyThe" id="features5-r">
 
@@ -692,212 +696,104 @@ The library encompasses 419,114
 			</div>
 		</div>
 	</section>
-
-
-	<!-- <section class="toggle1 cid-r0JP9NlyE8" id="toggle1-6">
-
-
-		<div class="container">
-			<div class="media-container-row">
-				<div class="col-12 col-md-8">
-					<div class="section-head text-center space30">
-						<h2 class="mbr-section-title pb-5 mbr-fonts-style display-2">ChEA3
-							FAQ</h2>
-					</div>
-					<div class="clearfix"></div>
-					<div id="bootstrap-toggle"
-						class="toggle-panel accordionStyles tab-content">
-						<div class="card">
-							<div class="card-header" role="tab" id="headingTwo">
-								<a role="button" class="collapsed panel-title text-black"
-									data-toggle="collapse" data-parent="#accordion" data-core=""
-									href="#collapse2_6" aria-expanded="false"
-									aria-controls="collapse2">
-									<h4 class="mbr-fonts-style display-5">
-										<span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
-										Which library should I use?
-									</h4>
-								</a>
-
-							</div>
-							<div id="collapse2_6" class="panel-collapse noScroll collapse"
-								role="tabpanel" aria-labelledby="headingTwo">
-								<div class="panel-body p-4">
-									<p class="mbr-fonts-style panel-text display-7">Ultimately
-										this will depend on your application, however in our
-										benchmarking studies, the "Integrated" library performed the
-										best. The Integrated library uses a rank aggregation scheme to
-										integrate results from all other ChEA3 libraries.</p>
-								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div class="card-header" role="tab" id="headingThree">
-								<a role="button" class="collapsed panel-title text-black"
-									data-toggle="collapse" data-parent="#accordion" data-core=""
-									href="#collapse3_6" aria-expanded="false"
-									aria-controls="collapse3">
-									<h4 class="mbr-fonts-style display-5">
-										<span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
-										Why ChEA3?
-									</h4>
-								</a>
-							</div>
-							<div id="collapse3_6" class="panel-collapse noScroll collapse"
-								role="tabpanel" aria-labelledby="headingThree">
-								<div class="panel-body p-4">
-									<p class="mbr-fonts-style panel-text display-7">Key
-										differences between ChEA3 and other TFEA tools are that ChEA3
-										uses libraries of putative transcription factor targets
-										compiled from multiple difference sources and assays.</p>
-								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div class="card-header" role="tab" id="headingThree">
-								<a role="button" class="collapsed panel-title text-black"
-									data-toggle="collapse" data-parent="#accordion" data-core=""
-									href="#collapse4_6" aria-expanded="false"
-									aria-controls="collapse4">
-									<h4 class="mbr-fonts-style display-5">
-										<span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
-										What can I use ChEA3 for?
-									</h4>
-								</a>
-							</div>
-							<div id="collapse4_6" class="panel-collapse noScroll collapse"
-								role="tabpanel" aria-labelledby="headingThree">
-								<div class="panel-body p-4">
-									<p class="mbr-fonts-style panel-text display-7">ChEA3 will
-										rank transcription factosr according to their predicted
-										transcriptional influence over your gene set. For case
-										studies, please see the ChEA3 paper.</p>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-		<div></div>
-	</section>
- -->
-	<!-- <section class="cid-r0JPhyhkBL" id="social-buttons1-7">
+	<h3
+						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						Benchmarking Libraries</h3>
+						
+						<section class="features5 cid-r0K1D0ndDf" id="features5-s">
 
 
 		<div class="container">
 			<div class="media-container-row">
-				<div class="col-md-8 align-center">
-					<h2 class="pb-3 mbr-section-title mbr-fonts-style display-2">
-						SHARE THIS TOOL</h2>
-					<div>
-						<div class="mbr-social-likes" data-counters="false">
-							<span class="btn btn-social facebook mx-2"
-								title="Share link on Facebook"> <i
-								class="socicon socicon-facebook"></i>
-							</span> <span class="btn btn-social twitter mx-2"
-								title="Share link on Twitter"> <i
-								class="socicon socicon-twitter"></i>
-							</span> <span class="btn btn-social plusone mx-2"
-								title="Share link on Google+"> <i
-								class="socicon socicon-googleplus"></i>
-							</span>
 
-
-						</div>
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<a href="assets/tflibs/Single-TF_Perturbations.gmt" download><span
+							class="mbri-save mbr-iconfont" style="cursor: pointer"></span></a>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7">TF LOF/GOF Experiments</h4>
+						<p class="mbr-text mbr-fonts-style display-7"
+							style="text-align: justify">
+							Single-TF perturbation experiments including knockdowns, knockouts, overexpression, 
+							and chemical inhibition followed by genome-wide microarray profiling were manually 
+							curated by the crowd for the from <a href="https://www.nature.com/articles/ncomms12846">CREEDS</a>. 
+							An additional 160 single-TF perturbation from RNA-seq experiments were manually curated from GEO by 
+							first programmatically searching <a href = "https://amp.pharm.mssm.edu/archs4/">ARCHS4</a> metadata for potential studies that contain relevant signatures. 
+							The top 300 upregulated, and the top 300 downregulated genes were used to compose TF perturbation experiment - 
+							associated gene sets for a total of 786 gene sets associated with 275 unique site-specific TFs. 
+						</p>
 					</div>
 				</div>
+
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<a href="assets/tflibs/Cusanovich_TF_shRNA.gmt" download><span
+							class="mbri-save mbr-iconfont" style="cursor: pointer"></span></a>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href ="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50588" >TF shRNA Experiments</a> in B-LCLs</h4>
+						<p class="mbr-text mbr-fonts-style display-7"
+							style="text-align: justify">
+							The top 300 upregulated and top 300 downregulated genes from each of 49 unique TF shRNA knockdowns by <a href = "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004226"><i>Cusanovich et al.</i></a> were used to generate 49 TF perturbation-associated gene sets. 
+						</p>
+					</div>
+				</div>
+
+
 			</div>
 		</div>
 	</section>
- -->
-	<!-- <section class="cid-r0JPoDoQWj" id="footer5-9">
-
-
-		<div class="container">
+						
+						
+	<h3
+						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						Additional Libraries</h3>
+						<section class="features5 cid-r0K1D0ndDf" id="features5-s">
+						<div class="container">
 			<div class="media-container-row">
-				<div class="col-md-3">
-					<div class="media-wrap">
-						<a href="https://mobirise.com/"> <img
-							src="assets/images/logo2.png" alt="Mobirise">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-9">
-					<p class="mbr-text align-right links mbr-fonts-style display-7">
-						<a href="#" class="text-black">ABOUT</a> &nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="text-black">TERMS</a> &nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="text-black">CAREERS</a>
-						&nbsp;&nbsp;&nbsp;&nbsp; <a href="#" class="text-black">CONTACT</a>
-					</p>
-				</div>
-			</div>
-	 -->		<!-- <div class="footer-lower">
-				<div class="media-container-row">
-					<div class="col-md-12">
-						<hr>
-					</div>
-				</div>
-				<div class="media-container-row mbr-white">
-					<div class="col-md-6 copyright">
-						<p class="mbr-text mbr-fonts-style display-7">License&nbsp;</p>
-					</div>
-					<div class="col-md-6">
-						<div class="social-list align-right">
-							<div class="soc-item">
-								<a href="https://twitter.com/mobirise" target="_blank"> <span
-									class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
-								</a>
-							</div>
-							<div class="soc-item">
-								<a
-									href="https://www.facebook.com/pages/Mobirise/1616226671953247"
-									target="_blank"> <span
-									class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
-								</a>
-							</div>
-							<div class="soc-item">
-								<a href="https://www.youtube.com/c/mobirise" target="_blank">
-									<span
-									class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
-								</a>
-							</div>
-							<div class="soc-item">
-								<a href="https://instagram.com/mobirise" target="_blank"> <span
-									class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
-								</a>
-							</div>
-							<div class="soc-item">
-								<a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
-									<span
-									class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
-								</a>
-							</div>
-							<div class="soc-item">
-								<a href="https://www.behance.net/Mobirise" target="_blank">
-									<span
-									class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
-<!-- 		</div>
-	</section> -->
 
-	<!-- <section --> <!-- class="cid-r0JPpxZeuF" id="footer6-a">
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<a href="assets/tflibs/tf_humap_ppi.gmt" download><span
+							class="mbri-save mbr-iconfont" style="cursor: pointer"></span></a>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href = "http://proteincomplexes.org">Hu.MAP</a> TF PPIs</h4>
+						<p class="mbr-text mbr-fonts-style display-7"
+							style="text-align: justify">
+							<a href = "http://proteincomplexes.org">Hu.MAP</a> integrates large-scale affinity purification mass-spec datasets. All putative protein interactors with each TF were
+							used to generate this TF PPI library. 
+						</p>
+					</div>
+				</div>
+				
+				<div class="card p-3 col-12 col-md-6 col-lg-3">
+					<div class="card-img pb-3">
+						<a href="assets/tflibs/tf_iref_ppi.gmt" download><span
+							class="mbri-save mbr-iconfont" style="cursor: pointer"></span></a>
+					</div>
+					<div class="card-box">
+						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href = "http://wodaklab.org/iRefWeb/">iRefWeb</a> TF PPIs</h4>
+						<p class="mbr-text mbr-fonts-style display-7"
+							style="text-align: justify">
+							iRefWeb integrates PPIs from several major public PPI databases. PPIs from the <a href = "https://thebiogrid.org/">BioGRID</a>, <a href = "http://mips.helmholtz-muenchen.de/proj/ppi/">MPPI</a>,
+							 <a href = "http://mips.helmholtz-muenchen.de/corum/">CORUM</a>, 
+							and <a href = "http://www.hprd.org/">HPRD</a> databases
+							are included in this library.
+						</p>
+					</div>
+				</div>
 
 
-		<div class="container">
-			<div class="media-container-row align-center mbr-white">
-				<div class="col-12">
-					<p class="mbr-text mb-0 mbr-fonts-style display-7"></p>
-				</div>
+
 			</div>
 		</div>
 	</section>
+						
+			
+
+
 	<!--Footer-->
 <div class="row px-5 justify-content-center">
     <!-- Affiliations Column -->
@@ -943,7 +839,7 @@ The library encompasses 419,114
 	<iframe id="dwnld_iframe" style="display: none;"></iframe>
  -->
 	<script type="text/javascript">
-		var host = "http://localhost:8080/";
+		var host = "https://amp.pharm.mssm.edu/";
 	</script>
 	<script src="assets/web/assets/jquery/jquery-3.3.1.min.js"
 		type="text/javascript"></script>
