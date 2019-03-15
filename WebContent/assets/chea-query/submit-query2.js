@@ -5,7 +5,7 @@ var defaultNodeColor = '#d3d3d3';
 var chea3Results;
 var json;
 var descriptions;
-var aucs = {"Integrated--meanRank":"0.791", "Integrated--topRank":"0.786", "Enrichr--Queries":"0.733", "ARCHS4--Coexpression":"0.690", "GTEx--Coexpression":"0.684", "ReMap--ChIP-seq": "0.621", "ENCODE--ChIP-seq": "0.587", "Literature--ChIP-seq": "0.566"};
+var aucs = {"Integrated--meanRank":"0.786", "Integrated--topRank":"0.783", "Enrichr--Queries":"0.725", "ARCHS4--Coexpression":"0.711", "GTEx--Coexpression":"0.703", "ReMap--ChIP-seq": "0.629", "Literature--ChIP-seq": "0.613", "ENCODE--ChIP-seq": "0.606"};
 
 //function downloadResults(filename, text) {
 //	  var element = document.createElement('a');
