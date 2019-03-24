@@ -39,6 +39,8 @@
 <link rel="stylesheet" href="assets/chea-query/result_scroll.css">
 <link rel="stylesheet" href="assets/chea-query/submit-query.css">
 <link rel="stylesheet" href="assets/networkd3/netprogressbar.css">
+<link rel="stylesheet" href="assets/styles.css">
+
 
 
 </head>
@@ -517,6 +519,7 @@
 				</div>
 			</div>
 		</div>
+
 	</section>
 
 	<!-- DOWNLOAD LIBRARIES SECTION -->
@@ -544,6 +547,8 @@
 
 
 		<div class="container">
+		
+  
 			<div class="media-container-row">
 
 				<div class="card p-3 col-12 col-md-6 col-lg-3">
@@ -554,8 +559,10 @@
 					<div class="card-box">
 						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a>
 							Coexpression</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
-							style="text-align: justify">
+							<div id = "module" class = "container">
+							
+						<p class="mbr-text mbr-fonts-style display-7 collapse" 
+							style="text-align: justify" id="collapseARCHS" aria-expanded="false">
 							<a href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a>
 							is a massive RNA-seq reprocessing effort containing over 150,000
 							human and mouse samples from GEO. The ARCHS4 TF co-expression
@@ -566,7 +573,10 @@
 							transcription factors for a total of 1,618 gene sets. The library
 							encompasses 485,400 putative TF-gene interactions.
 						</p>
+						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseARCHS" aria-expanded="false" aria-controls="collapseARCHS"></a>
+						</div>
 					</div>
+			
 				</div>
 
 				<div class="card p-3 col-12 col-md-6 col-lg-3">
@@ -577,7 +587,8 @@
 					<div class="card-box">
 						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href="https://gtexportal.org/home/">GTEx</a>
 							Coexpression</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
+							<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "collapseGTEx" aria_expanded = "false"
 							style="text-align: justify">
 							The <a href="https://gtexportal.org/home/">Genotype-Tissue Expression (GTEx)</a>
 							project is a public resource dedicated to cataloguing tissue-specific
@@ -591,8 +602,11 @@
 							transcription were used to build the TF gene set library. The
 							library encompasses 479,400 putative TF-gene interactions.
 						</p>
+						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseGTEx" aria-expanded="false" aria-controls="collapseGTEx"></a>
+						</div>
+						</div>
 					</div>
-				</div>
+				
 
 				<div class="card p-3 col-12 col-md-6 col-lg-3">
 					<div class="card-img pb-3">
@@ -603,8 +617,9 @@
 						<h4 class="card-title py-3 mbr-fonts-style display-7"><a
 								href="http://amp.pharm.mssm.edu/Enrichr/" >Enrichr</a>
 							Queries</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
-							style="text-align: justify">
+							<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse"
+							style="text-align: justify" id="enrichrCollapse" aria-expanded = "false">
 							User-submitted gene lists were copied from the <a
 								href="http://amp.pharm.mssm.edu/Enrichr/" >Enrichr</a>
 							for a total of 1,097,157 unique lists.  Enrichr example lists, lists used for internal testing, lists with greater than 2000 genes, lists with less than 2 genes, and lists from IP addresses that submitted >1000 lists were filtered out which resulted in 293,747 unique gene lists remaining for co-occurrence analysis. 
@@ -612,10 +627,24 @@ For each TF <i>i</i> defined in a census of 1404 TFs, the probability of co-occu
 The library encompasses 419,114
 							TF-gene interactions.
 						</p>
+						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#enrichrCollapse" aria-expanded="false" aria-controls="enrichrCollapse"></a>
+					</div>
 					</div>
 				</div>
 
-				<div class="card p-3 col-12 col-md-6 col-lg-3">
+
+				</div>
+			</div>
+		
+	</section>
+
+	<section class="features5 cid-r0K1D0ndDf" id="features5-s">
+
+
+		<div class="container">
+			<div class="media-container-row">
+			
+							<div class="card p-3 col-12 col-md-6 col-lg-3">
 					<div class="card-img pb-3">
 						<a href="assets/tflibs/ReMap_ChIP-seq.gmt" download><span
 							class="mbri-save mbr-iconfont" style="cursor: pointer"></span></a>
@@ -623,7 +652,8 @@ The library encompasses 419,114
 					<div class="card-box mbr-fonts-style">
 						<h4 class="card-title py-3 display-7"><a href="http://pedagogix-tagc.univ-mrs.fr/remap/"
 								>ReMap</a> ChIP-seq</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
+					<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "remapCollapse" aria-expanded = "false"
 							style="text-align: justify">
 							The ReMap ChIP-seq library was generated using BED files from the
 							<a href="http://pedagogix-tagc.univ-mrs.fr/remap/"
@@ -633,17 +663,11 @@ The library encompasses 419,114
 							to generate putative target sets, encompassing 422,025 TF-gene
 							interactions.
 						</p>
+						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#remapCollapse" aria-expanded="false" aria-controls="remapCollapse"></a>
+					</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="features5 cid-r0K1D0ndDf" id="features5-s">
-
-
-		<div class="container">
-			<div class="media-container-row">
+			
 
 				<div class="card p-3 col-12 col-md-6 col-lg-3">
 					<div class="card-img pb-3">
@@ -654,7 +678,8 @@ The library encompasses 419,114
 						<h4 class="card-title py-3 mbr-fonts-style display-7"><a
 								href="https://www.encodeproject.org/">ENCODE</a>
 							ChIP-seq</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
+							<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "encodeCollapse" aria-expanded = "false"
 							style="text-align: justify">
 							TF target gene sets were generated for the web tool <a
 								href="http://amp.pharm.mssm.edu/Enrichr/">Enrichr</a>
@@ -665,6 +690,8 @@ The library encompasses 419,114
 							experiment. The library encompasses 552 ChIP-seq experiments of 118 unique TFs. The library contains 867,121 
 							TF-gene interactions.
 						</p>
+												<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#encodeCollapse" aria-expanded="false" aria-controls="encodeCollapse"></a>
+						</div>
 					</div>
 				</div>
 
@@ -676,7 +703,8 @@ The library encompasses 419,114
 					<div class="card-box">
 						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href="https://academic.oup.com/bioinformatics/article/26/19/2438/230298" >Literature
 							ChIP-seq </a>(ChEA)</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
+							<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "collapseLit" aria-expanded = "false" 
 							style="text-align: justify">
 							This library is derived from TF ChIP-seq and ChIP-ChIP experiments mined from
 							supplemental data in the literature. Previous versions of this
@@ -688,7 +716,11 @@ The library encompasses 419,114
 								for the publication from which the experiment originated, as well as the species, assay and the cell- or tissue-type.
 								This library encompasses 463 ChIP-seq and ChIP-ChIP experiments across 282 publications. The gene sets
 								are associated with 194 unique TFs and contains 623,233 TF-gene interactions.
+								
 						</p>
+						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseLit" aria-expanded="false" aria-controls="collapseLit"></a>
+						
+					</div>
 					</div>
 				</div>
 
@@ -713,7 +745,8 @@ The library encompasses 419,114
 					</div>
 					<div class="card-box">
 						<h4 class="card-title py-3 mbr-fonts-style display-7">TF LOF/GOF Experiments</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
+						<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" aria-expanded = "false" id = "collapsePert"
 							style="text-align: justify">
 							Single-TF perturbation experiments including knockdowns, knockouts, overexpression, 
 							and chemical inhibition followed by genome-wide microarray profiling were manually 
@@ -723,6 +756,9 @@ The library encompasses 419,114
 							The top 300 upregulated, and the top 300 downregulated genes were used to compose TF perturbation experiment - 
 							associated gene sets for a total of 786 gene sets associated with 275 unique site-specific TFs. 
 						</p>
+						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapsePert" aria-expanded="false" aria-controls="collapsePert"></a>
+						
+					</div>
 					</div>
 				</div>
 
@@ -732,11 +768,15 @@ The library encompasses 419,114
 							class="mbri-save mbr-iconfont" style="cursor: pointer"></span></a>
 					</div>
 					<div class="card-box">
-						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href ="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50588" >TF shRNA Experiments</a> in B-LCLs</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
-							style="text-align: justify">
+						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href ="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50588" >TF shRNA Experiments</a></h4>
+						<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" aria-expanded = "false" id="collapseCus"
+							style="text-align: justify" >
 							The top 300 upregulated and top 300 downregulated genes from each of 49 unique TF shRNA knockdowns by <a href = "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004226"><i>Cusanovich et al.</i></a> were used to generate 49 TF perturbation-associated gene sets. 
 						</p>
+							<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseCus" aria-expanded="false" aria-controls="collapseCus"></a>
+						
+					</div>
 					</div>
 				</div>
 
@@ -749,8 +789,8 @@ The library encompasses 419,114
 	<h3
 						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
 						Additional Libraries</h3>
-						<section class="features5 cid-r0K1D0ndDf" id="features5-s">
-						<div class="container">
+		<section class="features5 cid-r0K1D0ndDf" id="features5-s">
+		<div class="container">
 			<div class="media-container-row">
 
 				<div class="card p-3 col-12 col-md-6 col-lg-3">
@@ -760,13 +800,19 @@ The library encompasses 419,114
 					</div>
 					<div class="card-box">
 						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href = "http://proteincomplexes.org">Hu.MAP</a> TF PPIs</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
-							style="text-align: justify">
-							<a href = "http://proteincomplexes.org">Hu.MAP</a> integrates large-scale affinity purification mass-spec datasets. All putative protein interactors with each TF were
+						<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" 
+							style="text-align: justify" aria-expanded = "false" id="collapseHuMap">
+							<a href = "http://proteincomplexes.org">Hu.MAP</a> integrates large-scale affinity purification mass-spec datasets. All putative protein interacters with each TF were
 							used to generate this TF PPI library. 
 						</p>
+							<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseHuMap" aria-expanded="false" aria-controls="collapseHuMap"></a>
+						
+						</div>
+						</div>
 					</div>
-				</div>
+					
+
 				
 				<div class="card p-3 col-12 col-md-6 col-lg-3">
 					<div class="card-img pb-3">
@@ -775,13 +821,17 @@ The library encompasses 419,114
 					</div>
 					<div class="card-box">
 						<h4 class="card-title py-3 mbr-fonts-style display-7"><a href = "http://wodaklab.org/iRefWeb/">iRefWeb</a> TF PPIs</h4>
-						<p class="mbr-text mbr-fonts-style display-7"
+						<div id = "module" class = "container">
+						<p class="mbr-text mbr-fonts-style display-7 collapse" aria-expanded = "false" id = "irefCollapse"
 							style="text-align: justify">
 							iRefWeb integrates PPIs from several major public PPI databases. PPIs from the <a href = "https://thebiogrid.org/">BioGRID</a>, <a href = "http://mips.helmholtz-muenchen.de/proj/ppi/">MPPI</a>,
 							 <a href = "http://mips.helmholtz-muenchen.de/corum/">CORUM</a>, 
 							and <a href = "http://www.hprd.org/">HPRD</a> databases
 							are included in this library.
 						</p>
+						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#irefCollapse" aria-expanded="false" aria-controls="irefCollapse"></a>
+						
+					</div>
 					</div>
 				</div>
 
