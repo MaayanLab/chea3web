@@ -2,6 +2,7 @@
 
   padding-right: 0px;
   padding-left: 0px;
+  text-align:center;
  
 }
 
@@ -22,4 +23,9 @@
 
 #module #collapseExample.collapsing {
   height: 4.5em;
+}
+
+.center {
+    margin: 0 auto;
+    width: 80%;
 }
