@@ -1,4 +1,4 @@
-package serv;
+package main.java.serv;
 
 /* This class is taken from the Pal-Project: http://www.cebl.auckland.ac.nz/pal-project/ */
 

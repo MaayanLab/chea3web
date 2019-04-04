@@ -1,4 +1,4 @@
-package serv;
+package main.java.serv;
 
 
 

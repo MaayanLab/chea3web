@@ -1,0 +1,54 @@
+import java.nio.file.Paths
+
+plugins {
+    id 'java'
+    id 'war'
+    id 'com.bmuschko.tomcat' version '2.5'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+version = '1.2.1'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.json:json:20180813'
+    implementation 'com.amazonaws:aws-java-sdk:1.11.510'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.0'
+
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1',
+            'javax.servlet:jsp-api:2.0'
+
+    def tomcatVersion = '9.0.16'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:9.0.0.M6",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+
+    testImplementation 'junit:junit:4.12'
+}
+
+tomcat {
+    httpPort = 8080
+    httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
+    ajpProtocol  = 'org.apache.coyote.ajp.AjpNio2Protocol'
+    contextPath  = 'chea3'
+}
+
+def dockerDir = 'docker'
+def warName = 'chea3.war'
+
+war {
+    archiveName = warName
+    destinationDir = Paths.get(dockerDir).toFile()
+}
+
+clean {
+    doLast {
+        Paths.get("${dockerDir}/${warName}")
+                .toFile().delete()
+    }
+}

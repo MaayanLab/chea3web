@@ -1,11 +1,11 @@
-package serv;
+package main.java.serv;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
-import jsp.Overlap;
+import main.java.jsp.Overlap;
 
 
 public class RankAggregate {

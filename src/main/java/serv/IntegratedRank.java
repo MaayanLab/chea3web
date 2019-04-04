@@ -1,4 +1,4 @@
-package serv;
+package main.java.serv;
 
 public class IntegratedRank implements Comparable<IntegratedRank>{
 	String tf = "";
