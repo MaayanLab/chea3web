@@ -20,6 +20,7 @@ public class RankAggregate {
 		//hashmap that stores the library of the best rank for each tf
 		HashMap<String, String> tf_libs = new HashMap<String, String>();
 		
+		
 		for(String lib: orig.keySet()) {
 			
 			//iterate through each overlap object in the lib results set
@@ -56,7 +57,7 @@ public class RankAggregate {
 	}
 
 
-	//function bordaCount
+	//function bordaCount (AKA meanRank)
 	public ArrayList<IntegratedRank> bordaCount(HashMap<String, ArrayList<Overlap>> orig, String query_name){
 		ArrayList<IntegratedRank> integ = new ArrayList<IntegratedRank>();
 		
