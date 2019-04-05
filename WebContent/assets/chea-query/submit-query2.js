@@ -1,5 +1,4 @@
 
-
 var sliderClassName = 'slider';
 var defaultNodeColor = '#d3d3d3';
 var chea3Results;
@@ -185,11 +184,20 @@ function renderCardHeader(libraryName){
 	`
 }
 
+function renderDownloadLibraryButton(libraryName){
+	var libraryTitle = libraryName.replace("--","_");
+	var libraryTitle = libraryTitle.replace("--","_");
+	return `<a id = "downloadJSON" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('${libraryTitle}.tsv',libraryJSONtoTSV('${libraryName}'));">
+	Download All ${libraryTitle} Results as TSV</a>`
+
+}
+
 function renderCardBody(libraryName) {
 	return `<div id="${libraryName}_body" class="funfun panel-collapse noScroll collapse" style="width:100%;padding:7px"
 	role="tabpanel" aria-labelledby="${libraryName}_header">
 	<div class="panel-body">`
-	+ renderCaption(libraryName) + renderTable(libraryName)+
+	+ renderCaption(libraryName) + renderTable(libraryName) + renderDownloadLibraryButton(libraryName) +
 
 	`</div>
 	</div>`
@@ -405,6 +413,7 @@ $(document).ready(function () {
 									sScrollX: "500px",
 									scrollCollapse: true,
 									paging: false,
+									info: false,
 									dom: "Bfrtip",
 									buttons: [
 										$.extend(true, {}, buttonCommon, {
@@ -437,6 +446,7 @@ $(document).ready(function () {
 									scrollX: "4000px",
 									sScrollX: "4000px",
 									scrollCollapse: true,
+									info: false,
 									paging: false,
 									dom: "Bfrtip",
 									buttons: [
