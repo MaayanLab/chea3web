@@ -405,7 +405,10 @@ $(document).ready(function () {
 								data: lib_results.slice(0,100),
 								aoColumns: [
 									{mData: "Rank", sTitle: "Rank"},
-									{mData: "TF",sTitle: "TF"},
+									{mData: "TF", sTitle: "TF", 
+										mRender: function(data, type, full){
+											return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
+										}},
 									{mData: "Score", sTitle: "Score"},
 									{mData: "Library", sTitle: "Library"}],
 									scrollY: "200px",
@@ -435,7 +438,9 @@ $(document).ready(function () {
 								data: lib_results.slice(0,100),
 								aoColumns: [
 									{mData: "Rank", sTitle: "Rank"},
-									{mData: "TF",sTitle: "TF"},
+									{mData: "TF",sTitle: "TF", mRender: function(data, type, full){
+										return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
+									}},
 									{mData: "Set name", sTitle: "Set name"},
 									{mData: "Set length", sTitle: "Set size"},
 									{mData: "Intersect", sTitle: "Intersection"},
