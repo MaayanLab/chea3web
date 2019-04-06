@@ -282,7 +282,8 @@ public class EnrichmentCore extends HttpServlet {
 				entry = entry + "\"Rank\":" + "\"" + Integer.toString(i.rank) + "\"" + ",";
 				entry = entry + "\"TF\":" + "\"" + i.tf + "\"" + ",";
 				entry = entry + "\"Score\":" + "\"" + Double.toString(sigDig(i.score,4)) + "\"" + ",";
-				entry = entry + "\"Library\":" + "\"" + i.lib_name + "\"}," ;
+				entry = entry + "\"Library\":" + "\"" + i.lib.replace("--"," ") + "\"" + "," ;
+				entry = entry + "\"Overlapping Genes\":" + "\"" + set2String(i.genes) + "\"}," ;
 				json = json + entry;
 
 			}
@@ -307,7 +308,7 @@ public class EnrichmentCore extends HttpServlet {
 				entry = entry + "\"Set length\":"  + "\"" + Integer.toString(o.setsize) + "\"" + ",";
 				entry = entry + "\"FET p-value\":" + "\"" + Double.toString(sigDig(o.pval,4)) + "\"" + ",";
 				entry = entry + "\"FDR\":" + "\"" + Double.toString(sigDig(o.fdr,3)) + "\"" + ",";
-				entry = entry + "\"Odds Ratio\":" + "\"" + Double.toString(sigDig(o.oddsratio,4)) + ",";
+				entry = entry + "\"Odds Ratio\":" + "\"" + Double.toString(sigDig(o.oddsratio,4)) + "\"" + ",";
 				entry = entry + "\"Overlapping Genes\":" + "\"" + set2String(o.genes) + "\"}," ;
 				json = json + entry;	
 			}
