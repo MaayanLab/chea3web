@@ -1,8 +1,11 @@
 package serv;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 import jsp.Overlap;
@@ -17,8 +20,10 @@ public class RankAggregate {
 		//hashmap that stores the best rank for each tf
 		HashMap<String, Double> tf_ranks = new HashMap<String, Double>();
 		
-		//hashmap that stores the library of the best rank for each tf
+		//string that stores the library and best rank for each tf
 		HashMap<String, String> tf_libs = new HashMap<String, String>();
+		
+		HashMap<String, HashSet<String>> tf_genes = new HashMap<String, HashSet<String>>();
 		
 		
 		for(String lib: orig.keySet()) {
@@ -29,14 +34,16 @@ public class RankAggregate {
 				if(!tf_ranks.containsKey(o.lib_tf)) {
 					
 					tf_ranks.put(o.lib_tf, o.scaledRank);
-					tf_libs.put(o.lib_tf, o.lib_name);
+					tf_libs.put(o.lib_tf, o.lib_name + "," + Double.toString(sigDig(o.scaledRank,4)));
+					tf_genes.put(o.lib_tf, o.genes);
 					
 				}else {
 					double r = tf_ranks.get(o.lib_tf);
 					
 					if(r>o.scaledRank) {
 						tf_ranks.put(o.lib_tf, o.scaledRank);
-						tf_libs.put(o.lib_tf, o.lib_name);
+						tf_libs.put(o.lib_tf, o.lib_name + "," + Double.toString(sigDig(o.scaledRank,4)));
+						tf_genes.put(o.lib_tf, o.genes);
 					}
 					
 				}
@@ -46,7 +53,8 @@ public class RankAggregate {
 		
 		//iterate through integrated ranks and generate a list of IntegratedRank objects
 		for(String tf: tf_ranks.keySet()) {
-			integ.add(new IntegratedRank(tf, tf_ranks.get(tf), tf_libs.get(tf), query_name));
+			
+			integ.add(new IntegratedRank(tf, tf_ranks.get(tf), tf_libs.get(tf), query_name, tf_genes.get(tf)));
 		}
 		
 		
@@ -61,12 +69,16 @@ public class RankAggregate {
 	public ArrayList<IntegratedRank> bordaCount(HashMap<String, ArrayList<Overlap>> orig, String query_name){
 		ArrayList<IntegratedRank> integ = new ArrayList<IntegratedRank>();
 		
-		String lib_name = "all";
 		//hashmap that stores the cumulative score for each tf
 		HashMap<String, Double> tf_scores = new HashMap<String, Double>();
 				
 		//hashmap that stores the number of libraries that contribute to the score
-		HashMap<String, Integer> tf_libs = new HashMap<String, Integer>();
+		HashMap<String, Integer> tf_numlibs = new HashMap<String, Integer>();
+		
+		//hashmap that stores the libraries and the tf rank in those libraries
+		HashMap<String, String> tf_libinfo = new HashMap<String, String>();
+		
+		HashMap<String, HashSet<String>> tf_genes = new HashMap<String, HashSet<String>>();
 		
 		for(String lib: orig.keySet()) {
 			
@@ -76,15 +88,22 @@ public class RankAggregate {
 				if(!tf_scores.containsKey(o.lib_tf)) {
 					
 					tf_scores.put(o.lib_tf, (double) o.rank);
-					tf_libs.put(o.lib_tf, 1);
+					tf_numlibs.put(o.lib_tf, 1);
+					tf_genes.put(o.lib_tf, o.genes);
+					tf_libinfo.put(o.lib_tf, o.lib_name + "," + Integer.toString(o.rank));
 					
 				}else {
 					double score = tf_scores.get(o.lib_tf);
-					int count = tf_libs.get(o.lib_tf);
+					int count = tf_numlibs.get(o.lib_tf);
+					HashSet<String> overlap_genes = new HashSet<>(tf_genes.get(o.lib_tf));
+					overlap_genes.addAll(o.genes);
 					count++;
-					
+					String libinfo = tf_libinfo.get(o.lib_tf);
+					tf_libinfo.put(o.lib_tf, o.lib_name + "," + Integer.toString(o.rank) + ";" + libinfo);
 					tf_scores.put(o.lib_tf, o.rank + score);
-					tf_libs.put(o.lib_tf,count);
+					tf_numlibs.put(o.lib_tf,count);
+					tf_genes.put(o.lib_tf,overlap_genes);
+					
 					
 				}
 				
@@ -93,8 +112,8 @@ public class RankAggregate {
 		
 		//iterate through integrated ranks and generate a list of IntegratedRank objects
 		for(String tf: tf_scores.keySet()) {
-			double score = tf_scores.get(tf)/tf_libs.get(tf);
-			integ.add(new IntegratedRank(tf, score,lib_name, query_name));
+			double score = tf_scores.get(tf)/tf_numlibs.get(tf);
+			integ.add(new IntegratedRank(tf, score, tf_libinfo.get(tf), query_name, tf_genes.get(tf)));
 		}	
 		
 		integ = sortRank(integ);
@@ -102,6 +121,16 @@ public class RankAggregate {
 		
 	}
 	
+	private static double sigDig(double d, int n) {
+		if(Double.isNaN(d)|| Double.isInfinite(d)) {
+			return Double.NaN;
+		}
+		BigDecimal bd = new BigDecimal(d);
+		bd = bd.round(new MathContext(n));
+		double rounded = bd.doubleValue();
+		return(rounded);
+
+	}
 	
 //	//function local kemenization
 //	public ArrayList<IntegratedRank> localKemenization(HashMap<String, ArrayList<Overlap>> orig, String query_name){
