@@ -410,6 +410,29 @@ $(document).ready(function () {
 											return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
 										}},
 									{mData: "Score", sTitle: "Score"},
+									{mData: "Overlapping_Genes",sTitle: "Overlapping Genes", mRender: function(data, type, row, meta){
+										var genes = row.Overlapping_Genes;
+										space_genes = genes.replace(/,/g, ', ');
+										var count = genes.split(',').length;
+										
+										return `<div class="popover-block-container">
+  <button tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.TF + row.Score.split(".")[0] + `" data-toggle="popover" data-placement="right">
+   ` + count +
+  `</button>
+  <div id="` + row.TF + row.Score.split(".")[0] + `" style="display:none;">
+    <div class="popover-body">
+      <button type="button" class="popover-close close">
+        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+      </button>` +
+      space_genes + 
+      
+    `<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('overlap.csv','`+ genes +`');">
+	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+ </div>
+  </div>
+</div>`
+									}},	
 									{mData: "Library", sTitle: "Library"}],
 									scrollY: "200px",
 									scrollX: "500px",
@@ -445,17 +468,23 @@ $(document).ready(function () {
 									{mData: "Set_name", sTitle: "Set name"},
 									{mData: "Set length", sTitle: "Set size"},
 									{mData: "Intersect",sTitle: "Intersection", mRender: function(data, type, row, meta){
+										var genes = row.Overlapping_Genes;
+										space_genes = genes.replace(/,/g, ', ');
 										return `<div class="popover-block-container">
-  <button tabindex="0" type="button" class="popover-icon" data-popover-content="#` + row.Set_name + row.Library + `" data-toggle="popover" data-placement="right">
+  <button tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.Set_name + row.Library + `" data-toggle="popover" data-placement="right">
    ` + data +
   `</button>
   <div id="` + row.Set_name + row.Library + `" style="display:none;">
     <div class="popover-body">
       <button type="button" class="popover-close close">
-        <i class="material-icons">close</i>
+        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
       </button>` +
-      row.Overlapping_Genes + 
-    `</div>
+      space_genes + 
+      
+    `<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('overlap.csv','`+ genes +`');">
+	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+ </div>
   </div>
 </div>`
 									}},		

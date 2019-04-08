@@ -35,7 +35,7 @@ public class RankAggregate {
 					
 					tf_ranks.put(o.lib_tf, o.scaledRank);
 					tf_libs.put(o.lib_tf, o.lib_name + "," + Double.toString(sigDig(o.scaledRank,4)));
-					tf_genes.put(o.lib_tf, o.genes);
+					tf_genes.put(o.lib_tf, new HashSet<>(o.genes));
 					
 				}else {
 					double r = tf_ranks.get(o.lib_tf);
@@ -43,7 +43,7 @@ public class RankAggregate {
 					if(r>o.scaledRank) {
 						tf_ranks.put(o.lib_tf, o.scaledRank);
 						tf_libs.put(o.lib_tf, o.lib_name + "," + Double.toString(sigDig(o.scaledRank,4)));
-						tf_genes.put(o.lib_tf, o.genes);
+						tf_genes.put(o.lib_tf,new HashSet<>(o.genes));
 					}
 					
 				}
@@ -89,14 +89,14 @@ public class RankAggregate {
 					
 					tf_scores.put(o.lib_tf, (double) o.rank);
 					tf_numlibs.put(o.lib_tf, 1);
-					tf_genes.put(o.lib_tf, o.genes);
+					tf_genes.put(o.lib_tf, new HashSet<>(o.genes));
 					tf_libinfo.put(o.lib_tf, o.lib_name + "," + Integer.toString(o.rank));
 					
 				}else {
 					double score = tf_scores.get(o.lib_tf);
 					int count = tf_numlibs.get(o.lib_tf);
 					HashSet<String> overlap_genes = new HashSet<>(tf_genes.get(o.lib_tf));
-					overlap_genes.addAll(o.genes);
+					overlap_genes.addAll(new HashSet<> (o.genes));
 					count++;
 					String libinfo = tf_libinfo.get(o.lib_tf);
 					tf_libinfo.put(o.lib_tf, o.lib_name + "," + Integer.toString(o.rank) + ";" + libinfo);
