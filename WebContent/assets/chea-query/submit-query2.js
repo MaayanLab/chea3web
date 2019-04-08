@@ -441,9 +441,24 @@ $(document).ready(function () {
 									{mData: "TF",sTitle: "TF", mRender: function(data, type, full){
 										return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
 									}},
-									{mData: "Set name", sTitle: "Set name"},
+																
+									{mData: "Set_name", sTitle: "Set name"},
 									{mData: "Set length", sTitle: "Set size"},
-									{mData: "Intersect", sTitle: "Intersection"},
+									{mData: "Intersect",sTitle: "Intersection", mRender: function(data, type, row, meta){
+										return `<div class="popover-block-container">
+  <button tabindex="0" type="button" class="popover-icon" data-popover-content="#` + row.Set_name + row.Library + `" data-toggle="popover" data-placement="right">
+   ` + data +
+  `</button>
+  <div id="` + row.Set_name + row.Library + `" style="display:none;">
+    <div class="popover-body">
+      <button type="button" class="popover-close close">
+        <i class="material-icons">close</i>
+      </button>` +
+      row.Overlapping_Genes + 
+    `</div>
+  </div>
+</div>`
+									}},		
 									{mData: "FET p-value", sTitle: "FET p-value"},
 									{mData: "FDR", sTitle: "FDR"},
 									{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
@@ -538,6 +553,15 @@ $(document).ready(function () {
 					recolorAllNodes();
 					setLegendView();
 					location.href = '#top'
+						
+					$("[data-toggle=popover]").popover({
+				        html : true,
+				        trigger: 'focus',
+				        content: function() {
+				            var content = $(this).attr("data-popover-content");
+				            return $(content).children(".popover-body").html();
+				        }
+				    });
 
 
 				}//end success function
