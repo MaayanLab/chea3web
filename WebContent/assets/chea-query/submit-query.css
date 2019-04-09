@@ -105,6 +105,8 @@ body {
 }
 
 .popover-block-container {
+	display: inline;
+	float: right;
     .popover-icon {
         background: none;
         color: none;
@@ -123,7 +125,7 @@ body {
       display: none;
   }
   .popover {
-    max-width: 306.6px;
+    max-width: 600px;
     border-radius: 6px;
     border: none;
     box-shadow: 0 0 6px 1px #eee;

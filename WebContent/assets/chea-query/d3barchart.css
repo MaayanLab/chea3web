@@ -1,0 +1,6 @@
+#main {
+  width: 960px;
+}
+.axis .domain {
+  display: none;
+}
