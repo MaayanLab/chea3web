@@ -357,6 +357,7 @@ $(document).ready(function () {
 		// generate url
 		var enrich_url = host + "chea3/api/enrich/";
 		enrich_url = enrich_url + geneset.join();
+		console.log(enrich_url)
 
 		if (validateGeneSet(geneset)) {
 
@@ -525,7 +526,10 @@ $(document).ready(function () {
 					location.href = '#top'
 
 
-				}//end success function
+				},//end success function
+				error: function(e) {
+					console.log(e);
+				}
 			}); // end AJAX call
 
 		}
