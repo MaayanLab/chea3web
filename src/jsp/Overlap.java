@@ -60,6 +60,10 @@ public class Overlap implements Comparable<Overlap>{
 		return this.pval;
 	}
 	
+	public String getLibTF() {
+		return this.lib_tf;
+	}
+	
 	private static String before(String value, String a) {
 	    // Return substring containing all characters before a string.
 	    int posA = value.indexOf(a);
