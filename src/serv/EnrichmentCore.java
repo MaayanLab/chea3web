@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import jsp.Overlap;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -209,14 +210,44 @@ public class EnrichmentCore extends HttpServlet {
 
 			double size = 0;
 			double r = 1;
+			int d = 0;
+			
 
 			for(GenesetLibrary lib: EnrichmentCore.libraries) {
 				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols, lib.name, query_name);
 				Collections.shuffle(enrichResult, new Random(4));
 				Collections.sort(enrichResult);
 				computeFDR(enrichResult);
-				size = enrichResult.size();
+				
+				
+				//where multiple library gene sets correspond to the same TF, take only the best 
+				//performing gene set and remove the rest from the list
+				HashSet<String> lib_tfs = new HashSet<String>();
+				ArrayList<Integer> duplicated_tf_idx = new ArrayList<>();
+				d=0;
+				
+				for(Overlap o: enrichResult) {
+					if(lib_tfs.contains(new String(o.getLibTF()))){
+						duplicated_tf_idx.add(d);
+						//System.out.println(o.lib_name);
+						
+					}else {
+						lib_tfs.add(new String(o.getLibTF()));
+					}
+					d++;
+				}
+				
+				Collections.sort(duplicated_tf_idx, Collections.reverseOrder());
+				
+				for(Integer dupe: duplicated_tf_idx) {
+					int duplicated = dupe;
+					System.out.println(dupe);
+					enrichResult.remove(duplicated);
+				}
+				
+				//set ranks of remaining results
 				r = 1;
+				size = enrichResult.size();
 				for(Overlap o: enrichResult) {
 					o.setRank((int) r);
 					o.setScaledRank(r/size);
@@ -407,8 +438,8 @@ public class EnrichmentCore extends HttpServlet {
 	    int j = 0;
 	    for(Overlap o: over) {
 	    	o.setFDR(adj_pvals[j]);
-	    	System.out.println(pvals[j]);
-	    	System.out.println(adj_pvals[j]);
+	    	//System.out.println(pvals[j]);
+	    	//System.out.println(adj_pvals[j]);
 	    	j++;
 
 	    }
