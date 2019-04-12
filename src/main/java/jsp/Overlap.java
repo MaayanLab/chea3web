@@ -1,5 +1,7 @@
 package main.java.jsp;
 
+import java.util.HashSet;
+
 public class Overlap implements Comparable<Overlap>{
 	public int overlap;
 	public double pval = 0;
@@ -13,9 +15,9 @@ public class Overlap implements Comparable<Overlap>{
 	public int rank = 0;
 	public double scaledRank = 0;
 	public double fdr = 0;
+	public HashSet<String> genes = new HashSet<String>();
 
-
-	public Overlap(String libset_name, int overlap, double pval, int setsize, double odds, String lib_name, String query_name) {
+	public Overlap(String libset_name, int overlap, double pval, int setsize, double odds, String lib_name, String query_name, HashSet<String> genes) {
 		this.pval = pval;
 		this.overlap = overlap;
 		this.libset_name = libset_name;
@@ -24,6 +26,7 @@ public class Overlap implements Comparable<Overlap>{
 		this.oddsratio = odds;
 		this.lib_name = lib_name;
 		this.lib_tf =  before(this.libset_name,"_");
+		this.genes = genes;
 	}
 
 	public void setRank(int rank) {
@@ -55,6 +58,10 @@ public class Overlap implements Comparable<Overlap>{
 
 	public double getPval() {
 		return this.pval;
+	}
+	
+	public String getLibTF() {
+		return this.lib_tf;
 	}
 	
 	private static String before(String value, String a) {

@@ -25,7 +25,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.jsp.Overlap;
+
+import jsp.Overlap;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -209,14 +210,44 @@ public class EnrichmentCore extends HttpServlet {
 
 			double size = 0;
 			double r = 1;
+			int d = 0;
+			
 
 			for(GenesetLibrary lib: EnrichmentCore.libraries) {
 				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols, lib.name, query_name);
 				Collections.shuffle(enrichResult, new Random(4));
 				Collections.sort(enrichResult);
 				computeFDR(enrichResult);
-				size = enrichResult.size();
+				
+				
+				//where multiple library gene sets correspond to the same TF, take only the best 
+				//performing gene set and remove the rest from the list
+				HashSet<String> lib_tfs = new HashSet<String>();
+				ArrayList<Integer> duplicated_tf_idx = new ArrayList<>();
+				d=0;
+				
+				for(Overlap o: enrichResult) {
+					if(lib_tfs.contains(new String(o.getLibTF()))){
+						duplicated_tf_idx.add(d);
+						//System.out.println(o.lib_name);
+						
+					}else {
+						lib_tfs.add(new String(o.getLibTF()));
+					}
+					d++;
+				}
+				
+				Collections.sort(duplicated_tf_idx, Collections.reverseOrder());
+				
+				for(Integer dupe: duplicated_tf_idx) {
+					int duplicated = dupe;
+					System.out.println(dupe);
+					enrichResult.remove(duplicated);
+				}
+				
+				//set ranks of remaining results
 				r = 1;
+				size = enrichResult.size();
 				for(Overlap o: enrichResult) {
 					o.setRank((int) r);
 					o.setScaledRank(r/size);
@@ -282,7 +313,8 @@ public class EnrichmentCore extends HttpServlet {
 				entry = entry + "\"Rank\":" + "\"" + Integer.toString(i.rank) + "\"" + ",";
 				entry = entry + "\"TF\":" + "\"" + i.tf + "\"" + ",";
 				entry = entry + "\"Score\":" + "\"" + Double.toString(sigDig(i.score,4)) + "\"" + ",";
-				entry = entry + "\"Library\":" + "\"" + i.lib_name + "\"}," ;
+				entry = entry + "\"Library\":" + "\"" + i.lib.replace("--"," ") + "\"" + "," ;
+				entry = entry + "\"Overlapping_Genes\":" + "\"" + set2String(i.genes) + "\"}," ;
 				json = json + entry;
 
 			}
@@ -301,13 +333,15 @@ public class EnrichmentCore extends HttpServlet {
 				String entry = "{\"Query Name\":" + "\"" + o.query_name + "\"" + ",";
 				entry = entry + "\"Rank\":" + "\"" + Integer.toString(o.rank) + "\"" + ",";
 				entry = entry + "\"Scaled Rank\":" + "\"" + Double.toString(sigDig(o.scaledRank,4)) + "\"" + ",";
-				entry = entry + "\"Set name\":" + "\"" + o.libset_name + "\"" + ",";
+				entry = entry + "\"Set_name\":" + "\"" + o.libset_name + "\"" + ",";
 				entry = entry + "\"TF\":" + "\"" + o.lib_tf+ "\"" + ",";
 				entry = entry + "\"Intersect\":" + "\"" + Integer.toString(o.overlap)+ "\"" + ",";
 				entry = entry + "\"Set length\":"  + "\"" + Integer.toString(o.setsize) + "\"" + ",";
 				entry = entry + "\"FET p-value\":" + "\"" + Double.toString(sigDig(o.pval,4)) + "\"" + ",";
 				entry = entry + "\"FDR\":" + "\"" + Double.toString(sigDig(o.fdr,3)) + "\"" + ",";
-				entry = entry + "\"Odds Ratio\":" + "\"" + Double.toString(sigDig(o.oddsratio,4)) + "\"}," ;
+				entry = entry + "\"Odds Ratio\":" + "\"" + Double.toString(sigDig(o.oddsratio,4)) + "\"" + ",";
+				entry = entry + "\"Library\":" + "\"" + o.lib_name + "\"" + ",";
+				entry = entry + "\"Overlapping_Genes\":" + "\"" + set2String(o.genes) + "\"}," ;
 				json = json + entry;	
 			}
 
@@ -382,6 +416,10 @@ public class EnrichmentCore extends HttpServlet {
 		return(genes);
 	}
 	
+	private static String set2String(HashSet<String> stringset) {
+		return(String.join(",", stringset));
+	}
+	
 	private void computeFDR(ArrayList<Overlap> over){
 		 //sort Overlap object
 		 Collections.sort(over);
@@ -400,8 +438,8 @@ public class EnrichmentCore extends HttpServlet {
 	    int j = 0;
 	    for(Overlap o: over) {
 	    	o.setFDR(adj_pvals[j]);
-	    	System.out.println(pvals[j]);
-	    	System.out.println(adj_pvals[j]);
+	    	//System.out.println(pvals[j]);
+	    	//System.out.println(adj_pvals[j]);
 	    	j++;
 
 	    }

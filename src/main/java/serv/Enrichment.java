@@ -4,9 +4,7 @@ package main.java.serv;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
-
-import main.java.jsp.Overlap;
+import jsp.Overlap;
 
 public class Enrichment {
 
@@ -28,22 +26,23 @@ public class Enrichment {
 			int numGeneQuery = queryset.size();
 			int totalBgGenes = 20100;
 			int gmtListSize =  genesetlib.get(key).size();
-			int numOverlap = setIntersect(queryset,genesetlib.get(key));
+			HashSet<String> genes = setIntersect(queryset,genesetlib.get(key));
+			int numOverlap = genes.size();
 
 			double pvalue = fet.getRightTailedP(numOverlap,(gmtListSize - numOverlap), numGeneQuery, (totalBgGenes - numGeneQuery));
 			double oddsratio = (numOverlap*1.0*(totalBgGenes - numGeneQuery))/((gmtListSize - numOverlap)*1.0*numGeneQuery);
 
-			Overlap o = new Overlap(key, numOverlap, pvalue, gmtListSize, oddsratio, lib_name, query_name);
+			Overlap o = new Overlap(key, numOverlap, pvalue, gmtListSize, oddsratio, lib_name, query_name, genes);
 			pvals.add(o);	
 		}
 
 		return pvals;
 	}
 
-	public int setIntersect(HashSet<String> s1, HashSet<String> s2) {
-		Set<String> intersection = new HashSet<String>(s1);
+	public HashSet<String> setIntersect(HashSet<String> s1, HashSet<String> s2) {
+		HashSet<String> intersection = new HashSet<String>(s1);
 		intersection.retainAll(s2);
-		return intersection.size();
+		return intersection;
 	}
 
 

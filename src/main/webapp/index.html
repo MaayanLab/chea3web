@@ -38,8 +38,10 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="assets/chea-query/result_scroll.css">
 <link rel="stylesheet" href="assets/chea-query/submit-query.css">
+<link rel="stylesheet" href="assets/chea-query/d3barchart.css">
 <link rel="stylesheet" href="assets/networkd3/netprogressbar.css">
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 
 
 
@@ -145,6 +147,8 @@
 
 							<button type="button" class="btn btn-primary"
 								id="submit-genelist" type="submit" style="padding: .5rem 1.5rem">Submit</button>
+								<br>
+								<span class="display-7" id="genecheck" style="font-size:70%">0 symbols entered, 0 duplicates, 0 valid symbols</span>
 
 						</form>
 
@@ -166,6 +170,15 @@
 					<h1
 						class="mbr-section-title mbr-bold mbr-fonts-style display-7 text-white"
 						align="left" style='padding-left: 2em'>Results by Library</h1>
+					<div id="resultssidenav" class="sidenavR"
+					style="top: 60px; height: 90%; padding-top: 20px; padding-bottom: 20px">
+					<a href="javascript:void(0)" class="closebtn"
+						onclick="closeNav('resultssidenav')">&times;</a>
+					<h1
+						class="mbr-section-title mbr-bold mbr-fonts-style display-7 text-white"
+						align="left" style='padding-left: 2em'>Results by Library</h1>
+				</div>
+						
 				</div>
 
 				<div id="expandresults"
@@ -792,7 +805,11 @@ The library encompasses 419,114
 						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
 						Additional Libraries</h3>
 		<section class="features5 cid-r0K1D0ndDf" id="features5-s">
+		
 		<div class="container">
+		<p>The gmts in this section are included solely as additional sources of information that might be of interest to ChEA3 users. 
+		These sets are not used by the tool in performing over-representation analysis. In the future, some of these sets may be validated and 
+		included in subsequent versions of the ChEA3 tool.</p>
 			<div class="media-container-row">
 
 				<div class="card p-3 col-12 col-md-6 col-lg-3">
@@ -843,8 +860,114 @@ The library encompasses 419,114
 		</div>
 	</section>
 						
-			
+<section class="accordion1 cid-rnbkpN1hCU" id="accordion1-d" style="background-color:#FFFFFF;margin:50px;padding:50px">
 
+    
+
+    
+    <div class="container">
+        <div class="media-container-row">
+            <div class="col-12 col-md-8">
+                <div class="section-head text-center space30">
+                    <h2 class="mbr-section-title pb-5 mbr-fonts-style display-2">
+                        ChEA3 FAQ
+                    </h2>
+                </div>
+                <div class="clearfix"></div>
+                <div id="bootstrap-accordion_9" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <a role="button" class="panel-title collapsed text-black" data-toggle="collapse" data-core="" href="#collapse1_9" aria-expanded="false" aria-controls="collapse1">
+                                <h4 class="mbr-fonts-style display-7">
+                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
+                                    Which species are included in ChEA3 and what type of gene ids or symbols are accepted?
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapse1_9" class="panel-collapse noScroll collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#bootstrap-accordion_9">
+                            <div class="panel-body p-4">
+                                <p class="mbr-fonts-style panel-text display-7">
+                                  The ARCHS4, GTEx, and ReMap ChEA3 libraries were constructed with human samples. The Enrichr Queries library was constructed with HGNC-mappable gene symbols. The ENCODE and Literature 
+                                  ChIP-seq libraries were constructed with both mouse and human samples.
+                                  ChEA3 accepts HGNC-approved gene symbols for the user-submitted query gene set. Frequently, these symbols map directly to mouse symbols (ChEA3 is not case-sensitive). ChEA3 has been
+                                  validated against a benchmarking set of mouse experiments, which performed comparably to a set of human experiments. Therefore, we recommend ChEA3 for use with human and mouse sets.
+                                  Note that the mouse gene symbols that do not map directly to HGNC-approved human gene symbols will not be considered by the tool.
+                                  </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingTwo">
+                            <a role="button" class="collapsed panel-title text-black" data-toggle="collapse" data-core="" href="#collapse2_9" aria-expanded="false" aria-controls="collapse2">
+                                <h4 class="mbr-fonts-style display-7">
+                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> Does ChEA3 indicate the direction of TF activity?
+                               </h4>
+                            </a>
+                            
+                        </div>
+                        <div id="collapse2_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#bootstrap-accordion_9">
+                            <div class="panel-body p-4">
+                                <p class="mbr-fonts-style panel-text display-7">
+                                ...
+                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingThree">
+                            <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse3_9" aria-expanded="false" aria-controls="collapse3">
+                                <h4 class="mbr-fonts-style display-7">
+                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Should I input upregulated genes, downregulated genes, or a query set that is upregulated and downregulated genes combined?
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapse3_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#bootstrap-accordion_9">
+                            <div class="panel-body p-4">
+                                <p class="mbr-fonts-style panel-text display-7">
+                                   Benchmarking results indicate...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingFour">
+                            <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse4_9" aria-expanded="false" aria-controls="collapse4">
+                                <h4 class="mbr-fonts-style display-7">
+                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which is the best results library to use?
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapse4_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#bootstrap-accordion_9">
+                            <div class="panel-body p-4">
+                                <p class="mbr-fonts-style panel-text display-7">
+                                   Benchmarking results indicate...</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="card">
+                        <div class="card-header" role="tab" id="headingFive">
+                            <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse5_9" aria-expanded="false" aria-controls="collapse5">
+                                <h4 class="mbr-fonts-style display-7">
+                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which transcription factors are covered by ChEA3?
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapse5_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#bootstrap-accordion_9">
+                            <div class="panel-body p-4">
+                                <p class="mbr-fonts-style panel-text display-7">
+                                   Transcription factors identified by Lambert et al. in their census of site-specific human transcription factors are considered. Of these, only symbols that 
+                                   are <a href="https://www.genenames.org">mappable to HGNC-approved symbols</a>. Of these xx TFs, ChEA3 coveres xx. The two transcritpon factors not included in 
+                                   ChEA3 are DUX1 and DUX3  those that are
+                                   HGNC-mappable </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 	<!--Footer-->
 <div class="row px-5 justify-content-center">
@@ -905,13 +1028,10 @@ The library encompasses 419,114
 	<script src="assets/d3/d3.v4.min.js" type="text/javascript"></script>
 	<!-- <script src="assets/d3/d3.v5.min.js"></script> -->
 
-	<!--OpenCPU--->
-	<!-- <script src="//cdn.opencpu.org/opencpu-0.4.js" type="text/javascript"></script> -->
-
+	
 	<!--bootstrap/mobirise--->
 
 	<script src="assets/tether/tether.min.js" type="text/javascript"></script>
-
 
 	<script src="assets/smoothscroll/smooth-scroll.js"
 		type="text/javascript"></script>
@@ -931,6 +1051,7 @@ The library encompasses 419,114
 	<script src="assets/sociallikes/social-likes.js" type="text/javascript"></script>
 	<script src="assets/dropdown/js/script.min.js" type="text/javascript"></script>
 	<script src="assets/theme/js/script.js" type="text/javascript"></script>
+	<script src="assets/chea-query/download_results.js" type = "text/javascript"></script>
 
 
 	<script src="assets/datatables/dataTables.bootstrap4.min.js"
@@ -940,12 +1061,16 @@ The library encompasses 419,114
 	<script src="assets/spectrum/spectrum.js" type="text/javascript"></script>
 	<script src="https://d3js.org/d3-array.v1.min.js"
 		type="text/javascript"></script>
+		
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"
+		type="text/javascript"></script>
 	<!-- <script src="assets/hitcounter.js"></script> -->
 
 
 
 	<!-- OpenCPU scripts -->
 	<script src="assets/chea-query/color-array.js" type="text/javascript"></script>
+	<script src="assets/chea-query/plot_results.js" type="text/javascript"></script>
 	<script src="assets/chea-query/submit-query2.js" type="text/javascript"></script>
 	<script src="assets/networkd3/tissue_legends.js" type="text/javascript"></script>
 	<script src="assets/networkd3/network3.js" type="text/javascript"></script>

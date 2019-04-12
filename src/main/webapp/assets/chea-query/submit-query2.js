@@ -1,5 +1,4 @@
 
-
 var sliderClassName = 'slider';
 var defaultNodeColor = '#d3d3d3';
 var chea3Results;
@@ -134,8 +133,7 @@ function renderSliderValueString(value) {
 function renderCaption(libraryName) {
 	var captionId = `${libraryName}_${sliderClassName}`;
 	var value = 0;
-
-	return `
+	var caption = `
 	<caption>
 	</span>
 	<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
@@ -144,6 +142,31 @@ function renderCaption(libraryName) {
 	</span>	
 	<input type='text' id="${libraryName}_colorpicker" />
 	</caption>`;
+	
+	if (libraryName == "Integrated--meanRank"){
+		return `
+		<caption>
+		</span>
+		<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
+		<span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
+		${renderSliderValueString(value)}
+		</span>	
+		<input type='text' id="${libraryName}_colorpicker" />` + renderBarChartPopoverButton() + `</caption>`;
+		
+		
+	}else{
+		return `
+		<caption>
+		</span>
+		<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
+		<span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
+		${renderSliderValueString(value)}
+		</span>	
+		<input type='text' id="${libraryName}_colorpicker" />
+		</caption>`;
+	}
+	
+	
 }
 
 function renderColorPicker(libraryName, i) {
@@ -185,11 +208,20 @@ function renderCardHeader(libraryName){
 	`
 }
 
+function renderDownloadLibraryButton(libraryName){
+	var libraryTitle = libraryName.replace("--","_");
+	var libraryTitle = libraryTitle.replace("--","_");
+	return `<a id = "downloadJSON" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('${libraryTitle}.tsv',libraryJSONtoTSV('${libraryName}'));">
+	Download All ${libraryTitle} Results as TSV</a>`
+
+}
+
 function renderCardBody(libraryName) {
 	return `<div id="${libraryName}_body" class="funfun panel-collapse noScroll collapse" style="width:100%;padding:7px"
 	role="tabpanel" aria-labelledby="${libraryName}_header">
 	<div class="panel-body">`
-	+ renderCaption(libraryName) + renderTable(libraryName)+
+	+ renderCaption(libraryName) + renderTable(libraryName) + renderDownloadLibraryButton(libraryName) +
 
 	`</div>
 	</div>`
@@ -398,14 +430,41 @@ $(document).ready(function () {
 								data: lib_results.slice(0,100),
 								aoColumns: [
 									{mData: "Rank", sTitle: "Rank"},
-									{mData: "TF",sTitle: "TF"},
+									{mData: "TF", sTitle: "TF", 
+										mRender: function(data, type, full){
+											return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
+										}},
 									{mData: "Score", sTitle: "Score"},
+									{mData: "Overlapping_Genes",sTitle: "Overlapping Genes", mRender: function(data, type, row, meta){
+										var genes = row.Overlapping_Genes;
+										space_genes = genes.replace(/,/g, ', ');
+										var count = genes.split(',').length;
+										
+										return `<div class="popover-block-container">
+  <button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.TF + row.Score.split(".")[0] + `" data-toggle="popover" data-placement="right">
+   ` + count +
+  `</button>
+  <div id="` + row.TF + row.Score.split(".")[0] + `" style="display:none;">
+    <div class="popover-body">
+      <button type="button" class="popover-close close">
+        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+      </button>` +
+      space_genes + 
+      
+    `<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('overlap.csv','`+ genes +`');">
+	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+ </div>
+  </div>
+</div>`
+									}},	
 									{mData: "Library", sTitle: "Library"}],
 									scrollY: "200px",
 									scrollX: "500px",
 									sScrollX: "500px",
 									scrollCollapse: true,
 									paging: false,
+									info: false,
 									dom: "Bfrtip",
 									buttons: [
 										$.extend(true, {}, buttonCommon, {
@@ -427,10 +486,33 @@ $(document).ready(function () {
 								data: lib_results.slice(0,100),
 								aoColumns: [
 									{mData: "Rank", sTitle: "Rank"},
-									{mData: "TF",sTitle: "TF"},
-									{mData: "Set name", sTitle: "Set name"},
+									{mData: "TF",sTitle: "TF", mRender: function(data, type, full){
+										return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
+									}},
+																
+									{mData: "Set_name", sTitle: "Set name"},
 									{mData: "Set length", sTitle: "Set size"},
-									{mData: "Intersect", sTitle: "Intersection"},
+									{mData: "Intersect",sTitle: "Intersection", mRender: function(data, type, row, meta){
+										var genes = row.Overlapping_Genes;
+										space_genes = genes.replace(/,/g, ', ');
+										return `<div class="popover-block-container">
+  <button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.Set_name + row.Library + `" data-toggle="popover" data-placement="right">
+   ` + data +
+  `</button>
+  <div id="` + row.Set_name + row.Library + `" style="display:none;">
+    <div class="popover-body">
+      <button type="button" class="popover-close close">
+        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+      </button>` +
+      space_genes + 
+      
+    `<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('overlap.csv','`+ genes +`');">
+	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+ </div>
+  </div>
+</div>`
+									}},		
 									{mData: "FET p-value", sTitle: "FET p-value"},
 									{mData: "FDR", sTitle: "FDR"},
 									{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
@@ -438,6 +520,7 @@ $(document).ready(function () {
 									scrollX: "4000px",
 									sScrollX: "4000px",
 									scrollCollapse: true,
+									info: false,
 									paging: false,
 									dom: "Bfrtip",
 									buttons: [
@@ -524,6 +607,27 @@ $(document).ready(function () {
 					recolorAllNodes();
 					setLegendView();
 					location.href = '#top'
+						
+					$("[id=overlappinggenespopover]").popover({
+				        html : true,
+				        trigger: 'focus',
+				        content: function() {
+				            var content = $(this).attr("data-popover-content");
+				            return $(content).children(".popover-body").html();
+				        }
+				    });
+					
+					$("#barchartpopover").popover({
+						html: true,
+						  content: '<canvas id="meanrankbarChart" width="400" height="400"></canvas>',
+						}).on('shown.bs.popover', function() {
+							generateStackedBarChart();
+		
+						});
+				
+				
+					
+					
 
 
 				},//end success function
