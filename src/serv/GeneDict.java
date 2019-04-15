@@ -39,6 +39,7 @@ public class GeneDict{
 			this.encode.put(st, value);
 			value++;	
 		}
+		System.out.println(value);
 		br.close();
 		this.decode = ReverseDict(this.encode);
 	}
