@@ -10,16 +10,13 @@ var global_labels;
 function requestFullScreen(element_id) {
 	var element = document.getElementById(element_id);
 	// Supports most browsers and their versions.
-	var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-
-	if (requestMethod) { // Native full screen.
-		requestMethod.call(element);
-	} else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-		var wscript = new ActiveXObject("WScript.Shell");
-		if (wscript !== null) {
-			wscript.SendKeys("{F11}");
+	if (element.requestFullScreen) {
+		  element.requestFullScreen();
+		} else if (element.mozRequestFullScreen) {
+		  element.mozRequestFullScreen();
+		} else if (element.webkitRequestFullScreen) {
+		  element.webkitRequestFullScreen();
 		}
-	}
 }
 
 function saveSvg(svg_id, name) {
@@ -161,7 +158,7 @@ var div = d3.select("body").append("div")
 
 
 function drawNetwork() {
-	d3.json("assets/networkd3/wgcna_gtex_annotated3.json", function(net_json) {
+	d3.json("assets/networkd3/wgcna_gtex_annotated5.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
 		net_width = networkDiv.clientWidth;
@@ -451,10 +448,10 @@ function drawNetwork() {
 		var legend = g.append("g")
 		.attr("class", "legend")
 		.attr("id","GO_legend")
-		.attr("x", net_width - 250)
+		.attr("x", net_width - 400)
 		.attr("y", net_height)
-		.attr("height", 200)
-		.attr("width", 100)
+		.attr("height", 400)
+		.attr("width", 400)
 		.attr("class","hidden")
 		.style("pointer-events","none");
 
@@ -464,8 +461,8 @@ function drawNetwork() {
 		.each(function(d, i) {
 			var g = d3.select(this);
 			g.append("rect")
-			.attr("x", net_width - 198)
-			.attr("y", i*15 + 140)
+			.attr("x", net_width - 248)
+			.attr("y", i*15 + 50)
 			.attr("width", 10)
 			.attr("height", 10)
 			.style("stroke-width",1)
@@ -473,8 +470,8 @@ function drawNetwork() {
 			.style("fill", function(d){return d.color});
 			
 			g.append("text")
-			.attr("x", net_width - 185)
-			.attr("y", i * 15 + 150)
+			.attr("x", net_width - 235)
+			.attr("y", i * 15 + 60)
 			.attr("height",10)
 			.attr("width",100)
 			.style("fill", "white")
@@ -484,8 +481,8 @@ function drawNetwork() {
 			.text(function(d){return d.GO_term});
 
 			g.append("text")
-			.attr("x", net_width - 185)
-			.attr("y", i * 15 + 150)
+			.attr("x", net_width - 235)
+			.attr("y", i * 15 + 60)
 			.attr("height",10)
 			.attr("width",100)
 			.style("fill", "black")

@@ -36,3 +36,53 @@
 	background: #229eca; /* Green background */
 	cursor: pointer; /* Cursor on hover */
 }
+
+*:fullscreen, *:-webkit-full-screen, *:-moz-full-screen {
+    background-color: white;
+    width:100%; 
+    height:100%; 
+     position:absolute;
+    top: 0; left: 0;
+}
+
+#container:-webkit-full-screen,
+#container:-moz-full-screen,
+#container:-ms-fullscreen,
+#container:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    top: 0; left: 0;
+    position:absolute;
+    background: white;
+    }
+html:-moz-full-screen {
+    background: white;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top: 0; left: 0;
+}
+
+html:-webkit-full-screen {
+    background: white;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top: 0; left: 0;
+}
+
+html:-ms-fullscreen {
+    background: white;
+    width: 100%; /* needed to center contents in IE */
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+html:fullscreen {
+    background: white;
+    width:100%;
+    height:100%;
+    position: absolute;
+    top: 0; left: 0;
+}

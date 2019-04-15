@@ -24,7 +24,7 @@ public class Enrichment {
 
 		for(String key: genesetlib.keySet()) {
 			int numGeneQuery = queryset.size();
-			int totalBgGenes = 20100;
+			int totalBgGenes = 20000;
 			int gmtListSize =  genesetlib.get(key).size();
 			HashSet<String> genes = setIntersect(queryset,genesetlib.get(key));
 			int numOverlap = genes.size();
