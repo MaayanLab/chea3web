@@ -206,7 +206,7 @@
   <li class="nav-item">
     <a class="nav-link" id="clustergram-tab" data-toggle="pill" href="#pills-clustergram" role="tab" aria-controls="pills-clustergram" aria-selected="false">Clustergram</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item d-none">
     <a class="nav-link" id="coreg-tab" data-toggle="pill" href="#pills-coreg" role="tab" aria-controls="pills-coreg" aria-selected="false">Co-regulatory Network</a>
   </li>
 </ul>
@@ -219,6 +219,7 @@
 <div class="tab-pane fade show active" id="pills-coexpression" role="tabpanel" aria-labelledby="pills-coexpression-tab">
 			<div style="background: white" class="networkcol" id="tfnet">
 			<!-- Side network navigation menu -->
+			
 			<div id="netoptsidenav" class="sidenav" style="float: top">
 				<a href="javascript:void(0)" class="closebtn"
 					onclick="closeNav('netoptsidenav')">&times;</a> <a
@@ -271,17 +272,12 @@
 							value="1"> </span>Show Legend </a>
 				
 			</div>
-			<div class="form-group" style="width: 175px; float:right; display:inline">
+		
 			
-					<select class="form-control" id="whichnetwork"
-						onchange="changeNetwork()">
-						<option>GTEx TF Network</option>
-						<option>TCGA TF Network</option>
-						<option>ARCHS4 TF Network</option>
-					</select>
 			
-				</div>
 			<div style="width:100%;float:right;display:inline">
+				
+			
 			
 				<span class = "mbr-iconfont display-5" style="cursor: pointer;float:right;font-size:1rem"
 					onclick="openNav('netoptsidenav','250px')">&#9776;
@@ -292,7 +288,16 @@
 				</span>
 				
 
-				
+				<div class="form-group" style="width: 175px; float: right; padding-right: 10px">
+			
+					<select class="form-control" id="whichnetwork"
+						onchange="changeNetwork()">
+						<option>GTEx TF Network</option>
+						<option>TCGA TF Network</option>
+						<option>ARCHS4 TF Network</option>
+					</select>
+			
+				</div>
 				
 			</div>
 			
@@ -300,7 +305,7 @@
 	
 		</div> <!-- end coexpression tab -->
 		
-		<div class="tab-pane fade" id="pills-clustergram" role="tabpanel" aria-labelledby="pills-clustergram-tab"><iframe id="clustergram-iframe" src="" width="600px" height="600px" frameborder="0"></iframe>
+		<div class="tab-pane fade" id="pills-clustergram" role="tabpanel" aria-labelledby="pills-clustergram-tab"><iframe id="clustergram-iframe" src="" width="120%" height="700px" frameborder="0"></iframe>
 		 </div>
 		
 		<div class="tab-pane fade" id="pills-coreg" role="tabpanel" aria-labelledby="pills-coreg-tab">
@@ -610,21 +615,20 @@
 							style="width:90%"> </li>
 
 					</ol>
-					<li><strong>Run ChEA3 Locally</strong> - The ChEA3 Docker image is available on DockerHub at maayanlab/chea3. In order to run
-						the ChEA3 web application locally: 
-						<li><strong>1. Install Docker</strong> - The following returns results from all ChEA3 libraries in JSON format:<pre
-								style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -H "Accept: application/json" https://amp.pharm.mssm.edu/chea3/api/enrich/FOXO1,MYC,EGR1,RELB,ICAM1,ARIDB4</pre>
-							Redirect the JSON-formatted results to a file: <pre
-								style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -H "Accept: application/json" https://amp.pharm.mssm.edu/chea3/api/enrich/FOXO1,MYC,EGR1,RELB,ICAM1,ARIDB4 > results.json</pre>
-							</a></li>
-						</li>
-						
-						<li><strong>Pull the ChEA3 Docker image</strong> <pre 
+					<br>
+					<br>
+					<strong>Run ChEA3 Locally</strong> - The ChEA3 Docker image is available on <a href = "https://hub.docker.com/r/maayanlab/chea3">DockerHub</a>. In order to run
+						the ChEA3 web application locally, Docker must be installed. 
+					<br><br>
+					Pull the ChEA3 Docker image <pre 
 								style="width: 100%; overflow-x: scroll; white-space: nowrap">$docker pull maayanlab/chea3</pre>
-							Redirect the JSON-formatted results to a file: <pre
-								style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -H "Accept: application/json" https://amp.pharm.mssm.edu/chea3/api/enrich/FOXO1,MYC,EGR1,RELB,ICAM1,ARIDB4 > results.json</pre>
-							</a></li>
-						</li>
+							
+					Run ChEA3 locally on port 5000 <pre 
+								style="width: 100%; overflow-x: scroll; white-space: nowrap">$docker run -p 5000:8080 maayanlab/chea3</pre>
+									
+					In your web browser: <pre 
+								style="width: 100%; overflow-x: scroll; white-space: nowrap">localhost:5000/chea3/</pre>
+										
 						
 				</div>
 			</div>
