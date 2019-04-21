@@ -63,7 +63,13 @@ function translateNodeColor(val){
 		return("WGCNA_hex");
 	}else if(val == "GO Enrichment"){
 		return("GO_enrichment_color");
-	}else{
+	}else if(val == "Tumor"){
+		return("Tumor_color");	
+	}else if(val == "Tissue"){
+		return("Tissue_color");
+		
+	}
+	else{
 		return(defaultNodeColor);
 	}
 }
@@ -101,10 +107,10 @@ function highlightNodes(sliders){
 			for (var tf of set1ValuesSliderSubset) {
 				
 				node = document.getElementById(tf);
-
 				if (node) {
 					node.setAttribute("stroke", getColor(colorpicker_id));
 					node.setAttribute("stroke-width", radius*2.5)
+					node.setAttribute("stroke-opacity", .5)
 				}
 			}
 
@@ -330,6 +336,10 @@ function downloadText(element_id, filename) {
 
 function newQuery(){
 	$("#results").addClass("d-none");
+	$("#pills-tab").addClass("d-none");
+	
+	$('#pills-tab a[href="#pills-coexpression"]').tab('show');
+	
 	$("#results").html(`
 				<div id="resultssidenav" class="sidenavR"
 					style="top: 60px; height: 90%; padding-top: 20px; padding-bottom: 20px">
@@ -346,10 +356,9 @@ function newQuery(){
 						onclick="openNav('resultssidenav','40%')">&#9776;
 						
 					</span> <h6 class="mbr-iconfont display-5"
-							style="font-size: 1rem; display: inline">Back to Results</h6> <span><a id="newquerybutton"
-						class="btn btn-sm btn-primary display-4"
-						style="display: block; padding: 0; margin: 0" onclick="newQuery()"><span
-							class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>New Query</a></span>
+							style="font-size: 1rem; display: inline">Back to Results</h6> <button type="button" class="btn btn-primary"
+								id="newquerybutton" type="submit" onclick="newQuery()" style="padding: .5rem 1.5rem">New Query</button>
+
 
 				</div>`);
 	
@@ -618,15 +627,26 @@ $(document).ready(function () {
 					
 					$("#barchartpopover").popover({
 						html: true,
-						  content: '<canvas id="meanrankbarChart" width="400" height="400"></canvas>',
+						trigger: 'focus',
+						content: `<button type="button" class="popover-close close">
+						        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+						        </button> <canvas id="meanrankbarChart" width="400" height="400"></canvas>`,
 						}).on('shown.bs.popover', function() {
 							generateStackedBarChart();
 		
 						});
+					
+					$("#pills-tab").removeClass("d-none");
 				
 				
 					
-					
+					  // Get matrix
+				    matrix_str = buildClustergrammerMatrix(chea3Results);
+				    
+
+				    // Send to Clustergrammer
+				    generateClustergram(matrix_str);
+				    
 
 
 				}//end success function
