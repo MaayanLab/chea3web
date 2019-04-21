@@ -23,4 +23,11 @@ $('#genelist').bind('input propertychange', function() {
 	console.log(new_content)
 	$('#genecheck').text(new_content);
 });
+
+	$('#clustergram-tab').on("click",function(){
+		var iframe = document.getElementById('clustergram-iframe');
+		var src = iframe.dataset.source;
+		
+		iframe.src = src;
+	});
 });
