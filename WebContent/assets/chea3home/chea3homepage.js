@@ -31,3 +31,19 @@ $('#genelist').bind('input propertychange', function() {
 		iframe.src = src;
 	});
 });
+
+function checkGeneList(data){
+	var genes = data.split("\n");
+	genes = genes.filter(Boolean);
+	var genes_entered = genes.length
+	genes = genes.map(function(x){ return x.toUpperCase() });
+	var uniq_genes = [...new Set(genes)];
+	var dupes = genes.length - uniq_genes.length;
+
+	var intersect = uniq_genes.filter(value => hgnc.includes(value));
+	var num_valid_genes = intersect.length;
+	
+	var new_content = genes_entered + " symbols entered, " + dupes + " duplicates, " + num_valid_genes + " valid symbols";
+	console.log(new_content)
+	$('#genecheck').text(new_content);
+}

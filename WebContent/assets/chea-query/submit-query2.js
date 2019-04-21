@@ -91,6 +91,10 @@ function defaultNodeColorAll(){
 	}
 }
 
+function getTFs(sliders){
+	
+}
+
 function highlightNodes(sliders){
 	// if sliders are defined
 	
@@ -388,6 +392,7 @@ $(document).ready(function () {
 		gl.placeholder = "";
 		jQuery.get('assets/chea-query/example_genelist.txt', function (data) {
 			gl.value = data;
+			checkGeneList(data);
 		});
 
 	});
