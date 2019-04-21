@@ -77,7 +77,7 @@ function generateClustergram(matrix_str) {
 
     // Make request
     var request = new XMLHttpRequest();
-    request.open('POST', 'http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/');
+    request.open('POST', 'https://amp.pharm.mssm.edu/clustergrammer/matrix_upload/');
     request.send(formData);
 
     // Callback
