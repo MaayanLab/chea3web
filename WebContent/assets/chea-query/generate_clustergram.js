@@ -87,9 +87,9 @@ function generateClustergram(matrix_str) {
             if (request.status === 200) {
             	response = response.replace("http","https")
             	console.log(response)
-                // document.getElementById("clustergram-iframe").dataset.source = response;
-                $('#clustergram-iframe').prop('src', response);
-            	console.log(response)
+                document.getElementById("clustergram-iframe").dataset.source = response;
+                // $('#clustergram-iframe').attr('data-src', response);
+            	// console.log(response)
             } else {
                 console.log('failed');
             }
