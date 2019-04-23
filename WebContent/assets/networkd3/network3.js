@@ -6,6 +6,9 @@ var max = 100;
 var zm;
 var global_nodes;
 var global_labels;
+var net_width = 1000,
+	net_height = 500;
+
 
 function whichNetwork(){
 	var net = document.getElementById("whichnetwork").value;
@@ -289,8 +292,8 @@ function drawNetwork() {
 	d3.json("assets/networkd3/wgcna_gtex_annotated5.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
-		net_width = networkDiv.clientWidth;
-		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
+		// net_width = 1000;
+		// net_height = 500;
 		//console.log(net_width)
 		//console.log(net_height)
 		//console.log($('#tfnet').width())
@@ -299,12 +302,10 @@ function drawNetwork() {
 
 		var network_svg = d3.select("#tfnet").append("svg");
 		// network_svg.attr("viewBox","0,0,${net_width},${net_height}");
-		network_svg.attr("preserveAspectRatio",
-		"xMidYMid slice");
+		// network_svg.attr("preserveAspectRatio", "xMidYMid slice");
 		network_svg.attr("id", "net_svg");
 
-		network_svg.attr("width", net_width).attr("height",
-				net_height);
+		network_svg.attr("width", net_width).attr("height", net_height);
 
 		var nodes = net_json;
 		var max_x = Math.max.apply(Math, nodes.map(function(o) {
@@ -642,8 +643,8 @@ function drawTCGANetwork() {
 	d3.json("assets/networkd3/wgcna_tcga_annotated.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
-		net_width = networkDiv.clientWidth;
-		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
+		// net_width = networkDiv.clientWidth;
+		// net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
 		//console.log(net_width)
 		//console.log(net_height)
 		//console.log($('#tfnet').width())
@@ -898,8 +899,8 @@ function drawARCHS4Network() {
 	d3.json("assets/networkd3/wgcna_archs4_annotated.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
-		net_width = networkDiv.clientWidth;
-		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
+		// net_width = networkDiv.clientWidth;
+		// net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
 		
 
 		var network_svg = d3.select("#tfnet").append("svg");

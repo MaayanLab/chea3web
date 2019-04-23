@@ -398,13 +398,14 @@ $(document).ready(function () {
 	});
 	
 	$('#submit-genelist').on('click', function (evt) {
+	// $(function(){
 
-		var geneset = document.getElementById("genelist").value.split(/\n/);
+		// var geneset = document.getElementById("genelist").value.split(/\n/);
 		// generate url
-		var enrich_url = host + "chea3/api/enrich/";
-		enrich_url = enrich_url + geneset.join();
+		// var enrich_url = host + "chea3/api/enrich/";
+		// enrich_url = enrich_url + geneset.join();
 
-		if (validateGeneSet(geneset)) {
+		// if (validateGeneSet(geneset)) {
 
 			$('#loading-screen').removeClass('d-none');
 			$('#translucent-net').addClass("d-none");
@@ -412,12 +413,15 @@ $(document).ready(function () {
 			$('#tfea-title').addClass("d-none");
 
 			// send gene set to java servlet
-			$.ajax({
-				url : enrich_url,
-				success : function(results) {
+			// $.ajax({
+			// 	url : enrich_url,
+			// 	success : function(results) {
+				$.get("chea3Results.json", function(results) {
 					
-					json = results;
-					results = JSON.parse(results);
+					// console.log(results);
+
+					// json = results;
+					// results = JSON.parse(results);
 					chea3Results = results;
 					//reorder results based on ROC AUCs
 					
@@ -654,10 +658,10 @@ $(document).ready(function () {
 				    
 
 
-				}//end success function
+				// }//end success function
 			}); // end AJAX call
 
-		}
+		// }
 	}); 
 });
 
