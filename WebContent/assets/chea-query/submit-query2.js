@@ -205,7 +205,7 @@ function renderCardHeader(libraryName){
 	data-toggle="collapse" data-parent="#accordion" data-core=""
 	href="#${libraryName}_body" aria-expanded="false"
 	aria-controls="collapse2">
-	<h4 class="mbr-fonts-style display-7" style="margin-bottom:0">
+	<h4 class="mbr-fonts-style display-7 px-3 py-2" style="margin-bottom:0">
 	<span class="sign mbr-iconfont mbri-down inactive"></span>
 	<span class="color-emphasis-1" style = "font-size:100%">${libraryTitle}</span>
 	<span class="lib_description" id="${libraryName}_tooltip" data-tooltip="Loading library information..." data-tooltip_position="right">
@@ -397,37 +397,37 @@ $(document).ready(function () {
 
 	});
 	
-	$('#submit-genelist').on('click', function (evt) {
-	// $(function(){
+	$('#submit-genelist').on('click', function (evt) { //prod
+	// $(function(){ //dev
 
-		// var geneset = document.getElementById("genelist").value.split(/\n/);
-		// generate url
-		// var enrich_url = host + "chea3/api/enrich/";
-		// enrich_url = enrich_url + geneset.join();
+		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
+		// generate url //prod
+		var enrich_url = host + "chea3/api/enrich/"; //prod
+		enrich_url = enrich_url + geneset.join(); //prod
 
-		// if (validateGeneSet(geneset)) {
+		if (validateGeneSet(geneset)) { //prod
 
 			$('#loading-screen').removeClass('d-none');
-			$('#translucent-net').addClass("d-none");
-			$('#tfea-submission').addClass("d-none");
-			$('#tfea-title').addClass("d-none");
+			// $('#translucent-net').addClass("d-none");
+			// $('#tfea-submission').addClass("d-none");
+			// $('#tfea-title').addClass("d-none");
 
 			// send gene set to java servlet
-			// $.ajax({
-			// 	url : enrich_url,
-			// 	success : function(results) {
-				$.get("chea3Results.json", function(results) {
+			$.ajax({ //prod
+				url : enrich_url, //prod
+				success : function(results) { //prod
+				// $.get("chea3Results.json", function(results) { //dev
 					
 					// console.log(results);
 
-					// json = results;
-					// results = JSON.parse(results);
+					json = results; //prod
+					results = JSON.parse(results); //prod
 					chea3Results = results;
 					//reorder results based on ROC AUCs
 					
 					
 					var lib_names = Object.keys(aucs);
-					var results_div = document.getElementById("resultssidenav");
+					var results_div = document.getElementById("results-tables");
 
 					var captionAndTableMarkup = lib_names.reduce(function (accumulator, libraryName) {
 						accumulator += renderCardHeader(libraryName)
@@ -565,6 +565,7 @@ $(document).ready(function () {
 					getLibraryDescriptions();
 					addSliderEventListeners();
 					addCardHeaderEventListeners();
+					$('#homepage').addClass("d-none");
 					$("#results").removeClass("d-none");
 					$('#loading-screen').addClass('d-none');	
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
@@ -658,10 +659,10 @@ $(document).ready(function () {
 				    
 
 
-				// }//end success function
+				}//end success function //prod
 			}); // end AJAX call
 
-		// }
+		} //prod
 	}); 
 });
 

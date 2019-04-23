@@ -95,9 +95,62 @@
 	</section>
 
 
-	<!-- Block 1: Query Submissions / Results Page -->
-	<section class="mbr-fullscreen" id="results-denis" style="background:white;">
+	<!-- Block 1.1: Query Submissions -->
+	<section class="mbr-fullscreen" id="homepage" style="background:white;padding-bottom:0">
+	
+		<div class="container" style="background: white">
+			<div class="row" style="background: white">
+				<div class="col-8 offset-2" style="background:white">
+	
+					<div id="tfea-submission">
+						<h1 class="mbr-section-title mbr-bold mbr-fonts-style display-5 mt-5 mb-0 pb-0">
+							Submit Your Gene Set for Analysis with ChEA3
+						</h1>
+						<!-- <p class="mbr-text mbr-fonts-style display-7"
+						style="margin-bottom: 0; padding-bottom: 2rem">Discover
+						transcription factors associated with sets of target genes</p> -->
+						<div class="form-container" style="padding: 0; border: ''">
+							<div class="media-container-column" data-form-type="formoid">
+	
+								<form class="mbr-form" action="">
+									<div class="form-group" data-for="message">
+										<button type="button" class="btn btn-link display-7 px-0 py-2"
+											style="color: #28a0c9;" id="example-genelist"
+											type="submit">Example gene list</button>
+										<textarea class="form-control 3px pt-2" rows="7"
+											placeholder="Submit gene list with one gene per row." id="genelist"
+											cols=""></textarea>
+	
+									</div>
+	
+									<button type="button" class="btn btn-primary" id="submit-genelist" type="submit"
+										style="padding: .5rem 1.5rem">Submit</button>
+									<br>
+									<span class="display-7" id="genecheck" style="font-size:70%">0 symbols entered, 0
+										duplicates, 0 valid symbols</span>
+	
+								</form>
+	
+							</div>
+						</div>
+					</div>
+	
+				</div>
+	
+			</div> <!-- end row -->
+		</div> <!-- end container -->
+	
+		<div id="loading-screen" class="mbr-overlay d-none">
+			<div class="c_spinner"></div>
+			<div class="ellipsis"></div>
+		</div>
+	
+	</section>
+	
+	<!-- Block 1.2: Results Page -->
+	<section class="mbr-fullscreen d-none" id="results" style="background:white;">
 		<div class="container">
+			<a class="btn btn-primary float-left" id="newquerybutton" href="/chea3" style="padding: .5rem 1.5rem">New Query</a>
 			<div class="h1 text-center my-4">Browse CHEA3 Results</div>
 			<nav class="pt-3">
 				<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
@@ -112,11 +165,12 @@
 			<div class="tab-content" id="nav-tabContent">
 				
 				<!-- Tables Tab -->
-				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">...
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade show active" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">
+					<div id="results-tables" style="background-color: #333333; min-height: 500px;"></div>
 				</div>
 
 				<!-- Network Tab -->
-				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade show active" id="nav-network" role="tabpanel" aria-labelledby="nav-network-tab">
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-network" role="tabpanel" aria-labelledby="nav-network-tab">
 
 					<!-- Ali Code -->
 					<div class="tab-content networkcol" id="pills-tabContent">
@@ -198,7 +252,8 @@
 
 				<!-- Clustergrammer Tab -->
 				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-clustergram" role="tabpanel" aria-labelledby="nav-clustergram-tab">
-					<iframe src="" class="w-100 border-0" style="height: 1000px;"></iframe> <!-- https://amp.pharm.mssm.edu/clustergrammer/viz/5cafc0de866e16542445f964/tmpol53t2no.txt -->
+					<!-- <img src="clustergrammer.png" class="w-100"> -->
+					<iframe id="clustergram-iframe" class="w-100" frameborder="0" height="500"></iframe> 
 				</div>
 			</div>
 		</div>
