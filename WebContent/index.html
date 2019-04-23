@@ -96,127 +96,41 @@
 
 
 	<!-- Block 1: Query Submissions / Results Page -->
-
-
-	<section class="mbr-fullscreen" id="homepage" style="background:white;padding-bottom:0">
-
-
-
-
-		<div class="container" style="background: white">
-			<div class="row" style="background: white">
-				<div class="col-lg-4 col-md-4  col-sm-12" style="background:white">
-
-					<div id="tfea-submission">
-						<h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-5"
-							style="padding-top:10%;align:center">
-							Submit Your Gene Set for Analysis with ChEA3
-						</h1>
-						<!-- <p class="mbr-text mbr-fonts-style display-7"
-					style="margin-bottom: 0; padding-bottom: 2rem">Discover
-					transcription factors associated with sets of target genes</p> -->
-						<div class="form-container" style="padding: 0; border: ''">
-							<div class="media-container-column" data-form-type="formoid">
-
-								<form class="mbr-form" action="">
-									<div class="form-group" data-for="message">
-										<button type="button" class="btn btn-link display-7"
-											style="color: #28a0c9;padding-left:0;padding-bottom:0" id="example-genelist"
-											type="submit">Example gene list</button>
-										<textarea class="form-control 3px" rows="7"
-											placeholder="Submit gene list with one gene per row." id="genelist"
-											cols=""></textarea>
-
-									</div>
-
-									<button type="button" class="btn btn-primary" id="submit-genelist" type="submit"
-										style="padding: .5rem 1.5rem">Submit</button>
-									<br>
-									<span class="display-7" id="genecheck" style="font-size:70%">0 symbols entered, 0
-										duplicates, 0 valid symbols</span>
-
-								</form>
-
-							</div>
-						</div>
-						<!--class "form-container"--->
-
-						<!-- class="col-lg-4 col-md-5" -->
-						<!--Results column--->
-					</div>
-
-
-
-					<div id="results" class="d-none">
-						<div id="resultssidenav" class="sidenavR"
-							style="top: 60px; height: 90%; padding-top: 20px; padding-bottom: 20px">
-							<a href="javascript:void(0)" class="closebtn"
-								onclick="closeNav('resultssidenav')">&times;</a>
-							<h1 class="mbr-section-title mbr-bold mbr-fonts-style display-7 text-white" align="left"
-								style='padding-left: 2em'>Results by Library</h1>
-							<div id="resultssidenav" class="sidenavR"
-								style="top: 60px; height: 90%; padding-top: 20px; padding-bottom: 20px">
-								<a href="javascript:void(0)" class="closebtn"
-									onclick="closeNav('resultssidenav')">&times;</a>
-								<h1 class="mbr-section-title mbr-bold mbr-fonts-style display-7 text-white" align="left"
-									style='padding-left: 2em'>Results by Library</h1>
-							</div>
-
-						</div>
-
-						<div id="expandresults" style="float:left; padding-top: 30px">
-							<span style="font-size: 15px; cursor: pointer; padding-top: 30px"
-								onclick="openNav('resultssidenav','40%')">&#9776;
-
-							</span>
-							<h6 class="mbr-iconfont display-5" style="font-size: 1rem; display: inline">Back to Results
-							</h6> <a class="btn btn-primary" id="newquerybutton" href="/chea3"
-								style="padding: .5rem 1.5rem">New Query</a>
-
-
-						</div>
-					</div>
+	<section class="mbr-fullscreen" id="results-denis" style="background:white;">
+		<div class="container">
+			<div class="h1 text-center my-4">Browse CHEA3 Results</div>
+			<nav class="pt-3">
+				<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+					<a class="nav-item nav-link rounded-0 active" id="nav-tables-tab" data-toggle="tab" href="#nav-tables" role="tab"
+						aria-controls="nav-tables" aria-selected="true">Tables</a>
+					<a class="nav-item nav-link rounded-0" id="nav-network-tab" data-toggle="tab" href="#nav-network" role="tab"
+						aria-controls="nav-network" aria-selected="false">Network</a>
+					<a class="nav-item nav-link rounded-0" id="nav-clustergram-tab" data-toggle="tab" href="#nav-clustergram" role="tab"
+						aria-controls="nav-clustergram" aria-selected="false">Clustergram</a>
+				</div>
+			</nav>
+			<div class="tab-content" id="nav-tabContent">
+				
+				<!-- Tables Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">...
 				</div>
 
+				<!-- Network Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade show active" id="nav-network" role="tabpanel" aria-labelledby="nav-network-tab">
 
-				<div class="col-lg-8 col-med-8 col-sm-12" style="background: white" id="resultsviz">
-
-					<ul class="nav nav-pills mb-3 display-7 d-none" id="pills-tab" role="tablist" style="float:right">
-						<li class="nav-item">
-							<a class="nav-link active" id="coexpression-tab" data-toggle="pill"
-								href="#pills-coexpression" role="tab" aria-controls="pills-coexpression"
-								aria-selected="true">TF Coexpression Network</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" id="clustergram-tab" data-toggle="pill" href="#pills-clustergram"
-								role="tab" aria-controls="pills-clustergram" aria-selected="false">Clustergram</a>
-						</li>
-						<li class="nav-item d-none">
-							<a class="nav-link" id="coreg-tab" data-toggle="pill" href="#pills-coreg" role="tab"
-								aria-controls="pills-coreg" aria-selected="false">Co-regulatory Network</a>
-						</li>
-					</ul>
+					<!-- Ali Code -->
 					<div class="tab-content networkcol" id="pills-tabContent">
-
-
-
-
-
-						<div class="tab-pane fade show active" id="pills-coexpression" role="tabpanel"
-							aria-labelledby="pills-coexpression-tab">
+						<div class="tab-pane fade show active" id="pills-coexpression" role="tabpanel" aria-labelledby="pills-coexpression-tab">
 							<div style="background: white" class="networkcol" id="tfnet">
 								<!-- Side network navigation menu -->
-
 								<div id="netoptsidenav" class="sidenav" style="float: top">
-									<a href="javascript:void(0)" class="closebtn"
-										onclick="closeNav('netoptsidenav')">&times;</a> <a
-										class="nav-link link text-white display-4"><span
-											class="mbri-change-style mbr-iconfont"></span>Color by:</a>
-
+									<a href="javascript:void(0)" class="closebtn" onclick="closeNav('netoptsidenav')">&times;</a>
+									<a class="nav-link link text-white display-4">
+										<span class="mbri-change-style mbr-iconfont"></span>
+										Color by:
+									</a>
 									<div class="form-group" style="width: 80%; padding-left: 20px" id="colorbyoptions">
-
-										<select class="form-control" id="colorby"
-											onchange="recolorAllNodes();setGTExLegendView()">
+										<select class="form-control" id="colorby" onchange="recolorAllNodes();setGTExLegendView()">
 											<option>Tissue (general)</option>
 											<option>Tissue (specific)</option>
 											<option>GO Enrichment</option>
@@ -224,107 +138,74 @@
 											<option>none</option>
 										</select>
 									</div>
-									<a class="nav-link link text-white display-4" id="gtextablelink"
-										href="#gtextable">GTEx tissue table</a>
-
-									<a class="nav-link link text-white display-4"
-										onclick="deleteNetwork();zm=1;drawNetwork();"><span
-											class="mbri-drag-n-drop2 mbr-iconfont"> </span>Zoom to fit</a> <a
-										class="nav-link link text-white display-4"
-										onclick="requestFullScreen('tfnet')"><span
-											class="mbri-drag-n-drop mbr-iconfont"> </span>Fullscreen</a> <a
-										class="nav-link link text-white display-4"
-										onclick="saveSvg('net_svg','network.svg')"> <span
-											class="mbri-camera mbr-iconfont"> </span>Save SVG
+									<a class="nav-link link text-white display-4" id="gtextablelink" href="#gtextable">GTEx tissue table</a>
+									<a class="nav-link link text-white display-4" onclick="deleteNetwork();zm=1;drawNetwork();">
+										<span class="mbri-drag-n-drop2 mbr-iconfont"> </span>Zoom to fit
+									</a>
+									<a class="nav-link link text-white display-4" onclick="requestFullScreen('tfnet')">
+										<span class="mbri-drag-n-drop mbr-iconfont"></span>
+										Fullscreen
+									</a>
+									<a class="nav-link link text-white display-4" onclick="saveSvg('net_svg','network.svg')">
+										<span class="mbri-camera mbr-iconfont"> </span>
+										Save SVG
 									</a>
 									<!-- Show node labels: auto, always, never -->
 									<div class="checkbox">
-
-
-										<a class="nav-link link text-white display-4"><span
-												class="mbri-edit2 mbr-iconfont"></span>Show node labels:</a>
+										<a class="nav-link link text-white display-4">
+											<span class="mbri-edit2 mbr-iconfont"></span>
+											Show node labels:
+										</a>
 									</div>
-
 									<div class="form-group" style="width: 80%; padding-left: 20px">
-
 										<select class="form-control" id="labelview" onchange="setLabelView()">
 											<option>auto</option>
 											<option>always</option>
 											<option>never</option>
 										</select>
 									</div>
-									<a class="nav-link link text-white display-4"><span class="mbr-iconfont"><input
-												type="checkbox" id="legend_checkbox" class="checkbox-inline"
-												checked="checked" value="1"> </span>Show Legend </a>
-
+									<a class="nav-link link text-white display-4">
+										<span class="mbr-iconfont">
+											<input type="checkbox" id="legend_checkbox" class="checkbox-inline" checked="checked" value="1">
+										</span>
+										Show Legend
+									</a>
 								</div>
-
-
-
-								<div style="width:100%;float:right;display:inline">
-
-
-
-									<span class="mbr-iconfont display-5"
-										style="cursor: pointer;float:right;font-size:1rem"
-										onclick="openNav('netoptsidenav','250px')">&#9776;
-
-
-										<h6 class="mbr-iconfont display-5" style="font-size: 1rem; display: inline">
-											Network Options</h6>
+								<div style="width:100%;float:right;display:inline;">
+									<span class="mbr-iconfont display-5" style="cursor: pointer;float:right;font-size:1rem" onclick="openNav('netoptsidenav','250px')">&#9776;
+										<h6 class="mbr-iconfont display-5" style="font-size: 1rem; display: inline">Network Options</h6>
 									</span>
-
-
 									<div class="form-group" style="width: 175px; float: right; padding-right: 10px">
-
 										<select class="form-control" id="whichnetwork" onchange="changeNetwork()">
 											<option>GTEx TF Network</option>
 											<option>TCGA TF Network</option>
 											<option>ARCHS4 TF Network</option>
 										</select>
-
 									</div>
-
 								</div>
-
 							</div>
-
 						</div> <!-- end coexpression tab -->
-
 						<div class="tab-pane fade" id="pills-clustergram" role="tabpanel"
 							aria-labelledby="pills-clustergram-tab"><iframe id="clustergram-iframe" src="" width="120%"
 								height="700px" frameborder="0"></iframe>
 						</div>
-
 						<div class="tab-pane fade" id="pills-coreg" role="tabpanel" aria-labelledby="pills-coreg-tab">
-
 							<svg id="coregsvg" width="960" height="600"></svg>
 						</div>
-
-
 					</div> <!-- end tab-contents div -->
 
+				</div>
 
-
-
-
-					<!--Results loading screen--->
-
-				</div> <!-- end results visualization column -->
-			</div> <!-- end row -->
-		</div> <!-- end container -->
-
-		<div id="loading-screen" class="mbr-overlay d-none">
-			<div class="c_spinner"></div>
-			<div class="ellipsis"></div>
+				<!-- Clustergrammer Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-clustergram" role="tabpanel" aria-labelledby="nav-clustergram-tab">
+					<iframe src="" class="w-100 border-0" style="height: 1000px;"></iframe> <!-- https://amp.pharm.mssm.edu/clustergrammer/viz/5cafc0de866e16542445f964/tmpol53t2no.txt -->
+				</div>
+			</div>
 		</div>
-
 	</section>
 
 
 	<!-- Block 2: About ChEA3 -->
-
-
 	<section class="mbr-section content4 cid-r0K1l83kKh" style="padding-bottom:0; padding-top:0" id="content4-o">
 
 
