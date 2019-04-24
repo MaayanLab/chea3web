@@ -160,7 +160,7 @@ function renderCaption(libraryName) {
 		${renderSliderValueString(value)}
 		</span>
 		<input type='text' id="${libraryName}_colorpicker" />${renderBarChartPopoverButton()}
-		<button type="button" class="btn btn-link tf-tf-network display-7">TF-TF Network</button>
+		<button type="button" class="btn btn-link tf-tf-network display-7 p-0">TF-TF Network</button>
 		</caption>`;
 		
 		
@@ -570,6 +570,7 @@ $(document).ready(function () {
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
 					$(".table ").css({"width":"4000px"});
 
+
 					
 					
 					//updateHits();
@@ -648,25 +649,28 @@ $(document).ready(function () {
 					$(".tf-tf-network").popover({
 						html: true,
 						trigger: 'click',
-						content: `<svg id="coreg-network" height="200" width="200"></svg>`,
+						content: `<svg id="coreg-network" height="400" width="600"></svg>`,
 						placement: 'right',
-						}).on('shown.bs.popover', function(evt) {
+						title: `<div class="d-table w-100">
+											<div class="d-table-cell align-middle">TF-TF Regulatory Network</div>
+											<button type="button" onclick="$('.tf-tf-network').popover('hide');" class="btn btn-link nodecoration d-table-cell align-middle float-right p-0 text-black m-0 display-5 cursor-pointer">&times;</button>
+										</div>`
+					}).on('shown.bs.popover', function(evt) {
 							var slider = $(evt.target).parents('.panel-body').find('.slider')[0],
 									tfs = getTFs(slider);
 							generateNetwork(tfs);
-		
-						});
+					});
 					
 					$("#pills-tab").removeClass("d-none");
 				
 				
 					
 					  // Get matrix
-				    matrix_str = buildClustergrammerMatrix(chea3Results);
+						matrix_str = buildClustergrammerMatrix(chea3Results);
 				    
 
 				    // Send to Clustergrammer
-				    generateClustergram(matrix_str);
+				    // generateClustergram(matrix_str);
 				    
 
 
