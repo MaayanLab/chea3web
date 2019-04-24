@@ -158,9 +158,22 @@ body {
 
 .nodecoration {
   text-decoration: none !important;
+  outline: none !important;
 }
 
 .cursor-pointer {
   cursor: pointer;
 }
 
+#results .btn {
+  padding: 7px 10px !important;
+  cursor: pointer;
+}
+
+#results .dropdown-menu .popover-header {
+  padding: 8px 10px !important;
+}
+
+.gene-popover {
+  padding: 5px 10px;
+}
