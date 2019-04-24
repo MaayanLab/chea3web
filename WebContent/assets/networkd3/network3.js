@@ -1143,8 +1143,8 @@ function drawARCHS4Network() {
 }//end function drawARCHS4Network()
 
 
-function deleteNetwork(net_svg) {
-	net_svg.remove();
+function deleteNetwork() {
+	document.getElementById("net_svg").remove();
 }
 
 $(document).ready(function() {

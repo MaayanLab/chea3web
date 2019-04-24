@@ -91,8 +91,12 @@ function defaultNodeColorAll(){
 	}
 }
 
-function getTFs(sliders){
-	
+function getTFs(slider){
+	var set1Values = chea3Results[slider.id.replace('_slider', '')].map(function (transcriptionFactors) {
+		return transcriptionFactors.TF;
+	});
+	var set1ValuesSliderSubset = set1Values.splice(0, slider.value);
+	return set1ValuesSliderSubset
 }
 
 function highlightNodes(sliders){
@@ -100,16 +104,10 @@ function highlightNodes(sliders){
 	
 	if(sliders.length>0){
 		for (var s of sliders) {
-			var libraryName = s.id.replace('_slider', '');
-			var colorpicker_id = libraryName + "_colorpicker";
-			var set1Values = chea3Results[libraryName].map(function (transcriptionFactors) {
+			set1ValuesSliderSubset = getTFs(s);
+			var colorpicker_id = s.id.replace('_slider', '') + "_colorpicker";
 
-				return transcriptionFactors.TF;
-
-			});
-			var set1ValuesSliderSubset = set1Values.splice(0, s.value);
 			for (var tf of set1ValuesSliderSubset) {
-				
 				node = document.getElementById(tf);
 				if (node) {
 					node.setAttribute("stroke", getColor(colorpicker_id));
@@ -143,15 +141,15 @@ function renderSliderValueString(value) {
 function renderCaption(libraryName) {
 	var captionId = `${libraryName}_${sliderClassName}`;
 	var value = 0;
-	var caption = `
-	<caption>
-	</span>
-	<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
-	<span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
-	${renderSliderValueString(value)}
-	</span>	
-	<input type='text' id="${libraryName}_colorpicker" />
-	</caption>`;
+	// var caption = `
+	// <caption>
+	// </span>
+	// <input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
+	// <span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
+	// ${renderSliderValueString(value)}
+	// </span>	
+	// <input type='text' id="${libraryName}_colorpicker" />
+	// </caption>`;
 	
 	if (libraryName == "Integrated--meanRank"){
 		return `
@@ -160,8 +158,10 @@ function renderCaption(libraryName) {
 		<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
 		<span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
 		${renderSliderValueString(value)}
-		</span>	
-		<input type='text' id="${libraryName}_colorpicker" />` + renderBarChartPopoverButton() + `</caption>`;
+		</span>
+		<input type='text' id="${libraryName}_colorpicker" />${renderBarChartPopoverButton()}
+		<button type="button" class="btn btn-link tf-tf-network display-7">TF-TF Network</button>
+		</caption>`;
 		
 		
 	}else{
@@ -397,15 +397,14 @@ $(document).ready(function () {
 
 	});
 	
-	$('#submit-genelist').on('click', function (evt) { //prod
-	// $(function(){ //dev
+	// $('#submit-genelist').on('click', function (evt) { //prod
+	$(function(){ //dev
 
-		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
-		// generate url //prod
-		var enrich_url = host + "chea3/api/enrich/"; //prod
-		enrich_url = enrich_url + geneset.join(); //prod
+		// var geneset = document.getElementById("genelist").value.split(/\n/); //prod
+		// var enrich_url = host + "chea3/api/enrich/"; //prod
+		// enrich_url = enrich_url + geneset.join(); //prod
 
-		if (validateGeneSet(geneset)) { //prod
+		// if (validateGeneSet(geneset)) { //prod
 
 			$('#loading-screen').removeClass('d-none');
 			// $('#translucent-net').addClass("d-none");
@@ -413,15 +412,15 @@ $(document).ready(function () {
 			// $('#tfea-title').addClass("d-none");
 
 			// send gene set to java servlet
-			$.ajax({ //prod
-				url : enrich_url, //prod
-				success : function(results) { //prod
-				// $.get("chea3Results.json", function(results) { //dev
+			// $.ajax({ //prod
+				// url : enrich_url, //prod
+				// success : function(results) { //prod
+				$.get("chea3Results.json", function(results) { //dev
 					
 					// console.log(results);
 
-					json = results; //prod
-					results = JSON.parse(results); //prod
+					// json = results; //prod
+					// results = JSON.parse(results); //prod
 					chea3Results = results;
 					//reorder results based on ROC AUCs
 					
@@ -646,6 +645,18 @@ $(document).ready(function () {
 		
 						});
 					
+					$(".tf-tf-network").popover({
+						html: true,
+						trigger: 'focus',
+						content: `<svg id="coreg-network" height="500" width="500"></svg>`,
+						placement: 'top',
+						}).on('shown.bs.popover', function(evt) {
+							var slider = $(evt.target).parents('.panel-body').find('.slider')[0],
+									tfs = getTFs(slider);
+							generateNetwork(tfs);
+		
+						});
+					
 					$("#pills-tab").removeClass("d-none");
 				
 				
@@ -659,10 +670,10 @@ $(document).ready(function () {
 				    
 
 
-				}//end success function //prod
+				// }//end success function //prod
 			}); // end AJAX call
 
-		} //prod
+		// } //prod
 	}); 
 });
 
