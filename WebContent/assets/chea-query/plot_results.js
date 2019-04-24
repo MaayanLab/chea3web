@@ -30,7 +30,7 @@ function parseMeanRankLibraries(){
 				}
 			}
 		}
-		console.log(ranks)
+		// console.log(ranks)
 		datasets[i] = {label: libs[i],
 				data: ranks,
 				backgroundColor: Array(ranks.length).fill(colorArray[i]),
@@ -77,5 +77,5 @@ function generateStackedBarChart(){
 
 
 function renderBarChartPopoverButton(){
-	return `<button id = "barchartpopover" type="button" class="btn btn-link display-7" title = "Library Contribution to Integrated meanRank Ranks" data-toggle="popover" style="display:inline;float:right;padding:0;margin-right:0;margin-left:5;color:#28a0c9;font-size:50%" data-placement="right">Bar Chart</button>`;
+	return `<button id = "barchartpopover" type="button" class="btn btn-link display-7" title = "Library Contribution to Integrated meanRank Ranks" data-toggle="popover" style="display:inline;float:right;padding:0;margin-right:0;margin-left:5;color:#28a0c9;font-size:50%" data-placement="left">Bar Chart</button>`;
 }
