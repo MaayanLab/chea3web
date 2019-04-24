@@ -30,11 +30,26 @@ displayNetwork = function(network) {
         height = +svg.attr("height"),
         node,
         link;
+        
+    // Clear network
+    svg.selectAll('*').remove();
+    
+    // Zoom wrapper
     var zoom_wrapper = svg.append("g")
         .attr("class", "everything");
 
-    // Clear network
-    zoom_wrapper.selectAll('*').remove();
+    // Tooltips elements
+    var tooltip_wrapper = zoom_wrapper.append('g');
+    var bg = tooltip_wrapper.append('rect').attrs({
+        'fill': 'transparent',
+        'stroke-width': 1,
+        'rx': 5,
+        'ry': 5
+    })
+    var txt = tooltip_wrapper.append('text')
+        .attrs({
+            "opacity": 0
+        })
 
     // Define arrows
     zoom_wrapper.append("defs").selectAll("marker")
@@ -71,16 +86,11 @@ displayNetwork = function(network) {
         .force("charge", d3.forceManyBody().theta(0.9).distanceMin(1).distanceMax(Infinity))
         .force("center", d3.forceCenter(width / 2, height / 2));
 
-    // Tooltips
-    var vis = zoom_wrapper.append('g');
-    var txt = vis.append('text')
-        .attrs({
-            "transform": 'translate(5,20)',
-            "fill": "black",
-            "opacity": 0
-        })
-    var pad = 15;
+    // Tooltip variables
+    var pad = 20;
+    var nr_lines = 0;
     var dy = '1.3em';
+    var xpos=10, ypos=0;
         
     // Functions to create network
     function update(links, nodes) {
@@ -100,46 +110,70 @@ displayNetwork = function(network) {
 
                 // Create tooltip
                 var mousePos = d3.mouse(this);
+
+                // Text
                 txt.selectAll('*').remove();
                 txt.append('tspan')
-                    .attrs({'dy': dy, 'x': 0, 'font-weight': 'bold'})
+                    .attrs({'dy': dy, 'x': 10, 'font-weight': 'bold'})
                     .style('z-index', 1000)
                     .text('Interaction evidence sources:');
                 if (d["ABchipseq_evidence"] != "none") {
                     txt.append('tspan')
-                        .attrs({'dy': dy, 'x': 0})
+                        .attrs({'dy': dy, 'x': 15})
                         .text('   •  ChIP-Seq ('+d['TFA'] +'→'+d['TFB']+'): '+d["ABchipseq_evidence"]);
                 }
                 if (d["BAchipseq_evidence"] != "none") {
                     txt.append('tspan')
-                        .attrs({'dy': dy, 'x': 0})
+                        .attrs({'dy': dy, 'x': 15})
                         .text('   •  ChIP-Seq (' +d['TFB'] +'→'+d['TFA']+'): '+d["BAchipseq_evidence"]);
                 }
                 if (d["coexpression_evidence"] != "none") {
                     txt.append('tspan')
-                        .attrs({'dy': dy, 'x': 0})
+                        .attrs({'dy': dy, 'x': 15})
                         .text('   • ' +'Co-expression: ' + d["coexpression_evidence"]);
                 }
                 if (d["cooccurrence_evidence"] != "none") {
                     txt.append('tspan')
-                        .attrs({'dy': dy, 'x': 0})
+                        .attrs({'dy': dy, 'x': 15})
                         .text('   • ' +'Co-occurrence: ' + d["cooccurrence_evidence"]);
                 }
+
+                // Nr lines
+                nr_lines = txt.selectAll('tspan')._groups[0].length;
+                var max_length = Math.max.apply(null, Array.from(txt.selectAll('tspan')._groups[0]).map(function (x) { return x.innerHTML.length })) ;
+
+                // Text attributes
                 txt.attrs({
-                    "transform": "translate(" + (mousePos[0]+0)+","+(mousePos[1]-txt.selectAll('*')['_groups'][0].length*pad) + ")",
+                    "transform": "translate(" + (mousePos[0]+xpos)+","+(mousePos[1]+ypos-nr_lines*pad) + ")",
                     "opacity": 1
                 });
+
+                // Background attributes
+                bg.attrs({
+                    'fill': '#fcfcfc',
+                    'width': max_length*8.5,
+                    'height': pad * nr_lines + 10,
+                    "transform": "translate(" + (mousePos[0]) + "," + (mousePos[1] + ypos - nr_lines * pad) + ")",
+                    'stroke': 'lightgrey'
+                })
+
             })
             .on("mousemove", function (d) {
                 var mousePos = d3.mouse(this);
                 txt.attrs({
-                    "transform": "translate(" + (mousePos[0]+0)+","+(mousePos[1]-txt.selectAll('*')['_groups'][0].length*pad) + ")",
-                    "opacity": 1
+                    "transform": "translate(" + (mousePos[0]+xpos)+","+(mousePos[1]+ypos-nr_lines*pad) + ")"
+                });
+                bg.attrs({
+                    "transform": "translate(" + (mousePos[0]+xpos)+","+(mousePos[1]+ypos-nr_lines*pad) + ")"
                 });
             })
             .on("mouseout", function (d) {
                 txt.attrs({
                     "opacity": 0
+                });
+                bg.attrs({
+                    "fill": "transparent",
+                    "stroke": "transparent"
                 });
             })
 
@@ -164,7 +198,7 @@ displayNetwork = function(network) {
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
-                //.on("end", dragended)
+                // .on("end", dragended)
             );
 
         node.append("circle")

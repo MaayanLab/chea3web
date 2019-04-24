@@ -383,6 +383,23 @@ function newQuery(){
 	
 }
 
+function intersectionPopover(row, library) {
+	var genes = row.Overlapping_Genes.split(','),
+			genes_link = genes.map(function(x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` });
+	return `
+<div class="popover-block-container">
+	<button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7 nodecoration cursor-pointer" style="border:none; color:#28a0c9" data-popover-content="#${library}-${row.Rank}" data-toggle="popover" data-placement="right">${genes.length}</button>
+	<div id="${library}-${row.Rank}" style="display:none;">
+		<div class="popover-body">
+			<button type="button" class="nodecoration cursor-pointer popover-close close pr-2" onclick="$(this).parents('.popover').popover('hide');">&times</button>
+			<div class="gene-popover">${genes_link.join(', ')}</div>
+			<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" onclick="downloadResults('overlap.csv','${genes}');">
+			<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+		</div>
+	</div>
+</div>`
+}
+
 $(document).ready(function () {
 	
 	
@@ -437,6 +454,8 @@ $(document).ready(function () {
 						<div id="bootstrap-toggle"
 						class="toggle-panel accordionStyles tab-content">` + 
 						captionAndTableMarkup + `</div>` + renderDownloadResultsBtn();
+
+
 					for (i = 0; i < lib_names.length; i++) {
 						renderColorPicker(lib_names[i],i);
 						var lib_results = results[lib_names[i]];
@@ -561,6 +580,63 @@ $(document).ready(function () {
 							.columns.adjust();
 						})
 					}
+
+					// Loop through results
+					var default_library = 'Integrated--meanRank';
+					$.each(chea3Results, function(key, value) {
+						console.log(key);
+						console.log(value);
+						// Create table
+						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : '') }).html($('<thead>', {'class': 'text-black'}));
+
+						// Integrated libraries
+						if (key.includes('Integrated')) {
+
+							// Get score column
+							if (key === 'Integrated--meanRank') {
+								score_th = 'Mean Rank';
+								library_render = function(x) { return x }
+							} else if (key === 'Integrated--topRank') {
+								score_th = 'Top Rank';
+								library_render = function(x) { return x.split(',')[0] }
+							}
+
+							// Initialize
+							$table.DataTable({
+								data: value.slice(0, 100),
+								columns: [
+									{ "mData": "Rank", "sTitle": "Rank" },
+									{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+									{ "mData": "Score", "sTitle": score_th },
+									{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function(data, type, row, meta){ return intersectionPopover(row, key) }},		
+									{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
+								]
+							})
+								
+						} else {
+	
+								// Initialize
+								$table.DataTable({
+									data: value.slice(0, 100),
+									columns: [
+										{ "mData": "Rank", "sTitle": "Rank" },
+										{ "mData": "TF", "sTitle": "TF", "mRender": function(x) {return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>`} },
+										{ "mData": "Set_name", "sTitle": "Set name" },
+										{ "mData": "Set length", "sTitle": "Set size" },
+										{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function(data, type, row, meta){ return intersectionPopover(row, key) }},		
+										{ "mData": "FET p-value", "sTitle": "FET p-value" },
+										{ "mData": "FDR", "sTitle": "FDR" },
+										{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
+									]
+								})
+						}
+
+						// Append
+						$('#tables-wrapper').append($table);
+					})
+
+					// Add libraries
+
 					getLibraryDescriptions();
 					addSliderEventListeners();
 					addCardHeaderEventListeners();
@@ -568,10 +644,15 @@ $(document).ready(function () {
 					$("#results").removeClass("d-none");
 					$('#loading-screen').addClass('d-none');	
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
-					$(".table ").css({"width":"4000px"});
+					// $(".table ").css({"width":"4000px"});
 
-
-					
+					// Create selectpicker
+					$('#library-selectpicker').change(function(evt) {
+						$('#tables-wrapper .dataTable').addClass('d-none');
+						$('#' + $(evt.target).val()+'-table').removeClass('d-none');
+					})
+					$('#library-selectpicker').selectpicker('val', default_library);
+				
 					
 					//updateHits();
 					
@@ -628,7 +709,7 @@ $(document).ready(function () {
 						
 					$("[id=overlappinggenespopover]").popover({
 				        html : true,
-				        trigger: 'focus',
+				        trigger: 'click',
 				        content: function() {
 				            var content = $(this).attr("data-popover-content");
 				            return $(content).children(".popover-body").html();
