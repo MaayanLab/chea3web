@@ -23,17 +23,21 @@ createNetwork = function(coreg_network, tfs) {
 // Display network
 displayNetwork = function(network) {
 
+    // Initialize network
     var colorScale = d3.scaleSequential(d3.interpolateBlues).domain([0, Math.max.apply(null, network['nodes'].map(function (d) { return d['degree'] }))]);
-
     var svg = d3.select("#coreg-network"),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
         node,
         link;
-    svg.selectAll('*').remove();
+    var zoom_wrapper = svg.append("g")
+        .attr("class", "everything");
+
+    // Clear network
+    zoom_wrapper.selectAll('*').remove();
 
     // Define arrows
-    svg.append("defs").selectAll("marker")
+    zoom_wrapper.append("defs").selectAll("marker")
         .data(["arrow"])
         .enter().append("marker")
         .attr("id", "markerEnd")
@@ -47,7 +51,7 @@ displayNetwork = function(network) {
         .append("path")
         .attr("d", "M0,-5L10,0L0,5");
 
-    svg.append("defs").selectAll("marker")
+    zoom_wrapper.append("defs").selectAll("marker")
         .data(["arrow"])
         .enter().append("marker")
         .attr("id", "markerStart")
@@ -63,13 +67,12 @@ displayNetwork = function(network) {
 
     // Force directed
     var simulation = d3.forceSimulation()
-        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(100).strength(1))
-        .force("charge", d3.forceManyBody())
+        .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(100).strength(0.1))
+        .force("charge", d3.forceManyBody().theta(0.9).distanceMin(1).distanceMax(Infinity))
         .force("center", d3.forceCenter(width / 2, height / 2));
 
-
-    var vis = svg.append('g');
-
+    // Tooltips
+    var vis = zoom_wrapper.append('g');
     var txt = vis.append('text')
         .attrs({
             "transform": 'translate(5,20)',
@@ -81,7 +84,7 @@ displayNetwork = function(network) {
         
     // Functions to create network
     function update(links, nodes) {
-        link = svg.selectAll(".link")
+        link = zoom_wrapper.selectAll(".link")
             .data(links)
             .enter()
             .append("line")
@@ -100,6 +103,7 @@ displayNetwork = function(network) {
                 txt.selectAll('*').remove();
                 txt.append('tspan')
                     .attrs({'dy': dy, 'x': 0, 'font-weight': 'bold'})
+                    .style('z-index', 1000)
                     .text('Interaction evidence sources:');
                 if (d["ABchipseq_evidence"] != "none") {
                     txt.append('tspan')
@@ -121,13 +125,6 @@ displayNetwork = function(network) {
                         .attrs({'dy': dy, 'x': 0})
                         .text('   • ' +'Co-occurrence: ' + d["cooccurrence_evidence"]);
                 }
-                // $.each([''], function(key, value) {
-                //     if (key.indexOf('evidence') > -1) {
-                //         txt.append('tspan')
-                //             .attrs({'dy': dy, 'x': 0})
-                //             .text(key+': '+value);
-                //     }
-                // })
                 txt.attrs({
                     "transform": "translate(" + (mousePos[0]+0)+","+(mousePos[1]-txt.selectAll('*')['_groups'][0].length*pad) + ")",
                     "opacity": 1
@@ -146,10 +143,7 @@ displayNetwork = function(network) {
                 });
             })
 
-        // link.append("title")
-        //     .text(function (d) { return d.type; });
-
-        edgepaths = svg.selectAll(".edgepath")
+        edgepaths = zoom_wrapper.selectAll(".edgepath")
             .data(links)
             .enter()
             .append('path')
@@ -162,26 +156,7 @@ displayNetwork = function(network) {
             })
             .style("pointer-events", "none");
 
-        // edgelabels = svg.selectAll(".edgelabel")
-        //     .data(links)
-        //     .enter()
-        //     .append('text')
-        //     .style("pointer-events", "none")
-        //     .attrs({
-        //         'class': 'edgelabel',
-        //         'id': function (d, i) { return 'edgelabel' + i },
-        //         'font-size': 10,
-        //         'fill': '#aaa'
-        //     });
-
-        // edgelabels.append('textPath')
-        //     .attr('xlink:href', function (d, i) { return '#edgepath' + i })
-        //     .style("text-anchor", "middle")
-        //     .style("pointer-events", "none")
-        //     .attr("startOffset", "50%")
-        //     .text(function (d) { return d.type });
-
-        node = svg.selectAll(".node")
+        node = zoom_wrapper.selectAll(".node")
             .data(nodes)
             .enter()
             .append("g")
@@ -226,22 +201,10 @@ displayNetwork = function(network) {
             return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
         });
 
-        // edgelabels.attr('transform', function (d) {
-        //     if (d.target.x < d.source.x) {
-        //         var bbox = this.getBBox();
-
-        //         rx = bbox.x + bbox.width / 2;
-        //         ry = bbox.y + bbox.height / 2;
-        //         return 'rotate(180 ' + rx + ' ' + ry + ')';
-        //     }
-        //     else {
-        //         return 'rotate(0)';
-        //     }
-        // });
     }
 
     function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+        if (!d3.event.active) simulation.alphaTarget(0.01).restart()
         d.fx = d.x;
         d.fy = d.y;
     }
@@ -251,13 +214,26 @@ displayNetwork = function(network) {
         d.fy = d3.event.y;
     }
 
-//    function dragended(d) {
-//        if (!d3.event.active) simulation.alphaTarget(0);
-//        d.fx = undefined;
-//        d.fy = undefined;
-//    }
+   function dragended(d) {
+       if (!d3.event.active) simulation.alphaTarget(0);
+       d.fx = undefined;
+       d.fy = undefined;
+   }
+
+
+    //add zoom capabilities 
+    var zoom_handler = d3.zoom()
+        .on("zoom", zoom_actions);
+
+    zoom_handler(svg);
+
+    //Zoom functions 
+    function zoom_actions() {
+        zoom_wrapper.attr("transform", d3.event.transform)
+    }
     // Create network
     update(network.links, network.nodes);
+
 
 }
 
@@ -272,3 +248,9 @@ generateNetwork = function(tfs) {
 
     })
 }
+
+$(document).on('change', '.slider', function(evt) {
+    var slider = $(evt.target)[0],
+        tfs = getTFs(slider);
+    generateNetwork(tfs);
+})
