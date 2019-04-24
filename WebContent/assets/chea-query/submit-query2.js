@@ -647,9 +647,9 @@ $(document).ready(function () {
 					
 					$(".tf-tf-network").popover({
 						html: true,
-						trigger: 'focus',
-						content: `<svg id="coreg-network" height="500" width="500"></svg>`,
-						placement: 'top',
+						trigger: 'click',
+						content: `<svg id="coreg-network" height="200" width="200"></svg>`,
+						placement: 'right',
 						}).on('shown.bs.popover', function(evt) {
 							var slider = $(evt.target).parents('.panel-body').find('.slider')[0],
 									tfs = getTFs(slider);
