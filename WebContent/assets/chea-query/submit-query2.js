@@ -49,6 +49,7 @@ function sliderChange(event) {
 	recolorAllNodes();
 	setLegendView();
 	generateNetwork();
+	generateBarChart();
 	$('#nr-selected-tfs').html($('#tf-slider').val());
 }
 
@@ -220,6 +221,7 @@ function renderColorPicker(libraryName, i) {
 	$('#colorpicker')
 		.on('change', function () {
 			recolorAllNodes();
+			generateBarChart();
 		})
 		.spectrum({
 			color: colorArray[i]
@@ -620,8 +622,8 @@ $(document).ready(function () {
 					// Loop through results
 					var default_library = 'Integrated--meanRank';
 					$.each(chea3Results, function(key, value) {
-						// console.log(key);
-						// console.log(value);
+						console.log(key);
+						console.log(value);
 						// Create table
 						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).html($('<thead>', {'class': 'text-black'}));
 
@@ -633,7 +635,7 @@ $(document).ready(function () {
 								score_th = 'Mean Rank';
 								library_render = function(x) { return x }
 							} else if (key === 'Integrated--topRank') {
-								score_th = 'Top Rank';
+								score_th = 'Integrated Scaled Rank';
 								library_render = function(x) { return x.split(',')[0] }
 							}
 
@@ -682,12 +684,14 @@ $(document).ready(function () {
 					$('#loading-screen').addClass('d-none');	
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
 					generateNetwork();
+					generateBarChart();
 					// $(".table ").css({"width":"4000px"});
 
 					// Create selectpicker
 					$('#library-selectpicker').change(function(evt) {
 						$('#tables-wrapper .dataTable').addClass('d-none');
 						$('#' + $(evt.target).val()+'-table').removeClass('d-none');
+						generateBarChart();
 					})
 					$('#library-selectpicker').selectpicker('val', default_library);
 				
@@ -754,16 +758,16 @@ $(document).ready(function () {
 				        }
 				    });
 					
-					$("#barchartpopover").popover({
-						html: true,
-						trigger: 'focus',
-						content: `<button type="button" class="popover-close close">
-						        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
-						        </button> <canvas id="meanrankbarChart" width="400" height="400"></canvas>`,
-						}).on('shown.bs.popover', function() {
-							generateStackedBarChart();
+					// $("#barchartpopover").popover({
+					// 	html: true,
+					// 	trigger: 'focus',
+					// 	content: `<button type="button" class="popover-close close">
+					// 	        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+					// 	        </button> <canvas id="meanrankbarChart" width="400" height="400"></canvas>`,
+					// 	}).on('shown.bs.popover', function() {
+					// 		generateStackedBarChart();
 		
-						});
+					// 	});
 					
 					$(".tf-tf-network").popover({
 						html: true,
