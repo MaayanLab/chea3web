@@ -88,10 +88,12 @@ function generateClustergram(matrix_str) {
             	response = response.replace("http","https")
             	console.log(response)
                 document.getElementById("clustergram-iframe").dataset.source = response;
+                $('#clustergram-error').addClass('d-none');
                 // $('#clustergram-iframe').attr('data-src', response);
             	// console.log(response)
             } else {
-                console.log('failed');
+                $('#clustergram-iframe').addClass('d-none');
+                $('#clustergram-error').removeClass('d-none');
             }
         }
     }
