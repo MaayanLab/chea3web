@@ -256,10 +256,11 @@ function renderCardHeader(libraryName){
 	`
 }
 
-function renderDownloadLibraryButton(libraryName){
+function renderDownloadLibraryButton(libraryName, display){
 	var libraryTitle = libraryName.replace("--","_");
 	var libraryTitle = libraryTitle.replace("--","_");
-	return `<a id = "downloadJSON" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	var displayClass = display ? '' : 'd-none';
+	return `<a id = "${libraryName}-download" class="btn btn-link display-7 ${displayClass} download-tsv" style="padding:0;color:#28a0c9;font-size:80%" 
 	onclick="downloadResults('${libraryTitle}.tsv',libraryJSONtoTSV('${libraryName}'));">
 	Download All ${libraryTitle} Results as TSV</a>`
 
@@ -625,7 +626,7 @@ $(document).ready(function () {
 						console.log(key);
 						console.log(value);
 						// Create table
-						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).html($('<thead>', {'class': 'text-black'}));
+						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).append($('<thead>', {'class': 'text-black'})).append($('<tbody>', {'class': 'text-black'}));
 
 						// Integrated libraries
 						if (key.includes('Integrated')) {
@@ -642,6 +643,14 @@ $(document).ready(function () {
 							// Initialize
 							$table.DataTable({
 								data: value.slice(0, 100),
+								// scrollY: "200px",
+								// scrollX: "4000px",
+								// sScrollX: "4000px",
+								// scrollCollapse: true,
+								// info: false,
+								// paging: false,
+								// bFilter: true,
+								// filter: true,
 								columns: [
 									{ "mData": "Rank", "sTitle": "Rank" },
 									{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
@@ -671,6 +680,7 @@ $(document).ready(function () {
 
 						// Append
 						$('#tables-wrapper').append($table);
+						$('#tables-wrapper').append(renderDownloadLibraryButton(key, key===default_library));
 					})
 
 					// Add libraries
@@ -689,8 +699,11 @@ $(document).ready(function () {
 
 					// Create selectpicker
 					$('#library-selectpicker').change(function(evt) {
+						var library = $(evt.target).val();
 						$('#tables-wrapper .dataTable').addClass('d-none');
-						$('#' + $(evt.target).val()+'-table').removeClass('d-none');
+						$('.download-tsv').addClass('d-none');
+						$('#' +library+'-table').removeClass('d-none');
+						$('#' +library+'-download').removeClass('d-none');
 						generateBarChart();
 						generateNetwork();
 						recolorAllNodes();
@@ -795,7 +808,7 @@ $(document).ready(function () {
 				    
 
 				    // Send to Clustergrammer
-				    generateClustergram(matrix_str);
+				    // generateClustergram(matrix_str);
 				    
 
 
