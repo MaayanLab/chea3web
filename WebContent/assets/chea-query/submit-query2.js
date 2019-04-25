@@ -326,9 +326,14 @@ function addCardHeaderEventListeners(){
 
 function validateGeneSet(geneset) {
 	var x = false;
-	if (geneset.length > 1 & geneset.length < 2000) {
+	console.log($('#num-valid-genes').html());
+	console.log(geneset);
+	if (geneset.length > 1 & $('#num-valid-genes').html() === "0") {
+		alert("No valid gene symbols have were recognized. Please note that CHEA3 currently only supports HGNC gene symbols (https://www.genenames.org/). If the submitted genes are identified using other systems, such as Ensembl IDs or Entrez IDs, please converting them to HGNC to proceed.");
+	}
+	else if (geneset.length > 1 & geneset.length < 2000) {
 		x = true;
-	}else{
+	} else {
 		alert("Gene set must contain more than 1 gene and fewer than 2,000 genes. One gene per line.");
 	}
 	return x;
@@ -440,9 +445,26 @@ function intersectionPopover(row, library) {
 </div>`
 }
 
+function uploadFileListener() {
+	$('#file-input').on('change', function (evt) {
+		var f = evt.target.files[0],
+				reader = new FileReader();
+
+		// Closure to capture the file information.
+		reader.onload = (function () {
+			return function (e) {
+				$('#genelist').val(e.target.result);
+				checkGeneList(e.target.result);
+			};
+		})(f);
+
+		reader.readAsText(f);
+	})
+}
+
 $(document).ready(function () {
-	
-	
+
+	uploadFileListener()	
 	
 	$('#example-genelist').on('click', function () {
 		var gl = document.getElementById("genelist");

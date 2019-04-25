@@ -22,9 +22,9 @@ $('#genelist').bind('input propertychange', function() {
 	var intersect = uniq_genes.filter(value => hgnc.includes(value));
 	var num_valid_genes = intersect.length;
 	
-	var new_content = genes_entered + " symbols entered, " + dupes + " duplicates, " + num_valid_genes + " valid symbols";
+	var new_content = genes_entered + " symbols entered, " + dupes + " duplicates, <span id='num-valid-genes'>" + num_valid_genes + "</span> valid symbols";
 	console.log(new_content)
-	$('#genecheck').text(new_content);
+	$('#genecheck').html(new_content);
 });
 
 	$('#nav-clustergram-tab').on("click",function(){
@@ -47,7 +47,8 @@ function checkGeneList(data){
 	var intersect = uniq_genes.filter(value => hgnc.includes(value));
 	var num_valid_genes = intersect.length;
 	
-	var new_content = genes_entered + " symbols entered, " + dupes + " duplicates, " + num_valid_genes + " valid symbols";
+	var new_content = genes_entered + " symbols entered, " + dupes + " duplicates, <span id='num-valid-genes'>" + num_valid_genes + "</span> valid symbols";
 	console.log(new_content)
-	$('#genecheck').text(new_content);
+	console.log(num_valid_genes);
+	$('#genecheck').html(new_content);
 }
