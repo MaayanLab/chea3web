@@ -62,7 +62,8 @@ function parseLibrary(library, nr_tfs) {
 }
 
 function generateBarChart(){
-	
+
+	$('#nav-barchart').html('<canvas id="barchart" width="400" height="200"></canvas>');
 	var ctx = document.getElementById('barchart').getContext('2d'),
 		library = $('#library-selectpicker').val(),
 		nr_tfs = $('#tf-slider').val();
