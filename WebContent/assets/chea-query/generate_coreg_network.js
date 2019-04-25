@@ -271,7 +271,12 @@ displayNetwork = function(network) {
 
 }
 
-generateNetwork = function(tfs) {
+generateNetwork = function() {
+
+    // Get TFs
+    var tfs = getTFs2();
+
+    // Get JSON
     $.getJSON('assets/chea-query/chea3_coreg_sub_network.json', function (coreg_network) {
 
         // Create network
@@ -282,9 +287,3 @@ generateNetwork = function(tfs) {
 
     })
 }
-
-$(document).on('change', '.slider', function(evt) {
-    var slider = $(evt.target)[0],
-        tfs = getTFs(slider);
-    generateNetwork(tfs);
-})
