@@ -160,7 +160,7 @@
 
 				<!-- Library Selectpicker -->
 				<div class="col-3">
-					<div>Select a library:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>What are libraries?</div>" data-content="<div class='px-3 py-2'>Different .</div>" data-trigger="hover" data-html="true"></span></div>
+					<div>Select a library:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>What are libraries?</div>" data-content="<div class='px-3 py-2'>Each library is a collection of putative transcription factor targets that your gene set is queried against. The Integrated Results aggregate TF predictions from the six other ChEA3 libraries.</div>" data-trigger="hover" data-html="true"></span></div>
 					<select id="library-selectpicker" class="cursor-pointer" data-header="Select a library:">
 						<optgroup label="Integrated Results">
 							<option data-subtext="Average integrated ranks across libraries" value="Integrated--meanRank">Mean Rank</option>
@@ -184,14 +184,14 @@
 
 				<!-- Slider -->
 				<div class="col-4">
-					<div>Select TFs to visualize:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div class='px-3 py-2'>Different .</div>" data-trigger="hover" data-html="true"></span></div>
-					<div class="font-italic mt-1" style="font-size: small;">Top <span id="nr-selected-tfs">10</span> TFs selected</div>
+					<div>Select TFs to visualize:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div style = 'max-width:400px' class='px-3 py-2'> The top TFs from the selected library are visualized in the Global Network, Local Network, and Bar Chart tabs.</div>" data-trigger="hover" data-html="true"></span></div>
+					<div class="font-italic mt-1" style="font-size: small">Top <span id="nr-selected-tfs">10</span> TFs selected</div>
 					<input id="tf-slider" class="slider w-100" type="range" min="1" max="50" value="10">
 				</div>
 				
 				<!-- Colorpicker -->
 				<div id="colorpicker-col" class="col-3">
-					<div>Select a color:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div class='px-3 py-2'>Different .</div>" data-trigger="hover" data-html="true"></span></div>
+					<div>Select a color:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div class='px-3 py-2'>The top TFs from the selected library are visualized in the Global Network, Local Network, and Bar Chart tabs.</div>" data-trigger="hover" data-html="true"></span></div>
 					<input type='text' id="colorpicker"/>
 				</div>
 			</div>
