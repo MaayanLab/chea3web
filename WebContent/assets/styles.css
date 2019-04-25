@@ -44,3 +44,7 @@
 #results-tables .card-header {
   border-bottom: 1px solid darkgrey;
 }
+
+#results {
+  padding-top: 75px;
+}
