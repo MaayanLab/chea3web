@@ -43,9 +43,9 @@ function downloadResults(filename, text){
 function sliderChange(event) {
 	// change slider output text
 	
-	var outputId = `${event.target.id}_output`;
-	document.getElementById(outputId).innerHTML = renderSliderValueString(event.target.value);
-	document.getElementById("colorby").value = "none";
+	// var outputId = `${event.target.id}_output`;
+	// document.getElementById(outputId).innerHTML = renderSliderValueString(event.target.value);
+	// document.getElementById("colorby").value = "none";
 	recolorAllNodes();
 	setLegendView();
 }
@@ -99,6 +99,13 @@ function getTFs(slider){
 	return set1ValuesSliderSubset
 }
 
+function getTFs2(){
+	var library = $('#library-selectpicker').val(),
+			nr_tfs = parseInt($('#tf-slider').val())+1,
+			tfs = typeof chea3Results !== "undefined" ? chea3Results[library].slice(0, nr_tfs).map(function(x) { return x['TF'] }) : [];
+	return tfs		
+}
+
 function highlightNodes(sliders){
 	// if sliders are defined
 	
@@ -121,10 +128,24 @@ function highlightNodes(sliders){
 	
 }
 
+function highlightNodes2() {
+	set1ValuesSliderSubset = getTFs2();
+	// var colorpicker_id = s.id.replace('_slider', '') + "_colorpicker";
+
+	for (var tf of set1ValuesSliderSubset) {
+		node = document.getElementById(tf);
+		if (node) {
+			node.setAttribute("stroke", getColor('colorpicker')); //getColor(colorpicker_id)
+			node.setAttribute("stroke-width", radius * 2.5)
+			node.setAttribute("stroke-opacity", .5)
+		}
+	}
+}
+
 function recolorAllNodes() {
 	defaultNodeColorAll();
 	var sliders = document.querySelectorAll(".slider");
-	highlightNodes(sliders);
+	highlightNodes2();
 }
 
 function addSliderEventListeners() {
@@ -132,6 +153,10 @@ function addSliderEventListeners() {
 	Array.from(sliders).forEach(function (slider) {
 		slider.addEventListener('change', sliderChange);
 	});
+}
+
+function addSliderEventListener() {
+	document.getElementById('tf-slider').addEventListener('change', sliderChange);
 }
 
 function renderSliderValueString(value) {
@@ -188,6 +213,15 @@ function renderColorPicker(libraryName, i) {
 	.spectrum({
 		color: colorArray[i]
 	});
+	
+	// New colorpicker
+	$('#colorpicker')
+		.on('change', function () {
+			recolorAllNodes();
+		})
+		.spectrum({
+			color: colorArray[i]
+		});
 }
 
 function renderTable(libraryName) {
@@ -584,10 +618,10 @@ $(document).ready(function () {
 					// Loop through results
 					var default_library = 'Integrated--meanRank';
 					$.each(chea3Results, function(key, value) {
-						console.log(key);
-						console.log(value);
+						// console.log(key);
+						// console.log(value);
 						// Create table
-						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : '') }).html($('<thead>', {'class': 'text-black'}));
+						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).html($('<thead>', {'class': 'text-black'}));
 
 						// Integrated libraries
 						if (key.includes('Integrated')) {
@@ -639,6 +673,7 @@ $(document).ready(function () {
 
 					getLibraryDescriptions();
 					addSliderEventListeners();
+					addSliderEventListener();
 					addCardHeaderEventListeners();
 					$('#homepage').addClass("d-none");
 					$("#results").removeClass("d-none");

@@ -33,7 +33,7 @@ function changeNetwork(){
 			setGTExColorByOptions();
 			drawNetwork();
 			setGTExLegendView();
-			//recolorAllNodes();
+			recolorAllNodes();
 			$("#gtextablelink").removeClass("d-none")
 			
 			
@@ -41,7 +41,7 @@ function changeNetwork(){
 			setARCHS4ColorByOptions();
 			drawARCHS4Network();
 			setARCHS4LegendView();	
-			//recolorAllNodes();
+			recolorAllNodes();
 			$("#gtextablelink").addClass("d-none")
 			
 			
@@ -50,7 +50,7 @@ function changeNetwork(){
 			drawTCGANetwork();
 			setTCGALegendView();
 			$("#gtextablelink").addClass("d-none")
-			//recolorAllNodes();
+			recolorAllNodes();
 		}
 	
 }
@@ -626,10 +626,11 @@ function drawNetwork() {
 		});
 		
 		
-		var sliders = document.querySelectorAll(".slider");
-		if (sliders != null) {
-			highlightNodes(sliders);
-		}
+		// var sliders = document.querySelectorAll(".slider");
+		// if (sliders != null) {
+		// 	highlightNodes(sliders);
+		// }
+		highlightNodes2();
 		global_nodes = node;
 		global_labels = label;
 		setLabelView();
@@ -641,6 +642,7 @@ function drawNetwork() {
 
 function drawTCGANetwork() {
 	d3.json("assets/networkd3/wgcna_tcga_annotated.json", function(net_json) {
+		console.log('tcga');
 
 		var networkDiv = document.getElementById("tfnet");
 		// net_width = networkDiv.clientWidth;
@@ -880,10 +882,11 @@ function drawTCGANetwork() {
 		});
 	
 
-		var sliders = document.querySelectorAll(".slider");
-		if (sliders != null) {
-			highlightNodes(sliders);
-		}
+		// var sliders = document.querySelectorAll(".slider");
+		// if (sliders != null) {
+		// 	highlightNodes(sliders);
+		// }
+		highlightNodes2();
 
 		global_nodes = node;
 		global_labels = label;
@@ -1128,10 +1131,11 @@ function drawARCHS4Network() {
 		});
 	
 
-		var sliders = document.querySelectorAll(".slider");
-		if (sliders != null) {
-			highlightNodes(sliders);
-		}
+		// var sliders = document.querySelectorAll(".slider");
+		// if (sliders != null) {
+		// 	highlightNodes(sliders);
+		// }
+		highlightNodes2();
 
 		global_nodes = node;
 		global_labels = label;
