@@ -219,13 +219,14 @@ function renderColorPicker(libraryName, i) {
 	
 	// New colorpicker
 	$('#colorpicker')
-		.on('change', function () {
-			recolorAllNodes();
-			generateBarChart();
-		})
 		.spectrum({
-			color: colorArray[i]
-		});
+			color: colorArray[i],
+			change: function() {
+				recolorAllNodes();
+				generateBarChart();
+				generateNetwork();
+			}
+		})
 }
 
 function renderTable(libraryName) {
@@ -260,9 +261,9 @@ function renderDownloadLibraryButton(libraryName, display){
 	var libraryTitle = libraryName.replace("--","_");
 	var libraryTitle = libraryTitle.replace("--","_");
 	var displayClass = display ? '' : 'd-none';
-	return `<a id = "${libraryName}-download" class="btn btn-link display-7 ${displayClass} download-tsv" style="padding:0;color:#28a0c9;font-size:80%" 
-	onclick="downloadResults('${libraryTitle}.tsv',libraryJSONtoTSV('${libraryName}'));">
-	Download All ${libraryTitle} Results as TSV</a>`
+	return `<a id = "${libraryName}-download" class="btn btn-primary display-7 ${displayClass} download-tsv ml-0" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('${libraryTitle}.tsv',libraryJSONtoTSV('${libraryName}'));"><span class="mbri-download display-5 mr-2"></span>
+	Download All ${libraryTitle.replace('_', ' ')} Results as TSV</a>`
 
 }
 
@@ -623,8 +624,8 @@ $(document).ready(function () {
 					// Loop through results
 					var default_library = 'Integrated--meanRank';
 					$.each(chea3Results, function(key, value) {
-						console.log(key);
-						console.log(value);
+						// console.log(key);
+						// console.log(value);
 						// Create table
 						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).append($('<thead>', {'class': 'text-black'})).append($('<tbody>', {'class': 'text-black'}));
 

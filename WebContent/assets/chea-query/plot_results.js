@@ -23,9 +23,9 @@ function parseMeanRankLibraries(nr_tfs){
 			//loop through each contributing rank
 			for(k = 0; k<ranksinfo.length; k++){
 				if(ranksinfo[k][0] == libs[i]){
-					console.log(ranksinfo[k][0])
-					ranks[j] = ranks[j] + ranksinfo[k][1]/c;
-					console.log(ranks[j])
+					// console.log(ranksinfo[k][0])
+					ranks[j] = (ranks[j] + ranksinfo[k][1]/c).toFixed(3);
+					// console.log(ranks[j])
 				
 				}
 			}
@@ -47,18 +47,30 @@ function parseMeanRankLibraries(nr_tfs){
 }
 
 function parseLibrary(library, nr_tfs) {
-	var process_score = library === 'Integrated--topRank' ? function (x) { return x['Score'] } : function (x) { return -Math.log10(x['FET p-value']) },
-		results = chea3Results[library].slice(0, nr_tfs),
-		data = {
+	var results = chea3Results[library].slice(0, nr_tfs),
+		process_score,
+		title, xlab;
+	if (library === 'Integrated--topRank') {
+		process_score = function (x) { return x['Score'] };
+		title = 'Top Scaled TF Ranks from Integrated topRank';
+		label = 'Integrated Scaled Rank';
+		xlab = 'Integrated Scaled Rank';
+	} else {
+		process_score = function (x) { return -Math.log10(x['FET p-value']).toFixed(3) };
+		title = 'Top TF Scores from the '+library.replace('--', ' ')+' library';
+		label = library.replace('--', ' ') + '-log10 (FET P-Value)'
+		xlab = '-log10 (FET P-Value)';
+	}
+	var data = {
 			labels: results.map(function(x) { return x['TF'] }),
 			datasets: [{
-				label: library,
+				label:label,
 				data: results.map(process_score),
 				backgroundColor: getColor('colorpicker'),
 				borderWidth: 1
 			}]
 		}
-	return data
+	return {data: data, title: title, xlab: xlab}
 }
 
 function generateBarChart(){
@@ -71,7 +83,7 @@ function generateBarChart(){
 	if (library === "Integrated--meanRank") {
 
 		var data = parseMeanRankLibraries(nr_tfs);
-		console.log(data);
+		// console.log(data);
 
 		new Chart(ctx, {
 			type: 'horizontalBar',
@@ -84,7 +96,11 @@ function generateBarChart(){
 				},
 				scales: {
 					xAxes: [{
-						stacked: true
+						stacked: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Cumulative Weighted Mean TF Rank'
+						}
 					}],
 					yAxes: [{
 						stacked: true
@@ -95,16 +111,28 @@ function generateBarChart(){
 
 	} else {
 
-		var data = parseLibrary(library, nr_tfs);
-		console.log(data);
+		var barchart_data = parseLibrary(library, nr_tfs);
+		// console.log(data);
 
 		new Chart(ctx, {
 			type: 'horizontalBar',
-			data: data,
+			data: barchart_data['data'],
 			options: {
 				title: {
 					display: true,
-					text: library,
+					text: barchart_data['title'],
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: barchart_data['xlab']
+						}
+					}]
+				},
+				legend: {
+					display: false
 				}
 			}
 		});

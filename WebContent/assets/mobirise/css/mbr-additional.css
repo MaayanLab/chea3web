@@ -721,7 +721,7 @@ a, a:hover {
 	position: absolute;
 	right: 0;
 	top: 0;
-	z-index: 0;
+	z-index: 1;
 }
 
 blockquote {
@@ -2028,7 +2028,7 @@ html, body {
 }
 
 .cid-r0K1pQ9Oau {
-	padding-top: 60px;
+	/* padding-top: 60px; */
 	padding-bottom: 60px;
 	background-color: #ffffff;
 }
