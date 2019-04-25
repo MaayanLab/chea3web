@@ -453,14 +453,14 @@ $(document).ready(function () {
 
 	});
 	
-	// $('#submit-genelist').on('click', function (evt) { //prod
-	$(function(){ //dev
+	$('#submit-genelist').on('click', function (evt) { //prod
+	// $(function(){ //dev
 
-		// var geneset = document.getElementById("genelist").value.split(/\n/); //prod
-		// var enrich_url = host + "chea3/api/enrich/"; //prod
-		// enrich_url = enrich_url + geneset.join(); //prod
+		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
+		var enrich_url = host + "chea3/api/enrich/"; //prod
+		enrich_url = enrich_url + geneset.join(); //prod
 
-		// if (validateGeneSet(geneset)) { //prod
+		if (validateGeneSet(geneset)) { //prod
 
 			$('#loading-screen').removeClass('d-none');
 			// $('#translucent-net').addClass("d-none");
@@ -468,15 +468,15 @@ $(document).ready(function () {
 			// $('#tfea-title').addClass("d-none");
 
 			// send gene set to java servlet
-			// $.ajax({ //prod
-				// url : enrich_url, //prod
-				// success : function(results) { //prod
-				$.get("chea3Results.json", function(results) { //dev
+			$.ajax({ //prod
+				url : enrich_url, //prod
+				success : function(results) { //prod
+				// $.get("chea3Results.json", function(results) { //dev
 					
 					// console.log(results);
 
-					// json = results; //prod
-					// results = JSON.parse(results); //prod
+					json = results; //prod
+					results = JSON.parse(results); //prod
 					chea3Results = results;
 					//reorder results based on ROC AUCs
 					
@@ -808,14 +808,14 @@ $(document).ready(function () {
 				    
 
 				    // Send to Clustergrammer
-				    // generateClustergram(matrix_str);
+				    generateClustergram(matrix_str);
 				    
 
 
-				// }//end success function //prod
+				}//end success function //prod
 			}); // end AJAX call
 
-		// } //prod
+		} //prod
 	}); 
 });
 
