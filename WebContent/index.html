@@ -176,7 +176,7 @@
 			</select>
 
 
-			<input id="tf-slider" class="slider ml-5" type="range" min="0" max="50" value="10">
+			<input id="tf-slider" class="slider ml-5" type="range" min="1" max="50" value="10">
 			<!-- <input id="tf-slider" type="text" value="10" class="ml-5"> -->
 			<div class="d-inline-block ml-3">Top <span id="nr-selected-tfs">10</span> TFs selected</div>
 			<input type='text' id="colorpicker"/>
@@ -202,9 +202,9 @@
 			<div class="tab-content" id="nav-tabContent">
 				
 				<!-- Tables Tab -->
-				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade show active" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">
 					<div id="tables-wrapper"></div>
-					<div id="results-tables" style="background-color: #333333; min-height: 500px;"></div>
+					<div id="results-tables" style="background-color: #333333; min-height: 500px; display: none;"></div>
 				</div>
 				
 
@@ -291,7 +291,7 @@
 				</div>
 				
 				<!-- Barchart Tab -->
-				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade show active" id="nav-barchart" role="tabpanel" aria-labelledby="nav-tables-tab">
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-barchart" role="tabpanel" aria-labelledby="nav-tables-tab">
 				</div>
 
 				<!-- Clustergrammer Tab -->
