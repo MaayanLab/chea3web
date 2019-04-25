@@ -48,6 +48,8 @@ function sliderChange(event) {
 	// document.getElementById("colorby").value = "none";
 	recolorAllNodes();
 	setLegendView();
+	generateNetwork();
+	$('#nr-selected-tfs').html($('#tf-slider').val());
 }
 
 function getColor(id) {
@@ -679,6 +681,7 @@ $(document).ready(function () {
 					$("#results").removeClass("d-none");
 					$('#loading-screen').addClass('d-none');	
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
+					generateNetwork();
 					// $(".table ").css({"width":"4000px"});
 
 					// Create selectpicker
