@@ -41,6 +41,11 @@
 
 <body style="background:white">
 
+	<!-- Loader -->
+	<section id="loading-screen" class="mbr-overlay d-none">
+		<div class="c_spinner"></div>
+		<div class="ellipsis"></div>
+	</section>
 
 	<!-- Navigation Bar -->
 	<section class="menu cid-r0JOqR1tf7" id="menu1-0">
@@ -97,14 +102,14 @@
 
 
 	<!-- Block 1.1: Query Submissions -->
-	<section class="mbr-fullscreen" id="homepage" style="background:white;padding-bottom:0">
+	<section class="mbr-section" id="homepage" style="background:white;padding-bottom:0">
 			
 			<div class="container" style="background: white">
 			<div class="row" style="background: white">
 				<div class="col-8 offset-2" style="background:white">
 	
 					<div id="tfea-submission">
-						<h1 class="mbr-section-title mbr-bold mbr-fonts-style display-5 mt-5 mb-0 pb-0">
+						<h1 class="mbr-section-title mbr-bold mbr-fonts-style display-5 mt-5 mb-0 pt-5 pb-0">
 							Submit Your Gene Set for Analysis with ChEA3
 						</h1>
 						<!-- <p class="mbr-text mbr-fonts-style display-7"
@@ -140,16 +145,11 @@
 	
 			</div> <!-- end row -->
 		</div> <!-- end container -->
-	
-		<div id="loading-screen" class="mbr-overlay d-none">
-			<div class="c_spinner"></div>
-			<div class="ellipsis"></div>
-		</div>
-	
+		
 	</section>
 	
 	<!-- Block 1.2: Results Page -->
-	<section class="mbr-fullscreen d-none" id="results" style="background:white;">
+	<section class="mbr-section d-none" id="results" style="background:white;">
 		<div class="container">
 			<a class="btn btn-primary float-left position-absolute" id="newquerybutton" href="/chea3" style="padding: .5rem 1.5rem">New Query</a>
 			<div class="h1 text-center my-4 pb-2">Browse CHEA3 Results</div>
@@ -219,7 +219,7 @@
 			<div class="tab-content" id="nav-tabContent">
 				
 				<!-- Tables Tab -->
-				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade show active" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">
 					<div id="tables-wrapper"></div>
 					<div id="results-tables" style="background-color: #333333; min-height: 500px; display: none;"></div>
 				</div>
@@ -303,7 +303,7 @@
 				</div>
 				
 				<!-- Local Network Tab -->
-				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade text-center show active" id="nav-local-network" role="tabpanel" aria-labelledby="nav-tables-tab">
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade text-center" id="nav-local-network" role="tabpanel" aria-labelledby="nav-tables-tab">
 					<svg id="coreg-network" height="500" width="1000"></svg>
 				</div>
 				
@@ -315,6 +315,11 @@
 				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-clustergram" role="tabpanel" aria-labelledby="nav-clustergram-tab">
 					<!-- <img src="clustergrammer.png" class="w-100"> -->
 					<iframe id="clustergram-iframe" class="w-100" frameborder="0" height="1000"></iframe> 
+					<div id="clustergram-error" class="text-center py-5 display-5 d-none">
+						Sorry, there has been an error generating the clustergrammer visualization.
+						<br>
+						Please <button type="button" class="btn btn-primary mx-0" onclick="generateClustergram();">click here</button> to try again.
+					</div>
 				</div>
 			</div>
 		</div>
@@ -322,13 +327,13 @@
 
 
 	<!-- Block 2: About ChEA3 -->
-	<section class="mbr-section content4 cid-r0K1l83kKh" style="padding-bottom:0; padding-top:0" id="content4-o">
+	<section class="mbr-section content4 cid-r0K1l83kKh mt-5" style="padding-bottom:0; padding-top:0" id="content4-o">
 
 
 		<div class="container">
 			<div class="media-container-row">
 				<div class="title col-12 col-md-8">
-					<h2 class="align-center pb-3 mbr-fonts-style display-2">About
+					<h2 class="align-center pb-3 mbr-fonts-style display-2 my-3">About
 						ChEA3</h2>
 
 
