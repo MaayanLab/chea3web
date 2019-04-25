@@ -24,11 +24,12 @@ $('#genelist').bind('input propertychange', function() {
 	$('#genecheck').text(new_content);
 });
 
-	$('#clustergram-tab').on("click",function(){
+	$('#nav-clustergram-tab').on("click",function(){
 		var iframe = document.getElementById('clustergram-iframe');
 		var src = iframe.dataset.source;
-		
-		iframe.src = src;
+		if (iframe.src === '') {
+			iframe.src = src;
+		}
 	});
 });
 

@@ -30,10 +30,10 @@
   clip: rect(-6px, 90px, 14px, -6px);
 }
 
-.active {
+/* .active {
   stroke: #000;
   stroke-width: 2px;
-}
+} */
 
 .ellipsis-anim span {
     opacity: 0;
