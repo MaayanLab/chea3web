@@ -35,11 +35,10 @@ displayNetwork = function(network) {
     svg.selectAll('*').remove();
     
     // Zoom wrapper
-    var zoom_wrapper = svg.append("g")
-        .attr("class", "everything");
+    var zoom_wrapper = svg.append("g");
 
     // Tooltips elements
-    var tooltip_wrapper = zoom_wrapper.append('g');
+    var tooltip_wrapper = svg.append('g');
     var bg = tooltip_wrapper.append('rect').attrs({
         'fill': 'transparent',
         'stroke-width': 1,
@@ -151,7 +150,7 @@ displayNetwork = function(network) {
                 // Background attributes
                 bg.attrs({
                     'fill': '#fcfcfc',
-                    'width': max_length*8.5,
+                    'width': max_length*8.8,
                     'height': pad * nr_lines + 10,
                     "transform": "translate(" + (mousePos[0]) + "," + (mousePos[1] + ypos - nr_lines * pad) + ")",
                     'stroke': 'lightgrey'
@@ -202,9 +201,11 @@ displayNetwork = function(network) {
             );
 
         node.append("circle")
-            .attr("r", 5)
+            .attr("r", 7)
             .style("stroke", function (d, i) { return "lightgrey" })
-            .style("fill", function (d, i) { return colorScale(d.degree); })
+            .style("stroke-width", 1)
+            // .style("fill", function (d, i) { return colorScale(d.degree); })
+            .style("fill", function (d, i) { return getColor('colorpicker') })
 
         node.append("title")
             .text(function (d) { return d.id; });
@@ -254,20 +255,19 @@ displayNetwork = function(network) {
        d.fy = undefined;
    }
 
-
     //add zoom capabilities 
     var zoom_handler = d3.zoom()
         .on("zoom", zoom_actions);
 
-    zoom_handler(svg);
+    // zoom_handler(svg);
 
     //Zoom functions 
     function zoom_actions() {
         zoom_wrapper.attr("transform", d3.event.transform)
     }
+    
     // Create network
     update(network.links, network.nodes);
-
 
 }
 

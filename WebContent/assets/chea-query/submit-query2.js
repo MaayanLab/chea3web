@@ -219,13 +219,14 @@ function renderColorPicker(libraryName, i) {
 	
 	// New colorpicker
 	$('#colorpicker')
-		.on('change', function () {
-			recolorAllNodes();
-			generateBarChart();
-		})
 		.spectrum({
-			color: colorArray[i]
-		});
+			color: colorArray[i],
+			change: function() {
+				recolorAllNodes();
+				generateBarChart();
+				generateNetwork();
+			}
+		})
 }
 
 function renderTable(libraryName) {
@@ -453,14 +454,14 @@ $(document).ready(function () {
 
 	});
 	
-	$('#submit-genelist').on('click', function (evt) { //prod
-	// $(function(){ //dev
+	// $('#submit-genelist').on('click', function (evt) { //prod
+	$(function(){ //dev
 
-		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
-		var enrich_url = host + "chea3/api/enrich/"; //prod
-		enrich_url = enrich_url + geneset.join(); //prod
+		// var geneset = document.getElementById("genelist").value.split(/\n/); //prod
+		// var enrich_url = host + "chea3/api/enrich/"; //prod
+		// enrich_url = enrich_url + geneset.join(); //prod
 
-		if (validateGeneSet(geneset)) { //prod
+		// if (validateGeneSet(geneset)) { //prod
 
 			$('#loading-screen').removeClass('d-none');
 			// $('#translucent-net').addClass("d-none");
@@ -468,15 +469,15 @@ $(document).ready(function () {
 			// $('#tfea-title').addClass("d-none");
 
 			// send gene set to java servlet
-			$.ajax({ //prod
-				url : enrich_url, //prod
-				success : function(results) { //prod
-				// $.get("chea3Results.json", function(results) { //dev
+			// $.ajax({ //prod
+				// url : enrich_url, //prod
+				// success : function(results) { //prod
+				$.get("chea3Results.json", function(results) { //dev
 					
 					// console.log(results);
 
-					json = results; //prod
-					results = JSON.parse(results); //prod
+					// json = results; //prod
+					// results = JSON.parse(results); //prod
 					chea3Results = results;
 					//reorder results based on ROC AUCs
 					
@@ -623,8 +624,8 @@ $(document).ready(function () {
 					// Loop through results
 					var default_library = 'Integrated--meanRank';
 					$.each(chea3Results, function(key, value) {
-						console.log(key);
-						console.log(value);
+						// console.log(key);
+						// console.log(value);
 						// Create table
 						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).append($('<thead>', {'class': 'text-black'})).append($('<tbody>', {'class': 'text-black'}));
 
@@ -812,10 +813,10 @@ $(document).ready(function () {
 				    
 
 
-				}//end success function //prod
+				// }//end success function //prod
 			}); // end AJAX call
 
-		} //prod
+		// } //prod
 	}); 
 });
 
