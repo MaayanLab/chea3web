@@ -23,9 +23,9 @@ function parseMeanRankLibraries(nr_tfs){
 			//loop through each contributing rank
 			for(k = 0; k<ranksinfo.length; k++){
 				if(ranksinfo[k][0] == libs[i]){
-					console.log(ranksinfo[k][0])
+					// console.log(ranksinfo[k][0])
 					ranks[j] = ranks[j] + ranksinfo[k][1]/c;
-					console.log(ranks[j])
+					// console.log(ranks[j])
 				
 				}
 			}
@@ -71,7 +71,7 @@ function generateBarChart(){
 	if (library === "Integrated--meanRank") {
 
 		var data = parseMeanRankLibraries(nr_tfs);
-		console.log(data);
+		// console.log(data);
 
 		new Chart(ctx, {
 			type: 'horizontalBar',
@@ -96,7 +96,7 @@ function generateBarChart(){
 	} else {
 
 		var data = parseLibrary(library, nr_tfs);
-		console.log(data);
+		// console.log(data);
 
 		new Chart(ctx, {
 			type: 'horizontalBar',
