@@ -29,3 +29,18 @@
     margin: 0 auto;
     width: 80%;
 }
+
+#results .nav-tabs .nav-link {
+  border-radius: 0px !important;
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+}
+
+
+#results > .container > .tab-content > .tab-pane {
+  border: 1px solid #dee2e6;
+}
+
+#results-tables .card-header {
+  border-bottom: 1px solid darkgrey;
+}

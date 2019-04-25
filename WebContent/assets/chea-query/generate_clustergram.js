@@ -88,6 +88,8 @@ function generateClustergram(matrix_str) {
             	response = response.replace("http","https")
             	console.log(response)
                 document.getElementById("clustergram-iframe").dataset.source = response;
+                // $('#clustergram-iframe').attr('data-src', response);
+            	// console.log(response)
             } else {
                 console.log('failed');
             }

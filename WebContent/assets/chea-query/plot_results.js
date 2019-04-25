@@ -1,7 +1,7 @@
 ////meanRank bar graph
-function parseMeanRankLibraries(){
+function parseMeanRankLibraries(nr_tfs){
 
-	var toptfsdat = chea3Results["Integrated--meanRank"].slice(0,20);
+	var toptfsdat = chea3Results["Integrated--meanRank"].slice(0,nr_tfs);
 	var tfs = toptfsdat.map(function(x){return x["TF"]})
 	//var libinfo = toptfs[i]["Library"].split(";")
 	var libs = Object.keys(chea3Results).map(function(x){return x.replace("--"," ");});
@@ -30,7 +30,7 @@ function parseMeanRankLibraries(){
 				}
 			}
 		}
-		console.log(ranks)
+		// console.log(ranks)
 		datasets[i] = {label: libs[i],
 				data: ranks,
 				backgroundColor: Array(ranks.length).fill(colorArray[i]),
@@ -46,36 +46,74 @@ function parseMeanRankLibraries(){
 	return(data);
 }
 
-function generateStackedBarChart(){
+function parseLibrary(library, nr_tfs) {
+	var process_score = library === 'Integrated--topRank' ? function (x) { return x['Score'] } : function (x) { return -Math.log10(x['FET p-value']) },
+		results = chea3Results[library].slice(0, nr_tfs),
+		data = {
+			labels: results.map(function(x) { return x['TF'] }),
+			datasets: [{
+				label: library,
+				data: results.map(process_score),
+				backgroundColor: getColor('colorpicker'),
+				borderWidth: 1
+			}]
+		}
+	return data
+}
+
+function generateBarChart(){
+
+	$('#nav-barchart').html('<canvas id="barchart" width="400" height="200"></canvas>');
+	var ctx = document.getElementById('barchart').getContext('2d'),
+		library = $('#library-selectpicker').val(),
+		nr_tfs = $('#tf-slider').val();
 	
-	var ctx = document.getElementById('meanrankbarChart').getContext('2d');
-	
-	var data = parseMeanRankLibraries();
-	
-	var stackedBar = new Chart(ctx, {
-	    type: 'horizontalBar',
-	    
-	    data: data,
-	    options: {
-	    	title: {
-	    		display: true,
-	    		text: "Weighted Library Contribution to Integrated MeanRank TF Ranks",
-	    	},
-	        scales: {
-	            xAxes: [{
-	                stacked: true
-	            }],
-	            yAxes: [{
-	                stacked: true
-	            }]
-	        }
-	    }
-	});
+	if (library === "Integrated--meanRank") {
+
+		var data = parseMeanRankLibraries(nr_tfs);
+		console.log(data);
+
+		new Chart(ctx, {
+			type: 'horizontalBar',
+			
+			data: data,
+			options: {
+				title: {
+					display: true,
+					text: "Weighted Library Contribution to Integrated MeanRank TF Ranks",
+				},
+				scales: {
+					xAxes: [{
+						stacked: true
+					}],
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+		});
+
+	} else {
+
+		var data = parseLibrary(library, nr_tfs);
+		console.log(data);
+
+		new Chart(ctx, {
+			type: 'horizontalBar',
+			data: data,
+			options: {
+				title: {
+					display: true,
+					text: library,
+				}
+			}
+		});
+	}
 	
 }
 
 
 
 function renderBarChartPopoverButton(){
-	return `<button id = "barchartpopover" type="button" class="btn btn-link display-7" title = "Library Contribution to Integrated meanRank Ranks" data-toggle="popover" style="display:inline;float:right;padding:0;margin-right:0;margin-left:5;color:#28a0c9;font-size:50%" data-placement="right">Bar Chart</button>`;
+	return `<button id = "barchartpopover" type="button" class="btn btn-link display-7" title = "Library Contribution to Integrated meanRank Ranks" data-toggle="popover" style="display:inline;float:right;padding:0;margin-right:0;margin-left:5;color:#28a0c9;font-size:50%" data-placement="left">Bar Chart</button>`;
 }

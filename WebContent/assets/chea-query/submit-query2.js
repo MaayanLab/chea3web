@@ -43,11 +43,14 @@ function downloadResults(filename, text){
 function sliderChange(event) {
 	// change slider output text
 	
-	var outputId = `${event.target.id}_output`;
-	document.getElementById(outputId).innerHTML = renderSliderValueString(event.target.value);
-	document.getElementById("colorby").value = "none";
+	// var outputId = `${event.target.id}_output`;
+	// document.getElementById(outputId).innerHTML = renderSliderValueString(event.target.value);
+	// document.getElementById("colorby").value = "none";
 	recolorAllNodes();
 	setLegendView();
+	generateNetwork();
+	generateBarChart();
+	$('#nr-selected-tfs').html($('#tf-slider').val());
 }
 
 function getColor(id) {
@@ -91,8 +94,19 @@ function defaultNodeColorAll(){
 	}
 }
 
-function getTFs(sliders){
-	
+function getTFs(slider){
+	var set1Values = chea3Results[slider.id.replace('_slider', '')].map(function (transcriptionFactors) {
+		return transcriptionFactors.TF;
+	});
+	var set1ValuesSliderSubset = set1Values.splice(0, slider.value);
+	return set1ValuesSliderSubset
+}
+
+function getTFs2(){
+	var library = $('#library-selectpicker').val(),
+			nr_tfs = parseInt($('#tf-slider').val()),
+			tfs = typeof chea3Results !== "undefined" ? chea3Results[library].slice(0, nr_tfs).map(function(x) { return x['TF'] }) : [];
+	return tfs		
 }
 
 function highlightNodes(sliders){
@@ -100,16 +114,10 @@ function highlightNodes(sliders){
 	
 	if(sliders.length>0){
 		for (var s of sliders) {
-			var libraryName = s.id.replace('_slider', '');
-			var colorpicker_id = libraryName + "_colorpicker";
-			var set1Values = chea3Results[libraryName].map(function (transcriptionFactors) {
+			set1ValuesSliderSubset = getTFs(s);
+			var colorpicker_id = s.id.replace('_slider', '') + "_colorpicker";
 
-				return transcriptionFactors.TF;
-
-			});
-			var set1ValuesSliderSubset = set1Values.splice(0, s.value);
 			for (var tf of set1ValuesSliderSubset) {
-				
 				node = document.getElementById(tf);
 				if (node) {
 					node.setAttribute("stroke", getColor(colorpicker_id));
@@ -123,10 +131,24 @@ function highlightNodes(sliders){
 	
 }
 
+function highlightNodes2() {
+	set1ValuesSliderSubset = getTFs2();
+	// var colorpicker_id = s.id.replace('_slider', '') + "_colorpicker";
+
+	for (var tf of set1ValuesSliderSubset) {
+		node = document.getElementById(tf);
+		if (node) {
+			node.setAttribute("stroke", getColor('colorpicker')); //getColor(colorpicker_id)
+			node.setAttribute("stroke-width", radius * 2.5)
+			node.setAttribute("stroke-opacity", .5)
+		}
+	}
+}
+
 function recolorAllNodes() {
 	defaultNodeColorAll();
 	var sliders = document.querySelectorAll(".slider");
-	highlightNodes(sliders);
+	highlightNodes2();
 }
 
 function addSliderEventListeners() {
@@ -136,6 +158,10 @@ function addSliderEventListeners() {
 	});
 }
 
+function addSliderEventListener() {
+	document.getElementById('tf-slider').addEventListener('change', sliderChange);
+}
+
 function renderSliderValueString(value) {
 	return `Top ${value} TFs highlighted in network`;
 }
@@ -143,15 +169,15 @@ function renderSliderValueString(value) {
 function renderCaption(libraryName) {
 	var captionId = `${libraryName}_${sliderClassName}`;
 	var value = 0;
-	var caption = `
-	<caption>
-	</span>
-	<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
-	<span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
-	${renderSliderValueString(value)}
-	</span>	
-	<input type='text' id="${libraryName}_colorpicker" />
-	</caption>`;
+	// var caption = `
+	// <caption>
+	// </span>
+	// <input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
+	// <span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
+	// ${renderSliderValueString(value)}
+	// </span>	
+	// <input type='text' id="${libraryName}_colorpicker" />
+	// </caption>`;
 	
 	if (libraryName == "Integrated--meanRank"){
 		return `
@@ -160,8 +186,10 @@ function renderCaption(libraryName) {
 		<input id="${captionId}" class="${sliderClassName}" type="range" min="0" max="50" value="${value}">
 		<span id="${captionId}_output" style="color:white;font-size:14px;font-color:white">
 		${renderSliderValueString(value)}
-		</span>	
-		<input type='text' id="${libraryName}_colorpicker" />` + renderBarChartPopoverButton() + `</caption>`;
+		</span>
+		<input type='text' id="${libraryName}_colorpicker" />${renderBarChartPopoverButton()}
+		<button type="button" class="btn btn-link tf-tf-network display-7 p-0">TF-TF Network</button>
+		</caption>`;
 		
 		
 	}else{
@@ -188,6 +216,16 @@ function renderColorPicker(libraryName, i) {
 	.spectrum({
 		color: colorArray[i]
 	});
+	
+	// New colorpicker
+	$('#colorpicker')
+		.on('change', function () {
+			recolorAllNodes();
+			generateBarChart();
+		})
+		.spectrum({
+			color: colorArray[i]
+		});
 }
 
 function renderTable(libraryName) {
@@ -205,7 +243,7 @@ function renderCardHeader(libraryName){
 	data-toggle="collapse" data-parent="#accordion" data-core=""
 	href="#${libraryName}_body" aria-expanded="false"
 	aria-controls="collapse2">
-	<h4 class="mbr-fonts-style display-7" style="margin-bottom:0">
+	<h4 class="mbr-fonts-style display-7 px-3 py-2" style="margin-bottom:0">
 	<span class="sign mbr-iconfont mbri-down inactive"></span>
 	<span class="color-emphasis-1" style = "font-size:100%">${libraryTitle}</span>
 	<span class="lib_description" id="${libraryName}_tooltip" data-tooltip="Loading library information..." data-tooltip_position="right">
@@ -218,10 +256,11 @@ function renderCardHeader(libraryName){
 	`
 }
 
-function renderDownloadLibraryButton(libraryName){
+function renderDownloadLibraryButton(libraryName, display){
 	var libraryTitle = libraryName.replace("--","_");
 	var libraryTitle = libraryTitle.replace("--","_");
-	return `<a id = "downloadJSON" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	var displayClass = display ? '' : 'd-none';
+	return `<a id = "${libraryName}-download" class="btn btn-link display-7 ${displayClass} download-tsv" style="padding:0;color:#28a0c9;font-size:80%" 
 	onclick="downloadResults('${libraryTitle}.tsv',libraryJSONtoTSV('${libraryName}'));">
 	Download All ${libraryTitle} Results as TSV</a>`
 
@@ -383,6 +422,23 @@ function newQuery(){
 	
 }
 
+function intersectionPopover(row, library) {
+	var genes = row.Overlapping_Genes.split(','),
+			genes_link = genes.map(function(x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` });
+	return `
+<div class="popover-block-container">
+	<button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7 nodecoration cursor-pointer" style="border:none; color:#28a0c9" data-popover-content="#${library}-${row.Rank}" data-toggle="popover" data-placement="right">${genes.length}</button>
+	<div id="${library}-${row.Rank}" style="display:none;">
+		<div class="popover-body">
+			<button type="button" class="nodecoration cursor-pointer popover-close close pr-2" onclick="$(this).parents('.popover').popover('hide');">&times</button>
+			<div class="gene-popover">${genes_link.join(', ')}</div>
+			<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" onclick="downloadResults('overlap.csv','${genes}');">
+			<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+		</div>
+	</div>
+</div>`
+}
+
 $(document).ready(function () {
 	
 	
@@ -397,33 +453,36 @@ $(document).ready(function () {
 
 	});
 	
-	$('#submit-genelist').on('click', function (evt) {
+	// $('#submit-genelist').on('click', function (evt) { //prod
+	$(function(){ //dev
 
-		var geneset = document.getElementById("genelist").value.split(/\n/);
-		// generate url
-		var enrich_url = host + "chea3/api/enrich/";
-		enrich_url = enrich_url + geneset.join();
+		// var geneset = document.getElementById("genelist").value.split(/\n/); //prod
+		// var enrich_url = host + "chea3/api/enrich/"; //prod
+		// enrich_url = enrich_url + geneset.join(); //prod
 
-		if (validateGeneSet(geneset)) {
+		// if (validateGeneSet(geneset)) { //prod
 
 			$('#loading-screen').removeClass('d-none');
-			$('#translucent-net').addClass("d-none");
-			$('#tfea-submission').addClass("d-none");
-			$('#tfea-title').addClass("d-none");
+			// $('#translucent-net').addClass("d-none");
+			// $('#tfea-submission').addClass("d-none");
+			// $('#tfea-title').addClass("d-none");
 
 			// send gene set to java servlet
-			$.ajax({
-				url : enrich_url,
-				success : function(results) {
+			// $.ajax({ //prod
+				// url : enrich_url, //prod
+				// success : function(results) { //prod
+				$.get("chea3Results.json", function(results) { //dev
 					
-					json = results;
-					results = JSON.parse(results);
+					// console.log(results);
+
+					// json = results; //prod
+					// results = JSON.parse(results); //prod
 					chea3Results = results;
 					//reorder results based on ROC AUCs
 					
 					
 					var lib_names = Object.keys(aucs);
-					var results_div = document.getElementById("resultssidenav");
+					var results_div = document.getElementById("results-tables");
 
 					var captionAndTableMarkup = lib_names.reduce(function (accumulator, libraryName) {
 						accumulator += renderCardHeader(libraryName)
@@ -434,6 +493,8 @@ $(document).ready(function () {
 						<div id="bootstrap-toggle"
 						class="toggle-panel accordionStyles tab-content">` + 
 						captionAndTableMarkup + `</div>` + renderDownloadResultsBtn();
+
+
 					for (i = 0; i < lib_names.length; i++) {
 						renderColorPicker(lib_names[i],i);
 						var lib_results = results[lib_names[i]];
@@ -558,15 +619,97 @@ $(document).ready(function () {
 							.columns.adjust();
 						})
 					}
+
+					// Loop through results
+					var default_library = 'Integrated--meanRank';
+					$.each(chea3Results, function(key, value) {
+						console.log(key);
+						console.log(value);
+						// Create table
+						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).append($('<thead>', {'class': 'text-black'})).append($('<tbody>', {'class': 'text-black'}));
+
+						// Integrated libraries
+						if (key.includes('Integrated')) {
+
+							// Get score column
+							if (key === 'Integrated--meanRank') {
+								score_th = 'Mean Rank';
+								library_render = function(x) { return x }
+							} else if (key === 'Integrated--topRank') {
+								score_th = 'Integrated Scaled Rank';
+								library_render = function(x) { return x.split(',')[0] }
+							}
+
+							// Initialize
+							$table.DataTable({
+								data: value.slice(0, 100),
+								// scrollY: "200px",
+								// scrollX: "4000px",
+								// sScrollX: "4000px",
+								// scrollCollapse: true,
+								// info: false,
+								// paging: false,
+								// bFilter: true,
+								// filter: true,
+								columns: [
+									{ "mData": "Rank", "sTitle": "Rank" },
+									{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+									{ "mData": "Score", "sTitle": score_th },
+									{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function(data, type, row, meta){ return intersectionPopover(row, key) }},		
+									{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
+								]
+							})
+								
+						} else {
+	
+								// Initialize
+								$table.DataTable({
+									data: value.slice(0, 100),
+									columns: [
+										{ "mData": "Rank", "sTitle": "Rank" },
+										{ "mData": "TF", "sTitle": "TF", "mRender": function(x) {return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>`} },
+										{ "mData": "Set_name", "sTitle": "Set name" },
+										{ "mData": "Set length", "sTitle": "Set size" },
+										{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function(data, type, row, meta){ return intersectionPopover(row, key) }},		
+										{ "mData": "FET p-value", "sTitle": "FET p-value" },
+										{ "mData": "FDR", "sTitle": "FDR" },
+										{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
+									]
+								})
+						}
+
+						// Append
+						$('#tables-wrapper').append($table);
+						$('#tables-wrapper').append(renderDownloadLibraryButton(key, key===default_library));
+					})
+
+					// Add libraries
+
 					getLibraryDescriptions();
 					addSliderEventListeners();
+					addSliderEventListener();
 					addCardHeaderEventListeners();
+					$('#homepage').addClass("d-none");
 					$("#results").removeClass("d-none");
 					$('#loading-screen').addClass('d-none');	
 					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
-					$(".table ").css({"width":"4000px"});
+					generateNetwork();
+					generateBarChart();
+					// $(".table ").css({"width":"4000px"});
 
-					
+					// Create selectpicker
+					$('#library-selectpicker').change(function(evt) {
+						var library = $(evt.target).val();
+						$('#tables-wrapper .dataTable').addClass('d-none');
+						$('.download-tsv').addClass('d-none');
+						$('#' +library+'-table').removeClass('d-none');
+						$('#' +library+'-download').removeClass('d-none');
+						generateBarChart();
+						generateNetwork();
+						recolorAllNodes();
+					})
+					$('#library-selectpicker').selectpicker('val', default_library);
+				
 					
 					//updateHits();
 					
@@ -623,41 +766,56 @@ $(document).ready(function () {
 						
 					$("[id=overlappinggenespopover]").popover({
 				        html : true,
-				        trigger: 'focus',
+				        trigger: 'click',
 				        content: function() {
 				            var content = $(this).attr("data-popover-content");
 				            return $(content).children(".popover-body").html();
 				        }
 				    });
 					
-					$("#barchartpopover").popover({
-						html: true,
-						trigger: 'focus',
-						content: `<button type="button" class="popover-close close">
-						        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
-						        </button> <canvas id="meanrankbarChart" width="400" height="400"></canvas>`,
-						}).on('shown.bs.popover', function() {
-							generateStackedBarChart();
+					// $("#barchartpopover").popover({
+					// 	html: true,
+					// 	trigger: 'focus',
+					// 	content: `<button type="button" class="popover-close close">
+					// 	        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+					// 	        </button> <canvas id="meanrankbarChart" width="400" height="400"></canvas>`,
+					// 	}).on('shown.bs.popover', function() {
+					// 		generateStackedBarChart();
 		
-						});
+					// 	});
+					
+					$(".tf-tf-network").popover({
+						html: true,
+						trigger: 'click',
+						content: `<svg id="coreg-network" height="400" width="600"></svg>`,
+						placement: 'right',
+						title: `<div class="d-table w-100">
+											<div class="d-table-cell align-middle">TF-TF Regulatory Network</div>
+											<button type="button" onclick="$('.tf-tf-network').popover('hide');" class="btn btn-link nodecoration d-table-cell align-middle float-right p-0 text-black m-0 display-5 cursor-pointer">&times;</button>
+										</div>`
+					}).on('shown.bs.popover', function(evt) {
+							var slider = $(evt.target).parents('.panel-body').find('.slider')[0],
+									tfs = getTFs(slider);
+							generateNetwork(tfs);
+					});
 					
 					$("#pills-tab").removeClass("d-none");
 				
 				
 					
 					  // Get matrix
-				    matrix_str = buildClustergrammerMatrix(chea3Results);
+						matrix_str = buildClustergrammerMatrix(chea3Results);
 				    
 
 				    // Send to Clustergrammer
-				    generateClustergram(matrix_str);
+				    // generateClustergram(matrix_str);
 				    
 
 
-				}//end success function
+				// }//end success function //prod
 			}); // end AJAX call
 
-		}
+		// } //prod
 	}); 
 });
 

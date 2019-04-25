@@ -6,6 +6,9 @@ var max = 100;
 var zm;
 var global_nodes;
 var global_labels;
+var net_width = 1000,
+	net_height = 500;
+
 
 function whichNetwork(){
 	var net = document.getElementById("whichnetwork").value;
@@ -30,7 +33,7 @@ function changeNetwork(){
 			setGTExColorByOptions();
 			drawNetwork();
 			setGTExLegendView();
-			//recolorAllNodes();
+			recolorAllNodes();
 			$("#gtextablelink").removeClass("d-none")
 			
 			
@@ -38,7 +41,7 @@ function changeNetwork(){
 			setARCHS4ColorByOptions();
 			drawARCHS4Network();
 			setARCHS4LegendView();	
-			//recolorAllNodes();
+			recolorAllNodes();
 			$("#gtextablelink").addClass("d-none")
 			
 			
@@ -47,7 +50,7 @@ function changeNetwork(){
 			drawTCGANetwork();
 			setTCGALegendView();
 			$("#gtextablelink").addClass("d-none")
-			//recolorAllNodes();
+			recolorAllNodes();
 		}
 	
 }
@@ -289,8 +292,8 @@ function drawNetwork() {
 	d3.json("assets/networkd3/wgcna_gtex_annotated5.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
-		net_width = networkDiv.clientWidth;
-		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
+		// net_width = 1000;
+		// net_height = 500;
 		//console.log(net_width)
 		//console.log(net_height)
 		//console.log($('#tfnet').width())
@@ -299,12 +302,10 @@ function drawNetwork() {
 
 		var network_svg = d3.select("#tfnet").append("svg");
 		// network_svg.attr("viewBox","0,0,${net_width},${net_height}");
-		network_svg.attr("preserveAspectRatio",
-		"xMidYMid slice");
+		// network_svg.attr("preserveAspectRatio", "xMidYMid slice");
 		network_svg.attr("id", "net_svg");
 
-		network_svg.attr("width", net_width).attr("height",
-				net_height);
+		network_svg.attr("width", net_width).attr("height", net_height);
 
 		var nodes = net_json;
 		var max_x = Math.max.apply(Math, nodes.map(function(o) {
@@ -625,10 +626,11 @@ function drawNetwork() {
 		});
 		
 		
-		var sliders = document.querySelectorAll(".slider");
-		if (sliders != null) {
-			highlightNodes(sliders);
-		}
+		// var sliders = document.querySelectorAll(".slider");
+		// if (sliders != null) {
+		// 	highlightNodes(sliders);
+		// }
+		highlightNodes2();
 		global_nodes = node;
 		global_labels = label;
 		setLabelView();
@@ -640,10 +642,11 @@ function drawNetwork() {
 
 function drawTCGANetwork() {
 	d3.json("assets/networkd3/wgcna_tcga_annotated.json", function(net_json) {
+		console.log('tcga');
 
 		var networkDiv = document.getElementById("tfnet");
-		net_width = networkDiv.clientWidth;
-		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
+		// net_width = networkDiv.clientWidth;
+		// net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
 		//console.log(net_width)
 		//console.log(net_height)
 		//console.log($('#tfnet').width())
@@ -879,10 +882,11 @@ function drawTCGANetwork() {
 		});
 	
 
-		var sliders = document.querySelectorAll(".slider");
-		if (sliders != null) {
-			highlightNodes(sliders);
-		}
+		// var sliders = document.querySelectorAll(".slider");
+		// if (sliders != null) {
+		// 	highlightNodes(sliders);
+		// }
+		highlightNodes2();
 
 		global_nodes = node;
 		global_labels = label;
@@ -898,8 +902,8 @@ function drawARCHS4Network() {
 	d3.json("assets/networkd3/wgcna_archs4_annotated.json", function(net_json) {
 
 		var networkDiv = document.getElementById("tfnet");
-		net_width = networkDiv.clientWidth;
-		net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
+		// net_width = networkDiv.clientWidth;
+		// net_height = Math.max($('#tfea-submission').height(),networkDiv.clientHeight,500);
 		
 
 		var network_svg = d3.select("#tfnet").append("svg");
@@ -1127,10 +1131,11 @@ function drawARCHS4Network() {
 		});
 	
 
-		var sliders = document.querySelectorAll(".slider");
-		if (sliders != null) {
-			highlightNodes(sliders);
-		}
+		// var sliders = document.querySelectorAll(".slider");
+		// if (sliders != null) {
+		// 	highlightNodes(sliders);
+		// }
+		highlightNodes2();
 
 		global_nodes = node;
 		global_labels = label;
@@ -1142,8 +1147,8 @@ function drawARCHS4Network() {
 }//end function drawARCHS4Network()
 
 
-function deleteNetwork(net_svg) {
-	net_svg.remove();
+function deleteNetwork() {
+	document.getElementById("net_svg").remove();
 }
 
 $(document).ready(function() {
