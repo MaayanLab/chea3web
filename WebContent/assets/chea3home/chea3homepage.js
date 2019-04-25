@@ -7,6 +7,9 @@ hgnc = ["A1BG","A1BG-AS1","A1CF","A2M","A2M-AS1","A2ML1","A2ML1-AS1","A2ML1-AS2"
 
 $( document ).ready(function() {
 
+	$(document).ready(function() {
+	    $('#gtextable').DataTable({scrollY: '200px', scrollCollapse: true, paging: false, info: false});
+	} );
 
 $('#genelist').bind('input propertychange', function() {
 	var genes = this.value.split("\n");
