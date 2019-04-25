@@ -104,7 +104,7 @@ function getTFs(slider){
 
 function getTFs2(){
 	var library = $('#library-selectpicker').val(),
-			nr_tfs = parseInt($('#tf-slider').val())+1,
+			nr_tfs = parseInt($('#tf-slider').val()),
 			tfs = typeof chea3Results !== "undefined" ? chea3Results[library].slice(0, nr_tfs).map(function(x) { return x['TF'] }) : [];
 	return tfs		
 }
@@ -692,6 +692,8 @@ $(document).ready(function () {
 						$('#tables-wrapper .dataTable').addClass('d-none');
 						$('#' + $(evt.target).val()+'-table').removeClass('d-none');
 						generateBarChart();
+						generateNetwork();
+						recolorAllNodes();
 					})
 					$('#library-selectpicker').selectpicker('val', default_library);
 				
@@ -793,7 +795,7 @@ $(document).ready(function () {
 				    
 
 				    // Send to Clustergrammer
-				    // generateClustergram(matrix_str);
+				    generateClustergram(matrix_str);
 				    
 
 
