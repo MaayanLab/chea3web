@@ -152,34 +152,51 @@
 	<section class="mbr-fullscreen d-none" id="results" style="background:white;">
 		<div class="container">
 			<a class="btn btn-primary float-left position-absolute" id="newquerybutton" href="/chea3" style="padding: .5rem 1.5rem">New Query</a>
-			<div class="h1 text-center my-4">Browse CHEA3 Results</div>
+			<div class="h1 text-center my-4 pb-2">Browse CHEA3 Results</div>
+			<hr width="100%" class="my-4">
 
 			<!-- Selection -->
-			<select id="library-selectpicker" class="cursor-pointer" data-header="Select a library:">
-				<optgroup label="Integrated Results">
-					<option data-subtext="Average integrated ranks across libraries" value="Integrated--meanRank">Mean Rank</option>
-					<option data-subtext="Top integrated rank across libraries" value="Integrated--topRank">Top Rank</option>
-				</optgroup>
-				<optgroup label="ChIP-Seq">
-					<option data-subtext="Interactions mined from the ENCODE project" value="ENCODE--ChIP-seq">ENCODE</option>
-					<option data-subtext="Interactions mined from the ReMap project" value="ReMap--ChIP-seq">ReMap</option>
-					<option data-subtext="Interactions mined from the literature" value="Literature--ChIP-seq">Literature</option>
-				</optgroup>
-				<optgroup label="Coexpression">
-					<option data-subtext="TF-target coexpression in the ARCHS4 dataset" value="ARCHS4--Coexpression">ARCHS4</option>
-					<option data-subtext="TF-target coexpression in the GTEx dataset" value="GTEx--Coexpression">GTEx</option>
-				</optgroup>
-				<optgroup label="Co-occurrence">
-					<option data-subtext="TF-target co-occurrence in Enrichr queries" value="Enrichr--Queries">Enrichr</option>
-				</optgroup>
-				</select>
-			</select>
+			<div id="options-row" class="row">
+
+				<!-- Library Selectpicker -->
+				<div class="col-3">
+					<div>Select a library:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>What are libraries?</div>" data-content="<div class='px-3 py-2'>Different .</div>" data-trigger="hover" data-html="true"></span></div>
+					<select id="library-selectpicker" class="cursor-pointer" data-header="Select a library:">
+						<optgroup label="Integrated Results">
+							<option data-subtext="Average integrated ranks across libraries" value="Integrated--meanRank">Mean Rank</option>
+							<option data-subtext="Top integrated rank across libraries" value="Integrated--topRank">Top Rank</option>
+						</optgroup>
+						<optgroup label="ChIP-Seq">
+							<option data-subtext="Interactions mined from the ENCODE project" value="ENCODE--ChIP-seq">ENCODE</option>
+							<option data-subtext="Interactions mined from the ReMap project" value="ReMap--ChIP-seq">ReMap</option>
+							<option data-subtext="Interactions mined from the literature" value="Literature--ChIP-seq">Literature</option>
+						</optgroup>
+						<optgroup label="Coexpression">
+							<option data-subtext="TF-target coexpression in the ARCHS4 dataset" value="ARCHS4--Coexpression">ARCHS4</option>
+							<option data-subtext="TF-target coexpression in the GTEx dataset" value="GTEx--Coexpression">GTEx</option>
+						</optgroup>
+						<optgroup label="Co-occurrence">
+							<option data-subtext="TF-target co-occurrence in Enrichr queries" value="Enrichr--Queries">Enrichr</option>
+						</optgroup>
+					</select>
+					</select>
+				</div>
+
+				<!-- Slider -->
+				<div class="col-4">
+					<div>Select TFs to visualize:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div class='px-3 py-2'>Different .</div>" data-trigger="hover" data-html="true"></span></div>
+					<div class="font-italic mt-1" style="font-size: small;">Top <span id="nr-selected-tfs">10</span> TFs selected</div>
+					<input id="tf-slider" class="slider w-100" type="range" min="1" max="50" value="10">
+				</div>
+				
+				<!-- Colorpicker -->
+				<div id="colorpicker-col" class="col-3">
+					<div>Select a color:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div class='px-3 py-2'>Different .</div>" data-trigger="hover" data-html="true"></span></div>
+					<input type='text' id="colorpicker"/>
+				</div>
+			</div>
 
 
-			<input id="tf-slider" class="slider ml-5" type="range" min="1" max="50" value="10">
-			<!-- <input id="tf-slider" type="text" value="10" class="ml-5"> -->
-			<div class="d-inline-block ml-3">Top <span id="nr-selected-tfs">10</span> TFs selected</div>
-			<input type='text' id="colorpicker"/>
 
 
 			<!-- Nav -->
@@ -1351,6 +1368,7 @@
 		gtag('js', new Date());
 
 		gtag('config', 'UA-6277639-43');
+		$('#options-row [data-toggle="popover"]').popover();
 	</script>
 
 
