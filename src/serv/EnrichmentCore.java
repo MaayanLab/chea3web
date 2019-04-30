@@ -72,7 +72,7 @@ public class EnrichmentCore extends HttpServlet {
 		//initialize dictionary object
 		try {
 			EnrichmentCore.dict = new GeneDict("WEB-INF/dict/hgnc_symbols.txt", this);
-			//System.out.println(EnrichmentCore.dict.encode.get("FOXO1"));
+			System.out.println(EnrichmentCore.dict.encode.get("FOXO1"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
