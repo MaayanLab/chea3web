@@ -366,7 +366,7 @@
 					from multiple sources. ChEA3 builds upon these prior versions of ChEA by including more libraries,
 					adding benchmarks, and integrative library analyses. <br><br>For ChEA3 the following TF-target gene
 					set
-					libraries were assembled: Putative targets as determined by ChIP-seq experiments from
+					libraries were assembled: putative targets as determined by ChIP-seq experiments from
 					<a href="https://www.encodeproject.org/">ENCODE</a>, <a
 						href="http://pedagogix-tagc.univ-mrs.fr/remap/">ReMap</a>,
 					and individual publications; co-expression of TFs with other genes based on processed RNA-seq from
@@ -375,27 +375,25 @@
 					co-occurrence of TFs with other genes by examining thousands of gene lists submitted to the tool
 					<a href="http://amp.pharm.mssm.edu/Enrichr/">Enrichr</a>; and gene signatures resulting from single
 					TF perturbations
-					followed by genome-wide gene expression experiments. <br><br>The ChEA3 web application outputs
+					followed by genome-wide gene expression experiments. The <a href="https://www.encodeproject.org/">ENCODE</a> TF target library contains ChIP-seq 
+					experiments from human and mouse and the Literature ChIP-seq library contains ChIP-seq experiments from
+					human, mouse and rat. <a href="https://gtexportal.org/home/">GTEx</a>, <a
+						href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a>, and <a
+						href="http://pedagogix-tagc.univ-mrs.fr/remap/">ReMap</a> libraries were constructed from human data. <br><br>The ChEA3 web application outputs
 					enrichment
 					results in the form of searchable, sortable data tables for each library and integration method.
-					An interactive TF co-expression network visualization, clustered using weighted gene co-expression
-					network analysis, places the top enrichment results in the context of the larger human
-					transcriptional regulatory network.
-					Using various benchmarks, we found that integrating libraries boosts performance of ranking TF
+					Using various benchmarks, we found that integrating libraries boosts the performance of ranking TFs
 					correctly.
 					<br><br>
-					<strong>Transcription Factor Target Enrichment Analysis</strong> -
+					<strong>Transcription Factor Target Over-representation Analysis</strong> -
 					The goal of ChEA3 is to predict transcription factors (TFs) associated with user-input sets of
 					genes.
 					Discrete query gene sets are compared to
 					<a href="index.html#content4-13">ChEA3 libraries</a> of TF target gene sets assembled from multiple
 					orthogonal
-					'omics' datasets. The Fisher's Exact Test is used to compare the input gene set to the TF target
+					'omics' datasets. The Fisher's Exact Test, with a background size of 20,000, is used to compare the input gene set to the TF target
 					gene sets in
-					order to determine which TFs may be most closely associated with the input gene set. The gene set
-					background
-					used to perform these tests is comprised of all approved <a
-						href="https://www.genenames.org/">HGNC</a> gene symbols.
+					order to determine which TFs may be most closely associated with the input gene set.
 					<br>
 					<br>
 
@@ -411,18 +409,23 @@
 					<br>
 					<br>
 
-					<strong>Network Visualization</strong> - The ChEA3 application displays a scatter plot of points
-					representing all human transcription
+					<strong>TF Co-expression Network Visualizations</strong> - The ChEA3 application displays a scatter plot of points
+					representing human transcription
 					factors based on their co-expression similarity. This TF coexpression network was constructed by
 					conducting a <a
 						href="https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/">Weighted Gene
-						Co-expression Network Analysis (WGCNA)</a> over RNA-seq counts of human TFs over all <a
-						href="https://gtexportal.org/home/">GTEx</a> samples.
-					The network layout was determined using Allegro Edge-Repulsive Strong Clustering in <a
-						href="https://cytoscape.org">Cytoscape</a>. WGCNA TF module summary expression profiles, also
+						Co-expression Network Analysis (WGCNA)</a> over human TF expression data. WGCNs were constructed from <a
+						href="https://gtexportal.org/home/">GTEx</a> samples, <a href = "https://portal.gdc.cancer.gov">TCGA</a> samples, and 
+						<a
+						href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a> samples. 
+					The network layouts were determined using Allegro Edge-Repulsive Strong Clustering in <a
+						href="https://cytoscape.org">Cytoscape</a>. For the <a
+						href="https://gtexportal.org/home/">GTEx</a> networks, WGCNA TF module summary expression profiles, also
 					known as Eigen-genes,
-					were correlated with gene expression profiles from all GTEx tissue samples to determine strong
-					module-tissue associations. Each WGCNA module may be colored by its most
+					were correlated with gene expression profiles from all <a
+						href="https://gtexportal.org/home/">GTEx</a> tissue samples to determine strong
+					module-tissue associations. Each <a
+						href="https://gtexportal.org/home/">GTEx</a> WGCN module may be colored by its most
 					highly correlated tissue. Tissues are aggregated into more general tissue types (e.g. brain) and
 					more specific tissue types (e.g. cerebellum, frontal cortex):
 
@@ -534,16 +537,25 @@
 						</tbody>
 					</table>
 
+					<a
+						href="https://gtexportal.org/home/">GTEx</a> modules may also be colored by the top GO enrichment term. <a href = "https://portal.gdc.cancer.gov">TCGA</a> module Eigen-genes were correlated with tumor gene expression
+					profiles to determine strong module-tumor type associations. Each <a href = "https://portal.gdc.cancer.gov">TCGA</a> WGCN module may be colored by its most highly correlated
+					tumor type. Finally, the <a
+						href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a> module Eigen-genes were correlated with <a
+						href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a> tissue types. The <a
+						href="https://amp.pharm.mssm.edu/archs4/">ARCHS4</a> network modules may be colored
+					 by the most highly correlated tissue type.
 					<br>
 					<br>
 
 					<strong>Benchmarking Predictions</strong> - The performance of each library and integration method
 					was benchmarked using <a href="assets/tflibs/Single-TF_Perturbations.gmt" download">946 single-TF
 						loss-of-function (LOF) and gain-of-function (GOF) experiments</a>
-					mined from GEO with microarray and RNA-seq readouts. Gene sets were generated from the
+					mined from GEO with microarray and RNA-seq readouts. These TF LOF/GOF experiments are composed of 503 mouse experiments and
+					433 human experiments. Gene sets were generated from the
 					differentially
 					expressed genes of these experiments and submitted to the ChEA3 API. The positive class consists of
-					ranks assigned by ChEA3 to perturbed TFs.
+					ranks assigned by ChEA3 to the TF perturbed in each experiment.
 					The negative class consists of ranks assigned by ChEA3 to TFs not perturbed in the experiment. The
 					areas under the receiver operating characteristic
 					(ROC) and precision-recall (PR) curves were used to evaluate how well ChEA3 ranked the true
@@ -552,16 +564,17 @@
 					was downsampled to the size of the positive class to generate PR curves such that a random
 					classifier has an AUC of 0.5. These PR curves were bootstrapped 5,000 times to generate mean PR AUCs
 					and composite
-					PR curves.
+					PR curves. ROC curves were generated using the same bootstrapping method.
 					<br>
 					<br>
 
-					<img style="width:95%;position:relative" src="./assets/chea3home/images/Fig1.png">
-					<strong> Figure 1. Performance of the ChEA3 libraries and integration techniques in recovering the
-						perturbed TFs from 946 TF LOF and GOF experiments. a) ROC AUC and mean PR AUC over 5,000
-						bootstrapped PR curves b) ROC curves c) Composite PR curves generated from 5,000 bootstrapped
-						curves d) The deviation of the cumulative distribution from uniform of the scaled rankings of
-						each perturbed TF in the benchmarking dataset.</strong>
+					<img style="width:95%;position:relative" src="./assets/chea3home/images/FIG1.png">
+					<strong> Figure 1. Performance of the ChEA3 libraries and integration techniques in recovering the perturbed TFs from 946 TF LOF and GOF experiments from the benchmark dataset. </strong>
+					 a) Mean ROC AUC and mean PR AUC over 5,000 bootstrapped ROC and PR curves; b) Composite ROC curves generated from 5,000 boostrapped curves; 
+					 c) Composite PR curves generated from 5,000 bootstrapped curves; d) The deviation of the cumulative distribution 
+					 from uniform of the scaled rankings of each perturbed TF in the benchmarking dataset. 
+					 Anderson-Darling test of uniformity: MeanRank p = 6.34 x 10<sup>-7</sup>; TopRank p = 6.34 x 10<sup>-7</sup>; ARCHS4 p = 6.34 x 10<sup>-7</sup>; ENCODE p = 2.06 x 10<sup>-6</sup>; 
+					 Enrichr Queries p = 6.83 x 10<sup>-7</sup>; GTEx p = 6.45 x 10<sup>-7</sup>; Literature ChIP-seq p = 1.28 x 10<sup>-6</sup>; ReMap p = 1.02 x 10<sup>-6</sup>.
 				</div>
 			</div>
 		</div>
@@ -595,58 +608,80 @@
 			<div class="media-container-row">
 				<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
 					<ol>
-						<li><strong>Submit Your Query</strong> - Submit a query with one gene symbol per row.
+						<li><strong>Submit Your Query</strong> - Submit a query with one gene symbol per row in the 
+							text box, or upload a text file with one gene symbol per line.
 							ChEA3 accepts HGNC-approved gene symbols and will discard probe names, transcript IDs,
-							and other unrecognizable IDs that have not been converted to gene symbols. You can
+							and other unrecognizable IDs that have not been converted to gene symbols. ChEA3 accepts 
+							only HGNC-approved gene symbols but does not consider the case of the letters. 
+							Therefore, the tool can accept genes from other species that have orthologs with 
+							gene symbols that directly map to human symbols. You can
 							use the example gene set available as a link above the submission box to gain
 							familiarity with the expected format. Once submitting your query, you will be presented
 							with the results page. Most gene set queries are processed in less than 30 seconds.
-							<img src="./assets/chea3home/images/SubmitQuery.gif" style="width:90j%"></li>
+							<img src="./assets/chea3home/images/example_geneset.gif" style="width:100%">
+							<br><br>
+							<img src="./assets/chea3home/images/load_geneset_from_file.gif" style="width:100%">
+							</li>
 
-						<li><strong>Navigating Your Results</strong> - Results appear as collapsible tables
-							in the results side pane. Clicking on the table header expands the table. Tables may
+						<li><strong>Navigating Your Results</strong> - Results tables from the integration methods MeanRank and TopRank 
+						and from each ChEA3 TF target library are accessible from a dropdown menu.
+						The MeanRank table is by default the first table shown because it performed the best in the ChEA3 benchmark. Tables may
 							be searched by entering terms in the search box, sorted by column by clicking on the
 							column header, and copied to the clipboard by clicking on the Copy button. Results
 							for the ChEA3 TF target libraries are sorted by the Fisher's Exact Test p-value.
 							This provides a ranking of transcription factors whose putative transcriptional targets
 							are most closely similar to the query set. Integrated results, which take into account
 							results from all libraries, are sorted in ascending order by score. Lower scores indicate
-							more relevancy to the transcription factor. The top 100 results are listed in each table.
-							The full results may be downloaded in JSON format using the button at the bottom of the
-							results
-							pane. Full results are also available via the
+							more relevancy to the transcription factor. The top 100 results returned for each table. The full TF ranking and results
+							for each integration method and library may be downloaded as a tab-separated (tsv) file using a link found at the footer of each
+							results table. Full results are also available via the
 							<a href="index.html#content4-z">ChEA3 API</a>.
-							<img src="./assets/chea3home/images/NavigateResults.gif" style="width:90%"></li>
+							<img src="./assets/chea3home/images/view_tables.gif" style="width:100%"></li>
 
-						<li><strong>Interpreting Your Results</strong> - The ChEA3 transcription factor rankings have
-							been evaluated by benchmarking the application using query gene sets generated from
-							single-transcription factor perturbation followed by genome-wide expression experiments.
-							The performance of ChEA3 in highly ranking the "true" perturbed transcription factor
-							is summarized using Receiver Operating Characteristic (ROC) and Precision-Recall (PR)
-							curves.
-							The area under the curves for each TF library, as well as two methods that integrate library
-							results
-							(Borda count and a Top Rank method) are summarized above (Table 1). For convenience,
-							the results from the benchmarking exercise are used to rank the libraries in the results
-							pane.
-							Hence, we recommend that users consider the quality of their enrichment results in each
-							results table based on this order which represents overall quality rank. <img
-								src="./assets/chea3home/images/Benchmarking.gif" style="width:90%"></li>
 
-						<li><strong>Visualizing Your Results</strong> - A transcription factor co-expression
-							network is provided to help users visualize their top matching transcription factors
-							in the context of the larger human transcriptional regulatory network. Network coloring
-							options provide additional information about the tissues the transcription factors may be
-							most active.
-							Sliders and color pickers on each table enable users to highlight the number and color of
-							the matching TFs.
-							The network may be zoomed, panned, and saved as an SVG image. There are other options, for
-							example, hiding
-							the legend, switching to full screen, or showing/hiding node labels. These options can be
-							accessed by clicking
-							the hamburger near the network title.<img
-								src="./assets/chea3home/images/VisualizeResults.gif" style="width:90%"> </li>
-
+						<li><strong>Visualizing Your Results</strong> - A global transcription factor co-expression
+							network, a local results-specific co-regulatory network, bar charts, and a clustergram are
+							available to aid in interpreting the results.
+							<ul>
+							<br>
+							  <li><strong>TF Co-expression Networks</strong></li>
+							  
+							  The TF co-expression networks are provided to help users visualize their top ranking transcription factors
+							in the context of the larger human transcriptional regulatory network. There are three networks generated from GTEx,
+							TCGA, and ARCHS4 expression data. Users may toggle between these three networks using the dropdown menu. 
+							<img
+								src="./assets/chea3home/images/coexpression_network2.gif" style="width:100%">
+							
+							
+							The slider above the network designates the number of TFs to highlight in the network. The TFs that are highlighted are the top results
+							from the library that is selected from library selection dropdown menu. 
+							Network node coloring options provide additional information about the tissues or tumor types the transcription factors may be
+							most active. The network may be zoomed, panned, and saved as an SVG image. There are other options, for
+							example, hiding the legend or switching to full screen. These options can be accessed by clicking
+						    the "Network Options" hamburger.<img
+								src="./assets/chea3home/images/coexpression_network1.gif" style="width:100%"> 
+								<br><br>
+								 </li>
+							  
+							  <li><strong>TF Co-regulatory Networks</strong></li>
+							  TF-TF co-regulatory networks are dynamically generated using the top results of the selected library. Edges between TFs are defined 
+							  by evidence from the ChEA3 libraries and are directed where ChIP-seq evidence supports the interaction. The supporting evidence for each
+							  edge is summarized in a tooltip that appears upon hovering over each edge. The slider above the network indicates the number of top TF results 
+							  to include in the network from the library results indicated in the library selection dropdown.
+							  <img
+								src="./assets/chea3home/images/coreg_network.gif" style="width:100%"> 
+							  <li><strong>Bar Charts</strong></li>
+							  Bar charts corresponding to the top TFs of the selected library display the -log10(pvalue) for ChEA TF target library results, and an integrated
+							  rank score for the integrated library results. The numer of top TFs on the y-axis may be modifed using the slider.
+							  							  <img
+								src="./assets/chea3home/images/barchart.gif" style="width:100%"> 
+							  
+							  <li>Clustergram</li>
+							  The interactive clustergram shows the overlapping query gene targets among top library results.
+							   <img
+								src="./assets/chea3home/images/clustergrammer.gif" style="width:100%"> 
+							</ul> 
+							
 					</ol>
 					<br>
 					<br>
@@ -769,7 +804,10 @@
 
 
 				</div>
+				
 			</div>
+			"Primary" libraries are used by ChEA3 to conduct TF target over-representation analysis, "Benchmarking" libraries were used to 
+			benchmark ChEA3, and "Additional" libraries are available as an additional resource to the community.
 		</div>
 	</section>
 	
@@ -841,7 +879,7 @@
     </tr>
     <tr>
       <td><a style="text-decoration:none" href="assets/tflibs/Cusanovich_shRNA_TFs.gmt" download>Cusanovich_shRNA_TFs</a></td>
-      <td>Additional</td>
+      <td>Benchmarking</td>
       <td>49</td>
       <td>49</td>
       <td>600.0</td>
@@ -849,11 +887,27 @@
     </tr>
     <tr>
       <td><a style="text-decoration:none" href="assets/tflibs/Single-TF_Perturbations.gmt" download>Single-TF_Perturbations</a></td>
-      <td>Additional</td>
+      <td>Benchmarking</td>
       <td>946</td>
       <td>323</td>
       <td>538.1</td>
       <td>365679</td>
+    </tr>
+     <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/HuMAP.gmt" download>HuMAP_TF_PPIs</a></td>
+      <td>Additional</td>
+      <td>460</td>
+      <td>460</td>
+      <td>18.5</td>
+      <td>7561</td>
+    </tr>
+     <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/BioGRID_low_throughput.gmt" download>BioGRID_TF_PPI_low_throughput</a></td>
+      <td>Additional</td>
+      <td>498</td>
+      <td>498</td>
+      <td>7.3</td>
+      <td>3046</td>
     </tr>
     <tr>
       <td><a style="text-decoration:none" href="assets/tflibs/TFs_generif.gmt" download>TFs_generif</a></td>
@@ -1477,114 +1531,114 @@
 <!-- 		</div> -->
 <!-- 	</section> -->
 						
-<section class="accordion1 cid-rnbkpN1hCU" id="accordion1-d" style="background-color:#FFFFFF;margin:50px;padding:50px">
+<!-- <section class="accordion1 cid-rnbkpN1hCU" id="accordion1-d" style="background-color:#FFFFFF;margin:50px;padding:50px"> -->
 
     
 
     
-    <div class="container">
-        <div class="media-container-row">
-            <div class="col-12 col-md-8">
-                <div class="section-head text-center space30">
-                    <h2 class="mbr-section-title pb-5 mbr-fonts-style display-2">
-                        ChEA3 FAQ
-                    </h2>
-                </div>
-                <div class="clearfix"></div>
-                <div id="bootstrap-accordion_9" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true">
-                    <div class="card">
-                        <div class="card-header" role="tab" id="headingOne">
-                            <a role="button" class="panel-title collapsed text-black" data-toggle="collapse" data-core="" href="#collapse1_9" aria-expanded="false" aria-controls="collapse1">
-                                <h4 class="mbr-fonts-style display-7">
-                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>
-                                    Which species are included in ChEA3 and what type of gene ids or symbols are accepted?
-                                </h4>
-                            </a>
-                        </div>
-                        <div id="collapse1_9" class="panel-collapse noScroll collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#bootstrap-accordion_9">
-                            <div class="panel-body p-4">
-                                <p class="mbr-fonts-style panel-text display-7">
-                                  The ARCHS4, GTEx, and ReMap ChEA3 libraries were constructed with human samples. The Enrichr Queries library was constructed with HGNC-mappable gene symbols. The ENCODE and Literature 
-                                  ChIP-seq libraries were constructed with both mouse and human samples.
-                                  ChEA3 accepts HGNC-approved gene symbols for the user-submitted query gene set. Frequently, these symbols map directly to mouse symbols (ChEA3 is not case-sensitive). ChEA3 has been
-                                  validated against a benchmarking set of mouse experiments, which performed comparably to a set of human experiments. Therefore, we recommend ChEA3 for use with human and mouse sets.
-                                  Note that the mouse gene symbols that do not map directly to HGNC-approved human gene symbols will not be considered by the tool.
-                                  </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" role="tab" id="headingTwo">
-                            <a role="button" class="collapsed panel-title text-black" data-toggle="collapse" data-core="" href="#collapse2_9" aria-expanded="false" aria-controls="collapse2">
-                                <h4 class="mbr-fonts-style display-7">
-                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> Does ChEA3 indicate the direction of TF activity?
-                               </h4>
-                            </a>
+<!--     <div class="container"> -->
+<!--         <div class="media-container-row"> -->
+<!--             <div class="col-12 col-md-8"> -->
+<!--                 <div class="section-head text-center space30"> -->
+<!--                     <h2 class="mbr-section-title pb-5 mbr-fonts-style display-2"> -->
+<!--                         ChEA3 FAQ -->
+<!--                     </h2> -->
+<!--                 </div> -->
+<!--                 <div class="clearfix"></div> -->
+<!--                 <div id="bootstrap-accordion_9" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true"> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingOne"> -->
+<!--                             <a role="button" class="panel-title collapsed text-black" data-toggle="collapse" data-core="" href="#collapse1_9" aria-expanded="false" aria-controls="collapse1"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> -->
+<!--                                     Which species are included in ChEA3 and what type of gene ids or symbols are accepted? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse1_9" class="panel-collapse noScroll collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                   The ARCHS4, GTEx, and ReMap ChEA3 libraries were constructed with human samples. The Enrichr Queries library was constructed with HGNC-mappable gene symbols. The ENCODE and Literature  -->
+<!--                                   ChIP-seq libraries were constructed with both mouse and human samples. -->
+<!--                                   ChEA3 accepts HGNC-approved gene symbols for the user-submitted query gene set. Frequently, these symbols map directly to mouse symbols (ChEA3 is not case-sensitive). ChEA3 has been -->
+<!--                                   validated against a benchmarking set of mouse experiments, which performed comparably to a set of human experiments. Therefore, we recommend ChEA3 for use with human and mouse sets. -->
+<!--                                   Note that the mouse gene symbols that do not map directly to HGNC-approved human gene symbols will not be considered by the tool. -->
+<!--                                   </p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingTwo"> -->
+<!--                             <a role="button" class="collapsed panel-title text-black" data-toggle="collapse" data-core="" href="#collapse2_9" aria-expanded="false" aria-controls="collapse2"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> Does ChEA3 indicate the direction of TF activity? -->
+<!--                                </h4> -->
+<!--                             </a> -->
                             
-                        </div>
-                        <div id="collapse2_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#bootstrap-accordion_9">
-                            <div class="panel-body p-4">
-                                <p class="mbr-fonts-style panel-text display-7">
-                                ...
-                                 </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" role="tab" id="headingThree">
-                            <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse3_9" aria-expanded="false" aria-controls="collapse3">
-                                <h4 class="mbr-fonts-style display-7">
-                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Should I input upregulated genes, downregulated genes, or a query set that is upregulated and downregulated genes combined?
-                                </h4>
-                            </a>
-                        </div>
-                        <div id="collapse3_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#bootstrap-accordion_9">
-                            <div class="panel-body p-4">
-                                <p class="mbr-fonts-style panel-text display-7">
-                                   Benchmarking results indicate...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" role="tab" id="headingFour">
-                            <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse4_9" aria-expanded="false" aria-controls="collapse4">
-                                <h4 class="mbr-fonts-style display-7">
-                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which is the best results library to use?
-                                </h4>
-                            </a>
-                        </div>
-                        <div id="collapse4_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#bootstrap-accordion_9">
-                            <div class="panel-body p-4">
-                                <p class="mbr-fonts-style panel-text display-7">
-                                   Benchmarking results indicate...</p>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="card">
-                        <div class="card-header" role="tab" id="headingFive">
-                            <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse5_9" aria-expanded="false" aria-controls="collapse5">
-                                <h4 class="mbr-fonts-style display-7">
-                                    <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which transcription factors are covered by ChEA3?
-                                </h4>
-                            </a>
-                        </div>
-                        <div id="collapse5_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#bootstrap-accordion_9">
-                            <div class="panel-body p-4">
-                                <p class="mbr-fonts-style panel-text display-7">
-                                   Transcription factors identified by Lambert et al. in their census of site-specific human transcription factors are considered. Of these, only symbols that 
-                                   are <a href="https://www.genenames.org">mappable to HGNC-approved symbols</a>. Of these xx TFs, ChEA3 coveres xx. The two transcritpon factors not included in 
-                                   ChEA3 are DUX1 and DUX3  those that are
-                                   HGNC-mappable </p>
-                            </div>
-                        </div>
-                    </div>
+<!--                         </div> -->
+<!--                         <div id="collapse2_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                 ... -->
+<!--                                  </p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingThree"> -->
+<!--                             <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse3_9" aria-expanded="false" aria-controls="collapse3"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Should I input upregulated genes, downregulated genes, or a query set that is upregulated and downregulated genes combined? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse3_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                    Benchmarking results indicate...</p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingFour"> -->
+<!--                             <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse4_9" aria-expanded="false" aria-controls="collapse4"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which is the best results library to use? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse4_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                    Benchmarking results indicate...</p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                      <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingFive"> -->
+<!--                             <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse5_9" aria-expanded="false" aria-controls="collapse5"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which transcription factors are covered by ChEA3? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse5_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                    Transcription factors identified by Lambert et al. in their census of site-specific human transcription factors are considered. Of these, only symbols that  -->
+<!--                                    are <a href="https://www.genenames.org">mappable to HGNC-approved symbols</a>. Of these xx TFs, ChEA3 coveres xx. The two transcritpon factors not included in  -->
+<!--                                    ChEA3 are DUX1 and DUX3  those that are -->
+<!--                                    HGNC-mappable </p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
                     
                     
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+<!-- </section> -->
 
 	<!--Footer-->
 	<div class="row px-5 justify-content-center">
