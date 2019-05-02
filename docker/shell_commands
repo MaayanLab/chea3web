@@ -1,3 +1,3 @@
-CONTAINER_VERSION=v2.4
+CONTAINER_VERSION=v2.7
 docker build -f DockerfileAPI -t maayanlab/chea3:$CONTAINER_VERSION .
 docker push maayanlab/chea3:$CONTAINER_VERSION
