@@ -481,7 +481,11 @@ $(document).ready(function () {
 
 		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
 		var enrich_url = host + "chea3/api/enrich/"; //prod
-		enrich_url = enrich_url + geneset.join(); //prod
+		//enrich_url = enrich_url + geneset.join(); //prod
+		var payload = {
+				"query_name" : "gene_set_query",
+				"gene_set" : geneset
+		}
 
 		if (validateGeneSet(geneset)) { //prod
 
@@ -492,14 +496,18 @@ $(document).ready(function () {
 
 			// send gene set to java servlet
 			$.ajax({ //prod
+				type: "POST",
+				data: JSON.stringify(payload),
+				dataType: "json",
+				contentType: "application/json",
 				url : enrich_url, //prod
 				success : function(results) { //prod
 				// $.get("chea3Results.json", function(results) { //dev
 					
 					// console.log(results);
 
-					json = results; //prod
-					results = JSON.parse(results); //prod
+					//json = results; //prod
+					//results = JSON.parse(results); //prod
 					chea3Results = results;
 					//reorder results based on ROC AUCs
 					

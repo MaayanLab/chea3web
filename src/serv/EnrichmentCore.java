@@ -77,7 +77,7 @@ public class EnrichmentCore extends HttpServlet {
 		//initialize dictionary object
 		try {
 			EnrichmentCore.dict = new GeneDict("WEB-INF/dict/hgnc_symbols.txt", this);
-			System.out.println(EnrichmentCore.dict.encode.get("FOXO1"));
+			//System.out.println(EnrichmentCore.dict.encode.get("FOXO1"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -138,7 +138,7 @@ public class EnrichmentCore extends HttpServlet {
 		}	
 	}
 	public void destroy() {
-		System.out.println("destroying server instance");
+		//System.out.println("destroying server instance");
 		//		try {
 		//			this.writeHits("WEB-INF/hits.txt", this);
 		//		} catch (IOEtackTrace();
@@ -147,6 +147,8 @@ public class EnrichmentCore extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Access-Control-Allow-Origin", "*");
+		
+		String query_name = "user_query";
 
 		String pathInfo = request.getPathInfo();
 		if(pathInfo.matches("^/enrich/.*")){
@@ -157,14 +159,21 @@ public class EnrichmentCore extends HttpServlet {
 				while ((line = reader.readLine()) != null)
 					jb.append(line);
 			} catch (Exception e) { /*report an error*/ }
+			//System.out.println(jb.toString());
 
 
 
 			try {
 
 				JSONObject jsonObject = new JSONObject(jb.toString());
+//				JSONObject jsonObject = HTTP.toJSONObject(jb.toString());
+				
+				if(jsonObject.has("query_name")) {
+					query_name = jsonObject.getString("query_name");
+				}
 
-				String query_name = jsonObject.getString("query_name");
+				
+				
 				JSONArray genesJson = jsonObject.getJSONArray("gene_set");
 				String[] genes = new String[genesJson.length()];
 				for(int i = 0; i < genesJson.length(); i++)
@@ -504,7 +513,7 @@ public class EnrichmentCore extends HttpServlet {
 
 			String hits_filepath=contextPath+hit_filename;
 
-			System.out.println(hits_filepath);
+			//System.out.println(hits_filepath);
 
 			File myfile = new File(hits_filepath);
 
