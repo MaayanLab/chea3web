@@ -25,6 +25,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.HTTP;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import jsp.Overlap;
 import java.math.BigDecimal;
@@ -37,8 +42,8 @@ import java.math.MathContext;
 public class EnrichmentCore extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int hitCount;
-	private int write_hits = 10;
-	private int hitIncr;
+	//	private int write_hits = 10;
+	//	private int hitIncr;
 
 
 
@@ -140,6 +145,120 @@ public class EnrichmentCore extends HttpServlet {
 		//		}
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+
+		String pathInfo = request.getPathInfo();
+		if(pathInfo.matches("^/enrich/.*")){
+			StringBuffer jb = new StringBuffer();
+			String line = null;
+			try {
+				BufferedReader reader = request.getReader();
+				while ((line = reader.readLine()) != null)
+					jb.append(line);
+			} catch (Exception e) { /*report an error*/ }
+
+
+
+			try {
+
+				JSONObject jsonObject = new JSONObject(jb.toString());
+
+				String query_name = jsonObject.getString("query_name");
+				JSONArray genesJson = jsonObject.getJSONArray("gene_set");
+				String[] genes = new String[genesJson.length()];
+				for(int i = 0; i < genesJson.length(); i++)
+				    genes[i] = genesJson.getString(i);
+				
+				genes = toUpper(genes);
+
+				Query q = new Query(genes, EnrichmentCore.dict);
+
+				//compute enrichment for each library
+
+				HashMap<String, ArrayList<Overlap>> results = new HashMap<String, ArrayList<Overlap>>();
+
+				double size = 0;
+				double r = 1;
+				int d = 0;
+
+
+				for(GenesetLibrary lib: EnrichmentCore.libraries) {
+					ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols, lib.name, query_name);
+					Collections.shuffle(enrichResult, new Random(4));
+					Collections.sort(enrichResult);
+					computeFDR(enrichResult);
+
+
+					//where multiple library gene sets correspond to the same TF, take only the best 
+					//performing gene set and remove the rest from the list
+					HashSet<String> lib_tfs = new HashSet<String>();
+					ArrayList<Integer> duplicated_tf_idx = new ArrayList<>();
+					d=0;
+
+					for(Overlap o: enrichResult) {
+						if(lib_tfs.contains(new String(o.getLibTF()))){
+							duplicated_tf_idx.add(d);
+							//System.out.println(o.lib_name);
+
+						}else {
+							lib_tfs.add(new String(o.getLibTF()));
+						}
+						d++;
+					}
+
+					Collections.sort(duplicated_tf_idx, Collections.reverseOrder());
+
+					for(Integer dupe: duplicated_tf_idx) {
+						int duplicated = dupe;
+						System.out.println(dupe);
+						enrichResult.remove(duplicated);
+					}
+
+					//set ranks of remaining results
+					r = 1;
+					size = enrichResult.size();
+					for(Overlap o: enrichResult) {
+						o.setRank((int) r);
+						o.setScaledRank(r/size);
+						//System.out.println(Integer.toString(size));
+						r++;
+					}
+					results.put(lib.name,enrichResult);
+
+					//integrate results
+
+				}		
+
+				ArrayList<IntegratedRank> top_rank = aggregate.topRank(results, query_name);
+				ArrayList<IntegratedRank> borda = aggregate.bordaCount(results, query_name);
+				//					ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
+
+				HashMap<String, ArrayList<IntegratedRank>> integrated_results = new HashMap<String, ArrayList<IntegratedRank>>();
+				integrated_results.put("topRank", top_rank);
+				integrated_results.put("meanRank",borda);
+				//					integrated_results.put("localKemenization",kemen);
+
+				String json = resultsToJSON(results, integrated_results);
+
+				//respond to request
+				response.setContentType("text/plain");
+				response.getWriter().write(json);
+
+
+
+			} catch (JSONException e) {
+				// crash and burn
+				throw new IOException("Error parsing JSON request string");
+			}
+
+
+
+
+
+		}
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -169,16 +288,16 @@ public class EnrichmentCore extends HttpServlet {
 
 			String query_name = "user query";
 
-			//if hitCount is legitimate
-			if(this.hitCount >0) {
-				this.hitIncr++;
-				this.hitCount++;
-			}
-
-			if(this.hitIncr > this.write_hits) {
-				this.writeHits("WEB-INF/hits.txt", this);
-				this.hitIncr = 0;
-			}
+			//			//if hitCount is legitimate
+			//			if(this.hitCount >0) {
+			//				this.hitIncr++;
+			//				this.hitCount++;
+			//			}
+			//
+			//			if(this.hitIncr > this.write_hits) {
+			//				this.writeHits("WEB-INF/hits.txt", this);
+			//				this.hitIncr = 0;
+			//			}
 
 			//http://localhost:8080/chea3-dev/api/enrich/KIAA0907,KDM5A,CDC25A,EGR1,GADD45B,RELB,TERF2IP,SMNDC1,TICAM1,NFKB2,RGS2,NCOA3,ICAM1,TEX10,CNOT4,ARID4B,CLPX,CHIC2,CXCL2,FBXO11,MTF2,CDK2,DNTTIP2,GADD45A,GOLT1B,POLR2K,NFKBIE,GABPB1,ECD,PHKG2,RAD9A,NET1,KIAA0753,EZH2,NRAS,ATP6V0B,CDK7,CCNH,SENP6,TIPARP,FOS,ARPP19,TFAP2A,KDM5B,NPC1,TP53BP2,NUSAP1,SCCPDH,KIF20A,FZD7,USP22,PIP4K2B,CRYZ,GNB5,EIF4EBP1,PHGDH,RRAGA,SLC25A46,RPA1,HADH,DAG1,RPIA,P4HA2,MACF1,TMEM97,MPZL1,PSMG1,PLK1,SLC37A4,GLRX,CBR3,PRSS23,NUDCD3,CDC20,KIAA0528,NIPSNAP1,TRAM2,STUB1,DERA,MTHFD2,BLVRA,IARS2,LIPA,PGM1,CNDP2,BNIP3,CTSL1,CDC25B,HSPA8,EPRS,PAX8,SACM1L,HOXA5,TLE1,PYGL,TUBB6,LOXL1
 
@@ -211,40 +330,40 @@ public class EnrichmentCore extends HttpServlet {
 			double size = 0;
 			double r = 1;
 			int d = 0;
-			
+
 
 			for(GenesetLibrary lib: EnrichmentCore.libraries) {
 				ArrayList<Overlap> enrichResult = enrich.calculateEnrichment(q.dictMatch, lib.mappableSymbols, lib.name, query_name);
 				Collections.shuffle(enrichResult, new Random(4));
 				Collections.sort(enrichResult);
 				computeFDR(enrichResult);
-				
-				
+
+
 				//where multiple library gene sets correspond to the same TF, take only the best 
 				//performing gene set and remove the rest from the list
 				HashSet<String> lib_tfs = new HashSet<String>();
 				ArrayList<Integer> duplicated_tf_idx = new ArrayList<>();
 				d=0;
-				
+
 				for(Overlap o: enrichResult) {
 					if(lib_tfs.contains(new String(o.getLibTF()))){
 						duplicated_tf_idx.add(d);
 						//System.out.println(o.lib_name);
-						
+
 					}else {
 						lib_tfs.add(new String(o.getLibTF()));
 					}
 					d++;
 				}
-				
+
 				Collections.sort(duplicated_tf_idx, Collections.reverseOrder());
-				
+
 				for(Integer dupe: duplicated_tf_idx) {
 					int duplicated = dupe;
 					System.out.println(dupe);
 					enrichResult.remove(duplicated);
 				}
-				
+
 				//set ranks of remaining results
 				r = 1;
 				size = enrichResult.size();
@@ -262,12 +381,12 @@ public class EnrichmentCore extends HttpServlet {
 
 			ArrayList<IntegratedRank> top_rank = aggregate.topRank(results, query_name);
 			ArrayList<IntegratedRank> borda = aggregate.bordaCount(results, query_name);
-//			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
+			//			ArrayList<IntegratedRank> kemen = aggregate.localKemenization(results, query_name);
 
 			HashMap<String, ArrayList<IntegratedRank>> integrated_results = new HashMap<String, ArrayList<IntegratedRank>>();
 			integrated_results.put("topRank", top_rank);
 			integrated_results.put("meanRank",borda);
-//			integrated_results.put("localKemenization",kemen);
+			//			integrated_results.put("localKemenization",kemen);
 
 			String json = resultsToJSON(results, integrated_results);
 
@@ -415,37 +534,37 @@ public class EnrichmentCore extends HttpServlet {
 		}
 		return(genes);
 	}
-	
+
 	private static String set2String(HashSet<String> stringset) {
 		return(String.join(",", stringset));
 	}
-	
-	private void computeFDR(ArrayList<Overlap> over){
-		 //sort Overlap object
-		 Collections.sort(over);
-		 
-		 //get pvals from overlap object
-		 double pvals[] = new double[over.size()];
-		 int i=0;
-		 for(Overlap o: over) {
-			 pvals[i] = o.getPval();
-			 i++;	 
-		 }
-		 
-	    BenjaminiHochberg bh  = new BenjaminiHochberg(pvals);
-	    bh.calculate();
-	    double[] adj_pvals = bh.getAdjustedPvalues();
-	    int j = 0;
-	    for(Overlap o: over) {
-	    	o.setFDR(adj_pvals[j]);
-	    	//System.out.println(pvals[j]);
-	    	//System.out.println(adj_pvals[j]);
-	    	j++;
 
-	    }
-	    
-	    	
-	 }
+	private void computeFDR(ArrayList<Overlap> over){
+		//sort Overlap object
+		Collections.sort(over);
+
+		//get pvals from overlap object
+		double pvals[] = new double[over.size()];
+		int i=0;
+		for(Overlap o: over) {
+			pvals[i] = o.getPval();
+			i++;	 
+		}
+
+		BenjaminiHochberg bh  = new BenjaminiHochberg(pvals);
+		bh.calculate();
+		double[] adj_pvals = bh.getAdjustedPvalues();
+		int j = 0;
+		for(Overlap o: over) {
+			o.setFDR(adj_pvals[j]);
+			//System.out.println(pvals[j]);
+			//System.out.println(adj_pvals[j]);
+			j++;
+
+		}
+
+
+	}
 
 
 
