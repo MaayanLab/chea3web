@@ -475,7 +475,7 @@ $(document).ready(function () {
 		});
 
 	});
-	
+
 	$('#submit-genelist').on('click', function (evt) { //prod
 	// $(function(){ //dev
 
@@ -489,7 +489,7 @@ $(document).ready(function () {
 				"gene_set" : intersect
 		}
 
-		if (validateGeneSet(geneset)) { //prod
+		if (validateGeneSet(intersect)) { //prod
 
 			$('#loading-screen').removeClass('d-none');
 			// $('#translucent-net').addClass("d-none");
