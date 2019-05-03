@@ -327,7 +327,6 @@ function addCardHeaderEventListeners(){
 function validateGeneSet(geneset) {
 	var x = false;
 	console.log($('#num-valid-genes').html());
-	console.log(geneset);
 	if (geneset.length > 1 & $('#num-valid-genes').html() === "0") {
 		alert("No valid gene symbols have were recognized. Please note that CHEA3 currently only supports HGNC gene symbols (https://www.genenames.org/). If the submitted genes are identified using other systems, such as Ensembl IDs or Entrez IDs, please converting them to HGNC to proceed.");
 	}
