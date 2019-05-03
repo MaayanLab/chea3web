@@ -745,17 +745,16 @@
 			<div class="container">
 				<div class="media-container-row">
 					<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-						The ChEA3 REST API uses GET requests to transport user submitted gene sets and JSON-formatted
+						The ChEA3 REST API uses POST to transport user submitted JSON-formatted gene sets and JSON-formatted
 						query results between the ChEA3 server and the user’s script. The user gene set and optional
-						additional information are encoded in the GET URL.
-						To query ChEA3, the GET URL is constructed by appending to the base URL:
-						<pre
-							style="width: 100%; overflow-x: scroll; white-space: nowrap">http://amp.pharm.mssm.edu/chea3/api/enrich/</pre>
-						For example:
-						<pre
-							style="width: 100%; overflow-x: scroll; white-space: nowrap">https://amp.pharm.mssm.edu/chea3/api/enrich/FOXO1,MYC,EGR1,RELB,ICAM1,ARIDB4</pre>
-
-
+						additional information are encoded in JSON format.
+						<br><br>
+						<strong>Method:</strong> POST<br>
+						<strong>URL:</strong> /chea3/api/enrich/<br>
+						<strong>Returns:</strong> JSON array of ChEA3 library result objects<br>
+						<strong>Parameters:</strong> <table style="display:inline-table;border-collapse:collapse;border-spacing:0" class="tg"><tr><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">query_name</th><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">String</th></tr><tr><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">gene_set</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">An array of strings</td></tr></table>
+						<br><br>
+						
 					</div>
 				</div>
 			</div>
@@ -771,27 +770,33 @@
 							<li><strong>Command-line Example</strong> - The following returns results from all ChEA3
 								libraries in JSON format:
 								<pre
-									style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -H "Accept: application/json" https://amp.pharm.mssm.edu/chea3/api/enrich/FOXO1,MYC,EGR1,RELB,ICAM1,ARIDB4</pre>
+									style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -d '{"query_name":"myQuery", "gene_set":["FOXM1","SMAD9","MYC","SMAD3","STAT1","STAT3"]}' -H 'Content-Type: application/json' https://amp.pharm.mssm.edu/chea3/api/enrich/</pre>
 								Redirect the JSON-formatted results to a file:
 								<pre
-									style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -H "Accept: application/json" https://amp.pharm.mssm.edu/chea3/api/enrich/FOXO1,MYC,EGR1,RELB,ICAM1,ARIDB4 > results.json</pre>
+									style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -d '{"query_name":"myQuery", "gene_set":["FOXM1","SMAD9","MYC","SMAD3","STAT1","STAT3"]}' -H 'Content-Type: application/json' https://amp.pharm.mssm.edu/chea3/api/enrich/ > results.json</pre>
 								</a></li>
 							<!-- <li><strong>Python Example</strong> - 
 								<pre
 								style="width: 100%; overflow-x: scroll; white-space: nowrap"></pre></li> -->
 							<li><strong>R Example</strong> -
 								<pre style="width: 100%; overflow-x: scroll">
-								library(jsonlite)
-								library(httr)
-								base_url <- "https://amp.pharm.mssm.edu/chea3/api/enrich/"
-								gene_set <- c("FOXO1","MYC","EGR1","RELB","ICAM1","ARIDB4")
-								#collapse gene set to 'FOXO1,MYC,EGR1,RELB,ICAM1,ARIDB4'
-								gene_set <- paste(gene_set,collapse=",")
-								call = paste(base_url,gene_set,sep='')
-								response = GET(call)
-								json = content(response,"text")
-								#results as R list of dataframes
-								results = fromJSON(json)
+									rm(list = ls())
+									library(httr)
+									library(jsonlite)
+									
+									genes = c("SMAD9","FOXO1","MYC","STAT1",'STAT3',"SMAD3")
+									
+									url = "https://amp.pharm.mssm.edu/chea3/api/enrich/"
+									encode = "json"
+									payload = list(query_name = "myQuery", gene_set = genes)
+									
+									#POST to ChEA3 server
+									response = POST(url = url, body = payload, encode = encode)
+									json = content(response, "text")
+									
+									#results as list of R dataframes
+									results = fromJSON(json)
+								
 								</pre>
 							</li>
 						</ol>
