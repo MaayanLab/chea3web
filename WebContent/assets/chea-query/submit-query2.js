@@ -331,10 +331,10 @@ function validateGeneSet(geneset) {
 	if (geneset.length > 1 & $('#num-valid-genes').html() === "0") {
 		alert("No valid gene symbols have were recognized. Please note that CHEA3 currently only supports HGNC gene symbols (https://www.genenames.org/). If the submitted genes are identified using other systems, such as Ensembl IDs or Entrez IDs, please converting them to HGNC to proceed.");
 	}
-	else if (geneset.length > 1 & geneset.length < 2000) {
+	else if (geneset.length > 1 & geneset.length < 8000) {
 		x = true;
 	} else {
-		alert("Gene set must contain more than 1 gene and fewer than 2,000 genes. One gene per line.");
+		alert("Gene set must contain more than 1 gene and fewer than 8,000 genes. One gene per line.");
 	}
 	return x;
 }
@@ -480,8 +480,10 @@ $(document).ready(function () {
 	// $(function(){ //dev
 
 		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
+		var geneset = geneset.map(function(x){return x.toUpperCase()})
 		var uniq_genes = [...new Set(geneset)];
 		var intersect = uniq_genes.filter(value => hgnc.includes(value));
+		
 		var enrich_url = host + "chea3/api/enrich/"; //prod
 		//enrich_url = enrich_url + geneset.join(); //prod
 		var payload = {
