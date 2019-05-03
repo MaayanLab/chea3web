@@ -113,43 +113,34 @@
 							Submit Your Gene Set for Analysis with ChEA3
 						</h1>
 						<!-- <p class="mbr-text mbr-fonts-style display-7"
-						style="margin-bottom: 0; padding-bottom: 2rem">Discover
-						transcription factors associated with sets of target genes</p> -->
+											style="margin-bottom: 0; padding-bottom: 2rem">Discover
+											transcription factors associated with sets of target genes</p> -->
 						<div class="form-container" style="padding: 0; border: ''">
 							<div class="media-container-column" data-form-type="formoid">
-	
+					
 								<form class="mbr-form" action="">
 									<div class="form-group" data-for="message">
-										<button type="button" class="btn btn-link display-7 px-0 py-2"
-											style="color: #28a0c9;" id="example-genelist"
+										<button type="button" class="btn btn-link display-7 px-0 py-2" style="color: #28a0c9;" id="example-genelist"
 											type="submit">Example gene list</button>
-											<div class="row">
-												<div class="col-8">
-													<textarea class="form-control 3px pt-2" rows="7"
-													placeholder="Submit gene list with one gene per row." id="genelist"
-													cols=""></textarea>
-												</div>
-												<div class="col-1 text-center">
-													or
-												</div>
-												<div class="col-3">
-													<div class="mb-3 display-7">Upload a gene list:
-														<span class="mbri-question ml-1" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-title="<div class='px-1 py-2'>What file types can be uploaded?</div>" data-content="<div style = 'max-width:400px' class='px-3 py-2'>CHEA3 supports uploading gene lists as text files containing one gene per line.</div>" data-html="true"></span>
-													</div>
-													<input id="file-input" type="file" class="" accept=".txt">
-												</div>
-										</div>
-	
+										<div class="d-inline-block mx-2">or</div>
+										<input id="file-input" type="file" style="width: 201px;" accept=".txt">
+										<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right"
+											data-trigger="hover" data-title="<div class='px-1 py-2'>What file types can be uploaded?</div>"
+											data-content="<div style = 'max-width:400px' class='px-3 py-2'>CHEA3 supports uploading gene lists as text files containing one gene per line.</div>"
+											data-html="true"></span>
+										<textarea class="form-control 3px pt-2" rows="7" placeholder="Submit gene list with one gene per row."
+											id="genelist" cols=""></textarea>
+					
 									</div>
-	
+					
 									<button type="button" class="btn btn-primary" id="submit-genelist" type="submit"
 										style="padding: .5rem 1.5rem">Submit</button>
 									<br>
 									<span class="display-7" id="genecheck" style="font-size:70%">0 symbols entered, 0
 										duplicates, 0 valid symbols</span>
-	
+					
 								</form>
-	
+					
 							</div>
 						</div>
 					</div>
