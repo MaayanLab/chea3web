@@ -480,11 +480,13 @@ $(document).ready(function () {
 	// $(function(){ //dev
 
 		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
+		var uniq_genes = [...new Set(geneset)];
+		var intersect = uniq_genes.filter(value => hgnc.includes(value));
 		var enrich_url = host + "chea3/api/enrich/"; //prod
 		//enrich_url = enrich_url + geneset.join(); //prod
 		var payload = {
 				"query_name" : "gene_set_query",
-				"gene_set" : geneset
+				"gene_set" : intersect
 		}
 
 		if (validateGeneSet(geneset)) { //prod
