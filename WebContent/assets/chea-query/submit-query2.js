@@ -461,6 +461,352 @@ function uploadFileListener() {
 	})
 }
 
+function displayResults(results) {
+
+	chea3Results = results;
+	//reorder results based on ROC AUCs
+
+
+	var lib_names = Object.keys(aucs);
+	var results_div = document.getElementById("results-tables");
+
+	var captionAndTableMarkup = lib_names.reduce(function (accumulator, libraryName) {
+		accumulator += renderCardHeader(libraryName)
+		accumulator += renderCardBody(libraryName)
+		return accumulator;
+	}, '');
+	results_div.innerHTML += `<div class="clearfix"></div>
+						<div id="bootstrap-toggle"
+						class="toggle-panel accordionStyles tab-content">` +
+		captionAndTableMarkup + `</div>` + renderDownloadResultsBtn();
+
+
+	for (i = 0; i < lib_names.length; i++) {
+		renderColorPicker(lib_names[i], i);
+		var lib_results = results[lib_names[i]];
+		var column_names = Object.keys(lib_results[1]);
+		if (lib_names[i].includes("Integrated")) {
+			$(`#table_${lib_names[i]}`).DataTable({
+				data: lib_results.slice(0, 100),
+				aoColumns: [
+					{ mData: "Rank", sTitle: "Rank" },
+					{
+						mData: "TF", sTitle: "TF",
+						mRender: function (data, type, full) {
+							return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
+						}
+					},
+					{ mData: "Score", sTitle: "Score" },
+					{
+						mData: "Overlapping_Genes", sTitle: "Overlapping Genes", mRender: function (data, type, row, meta) {
+							var genes = row.Overlapping_Genes;
+							space_genes = genes.replace(/,/g, ', ');
+							var count = genes.split(',').length;
+
+							return `<div class="popover-block-container">
+  <button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.TF + row.Score.split(".")[0] + `" data-toggle="popover" data-placement="right">
+   ` + count +
+								`</button>
+  <div id="` + row.TF + row.Score.split(".")[0] + `" style="display:none;">
+    <div class="popover-body">
+      <button type="button" class="popover-close close">
+        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+      </button>` +
+								space_genes +
+
+								`<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('overlap.csv','`+ genes + `');">
+	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+ </div>
+  </div>
+</div>`
+						}
+					},
+					{ mData: "Library", sTitle: "Library" }],
+				scrollY: "200px",
+				scrollX: "500px",
+				sScrollX: "500px",
+				scrollCollapse: true,
+				paging: false,
+				info: false,
+				dom: "Bfrtip",
+				buttons: [
+					$.extend(true, {}, buttonCommon, {
+						extend: 'copyHtml5'
+					}),
+					//										$.extend(true, {}, buttonCommon, {
+					//											extend: 'excelHtml5'
+					//										}),
+					//										$.extend(true, {}, buttonCommon, {
+					//											extend: 'pdfHtml5'
+					//										}),
+					//										$.extend(true, {}, buttonCommon, {
+					//											extend: 'colvis'
+					//										})
+				]
+			});
+		} else {
+			$(`#table_${lib_names[i]}`).DataTable({
+				data: lib_results.slice(0, 100),
+				aoColumns: [
+					{ mData: "Rank", sTitle: "Rank" },
+					{
+						mData: "TF", sTitle: "TF", mRender: function (data, type, full) {
+							return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
+						}
+					},
+
+					{ mData: "Set_name", sTitle: "Set name" },
+					{ mData: "Set length", sTitle: "Set size" },
+					{
+						mData: "Intersect", sTitle: "Intersection", mRender: function (data, type, row, meta) {
+							var genes = row.Overlapping_Genes;
+							space_genes = genes.replace(/,/g, ', ');
+							return `<div class="popover-block-container">
+  <button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.Set_name + row.Library + `" data-toggle="popover" data-placement="right">
+   ` + data +
+								`</button>
+  <div id="` + row.Set_name + row.Library + `" style="display:none;">
+    <div class="popover-body">
+      <button type="button" class="popover-close close">
+        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+      </button>` +
+								space_genes +
+
+								`<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
+	onclick="downloadResults('overlap.csv','`+ genes + `');">
+	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
+ </div>
+  </div>
+</div>`
+						}
+					},
+					{ mData: "FET p-value", sTitle: "FET p-value" },
+					{ mData: "FDR", sTitle: "FDR" },
+					{ mData: "Odds Ratio", sTitle: "Odds Ratio" }],
+				scrollY: "200px",
+				scrollX: "4000px",
+				sScrollX: "4000px",
+				scrollCollapse: true,
+				info: false,
+				paging: false,
+				dom: "Bfrtip",
+				buttons: [
+					$.extend(true, {}, buttonCommon, {
+						extend: 'copyHtml5'
+					}),
+					//										$.extend(true, {}, buttonCommon, {
+					//											extend: 'excelHtml5'
+					//										}),
+					//										$.extend(true, {}, buttonCommon, {
+					//											extend: 'pdfHtml5'
+					//										}),
+					//										$.extend(true, {}, buttonCommon, {
+					//											extend: 'colvis'
+					//										})
+				]
+			});
+
+		}
+		$('#' + lib_names[i] + "_body").on('shown.bs.collapse', function () {
+			$($.fn.dataTable.tables(true)).DataTable()
+				.columns.adjust();
+		})
+	}
+
+	// Loop through results
+	var default_library = 'Integrated--meanRank';
+	$.each(chea3Results, function (key, value) {
+		// console.log(key);
+		// console.log(value);
+		// Create table
+		var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).append($('<thead>', { 'class': 'text-black' })).append($('<tbody>', { 'class': 'text-black' }));
+
+		// Integrated libraries
+		if (key.includes('Integrated')) {
+
+			// Get score column
+			if (key === 'Integrated--meanRank') {
+				score_th = 'Mean Rank';
+				library_render = function (x) { return x }
+			} else if (key === 'Integrated--topRank') {
+				score_th = 'Integrated Scaled Rank';
+				library_render = function (x) { return x.split(',')[0] }
+			}
+
+			// Initialize
+			$table.DataTable({
+				data: value.slice(0, 100),
+				// scrollY: "200px",
+				// scrollX: "4000px",
+				// sScrollX: "4000px",
+				// scrollCollapse: true,
+				// info: false,
+				// paging: false,
+				// bFilter: true,
+				// filter: true,
+				columns: [
+					{ "mData": "Rank", "sTitle": "Rank" },
+					{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+					{ "mData": "Score", "sTitle": score_th },
+					{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, key) } },
+					{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
+				]
+			})
+
+		} else {
+
+			// Initialize
+			$table.DataTable({
+				data: value.slice(0, 100),
+				columns: [
+					{ "mData": "Rank", "sTitle": "Rank" },
+					{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+					{ "mData": "Set_name", "sTitle": "Set name" },
+					{ "mData": "Set length", "sTitle": "Set size" },
+					{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, key) } },
+					{ "mData": "FET p-value", "sTitle": "FET p-value" },
+					{ "mData": "FDR", "sTitle": "FDR" },
+					{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
+				]
+			})
+		}
+
+		// Append
+		$('#tables-wrapper').append($table);
+		$('#tables-wrapper').append(renderDownloadLibraryButton(key, key === default_library));
+	})
+
+	// Add libraries
+
+	getLibraryDescriptions();
+	addSliderEventListeners();
+	addSliderEventListener();
+	addCardHeaderEventListeners();
+	$('#homepage').addClass("d-none");
+	$("#results").removeClass("d-none");
+	$('#loading-screen').addClass('d-none');
+	$(".dataTables_scrollHeadInner").css({ "width": "4000px" });
+	generateNetwork();
+	generateBarChart();
+	// $(".table ").css({"width":"4000px"});
+
+	// Create selectpicker
+	$('#library-selectpicker').change(function (evt) {
+		var library = $(evt.target).val();
+		$('#tables-wrapper .dataTable').addClass('d-none');
+		$('.download-tsv').addClass('d-none');
+		$('#' + library + '-table').removeClass('d-none');
+		$('#' + library + '-download').removeClass('d-none');
+		generateBarChart();
+		generateNetwork();
+		recolorAllNodes();
+	})
+	$('#library-selectpicker').selectpicker('val', default_library);
+
+
+	//updateHits();
+
+
+	openNav("resultssidenav", "40%");
+	headers = document.querySelectorAll("thead");
+	for (var h of headers) {
+		h.classList.add("text-white");
+		h.classList.add("compact");
+	}
+	tables = document.querySelectorAll("table")
+	for (var t of tables) {
+		t.classList.add("squished");
+	}
+
+	searches = document.querySelectorAll("input.form-control-sm")
+	for (var s of searches) {
+		s.setAttribute("style", "height:14px;padding: 0px 0px;font-size: 14px;min-height:16px;line-height: .75;")
+	}
+	filters = document.querySelectorAll(".dataTables_filter")
+	for (var f of filters) {
+		f.setAttribute("style", "font-size:14px; padding: 0px");
+		f.classList.add("text-white");
+	}
+	copies = document.querySelectorAll(".buttons-copy")
+	for (var c of copies) {
+		c.setAttribute("style", "font-size:14px; padding: 0px");
+
+	}
+
+	//default open first table					
+	var card_id = $(".lablab:first").attr('id');
+	var slider_id = card_id.replace("headerbutton", "slider");
+	var output_id = card_id.replace("headerbutton", "slider_output");
+	var table_id = '#table_' + card_id.replace("_headerbutton", "");
+	var body_id = card_id.replace("headerbutton", "body");
+
+
+	$(table_id).css('width', '100%');
+	$("#" + slider_id).val(10);
+	document.getElementById(output_id).innerHTML = renderSliderValueString(10);
+
+	$('#' + body_id).collapse()
+
+	//					$("#"+card_id).removeClass("collapsed");
+	//					$("#"+card_id).attr("aria-expanded",true);
+	//					$("#"+body_id).addClass("show");
+
+
+	document.getElementById("colorby").value = "none";
+	recolorAllNodes();
+	setLegendView();
+	location.href = '#top'
+
+	$("[id=overlappinggenespopover]").popover({
+		html: true,
+		trigger: 'click',
+		content: function () {
+			var content = $(this).attr("data-popover-content");
+			return $(content).children(".popover-body").html();
+		}
+	});
+
+	// $("#barchartpopover").popover({
+	// 	html: true,
+	// 	trigger: 'focus',
+	// 	content: `<button type="button" class="popover-close close">
+	// 	        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
+	// 	        </button> <canvas id="meanrankbarChart" width="400" height="400"></canvas>`,
+	// 	}).on('shown.bs.popover', function() {
+	// 		generateStackedBarChart();
+
+	// 	});
+
+	$(".tf-tf-network").popover({
+		html: true,
+		trigger: 'click',
+		content: `<svg id="coreg-network" height="400" width="600"></svg>`,
+		placement: 'right',
+		title: `<div class="d-table w-100">
+											<div class="d-table-cell align-middle">TF-TF Regulatory Network</div>
+											<button type="button" onclick="$('.tf-tf-network').popover('hide');" class="btn btn-link nodecoration d-table-cell align-middle float-right p-0 text-black m-0 display-5 cursor-pointer">&times;</button>
+										</div>`
+	}).on('shown.bs.popover', function (evt) {
+		var slider = $(evt.target).parents('.panel-body').find('.slider')[0],
+			tfs = getTFs(slider);
+		generateNetwork(tfs);
+	});
+
+	$("#pills-tab").removeClass("d-none");
+
+
+
+	// Get matrix
+	matrix_str = buildClustergrammerMatrix(chea3Results);
+
+
+	// Send to Clustergrammer
+	generateClustergram(matrix_str);
+
+
+}
+
 $(document).ready(function () {
 
 	uploadFileListener()	
@@ -475,8 +821,16 @@ $(document).ready(function () {
 
 	});
 
+	var dev = true;
+	if (dev) {
+		$('#loading-screen').removeClass('d-none');
+		$.get("chea3Results.json", function(results) { //dev
+			displayResults(results);
+		})
+	}
+
+
 	$('#submit-genelist').on('click', function (evt) { //prod
-	// $(function(){ //dev
 
 		var geneset = document.getElementById("genelist").value.split(/\n/); //prod
 		var geneset = geneset.map(function(x){return x.toUpperCase()})
@@ -505,346 +859,7 @@ $(document).ready(function () {
 				contentType: "application/json",
 				url : enrich_url, //prod
 				success : function(results) { //prod
-				// $.get("chea3Results.json", function(results) { //dev
-					
-					// console.log(results);
-
-					//json = results; //prod
-					//results = JSON.parse(results); //prod
-					chea3Results = results;
-					//reorder results based on ROC AUCs
-					
-					
-					var lib_names = Object.keys(aucs);
-					var results_div = document.getElementById("results-tables");
-
-					var captionAndTableMarkup = lib_names.reduce(function (accumulator, libraryName) {
-						accumulator += renderCardHeader(libraryName)
-						accumulator += renderCardBody(libraryName)
-						return accumulator;
-					}, '');
-					results_div.innerHTML += `<div class="clearfix"></div>
-						<div id="bootstrap-toggle"
-						class="toggle-panel accordionStyles tab-content">` + 
-						captionAndTableMarkup + `</div>` + renderDownloadResultsBtn();
-
-
-					for (i = 0; i < lib_names.length; i++) {
-						renderColorPicker(lib_names[i],i);
-						var lib_results = results[lib_names[i]];
-						var column_names = Object.keys(lib_results[1]);
-						if(lib_names[i].includes("Integrated")){
-							$(`#table_${lib_names[i]}`).DataTable({
-								data: lib_results.slice(0,100),
-								aoColumns: [
-									{mData: "Rank", sTitle: "Rank"},
-									{mData: "TF", sTitle: "TF", 
-										mRender: function(data, type, full){
-											return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
-										}},
-									{mData: "Score", sTitle: "Score"},
-									{mData: "Overlapping_Genes",sTitle: "Overlapping Genes", mRender: function(data, type, row, meta){
-										var genes = row.Overlapping_Genes;
-										space_genes = genes.replace(/,/g, ', ');
-										var count = genes.split(',').length;
-										
-										return `<div class="popover-block-container">
-  <button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.TF + row.Score.split(".")[0] + `" data-toggle="popover" data-placement="right">
-   ` + count +
-  `</button>
-  <div id="` + row.TF + row.Score.split(".")[0] + `" style="display:none;">
-    <div class="popover-body">
-      <button type="button" class="popover-close close">
-        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
-      </button>` +
-      space_genes + 
-      
-    `<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
-	onclick="downloadResults('overlap.csv','`+ genes +`');">
-	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
- </div>
-  </div>
-</div>`
-									}},	
-									{mData: "Library", sTitle: "Library"}],
-									scrollY: "200px",
-									scrollX: "500px",
-									sScrollX: "500px",
-									scrollCollapse: true,
-									paging: false,
-									info: false,
-									dom: "Bfrtip",
-									buttons: [
-										$.extend(true, {}, buttonCommon, {
-											extend: 'copyHtml5'
-										}),
-//										$.extend(true, {}, buttonCommon, {
-//											extend: 'excelHtml5'
-//										}),
-//										$.extend(true, {}, buttonCommon, {
-//											extend: 'pdfHtml5'
-//										}),
-//										$.extend(true, {}, buttonCommon, {
-//											extend: 'colvis'
-//										})
-										]
-							});
-						}else{
-							$(`#table_${lib_names[i]}`).DataTable({
-								data: lib_results.slice(0,100),
-								aoColumns: [
-									{mData: "Rank", sTitle: "Rank"},
-									{mData: "TF",sTitle: "TF", mRender: function(data, type, full){
-										return '<a href="http://amp.pharm.mssm.edu/Harmonizome/gene/' + data + '" target="_blank" style="color:#149dcc">' + data + '</a>'
-									}},
-																
-									{mData: "Set_name", sTitle: "Set name"},
-									{mData: "Set length", sTitle: "Set size"},
-									{mData: "Intersect",sTitle: "Intersection", mRender: function(data, type, row, meta){
-										var genes = row.Overlapping_Genes;
-										space_genes = genes.replace(/,/g, ', ');
-										return `<div class="popover-block-container">
-  <button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7" style="border:none; color:#28a0c9" data-popover-content="#` + row.Set_name + row.Library + `" data-toggle="popover" data-placement="right">
-   ` + data +
-  `</button>
-  <div id="` + row.Set_name + row.Library + `" style="display:none;">
-    <div class="popover-body">
-      <button type="button" class="popover-close close">
-        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
-      </button>` +
-      space_genes + 
-      
-    `<a id = "downloadOverlap" class="btn btn-link display-7" style="padding:0;color:#28a0c9;font-size:80%" 
-	onclick="downloadResults('overlap.csv','`+ genes +`');">
-	<span class="mbri-save mbr-iconfont mbr-iconfont-btn display-7"></span>Download overlapping gene list</a>
- </div>
-  </div>
-</div>`
-									}},		
-									{mData: "FET p-value", sTitle: "FET p-value"},
-									{mData: "FDR", sTitle: "FDR"},
-									{mData: "Odds Ratio", sTitle: "Odds Ratio"}],
-									scrollY: "200px",
-									scrollX: "4000px",
-									sScrollX: "4000px",
-									scrollCollapse: true,
-									info: false,
-									paging: false,
-									dom: "Bfrtip",
-									buttons: [
-										$.extend(true, {}, buttonCommon, {
-											extend: 'copyHtml5'
-										}),
-//										$.extend(true, {}, buttonCommon, {
-//											extend: 'excelHtml5'
-//										}),
-//										$.extend(true, {}, buttonCommon, {
-//											extend: 'pdfHtml5'
-//										}),
-//										$.extend(true, {}, buttonCommon, {
-//											extend: 'colvis'
-//										})
-										]
-							});
-
-						}
-						$('#'+lib_names[i] + "_body").on('shown.bs.collapse', function () {
-							$($.fn.dataTable.tables(true)).DataTable()
-							.columns.adjust();
-						})
-					}
-
-					// Loop through results
-					var default_library = 'Integrated--meanRank';
-					$.each(chea3Results, function(key, value) {
-						// console.log(key);
-						// console.log(value);
-						// Create table
-						var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).append($('<thead>', {'class': 'text-black'})).append($('<tbody>', {'class': 'text-black'}));
-
-						// Integrated libraries
-						if (key.includes('Integrated')) {
-
-							// Get score column
-							if (key === 'Integrated--meanRank') {
-								score_th = 'Mean Rank';
-								library_render = function(x) { return x }
-							} else if (key === 'Integrated--topRank') {
-								score_th = 'Integrated Scaled Rank';
-								library_render = function(x) { return x.split(',')[0] }
-							}
-
-							// Initialize
-							$table.DataTable({
-								data: value.slice(0, 100),
-								// scrollY: "200px",
-								// scrollX: "4000px",
-								// sScrollX: "4000px",
-								// scrollCollapse: true,
-								// info: false,
-								// paging: false,
-								// bFilter: true,
-								// filter: true,
-								columns: [
-									{ "mData": "Rank", "sTitle": "Rank" },
-									{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
-									{ "mData": "Score", "sTitle": score_th },
-									{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function(data, type, row, meta){ return intersectionPopover(row, key) }},		
-									{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
-								]
-							})
-								
-						} else {
-	
-								// Initialize
-								$table.DataTable({
-									data: value.slice(0, 100),
-									columns: [
-										{ "mData": "Rank", "sTitle": "Rank" },
-										{ "mData": "TF", "sTitle": "TF", "mRender": function(x) {return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>`} },
-										{ "mData": "Set_name", "sTitle": "Set name" },
-										{ "mData": "Set length", "sTitle": "Set size" },
-										{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function(data, type, row, meta){ return intersectionPopover(row, key) }},		
-										{ "mData": "FET p-value", "sTitle": "FET p-value" },
-										{ "mData": "FDR", "sTitle": "FDR" },
-										{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
-									]
-								})
-						}
-
-						// Append
-						$('#tables-wrapper').append($table);
-						$('#tables-wrapper').append(renderDownloadLibraryButton(key, key===default_library));
-					})
-
-					// Add libraries
-
-					getLibraryDescriptions();
-					addSliderEventListeners();
-					addSliderEventListener();
-					addCardHeaderEventListeners();
-					$('#homepage').addClass("d-none");
-					$("#results").removeClass("d-none");
-					$('#loading-screen').addClass('d-none');	
-					$(".dataTables_scrollHeadInner").css({"width":"4000px"});
-					generateNetwork();
-					generateBarChart();
-					// $(".table ").css({"width":"4000px"});
-
-					// Create selectpicker
-					$('#library-selectpicker').change(function(evt) {
-						var library = $(evt.target).val();
-						$('#tables-wrapper .dataTable').addClass('d-none');
-						$('.download-tsv').addClass('d-none');
-						$('#' +library+'-table').removeClass('d-none');
-						$('#' +library+'-download').removeClass('d-none');
-						generateBarChart();
-						generateNetwork();
-						recolorAllNodes();
-					})
-					$('#library-selectpicker').selectpicker('val', default_library);
-				
-					
-					//updateHits();
-					
-					
-					openNav("resultssidenav","40%");
-					headers = document.querySelectorAll("thead");
-					for(var h of headers){
-						h.classList.add("text-white");
-						h.classList.add("compact");
-					}
-					tables = document.querySelectorAll("table")
-					for(var t of tables){
-						t.classList.add("squished");
-					}
-					
-					searches = document.querySelectorAll("input.form-control-sm")
-					for(var s of searches){
-						s.setAttribute("style","height:14px;padding: 0px 0px;font-size: 14px;min-height:16px;line-height: .75;")
-					}
-					filters = document.querySelectorAll(".dataTables_filter")
-					for(var f of filters){
-						f.setAttribute("style","font-size:14px; padding: 0px");
-						f.classList.add("text-white");
-					}
-					copies = document.querySelectorAll(".buttons-copy")
-					for(var c of copies){
-						c.setAttribute("style","font-size:14px; padding: 0px");
-						
-					}
-					
-					//default open first table					
-					var card_id = $( ".lablab:first" ).attr('id');
-					var slider_id = card_id.replace("headerbutton","slider");
-					var output_id = card_id.replace("headerbutton","slider_output");
-					var table_id = '#table_' + card_id.replace("_headerbutton","");	
-					var body_id = card_id.replace("headerbutton","body");
-					
-					
-					$(table_id).css('width', '100%');
-					$("#"+slider_id).val(10);
-					document.getElementById(output_id).innerHTML = renderSliderValueString(10);
-					
-					$('#'+body_id).collapse()
-					
-//					$("#"+card_id).removeClass("collapsed");
-//					$("#"+card_id).attr("aria-expanded",true);
-//					$("#"+body_id).addClass("show");
-					
-					
-					document.getElementById("colorby").value = "none";
-					recolorAllNodes();
-					setLegendView();
-					location.href = '#top'
-						
-					$("[id=overlappinggenespopover]").popover({
-				        html : true,
-				        trigger: 'click',
-				        content: function() {
-				            var content = $(this).attr("data-popover-content");
-				            return $(content).children(".popover-body").html();
-				        }
-				    });
-					
-					// $("#barchartpopover").popover({
-					// 	html: true,
-					// 	trigger: 'focus',
-					// 	content: `<button type="button" class="popover-close close">
-					// 	        <span class="mbri-close mbr-iconfont mbr-iconfont-btn display-7"></span>
-					// 	        </button> <canvas id="meanrankbarChart" width="400" height="400"></canvas>`,
-					// 	}).on('shown.bs.popover', function() {
-					// 		generateStackedBarChart();
-		
-					// 	});
-					
-					$(".tf-tf-network").popover({
-						html: true,
-						trigger: 'click',
-						content: `<svg id="coreg-network" height="400" width="600"></svg>`,
-						placement: 'right',
-						title: `<div class="d-table w-100">
-											<div class="d-table-cell align-middle">TF-TF Regulatory Network</div>
-											<button type="button" onclick="$('.tf-tf-network').popover('hide');" class="btn btn-link nodecoration d-table-cell align-middle float-right p-0 text-black m-0 display-5 cursor-pointer">&times;</button>
-										</div>`
-					}).on('shown.bs.popover', function(evt) {
-							var slider = $(evt.target).parents('.panel-body').find('.slider')[0],
-									tfs = getTFs(slider);
-							generateNetwork(tfs);
-					});
-					
-					$("#pills-tab").removeClass("d-none");
-				
-				
-					
-					  // Get matrix
-						matrix_str = buildClustergrammerMatrix(chea3Results);
-				    
-
-				    // Send to Clustergrammer
-				    generateClustergram(matrix_str);
-				    
-
+					displayResults(results);
 
 				}//end success function //prod
 			}); // end AJAX call
