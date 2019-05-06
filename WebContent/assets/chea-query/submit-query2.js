@@ -434,7 +434,7 @@ function uploadFileListener() {
 	})
 }
 
-function generateDatatable(library, library_results, default_library) {
+function generateDatatable(library, library_results, default_library, filter_top_results=false) {
 
 	// Create table
 	var $table = $('<table>', { 'id': library + '-table', 'class': 'w-100 text-black' }) // + (library === default_library ? '' : 'd-none')
@@ -444,6 +444,11 @@ function generateDatatable(library, library_results, default_library) {
 
 	// Append
 	$('#tables-wrapper').append($table);
+
+	// Filter
+	if (filter_top_results) {
+		library_results = library_results.slice(0, filter_top_results);
+	}
 
 	// Integrated libraries
 	if (library.includes('Integrated')) {
@@ -459,7 +464,7 @@ function generateDatatable(library, library_results, default_library) {
 
 		// Initialize
 		$table.DataTable({
-			data: library_results.slice(0, 100),
+			data: library_results,
 			pagingType: "simple",
 			columns: [
 				{ "mData": "Rank", "sTitle": "Rank" },
@@ -474,7 +479,7 @@ function generateDatatable(library, library_results, default_library) {
 
 		// Initialize
 		$table.DataTable({
-			data: library_results.slice(0, 100),
+			data: library_results,
 			pagingType: "simple",
 			columns: [
 				{ "mData": "Rank", "sTitle": "Rank" },
