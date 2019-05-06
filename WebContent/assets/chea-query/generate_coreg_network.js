@@ -58,8 +58,8 @@ displayNetwork = function(network) {
         .attr("viewBox", "0 -5 10 10")
         .attr("refX", 19)
         .attr("refY", -0, 7)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
+        .attr("markerWidth", 9)
+        .attr("markerHeight", 9)
         .attr('markerUnits', "userSpaceOnUse")
         .attr("orient", "auto")
         .append("path")
@@ -70,10 +70,10 @@ displayNetwork = function(network) {
         .enter().append("marker")
         .attr("id", "markerStart")
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", -12)
+        .attr("refX", -10)
         .attr("refY", -0, 7)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
+        .attr("markerWidth", 9)
+        .attr("markerHeight", 9)
         .attr('markerUnits', "userSpaceOnUse")
         .attr("orient", "auto")
         .append("path")
@@ -100,8 +100,9 @@ displayNetwork = function(network) {
             .attrs({
                 "class":"link",
                 "stroke": "#999",
-                "opacity": function(d) { return d.edge_score/5 },
-                "stroke-width": 2
+                "opacity": function(d) { console.log(d.edge_score); return d.edge_score/5 },
+                "stroke-width": function(d) { return d.edge_score }
+                // "stroke-width": 5
             })
             .attr('marker-start', function (d, i) { return ['BA', 'bidir'].indexOf(d.edge_type) > -1 ? 'url(#markerStart)' : null })
             .attr('marker-end', function (d, i) { return ['AB', 'bidir'].indexOf(d.edge_type) > -1 ? 'url(#markerEnd)' : null })
@@ -184,7 +185,6 @@ displayNetwork = function(network) {
                 'class': 'edgepath',
                 'fill-opacity': 0,
                 'stroke-opacity': 0,
-                'stroke': 'red',
                 'id': function (d, i) { return 'edgepath' + i }
             })
             .style("pointer-events", "none");
