@@ -437,71 +437,72 @@ function uploadFileListener() {
 	})
 }
 
+function generateDatatable(library, library_results, default_library) {
+
+	// Create table
+	var $table = $('<table>', { 'id': library + '-table', 'class': 'w-100 text-black ' + (library === default_library ? '' : 'd-none') })
+		.append($('<thead>', { 'class': 'text-black' }))
+		.append($('<tbody>', { 'class': 'text-black' }))
+		.append($('<tfoot>', { 'class': 'text-black' }));
+
+	// Integrated libraries
+	if (library.includes('Integrated')) {
+
+		// Get score column
+		if (library === 'Integrated--meanRank') {
+			score_th = 'Mean Rank';
+			library_render = function (x) { return x }
+		} else if (library === 'Integrated--topRank') {
+			score_th = 'Integrated Scaled Rank';
+			library_render = function (x) { return x.split(',')[0] }
+		}
+
+		// Initialize
+		console.log('page');
+		$table.DataTable({
+			data: library_results.slice(0, 6),
+			columns: [
+				{ "mData": "Rank", "sTitle": "Rank" },
+				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+				{ "mData": "Score", "sTitle": score_th },
+				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
+				{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
+			]
+		})
+
+	} else {
+
+		// Initialize
+		$table.DataTable({
+			data: library_results.slice(0, 100),
+			columns: [
+				{ "mData": "Rank", "sTitle": "Rank" },
+				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+				{ "mData": "Set_name", "sTitle": "Set name" },
+				{ "mData": "Set length", "sTitle": "Set size" },
+				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
+				{ "mData": "FET p-value", "sTitle": "FET p-value" },
+				{ "mData": "FDR", "sTitle": "FDR" },
+				{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
+			]
+		})
+	}
+
+	// Append
+	$('#tables-wrapper').append($table);
+	$('#tables-wrapper').append(renderDownloadLibraryButton(library, library === default_library));
+
+}
+
 function displayResults(results) {
 
 	chea3Results = results;
 
 
 	// Loop through results
-	var default_library = 'Integrated--meanRank';
+	default_library = 'Integrated--meanRank';
 	$.each(chea3Results, function (key, value) {
-
-		// Create table
-		var $table = $('<table>', { 'id': key + '-table', 'class': 'w-100 text-black ' + (key === default_library ? '' : 'd-none') }).append($('<thead>', { 'class': 'text-black' })).append($('<tbody>', { 'class': 'text-black' }));
-
-		// Integrated libraries
-		if (key.includes('Integrated')) {
-
-			// Get score column
-			if (key === 'Integrated--meanRank') {
-				score_th = 'Mean Rank';
-				library_render = function (x) { return x }
-			} else if (key === 'Integrated--topRank') {
-				score_th = 'Integrated Scaled Rank';
-				library_render = function (x) { return x.split(',')[0] }
-			}
-
-			// Initialize
-			$table.DataTable({
-				data: value.slice(0, 5),
-				// scrollY: "200px",
-				// scrollX: "4000px",
-				// sScrollX: "4000px",
-				// scrollCollapse: true,
-				// info: false,
-				// paging: false,
-				// bFilter: true,
-				// filter: true,
-				columns: [
-					{ "mData": "Rank", "sTitle": "Rank" },
-					{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
-					{ "mData": "Score", "sTitle": score_th },
-					{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, key) } },
-					{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
-				]
-			})
-
-		} else {
-
-			// Initialize
-			$table.DataTable({
-				data: value.slice(0, 100),
-				columns: [
-					{ "mData": "Rank", "sTitle": "Rank" },
-					{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
-					{ "mData": "Set_name", "sTitle": "Set name" },
-					{ "mData": "Set length", "sTitle": "Set size" },
-					{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, key) } },
-					{ "mData": "FET p-value", "sTitle": "FET p-value" },
-					{ "mData": "FDR", "sTitle": "FDR" },
-					{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
-				]
-			})
-		}
-
-		// Append
-		$('#tables-wrapper').append($table);
-		$('#tables-wrapper').append(renderDownloadLibraryButton(key, key === default_library));
+		generateDatatable(key, value, default_library);
 	})
 
 	// Add libraries
@@ -509,11 +510,6 @@ function displayResults(results) {
 	generateNetwork();
 	generateBarChart();
 	renderColorPicker();
-	// addCardHeaderEventListeners();
-	// getLibraryDescriptions();
-	// addSliderEventListeners();
-	// $(".dataTables_scrollHeadInner").css({ "width": "4000px" });
-	// $(".table ").css({"width":"4000px"});
 
 	// Toggle views
 	$('#homepage').addClass("d-none");
@@ -533,44 +529,6 @@ function displayResults(results) {
 	})
 	$('#library-selectpicker').selectpicker('val', default_library);
 
-
-	//updateHits();
-	// openNav("resultssidenav", "40%");
-	// headers = document.querySelectorAll("thead");
-	// for (var h of headers) {
-	// 	h.classList.add("text-white");
-	// 	h.classList.add("compact");
-	// }
-	// tables = document.querySelectorAll("table")
-	// for (var t of tables) {
-	// 	t.classList.add("squished");
-	// }
-
-	// searches = document.querySelectorAll("input.form-control-sm")
-	// for (var s of searches) {
-	// 	s.setAttribute("style", "height:14px;padding: 0px 0px;font-size: 14px;min-height:16px;line-height: .75;")
-	// }
-	// filters = document.querySelectorAll(".dataTables_filter")
-	// for (var f of filters) {
-	// 	f.setAttribute("style", "font-size:14px; padding: 0px");
-	// 	f.classList.add("text-white");
-	// }
-	// copies = document.querySelectorAll(".buttons-copy")
-	// for (var c of copies) {
-	// 	c.setAttribute("style", "font-size:14px; padding: 0px");
-
-	// }
-	//default open first table					
-	// var card_id = $(".lablab:first").attr('id');
-	// var slider_id = card_id.replace("headerbutton", "slider");
-	// var output_id = card_id.replace("headerbutton", "slider_output");
-	// var table_id = '#table_' + card_id.replace("_headerbutton", "");
-	// var body_id = card_id.replace("headerbutton", "body");
-	// $(table_id).css('width', '100%');
-	// $("#" + slider_id).val(10);
-	// document.getElementById(output_id).innerHTML = renderSliderValueString(10);
-	// $('#' + body_id).collapse()
-
 	document.getElementById("colorby").value = "none";
 	recolorAllNodes();
 	setLegendView();
@@ -588,11 +546,9 @@ function displayResults(results) {
 	});
 
 	// Clustergrammer
-	// Get matrix
-	matrix_str = buildClustergrammerMatrix(chea3Results);
-
-	// Send to Clustergrammer
-	generateClustergram(matrix_str);
+	// Get matrix and send to clustergrammer
+	// matrix_str = buildClustergrammerMatrix(chea3Results);
+	// generateClustergram(matrix_str);
 
 
 }
