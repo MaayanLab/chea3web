@@ -79,6 +79,7 @@ function defaultNodeColorAll(){
 	
 	var colorby_val = document.getElementById("colorby").value;
 	var fill = translateNodeColor(colorby_val);
+	console.log('coloring nodes'+fill);
 	nodes = document.querySelectorAll("circle");
 	for (var n of nodes) {
 		if(fill == defaultNodeColor){
@@ -144,7 +145,7 @@ function highlightNodes2() {
 
 function recolorAllNodes() {
 	defaultNodeColorAll();
-	var sliders = document.querySelectorAll(".slider");
+	// var sliders = document.querySelectorAll(".slider");
 	highlightNodes2();
 }
 
@@ -334,11 +335,8 @@ function validateGeneSet(geneset) {
 // 			descriptions = JSON.parse(results);
 // 			var lib_names = Object.keys(descriptions);
 // 			for(l in lib_names){
-// //				console.log(l)
 // 				lib = lib_names[l];
 // 				$("#"+lib.replace(".txt","")+"_tooltip").attr("data-tooltip",descriptions[lib][0])
-// //				console.log("#"+lib_names[l]+"_tooltip")
-// //				console.log(descriptions[lib_names[l]][0])
 // 			}
 // 		}
 // 	});
@@ -547,7 +545,6 @@ function displayResults(results) {
 		$('.download-tsv').addClass('d-none');
 
 		// Show
-		console.log('#' + library + '-table_wrapper');
 		$('#' + library + '-table_wrapper').removeClass('d-none');
 		$('#' + library + '-download').removeClass('d-none');
 		generateBarChart();

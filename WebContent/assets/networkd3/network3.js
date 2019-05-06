@@ -70,9 +70,9 @@ function requestFullScreen(element_id) {
 function setTCGAColorByOptions(){
 	$("#colorby").html(`<select class="form-control" id="colorby"
 						onchange="recolorAllNodes();setTCGALegendView()">
+						<option>none</option>
 						<option>Tumor</option>
 						<option>WGCNA modules</option>
-						<option>none</option>
 					</select>`)
 	
 }
@@ -80,20 +80,20 @@ function setTCGAColorByOptions(){
 function setGTExColorByOptions(){
 		$("#colorby").html(`<select class="form-control" id="colorby"
 						onchange="recolorAllNodes();setGTExLegendView()">
+						<option>none</option>
 						<option>Tissue (general)</option>
 						<option>Tissue (specific)</option>
 						<option>GO Enrichment</option>
 						<option>WGCNA modules</option>
-						<option>none</option>
 					</select>`)
 }
 
 function setARCHS4ColorByOptions(){
 	$("#colorby").html(`<select class="form-control" id="colorby"
 					onchange="recolorAllNodes();setARCHS4LegendView()">
+					<option>none</option>
 					<option>Tissue</option>
 					<option>WGCNA modules</option>
-					<option>none</option>
 				</select>`)
 }
 
