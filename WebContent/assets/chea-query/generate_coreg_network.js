@@ -100,7 +100,7 @@ displayNetwork = function(network) {
             .attrs({
                 "class":"link",
                 "stroke": "#999",
-                "opacity": function(d) { console.log(d.edge_score); return d.edge_score/5 },
+                "opacity": function(d) { return d.edge_score/5 },
                 "stroke-width": function(d) { return d.edge_score }
                 // "stroke-width": 5
             })
