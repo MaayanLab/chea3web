@@ -79,7 +79,6 @@ function defaultNodeColorAll(){
 	
 	var colorby_val = document.getElementById("colorby").value;
 	var fill = translateNodeColor(colorby_val);
-	console.log('coloring nodes'+fill);
 	nodes = document.querySelectorAll("circle");
 	for (var n of nodes) {
 		if(fill == defaultNodeColor){
@@ -538,7 +537,7 @@ function displayResults(results) {
 		var library = $(evt.target).val();
 
 		// Toggle
-		toggleSelectors(library=$(evt.target).val(), tab = $('#nav-tab .nav-item.show.active').attr('aria-controls'));
+		toggleSelectors(library=$(evt.target).val(), tab = $('#nav-tab .nav-item.active').attr('aria-controls'));
 
 		// Hide
 		$('#tables-wrapper .dataTables_wrapper').addClass('d-none');
@@ -571,8 +570,8 @@ function displayResults(results) {
 
 	// Clustergrammer
 	// Get matrix and send to clustergrammer
-	// matrix_str = buildClustergrammerMatrix(chea3Results);
-	// generateClustergram(matrix_str);
+	matrix_str = buildClustergrammerMatrix(chea3Results);
+	generateClustergram(matrix_str);
 
 
 }
@@ -630,7 +629,7 @@ $(document).ready(function () {
 	})
 
 	// Automatic genelist submission for dev
-	var dev = false;
+	var dev = true;
 	if (dev) {
 		$('#loading-screen').removeClass('d-none');
 		$.get("chea3Results.json", function (results) { //dev
