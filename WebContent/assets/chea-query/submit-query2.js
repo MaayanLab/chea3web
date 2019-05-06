@@ -441,7 +441,7 @@ function generateDatatable(library, library_results, default_library) {
 
 	// Create table
 	var $table = $('<table>', { 'id': library + '-table', 'class': 'w-100 text-black ' + (library === default_library ? '' : 'd-none') })
-		.append($('<thead>', { 'class': 'text-black' }))
+		.append($('<thead>', { 'class': 'text-black' }).html($('<tr>')))
 		.append($('<tbody>', { 'class': 'text-black' }))
 		.append($('<tfoot>', { 'class': 'text-black' }));
 
@@ -457,40 +457,55 @@ function generateDatatable(library, library_results, default_library) {
 			library_render = function (x) { return x.split(',')[0] }
 		}
 
-		// Initialize
-		console.log('page');
-		$table.DataTable({
-			data: library_results.slice(0, 6),
-			columns: [
-				{ "mData": "Rank", "sTitle": "Rank" },
-				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
-				{ "mData": "Score", "sTitle": score_th },
-				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
-				{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
-			]
+		// Add headers
+		$.each(["Rank", "TF", score_th, "Overlapping Genes", "Library"], function (i, x) { $table.find('thead tr').append($('<th>').html(x)) })
+
+		// Add data
+		$.each(library_results.slice(0, 6), function(index, elem) {
+			$table.find('tbody')
+				.append($('<tr>')
+					.append($('<th>').html(elem["Rank"]))
+					.append($('<th>').html(`<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${elem['TF']}" target="_blank">${elem['TF']}</a>`))
+					.append($('<th>').html(elem["Score"]))
+					.append($('<th>').html('asd'))
+					.append($('<th>').html('asd2'))
+				)
 		})
+
+		// Initialize
+		// 	data: library_results.slice(0, 6),
+		// 	columns: [
+		// 		{ "mData": "Rank", "sTitle": "Rank" },
+		// 		{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+		// 		{ "mData": "Score", "sTitle": score_th },
+		// 		{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
+		// 		{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
+		// 	]
 
 	} else {
 
 		// Initialize
-		$table.DataTable({
-			data: library_results.slice(0, 100),
-			columns: [
-				{ "mData": "Rank", "sTitle": "Rank" },
-				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
-				{ "mData": "Set_name", "sTitle": "Set name" },
-				{ "mData": "Set length", "sTitle": "Set size" },
-				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
-				{ "mData": "FET p-value", "sTitle": "FET p-value" },
-				{ "mData": "FDR", "sTitle": "FDR" },
-				{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
-			]
-		})
+		// $table.DataTable({
+		// 	data: library_results.slice(0, 100),
+		// 	columns: [
+		// 		{ "mData": "Rank", "sTitle": "Rank" },
+		// 		{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
+		// 		{ "mData": "Set_name", "sTitle": "Set name" },
+		// 		{ "mData": "Set length", "sTitle": "Set size" },
+		// 		{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
+		// 		{ "mData": "FET p-value", "sTitle": "FET p-value" },
+		// 		{ "mData": "FDR", "sTitle": "FDR" },
+		// 		{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
+		// 	]
+		// })
 	}
 
 	// Append
 	$('#tables-wrapper').append($table);
 	$('#tables-wrapper').append(renderDownloadLibraryButton(library, library === default_library));
+	
+	// Initialize
+	$table.DataTable({});
 
 }
 
