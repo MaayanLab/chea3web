@@ -215,6 +215,7 @@ body {
 #tables-wrapper select.form-control {
   min-height: 0 !important;
   padding: 3px 13px !important;
+  padding-right: 25px !important;
 }
 
 #tables-wrapper .dataTables_paginate a {
