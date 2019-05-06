@@ -629,7 +629,7 @@ $(document).ready(function () {
 	})
 
 	// Automatic genelist submission for dev
-	var dev = true;
+	var dev = false;
 	if (dev) {
 		$('#loading-screen').removeClass('d-none');
 		$.get("chea3Results.json", function (results) { //dev
