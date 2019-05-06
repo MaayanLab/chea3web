@@ -501,6 +501,19 @@ function generateDatatable(library, library_results, default_library) {
 	}
 }
 
+function toggleSelectors(library, tab) {
+	if (tab.includes('network')) {
+		$('.tf-selector').removeClass('d-none');
+	} else if (tab.includes('barchart')) {
+		$('.tf-selector').removeClass('d-none');
+		if (library === 'Integrated--meanRank') {
+			$('#colorpicker-col').addClass('d-none');
+		}
+	} else {
+		$('.tf-selector').addClass('d-none');
+	}
+}
+
 function displayResults(results) {
 
 	chea3Results = results;
@@ -525,6 +538,10 @@ function displayResults(results) {
 	// Create selectpicker
 	$('#library-selectpicker').change(function (evt) {
 		var library = $(evt.target).val();
+
+		// Toggle
+		toggleSelectors(library=$(evt.target).val(), tab = $('#nav-tab .nav-item.show.active').attr('aria-controls'));
+
 		// Hide
 		$('#tables-wrapper .dataTables_wrapper').addClass('d-none');
 		$('.download-tsv').addClass('d-none');
@@ -609,6 +626,11 @@ $(document).ready(function () {
 
 		} 
 	});
+
+	// Tab listener
+	$('#nav-tab [data-toggle="tab"]').on('shown.bs.tab', function (evt) {
+		toggleSelectors(library=$('#library-selectpicker').val(), tab = $(evt.target).attr('aria-controls'));
+	})
 
 	// Automatic genelist submission for dev
 	var dev = true;
