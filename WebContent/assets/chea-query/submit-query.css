@@ -206,3 +206,17 @@ body {
   margin-top: 3px;
   margin-left: 2px;
 }
+
+#tables-wrapper input.form-control {
+  min-height: 0 !important;
+  padding: 3px 5px !important;
+}
+
+#tables-wrapper select.form-control {
+  min-height: 0 !important;
+  padding: 3px 13px !important;
+}
+
+#tables-wrapper .dataTables_paginate a {
+  box-shadow: none !important;
+}
