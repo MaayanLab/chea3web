@@ -469,7 +469,7 @@ function generateDatatable(library, library_results, default_library, filter_top
 			columns: [
 				{ "mData": "Rank", "sTitle": "Rank" , "className": "dt-head-center"},
 				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } , "className": "dt-head-center"},
-				{ "mData": "Score", "sTitle": score_th , "className": "dt-head-center"},
+				{ "mData": "Score", "sTitle": score_th , "className": "dt-head-center score-col"},
 				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } , "className": "dt-head-center"},
 				{ "mData": "Library", "sTitle": "Library", "mRender": library_render, "className": "dt-head-left" }
 			]
@@ -634,7 +634,7 @@ $(document).ready(function () {
 	})
 
 	// Automatic genelist submission for dev
-	var dev = true;
+	var dev = false;
 	if (dev) {
 		$('#loading-screen').removeClass('d-none');
 		$.get("chea3Results.json", function (results) { //dev
