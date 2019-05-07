@@ -404,7 +404,7 @@ function intersectionPopover(row, library) {
 	var genes = row.Overlapping_Genes.split(','),
 			genes_link = genes.map(function(x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` });
 	return `
-<div class="popover-block-container">
+<div class="w-100 text-center">
 	<button id="overlappinggenespopover" tabindex="0" type="button" class="btn-link display-7 nodecoration cursor-pointer" style="border:none; color:#28a0c9" data-popover-content="#${library}-${row.Rank}" data-toggle="popover" data-placement="right">${genes.length}</button>
 	<div id="${library}-${row.Rank}" style="display:none;">
 		<div class="popover-body">
@@ -467,11 +467,11 @@ function generateDatatable(library, library_results, default_library, filter_top
 			data: library_results,
 			pagingType: "simple",
 			columns: [
-				{ "mData": "Rank", "sTitle": "Rank" },
-				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
-				{ "mData": "Score", "sTitle": score_th },
-				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
-				{ "mData": "Library", "sTitle": "Library", "mRender": library_render }
+				{ "mData": "Rank", "sTitle": "Rank" , "className": "dt-head-center"},
+				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } , "className": "dt-head-center"},
+				{ "mData": "Score", "sTitle": score_th , "className": "dt-head-center"},
+				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } , "className": "dt-head-center"},
+				{ "mData": "Library", "sTitle": "Library", "mRender": library_render, "className": "dt-head-left" }
 			]
 		})
 
@@ -482,14 +482,14 @@ function generateDatatable(library, library_results, default_library, filter_top
 			data: library_results,
 			pagingType: "simple",
 			columns: [
-				{ "mData": "Rank", "sTitle": "Rank" },
-				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } },
-				{ "mData": "Set_name", "sTitle": "Set name" },
-				{ "mData": "Set length", "sTitle": "Set size" },
-				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } },
-				{ "mData": "FET p-value", "sTitle": "FET p-value" },
-				{ "mData": "FDR", "sTitle": "FDR" },
-				{ "mData": "Odds Ratio", "sTitle": "Odds Ratio" }
+				{ "mData": "Rank", "sTitle": "Rank" , "className": "dt-head-center"},
+				{ "mData": "TF", "sTitle": "TF", "mRender": function (x) { return `<a href="https://amp.pharm.mssm.edu/Harmonizome/gene/${x}" target="_blank">${x}</a>` } , "className": "dt-head-center"},
+				{ "mData": "Set_name", "sTitle": "Set name" , "className": "dt-head-center"},
+				{ "mData": "Set length", "sTitle": "Set size" , "className": "dt-head-center"},
+				{ "mData": "Overlapping_Genes", "sTitle": "Overlapping Genes", "mRender": function (data, type, row, meta) { return intersectionPopover(row, library) } , "className": "dt-head-center"},
+				{ "mData": "FET p-value", "sTitle": "FET p-value" , "className": "dt-head-center"},
+				{ "mData": "FDR", "sTitle": "FDR" , "className": "dt-head-center"},
+				{ "mData": "Odds Ratio", "sTitle": "Odds Ratio", "className": "dt-head-center" }
 			]
 		})
 	}
@@ -634,7 +634,7 @@ $(document).ready(function () {
 	})
 
 	// Automatic genelist submission for dev
-	var dev = false;
+	var dev = true;
 	if (dev) {
 		$('#loading-screen').removeClass('d-none');
 		$.get("chea3Results.json", function (results) { //dev
