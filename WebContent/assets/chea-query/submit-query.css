@@ -222,6 +222,14 @@ body {
   box-shadow: none !important;
 }
 
+#tables-wrapper table th {
+  text-align: center;
+}
+
+#tables-wrapper td {
+  text-align: center;
+}
+
 #nav-global-network {
   min-height: 300px;
 }
