@@ -1,0 +1,2 @@
+java -Xmx5G -jar aracne.jar -e /users/summerstudent/ARACNe_input_GTEx/matrix.txt  -o /users/summerstudent/ARACNe_output_GTEx --tfs /Vusers/summerstudent/ARACNe_input_GTex/tfs.txt --pvalue 1E-8 --seed 1 \
+--calculateThreshold

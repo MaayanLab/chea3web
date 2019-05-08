@@ -1,0 +1,172 @@
+---
+title: "Cusanovich et. al Signatures"
+output: html_notebook
+---
+
+Expression data and meta data is downloaded from GEO. Samples are quantile normalized and visualized with PCA and tSNE.
+
+```{r}
+#load libraries
+library(GEOquery)
+library(preprocessCore)
+library(ggplot2)
+library(Rtsne)
+library(plotly)
+library(ggthemes)
+
+#downlaod data from GEO
+gse <- getGEO('GSE50588')[[1]]
+
+#parse expression matrix
+exp = gse@assayData$exprs
+
+#quantile normalize expression matrix
+norm_exp = normalize.quantiles(exp)
+colnames(norm_exp) = colnames(exp)
+rownames(norm_exp) = rownames(norm_exp)
+
+#parse metadata dataframe
+meta = gse@phenoData@data
+
+#compute PCs
+pca_norm = prcomp(norm_exp)$rotation[,1:3]
+
+#add relevant metadata to pca
+pca_norm = cbind(pca_norm,data.frame(target_gene = meta[match(rownames(pca_norm),rownames(meta)),c("target gene:ch1")], stringsAsFactors = F))
+
+
+ggplot(as.data.frame(pca_norm),aes(x = PC2, y = PC3, color = target_gene)) + geom_point()
+
+#compute tsne
+tsne_norm = Rtsne(t(norm_exp),dim = 3,perplexity = 6)$Y
+colnames(tsne_norm) = c("tSNE1","tSNE2","tSNE3")
+rownames(tsne_norm) = colnames(norm_exp)
+
+#add relevant metadata to tsne
+tsne_norm = cbind(tsne_norm,data.frame(target_gene = meta[match(rownames(tsne_norm),rownames(meta)),c("target gene:ch1")], stringsAsFactors = F))
+
+ggplot(as.data.frame(tsne_norm),aes(x = tSNE1, y = tSNE2, color = target_gene)) + geom_point()
+plot_ly(tsne_norm, x = ~tSNE1, y = ~tSNE2, z = ~tSNE3, color = ~target_gene)
+```
+
+Z-score samples and visualize 
+```{r}
+znorm_exp = t(scale(t(norm_exp), center = T, scale = T))
+
+#compute tsne
+tsne_znorm = Rtsne(t(znorm_exp),dim = 3,perplexity = 3,theta = 0.001)$Y
+colnames(tsne_znorm) = c("tSNE1","tSNE2","tSNE3")
+rownames(tsne_znorm) = colnames(znorm_exp)
+
+#add relevant metadata to tsne
+tsne_znorm = cbind(tsne_znorm,data.frame(target_gene = meta[match(rownames(tsne_znorm),rownames(meta)),c("target gene:ch1")], stringsAsFactors = F))
+
+ggplot(as.data.frame(tsne_znorm),aes(x = tSNE1, y = tSNE2, color = target_gene)) + geom_point() + theme_few() 
+plot_ly(tsne_znorm, x = ~tSNE1, y = ~tSNE2, z = ~tSNE3, color = ~target_gene)
+
+```
+
+Generate Signatures
+```{r}
+library(GeoDE)
+library(matrixStats)
+#map Illumina probes to gene ids
+library(illuminaHumanv4.db)
+gene_names = data.frame(Gene=unlist(mget(x = rownames(exp),envir = illuminaHumanv4SYMBOL)))
+
+#remove probes without mapped genes
+norm_exp_df=as.data.frame(norm_exp)
+norm_exp_df$gene_names = as.character(gene_names[,1])
+norm_exp_df = norm_exp_df[!is.na(norm_exp_df$gene_names),]
+rm(gene_names,norm_exp)
+#where probes map to same genes, chose probes with greater variance
+norm_exp_df = plyr::ddply(norm_exp_df,plyr::.(gene_names),function(exp_sub){
+  if(nrow(exp_sub)>1){
+    exp_sub_mat = exp_sub
+    exp_sub_mat$gene_names = NULL
+    exp_sub_mat = as.matrix(exp_sub_mat)
+    return(exp_sub[which.max(rowVars(exp_sub_mat)),])
+  }else{
+    return(exp_sub)
+  }
+})
+
+rownames(norm_exp_df) = norm_exp_df$gene_names
+norm_exp_df$gene_names = NULL
+
+##write metadata and normalized expression to file
+write.table(meta,"/Volumes/External/Cusanovich/meta.tsv",row.names = T, col.names = T, sep = "\t", quote = T)
+write.table(norm_exp_df, "/Volumes/External/Cusanovich/norm_exp.tsv", row.names = T, col.names = T, sep = "\t", quote = F)
+
+#pull out control expression
+ctl_accessions = meta[meta$`target gene:ch1`=="NS",]$geo_accession
+norm_ctl_exp = norm_exp_df[,colnames(norm_exp_df) %in% ctl_accessions]
+ctl_class = rep(1,ncol(norm_ctl_exp))
+
+#generate signature for each TF knockdown
+chardir_sigs = plyr::dlply(meta[meta$`target gene:ch1`!="NS",],
+  plyr::.(`target gene:ch1`), function(tf){
+    pert_accessions = tf$geo_accession
+    norm_pert_exp = norm_exp_df[,colnames(norm_exp_df) %in% pert_accessions]
+    pert_class = rep(2,ncol(norm_pert_exp))
+    norm_instance_exp = cbind(norm_ctl_exp,norm_pert_exp)
+    norm_instance_exp = cbind(data.frame(genenames = rownames(norm_instance_exp)),
+      norm_instance_exp)
+    instance_class = as.factor(c(ctl_class,pert_class))
+    return(chdirAnalysis(norm_instance_exp,
+      instance_class,
+      list(1),
+      CalculateSig = F)$results[[1]])
+  
+})
+
+
+
+```
+
+
+Generate a signature matrix from the signature list
+```{r}
+
+ordered_chardir_sigs = lapply(chardir_sigs,function(sig){
+  return(sig[order(names(sig))])
+})
+chardir_sigs_mat = do.call("rbind",ordered_chardir_sigs)
+
+write.table(chardir_sigs_mat,"/Volumes/External/Cusanovich/chardir_sigs_mat.tsv",sep = "\t", quote = F, row.names = T, col.names = T)
+
+```
+
+
+Write 3 GMTS: 300 up, 300 down, 300 up + 300 down
+```{r}
+n = 300
+outdir = '/Volumes/External/Cusanovich/'
+
+outfile_up = 'Cusanovich_chardir_up.gmt'
+outfile_dn = 'Cusanovich_chardir_dn.gmt'
+outfile_all = 'Cusanovich_chardir_all.gmt'
+
+cusanovich_up = lapply(chardir_sigs,function(sig){
+  return(names(sig[order(-sig)])[1:n])
+})
+names(cusanovich_up) = names(chardir_sigs)
+
+cusanovich_dn = lapply(chardir_sigs,function(sig){
+  return(names(sig[order(sig)])[1:n])
+})
+names(cusanovich_dn) = names(chardir_sigs)
+
+
+cusanovich_all = lapply(chardir_sigs,function(sig){
+  return(c(names(sig[order(sig)])[1:n],names(sig[order(-sig)])[1:n]))
+})
+names(cusanovich_all) = names(chardir_sigs)
+
+genesetr::writeGMT(cusanovich_up, paste(outdir,outfile_up, sep = ""))
+genesetr::writeGMT(cusanovich_dn, paste(outdir,outfile_dn, sep = ""))
+genesetr::writeGMT(cusanovich_all, paste(outdir,outfile_all, sep = ""))
+
+
+```
+

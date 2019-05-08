@@ -1,0 +1,79 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+DoRothEA v2 test on CREEDS human chardir signatures
+
+```{r}
+
+rm(list = ls())
+require(viper)
+
+# Load TF regulon genesets in VIPER format
+reg_dir = "/volumes/backup2/DoRothEA-master/data/TFregulons/consensus/Robjects_VIPERformat/normal/"
+reg_files = list.files(reg_dir)
+
+sig_dir = "/volumes/backup2/CREEDS_chardir_sigs/sigs/"
+sig_files = list.files(sig_dir)
+sig_files = sig_files[grepl("human",sig_files)]
+
+results_dir = "/volumes/backup2/DoRoTHEA_CREEDS_chdir_sig_results/"
+
+dir.create(results_dir)
+results_subdirs = gsub(".rdata","",reg_files)
+lapply(paste(results_dir,results_subdirs,sep = ""),dir.create)
+
+for(i in 1:length(reg_files)){
+  
+  dorothea_results = list()
+  
+  load(paste(reg_dir,reg_files[i],sep = ""))
+  
+  for(j in 1:length(sig_files)){
+    sig = read.table(paste(sig_dir,sig_files[j],sep = ""), sep = "\t", comment.char = "", quote = "", stringsAsFactors = F, header = T)
+    sig$genes = toupper(sig$genes)
+    sig$genes = genesetr::HGNCapproved(sig$genes,untranslatable.na = T)
+    sig = sig[!is.na(sig$genes),]
+    sig = sig[order(abs(sig$chrdir),decreasing = F),]
+    sig = sig[!duplicated(sig$genes),]
+
+    signature = sig$chrdir
+    names(signature) = sig$genes
+    mrs = msviper(ges = signature, regulon = viper_regulon, minsize = 4, ges.filter = F)
+    nes = mrs$es$nes
+    results_df = data.frame(
+      set_name = names(nes), 
+      nes = nes,
+      query_name = gsub("\\.tsv","",sig_files[j]), 
+      stringsAsFactors = F)
+    #to enable benchmarking comparison, unreturned TFs are appended to the end of the ranking with NES of "NA"
+    if(length(setdiff(names(viper_regulon),results_df$set_name))>0){
+    results_df = rbind(results_df,data.frame(
+      set_name = setdiff(names(viper_regulon),results_df$set_name),
+      nes = NA,
+      query_name = gsub("\\.tsv","",sig_files[j]),
+      stringsAsFactors = F
+    ))}
+    
+    results_df$set_TF = genesetr::HGNCapproved(unlist(sapply(strsplit(unlist(unlist(sapply(strsplit(results_df$set_name,
+      " - "),"[[",1))),"_"),"[[",1)))
+    results_df = results_df[results_df$set_TF %in% chea3::tfs,]
+    results_df$rank = rank(-abs(results_df$nes),ties.method = "random")
+    dorothea_results[[j]] =  results_df
+    
+    
+  }
+  dorothea_results = do.call(rbind,dorothea_results)
+  write.table(dorothea_results,paste(results_dir,gsub(".rdata","",reg_files[i]),".tsv",sep = ""), col.names = T, row.names = F, sep = "\t", quote = F)
+}
+
+
+   
+
+
+
+
+
+```
+

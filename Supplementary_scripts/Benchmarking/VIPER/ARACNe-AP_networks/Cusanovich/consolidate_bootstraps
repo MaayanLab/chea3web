@@ -1,0 +1,1 @@
+java -Xmx5G -jar Aracne.jar -o /Volumes/External/Cusanovich/ARACNe_output_Cusanovich --consolidate

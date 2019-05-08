@@ -1,0 +1,399 @@
+---
+title: "Plot Cusanovich benchmarks"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+rm(list = ls())
+
+library(ggpubr)
+
+
+borda = read.table("/Volumes/Backup2/Cusanovich/ttest_chea3_benchmarking_meanrank_results_v2.tsv", header = T, stringsAsFactors = F)
+
+toprank = read.table("/Volumes/Backup2/Cusanovich/ttest_toprank_benchmarking_results_v2.tsv", header = T, stringsAsFactors = F)
+
+chea3_libs = read.table("/Volumes/Backup2/Cusanovich/ttest_chea3_benchmarking_library_results_v2.tsv", header = T, stringsAsFactors = F)
+
+viper_bcell = read.table("/Volumes/Backup2/Cusanovich/viper_benchmarking_results_bcellvip_regulon_ttest_null_rank_nes.tsv", header = T, stringsAsFactors = F)
+
+viper_cus = read.table("/Volumes/Backup2/Cusanovich/viper_benchmarking_results_cusanovich_regulon_ttest_signatures_rank_nes.tsv", header = T, stringsAsFactors = F)
+
+# viper_cus = plyr::ddply(viper_cus,plyr::.(query_name),function(df){
+#   if(sum(df$class)<1){
+#     return(NULL)
+#   }else{
+#     return(df)
+#   }
+# })
+# 
+# viper_bcell = plyr::ddply(viper_bcell,plyr::.(query_name),function(df){
+#   if(sum(df$class)<1){
+#     return(NULL)
+#   }else{
+#     return(df)
+#   }
+# })
+# 
+# borda = plyr::ddply(borda,plyr::.(query_set),function(df){
+#   if(sum(df$class)<1){
+#     return(NULL)
+#   }else{
+#     return(df)
+#   }
+# })
+# 
+# toprank = plyr::ddply(toprank,plyr::.(query_set),function(df){
+#   if(sum(df$class)<1){
+#     return(NULL)
+#   }else{
+#     return(df)
+#   }
+# })
+# 
+# 
+# chea3_libs = plyr::ddply(chea3_libs,plyr::.(query_name,library),function(df){
+#   if(sum(df$class)<1){
+#     return(NULL)
+#   }else{
+#     return(df)
+#   }
+# })
+# dor = read.table("/Volumes/Backup2/Cusanovich/dorotheav2_benchmarking_results_ttestsigs_null_model_v2.tsv", header = T, stringsAsFactors = F)
+
+```
+
+Generate ROC
+```{r}
+n=5000
+
+bootstrap_ROCcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    roc = PRROC::roc.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(roc$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + roc$auc
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(FPR = mean(x[,1]), TPR = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+}
+
+#chea3 borda
+borda_roc = bootstrap_ROCcurve(1-borda$scaled_rank[borda$class==1],1-borda$scaled_rank[borda$class==0],n)
+
+#chea3 toprank
+toprank_roc = bootstrap_ROCcurve(1-toprank$scaled_rank[toprank$class==1],1-toprank$scaled_rank[toprank$class==0], n)
+
+
+#chea3 libs
+chea3_libs_roc = plyr::dlply(chea3_libs,plyr::.(library),function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+#Viper bcell
+viperbcell_roc = bootstrap_ROCcurve(1-viper_bcell$scaled_rank[viper_bcell$class==1],1-viper_bcell$scaled_rank[viper_bcell$class==0],n)
+#viper B
+vipercus_roc = bootstrap_ROCcurve(1-viper_cus$scaled_rank[viper_cus$class==1],1-viper_cus$scaled_rank[viper_cus$class==0],n)
+
+```
+
+Generate PR
+```{r}
+
+n=5000
+
+bootstrap_PRcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    pr = PRROC::pr.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(pr$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + pr$auc.integral
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(recall = mean(x[,1]), precision = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+ }
+
+
+#chea3 borda
+borda_pr = bootstrap_PRcurve(1-borda$scaled_rank[borda$class==1],1-borda$scaled_rank[borda$class==0],n)
+
+#chea3 toprank
+toprank_pr = bootstrap_PRcurve(1-toprank$scaled_rank[toprank$class==1],1-toprank$scaled_rank[toprank$class==0], n)
+
+
+#chea3 libs
+chea3_libs_pr = plyr::dlply(chea3_libs,plyr::.(library),function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+#viper bcell
+viper_bcell_pr = bootstrap_PRcurve(1-viper_bcell$scaled_rank[viper_bcell$class==1],1-viper_bcell$scaled_rank[viper_bcell$class==0],n)
+
+#viper cusanovich
+viper_cus_pr = bootstrap_PRcurve(1-viper_cus$scaled_rank[viper_cus$class==1],1-viper_cus$scaled_rank[viper_cus$class==0],n)
+
+
+```
+
+Plot ROC
+```{r}
+roc = data.frame()
+
+roc = rbind(roc, data.frame(Method = "MeanRank",
+  FPR = borda_roc$approx$x, TPR = borda_roc$approx$y, stringsAsFactors = F))
+
+roc = rbind(roc, data.frame(Method = "TopRank",
+  FPR = toprank_roc$approx$x, TPR = toprank_roc$approx$y, stringsAsFactors = F))
+
+roc = rbind(roc, data.frame(Method = "VIPER A",
+  FPR = vipercus_roc$approx$x, TPR = vipercus_roc$approx$y, stringsAsFactors = F))
+
+roc = rbind(roc, data.frame(Method = "VIPER B",
+  FPR = viperbcell_roc$approx$x, TPR = viperbcell_roc$approx$y, stringsAsFactors = F))
+
+libs_roc = plyr::ldply(chea3_libs_roc,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_roc$Method = gsub("--"," ",libs_roc$library)
+libs_roc$library = NULL
+
+roc = rbind(roc, libs_roc)
+
+roc = roc[order(roc$Method),]
+bootstrap_roc_plot = ggline(roc, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+bootstrap_roc_plot
+```
+
+Plot PR
+
+```{r}
+
+pr = data.frame()
+
+pr = rbind(pr, data.frame(Method = "MeanRank",
+  Recall = borda_pr$approx$x, Precision = borda_pr$approx$y, stringsAsFactors = F))
+
+pr = rbind(pr, data.frame(Method = "TopRank",
+  Recall = toprank_pr$approx$x, Precision = toprank_pr$approx$y, stringsAsFactors = F))
+
+pr = rbind(pr, data.frame(Method = "VIPER A",
+  Recall = viper_cus_pr$approx$x, Precision = viper_cus_pr$approx$y, stringsAsFactors = F))
+
+pr = rbind(pr, data.frame(Method = "VIPER B",
+  Recall = viper_bcell_pr$approx$x, Precision = viper_bcell_pr$approx$y, stringsAsFactors = F))
+
+libs_pr = plyr::ldply(chea3_libs_pr,function(lib){
+  return(data.frame(
+    Recall = lib$approx$x, Precision = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_pr$Method = gsub("--"," ",libs_pr$library)
+libs_pr$library = NULL
+
+pr = rbind(pr, libs_pr)
+
+pr = pr[order(pr$Method),]
+bootstrap_pr_plot = ggline(pr, x = "Recall", y = "Precision", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+bootstrap_pr_plot
+```
+
+
+AUC summary plot
+```{r}
+perform_df = data.frame(Method = c("MeanRank","TopRank",gsub("--"," ",names(chea3_libs_roc)), "VIPER B", "VIPER A"),
+  ROC_AUC = c(borda_roc$auc, toprank_roc$auc, chea3_libs_roc[[1]]$auc,
+    chea3_libs_roc[[2]]$auc, chea3_libs_roc[[3]]$auc, chea3_libs_roc[[4]]$auc,
+    chea3_libs_roc[[5]]$auc, chea3_libs_roc[[6]]$auc, viperbcell_roc$auc,
+    vipercus_roc$auc),
+  PR_AUC = c(borda_pr$auc, toprank_pr$auc, chea3_libs_pr[[1]]$auc,
+    chea3_libs_pr[[2]]$auc, chea3_libs_pr[[3]]$auc, chea3_libs_pr[[4]]$auc,
+    chea3_libs_pr[[5]]$auc, chea3_libs_pr[[6]]$auc, viper_bcell_pr$auc,
+    viper_cus_pr$auc))
+
+perform_df$Method = gsub("ReMap ChIP-seq","ReMap",perform_df$Method)
+perform_df$Method = gsub("Coexpression","",perform_df$Method)
+perform_df$Method = gsub("ENCODE ChIP-seq","ENCODE",perform_df$Method)
+
+
+cus_auc_summary_plot = ggpubr::ggscatter(data = perform_df, x = 'ROC_AUC', y = 'PR_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "ROC AUC", ylab = "PR AUC", size = 4, xlim = c(0.45,.85),
+  ylim = c(0.5,.85))
+cus_auc_summary_plot
+```
+
+Bridge Plot
+```{r}
+
+borda_ecdf = ecdf(borda$scaled_rank[borda$class == 1])
+
+toprank_ecdf = ecdf(toprank$scaled_rank[toprank$class == 1])
+
+chea3_libs_ecdf = plyr::dlply(chea3_libs,plyr::.(library),function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+viper_bcell_ecdf = ecdf(viper_bcell$scaled_rank[viper_bcell$class == 1])
+viper_cus_ecdf = ecdf(viper_cus$scaled_rank[viper_cus$class == 1])
+
+
+rand_ecdf = ecdf(runif(sum(borda$class == 1), min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+bridge_df = data.frame()
+
+borda_bridge = data.frame(x = x, y = borda_ecdf(x) - rand_ecdf(x), Method = "MeanRank",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df, borda_bridge)
+
+toprank_bridge = data.frame(x = x, y = toprank_ecdf(x) - rand_ecdf(x), Method = "TopRank",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df,toprank_bridge)
+
+viper_bcell_bridge = data.frame(x = x, y = viper_bcell_ecdf(x) - rand_ecdf(x), Method = "VIPER B",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df,viper_bcell_bridge)
+
+viper_cus_bridge = data.frame(x = x, y = viper_cus_ecdf(x) - rand_ecdf(x), Method = "VIPER A",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df,viper_cus_bridge)
+
+for(i in 1:length(chea3_libs_ecdf)){
+  lib_bridge = data.frame(x = x, y = chea3_libs_ecdf[[i]](x) - rand_ecdf(x), 
+    Method = gsub("--"," ", names(chea3_libs_ecdf)[i]),stringsAsFactors = F)
+  bridge_df = rbind(bridge_df, lib_bridge)
+}
+
+bridge_df$Method = gsub("ReMap ChIP-seq","ReMap",bridge_df$Method)
+bridge_df$Method = gsub("Coexpression","",bridge_df$Method)
+bridge_df$Method = gsub("ENCODE ChIP-seq","ENCODE",bridge_df$Method)
+
+bridge_df = bridge_df[order(bridge_df$Method),]
+
+cus_bridge_plot = ggline(bridge_df, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r",legend = "right")
+
+cus_bridge_plot
+
+save(cus_bridge_plot, cus_auc_summary_plot, file = '/volumes/backup2/Cusanovich/cusanovich_benchmarking_plots.RData')
+
+```
+KS Tests
+
+```{r}
+library(goftest)
+
+borda_ks = ad.test(borda[borda$class == 1, "scaled_rank"])
+borda_ks
+
+toprank_ks = ad.test(toprank[toprank$class == 1, "scaled_rank"])
+toprank_ks
+
+viper_bcell_ks = ad.test(viper_bcell[viper_bcell$class == 1, "scaled_rank"])
+viper_bcell_ks
+
+viper_cus_ks = ad.test(viper_cus[viper_cus$class == 1, "scaled_rank"])
+viper_cus_ks
+
+chea3_libs_ks = plyr::dlply(chea3_libs,plyr::.(library),function(x){
+  return(ad.test(x[x$class == 1, "scaled_rank"]))
+})
+chea3_libs_ks
+
+```
+Histograms
+```{r}
+generateHist = function(num_benchmarking_sets, max_rank, ranks){
+  # breaks = seq(from=10, to= max_rank + 10, by=10)
+  quantiles = seq(from = 0.01, to = 1, by=0.01)
+  breaks = quantile(seq(1,max_rank,1),quantiles)
+  bins = rep(0,length(breaks))
+  for(i in 1:length(breaks)){
+    if(i==1){
+      bins[i] = sum(ranks<=breaks[i])
+    }else{
+      bins[i] = sum(ranks>breaks[i-1] & ranks<=breaks[i])
+    }
+  }
+  tot_bin = bins/num_benchmarking_sets
+  # cum = sapply(breaks, function(x) sum(ranks <= x))
+  # frac_cum = cum/num_benchmarking_sets
+  sub_bin = bins/length(ranks)
+  
+  return(rbind(data.frame(quants = quantiles*100, breaks = breaks, bin = tot_bin*100, type = "total"), data.frame(quants = quantiles*100, breaks = breaks, bin = sub_bin*100, type = "subset")))
+}
+breaks_text = as.character(1:100)
+breaks_text[-c(1,25,50,75,100)] = ""
+
+borda_hist = generateHist(num_benchmarking_sets = length(unique(borda$query_set)),
+  max_rank = max(borda$rank),
+  ranks = borda[borda$class == 1,"rank"]) 
+
+toprank_hist = generateHist(num_benchmarking_sets = length(unique(toprank$query_set)),
+  max_rank = max(toprank$rank),
+  ranks = toprank[toprank$class == 1,"rank"])
+
+lib_hist = plyr::dlply(chea3_libs,plyr::.(library),function(lib){
+  df = generateHist(num_benchmarking_sets = length(unique(lib$query_name)),
+  max_rank = max(lib$rank),
+  ranks = lib[lib$class == 1,"rank"])
+  return(cbind(df,data.frame(library = rep(unique(lib$library),nrow(df)))))
+})
+
+vipercus_hist = generateHist(num_benchmarking_sets = length(unique(viper_cus$query_name)),
+  max_rank = max(viper_cus$rank),
+  ranks = viper_cus[viper_cus$class == 1,"rank"])
+
+viperbcell_hist = generateHist(num_benchmarking_sets = length(unique(viper_bcell$query_name)),
+  max_rank = max(viper_bcell$rank),
+  ranks = viper_bcell[viper_bcell$class == 1,"rank"])
+
+
+borda_hist_plot = ggpubr::ggbarplot(borda_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered shRNA TFs (%)", color = "type", title = "Integrated MeanRank",position = position_dodge(0.9), ylim = c(0,20)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+toprank_hist_plot = ggpubr::ggbarplot(toprank_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered shRNA TFs (%)", color = "type", title = "Integrated TopRank",position = position_dodge(0.9), ylim = c(0,20)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+vipercus_hist_plot = ggpubr::ggbarplot(vipercus_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered shRNA TFs (%)", color = "type", title = "VIPER A",position = position_dodge(0.9), ylim = c(0,20)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+viperbcell_hist_plot = ggpubr::ggbarplot(viperbcell_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered shRNA TFs (%)", color = "type", title = "VIPER B",position = position_dodge(0.9), ylim = c(0,20)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+lib_hist_plots = lapply(lib_hist, function(lib){
+
+  return(ggpubr::ggbarplot(lib, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered shRNA TFs (%)", color = "type", title = unique(lib$library),position = position_dodge(0.9), ylim = c(0,20)) + rotate_x_text(45) + rremove("ylab")+ scale_x_discrete(labels = breaks_text) )})
+
+hist_plot_list = c(list(meanRank = borda_hist_plot, toprank = toprank_hist_plot, vipercus = vipercus_hist_plot, viperbcell = viperbcell_hist_plot), lib_hist_plots)
+
+
+annotate_figure(ggarrange(plotlist = hist_plot_list,ncol = 1, nrow = length(hist_plot_list), common.legend = T, legend = "top"), left = text_grob("Recovered shRNA TFS (%)",size = 14,rot = 90))
+
+
+```
+
+```{r}
+ggarrange(bootstrap_roc_plot,bootstrap_pr_plot,cus_bridge_plot,cus_auc_summary_plot, common.legend = T, legend = "top", labels = "auto")
+```
+

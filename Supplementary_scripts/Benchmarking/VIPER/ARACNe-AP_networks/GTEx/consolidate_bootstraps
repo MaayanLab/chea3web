@@ -1,0 +1,1 @@
+java -Xmx5G -jar Aracne.jar -o /users/summerstudent/ARACNe_output_GTEx --consolidate

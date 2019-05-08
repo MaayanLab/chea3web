@@ -1,0 +1,822 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Conduct human and mouse benchmarks separately
+
+```{r}
+
+rm(list = ls())
+
+library(ggpubr)
+
+
+borda = read.table("/Volumes/backup2/ChEA3_API_Benchmark/meanrank_results_toptfs_trial.tsv", header = T, stringsAsFactors = F)
+
+toprank = read.table("/Volumes/backup2/ChEA3_API_Benchmark/toprank_results_toptfs_trial.tsv", header = T, stringsAsFactors = F)
+
+chea3_libs = read.table("/Volumes/backup2/ChEA3_API_Benchmark/library_results_toptfs_trial.tsv", header = T, stringsAsFactors = F)
+
+h_borda = borda[grepl("HUMAN",borda$query_set),]
+m_borda = borda[grepl("MOUSE",borda$query_set),]
+h_toprank = toprank[grepl("HUMAN",toprank$query_set),]
+m_toprank = toprank[grepl("MOUSE",toprank$query_set),]
+h_chea3_libs = chea3_libs[grepl("HUMAN",chea3_libs$query_name),]
+m_chea3_libs = chea3_libs[grepl("MOUSE",chea3_libs$query_name),]
+
+
+```
+
+MOUSE
+
+
+```{r}
+library(goftest)
+
+m_borda_ks = ad.test(m_borda[m_borda$class == 1, "scaled_rank"])
+m_borda_ks
+
+m_toprank_ks = ad.test(m_toprank[m_toprank$class == 1, "scaled_rank"])
+m_toprank_ks
+
+m_chea3_libs_ks = plyr::dlply(m_chea3_libs,plyr::.(library),function(x){
+  return(ad.test(x[x$class == 1, "scaled_rank"]))
+})
+
+m_chea3_libs_ks
+
+m_borda_ks_df = data.frame(Method = "MeanRank", 
+  Pval = signif(-log(m_borda_ks$p.value),4),stringsAsFactors = F)
+
+m_toprank_ks_df = data.frame(Method = "m_toprank", Pval = signif(-log(m_toprank_ks$p.value),4), stringsAsFactors = F)
+
+m_libs_ks_df = plyr::ldply(m_chea3_libs_ks,function(x){
+  return(data.frame(Pval = signif(-log(x$p.value),4), stringsAsFactors = F))})
+
+
+
+
+
+```
+
+
+Compute bootstrapped ROC Curves
+
+```{r}
+library(ggplot2)
+
+n=5000
+
+bootstrap_ROCcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    roc = PRROC::roc.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(roc$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + roc$auc
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(FPR = mean(x[,1]), TPR = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+}
+
+#chea3 m_borda
+m_borda_roc = bootstrap_ROCcurve(1-m_borda$scaled_rank[m_borda$class==1],1-m_borda$scaled_rank[m_borda$class==0],n)
+
+#chea3 m_toprank
+m_toprank_roc = bootstrap_ROCcurve(1-m_toprank$scaled_rank[m_toprank$class==1],1-m_toprank$scaled_rank[m_toprank$class==0], n)
+
+
+#chea3 libs
+m_chea3_libs_roc = plyr::dlply(m_chea3_libs,plyr::.(library),function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+
+```
+
+Plot Bootstrapped ROC curves
+```{r}
+m_roc = data.frame()
+
+m_roc = rbind(m_roc, data.frame(Method = "MeanRank",
+  FPR = m_borda_roc$approx$x, TPR = m_borda_roc$approx$y, stringsAsFactors = F))
+
+m_roc = rbind(m_roc, data.frame(Method = "TopRank",
+  FPR = m_toprank_roc$approx$x, TPR = m_toprank_roc$approx$y, stringsAsFactors = F))
+
+m_libs_roc = plyr::ldply(m_chea3_libs_roc,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+m_libs_roc$Method = gsub("--"," ",m_libs_roc$library)
+m_libs_roc$library = NULL
+
+m_roc = rbind(m_roc, m_libs_roc)
+
+m_roc = m_roc[order(m_roc$Method),]
+m_bootstrap_roc_plot = ggline(m_roc, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+m_bootstrap_roc_plot
+
+```
+
+Compute bootstrapped PR curves
+
+```{r}
+
+n=5000
+
+bootstrap_PRcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    pr = PRROC::pr.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(pr$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + pr$auc.integral
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(recall = mean(x[,1]), precision = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+ }
+
+
+#chea3 m_borda
+m_borda_pr = bootstrap_PRcurve(1-m_borda$scaled_rank[m_borda$class==1],1-m_borda$scaled_rank[m_borda$class==0],n)
+
+#chea3 m_toprank
+m_toprank_pr = bootstrap_PRcurve(1-m_toprank$scaled_rank[m_toprank$class==1],1-m_toprank$scaled_rank[m_toprank$class==0], n)
+
+
+#chea3 libs
+m_chea3_libs_pr = plyr::dlply(m_chea3_libs,plyr::.(library),function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+
+```
+
+Plot bootstrapped PR curves
+
+```{r}
+
+m_pr = data.frame()
+
+m_pr = rbind(m_pr, data.frame(Method = "MeanRank",
+  Recall = m_borda_pr$approx$x, Precision = m_borda_pr$approx$y, stringsAsFactors = F))
+
+m_pr = rbind(m_pr, data.frame(Method = "TopRank",
+  Recall = m_toprank_pr$approx$x, Precision = m_toprank_pr$approx$y, stringsAsFactors = F))
+
+m_libs_pr = plyr::ldply(m_chea3_libs_pr,function(lib){
+  return(data.frame(
+    Recall = lib$approx$x, Precision = lib$approx$y, stringsAsFactors = F))
+})
+
+m_libs_pr$Method = gsub("--"," ",m_libs_pr$library)
+m_libs_pr$library = NULL
+
+m_pr = rbind(m_pr, m_libs_pr)
+
+m_pr = m_pr[order(m_pr$Method),]
+m_bootstrap_pr_plot = ggline(m_pr, x = "Recall", y = "Precision", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+m_bootstrap_pr_plot
+
+```
+
+
+Compute and plot bridge plots 
+```{r}
+
+
+m_borda_ecdf = ecdf(m_borda$scaled_rank[m_borda$class == 1])
+
+m_toprank_ecdf = ecdf(m_toprank$scaled_rank[m_toprank$class == 1])
+
+m_chea3_libs_ecdf = plyr::dlply(m_chea3_libs,plyr::.(library),function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+m_rand_ecdf = ecdf(runif(sum(m_borda$class == 1), min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+m_bridge_df = data.frame()
+
+m_borda_bridge = data.frame(x = x, y = m_borda_ecdf(x) - m_rand_ecdf(x), Method = "MeanRank",
+  stringsAsFactors = F)
+m_bridge_df = rbind(m_bridge_df, m_borda_bridge)
+
+m_toprank_bridge = data.frame(x = x, y = m_toprank_ecdf(x) - m_rand_ecdf(x), Method = "TopRank",
+  stringsAsFactors = F)
+m_bridge_df = rbind(m_bridge_df,m_toprank_bridge)
+
+for(i in 1:length(m_chea3_libs_ecdf)){
+  m_lib_bridge = data.frame(x = x, y = m_chea3_libs_ecdf[[i]](x) - m_rand_ecdf(x), 
+    Method = gsub("--"," ", names(m_chea3_libs_ecdf)[i]),stringsAsFactors = F)
+  m_bridge_df = rbind(m_bridge_df, m_lib_bridge)
+}
+
+m_bridge_df = m_bridge_df[order(m_bridge_df$Method),]
+
+m_bridge_plot = ggline(m_bridge_df, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r", ylim = c(0,0.5))
+
+m_bridge_plot
+```
+
+Report Fraction of Benchmarking Sets reported as Rank 1, Rank 2, etc.
+Exported 11x15 in
+```{r}
+
+generateHist = function(num_benchmarking_sets, max_rank, ranks){
+  # breaks = seq(from=10, to= max_rank + 10, by=10)
+  quantiles = seq(from = 0.01, to = 1, by=0.01)
+  breaks = quantile(seq(1,max_rank,1),quantiles)
+  bins = rep(0,length(breaks))
+  for(i in 1:length(breaks)){
+    if(i==1){
+      bins[i] = sum(ranks<=breaks[i])
+    }else{
+      bins[i] = sum(ranks>breaks[i-1] & ranks<=breaks[i])
+    }
+  }
+  tot_bin = bins/num_benchmarking_sets
+  # cum = sapply(breaks, function(x) sum(ranks <= x))
+  # frac_cum = cum/num_benchmarking_sets
+  sub_bin = bins/length(ranks)
+  
+  return(rbind(data.frame(quants = quantiles*100, breaks = breaks, bin = tot_bin*100, type = "total"), data.frame(quants = quantiles*100, breaks = breaks, bin = sub_bin*100, type = "subset")))
+}
+
+breaks_text = as.character(1:100)
+breaks_text[-c(1,25,50,75,100)]=""
+
+m_borda_hist = generateHist(num_benchmarking_sets = length(unique(m_borda$query_set)),
+  max_rank = max(m_borda$rank),
+  ranks = m_borda[m_borda$class == 1,"rank"]) 
+
+m_toprank_hist = generateHist(num_benchmarking_sets = length(unique(m_toprank$query_set)),
+  max_rank = max(m_toprank$rank),
+  ranks = m_toprank[m_toprank$class == 1,"rank"])
+
+m_lib_hist = plyr::dlply(m_chea3_libs,plyr::.(library),function(lib){
+  df = generateHist(num_benchmarking_sets = length(unique(lib$query_name)),
+  max_rank = max(lib$rank),
+  ranks = lib[lib$class == 1,"rank"])
+  return(cbind(df,data.frame(library = rep(unique(lib$library),nrow(df)))))
+})
+
+m_borda_hist_plot = ggpubr::ggbarplot(m_borda_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = "Integrated MeanRank",position = position_dodge(0.9), ylim = c(0,18)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+m_toprank_hist_plot = ggpubr::ggbarplot(m_toprank_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = "Integrated TopRank",position = position_dodge(0.9), ylim = c(0,18)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+
+m_lib_hist_plots = lapply(m_lib_hist, function(lib){
+
+  return(ggpubr::ggbarplot(lib, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = unique(lib$library),position = position_dodge(0.9), ylim = c(0,18)) + rotate_x_text(45) + rremove("ylab")+ scale_x_discrete(labels = breaks_text) )})
+
+
+m_hist_plot_list = c(list(meanRank = m_borda_hist_plot, m_toprank = m_toprank_hist_plot), m_lib_hist_plots)
+
+
+annotate_figure(ggarrange(plotlist = m_hist_plot_list,ncol = 1, nrow = length(m_hist_plot_list), common.legend = T, legend = "top"),  left = text_grob('Recovered LOF/GOF TFS (%)',size = 14,rot=90))
+
+
+
+```
+
+
+Generate table of AUCs and pvalues
+
+```{r}
+m_perform_df = data.frame(Method = c("MeanRank","TopRank",gsub("--"," ",names(m_chea3_libs_pr))), 
+  'ROC AUC' = c(signif(m_borda_roc$auc,3),
+  signif(m_toprank_roc$auc,3),
+  signif(as.numeric(unlist(lapply(m_chea3_libs_roc,'[[',1))),3)),
+  'PR AUC' = c(signif(m_borda_pr$auc,3),
+  signif(m_toprank_pr$auc,3),
+  signif(as.numeric(unlist(lapply(m_chea3_libs_pr,'[[',1))),3)),
+  'Percent Total Recovered' = 
+    c(signif(m_borda_hist[m_borda_hist$quants == 1 & as.character(m_borda_hist$type) == "total","bin"],3),
+      signif(m_toprank_hist[m_toprank_hist$quants == 1 & as.character(m_toprank_hist$type) == "total","bin"],3), 
+      signif(unlist(lapply(m_lib_hist,function(x){
+        return(x[x$quants == 1 & x$type == "total","bin"])
+      })),3)
+      ),
+   'Percent Subset Recovered' = 
+    c(signif(m_borda_hist[m_borda_hist$quants == 1 & as.character(m_borda_hist$type) == "subset","bin"],3),
+      signif(m_toprank_hist[m_toprank_hist$quants == 1 & as.character(m_toprank_hist$type) == "subset","bin"],3), 
+      signif(unlist(lapply(m_lib_hist,function(x){
+        return(x[x$quants == 1 & as.character(x$type) == "subset","bin"])
+      })),3)
+      ),
+  
+  stringsAsFactors = F)
+colnames(m_perform_df) = gsub("\\.", " ", colnames(m_perform_df))
+  
+m_perform_table = ggtexttable(m_perform_df, rows = NULL, theme = ttheme("minimal"))
+m_perform_table
+```
+
+
+Generate heat map to show transcription factor coverage
+
+```{r}
+
+lit_tfs = unique(gsub("-","",unlist(lapply(strsplit(names(chea3::libs[["ChEA"]]),"_"),"[[",1))))
+
+remap_tfs = unique(gsub("-","",unlist(lapply(strsplit(names(chea3::libs[["ReMap"]]),"_"),"[[",1))))
+
+gtex_tfs = unique(gsub("-","",unlist(lapply(strsplit(names(chea3::libs[["GTEx"]]),"_"),"[[",1))))
+
+archs4_tfs = unique(gsub("-","",unlist(lapply(strsplit(names(chea3::libs[["ARCHS4"]]),"_"),"[[",1))))
+
+encode_tfs = unique(gsub("-","",unlist(lapply(strsplit(names(chea3::libs[["ENCODE"]]),"_"),"[[",1))))
+
+enrichr_tfs = unique(gsub("-","",unlist(lapply(strsplit(names(chea3::libs[["Enrichr"]]),"_"),"[[",1))))
+
+perturb_tfs = unique(gsub("-","",unlist(lapply(strsplit(names(chea3::libs[["Perturbations"]]),"_"),"[[",1))))
+
+integ_tfs = unique(gsub("-","",c(enrichr_tfs, encode_tfs, archs4_tfs, gtex_tfs, remap_tfs, lit_tfs)))
+
+all_tfs = toupper(unique(gsub("-","",na.omit(genesetr::HGNCapproved(chea3::tfs,untranslatable.na = T)))))
+
+heatmap_mat = matrix(0, ncol = length(all_tfs),nrow = 6)
+
+colnames(heatmap_mat) = all_tfs
+rownames(heatmap_mat) = c("ARCHS4 Coexpression","ENCODE ChIP-seq","Enrichr Queries","GTEx Coexpression","Literature ChIP-seq","ReMap ChIP-seq")
+
+#populate rows
+heatmap_mat["ARCHS4 Coexpression",colnames(heatmap_mat) %in% archs4_tfs] = 1
+heatmap_mat["ENCODE ChIP-seq", colnames(heatmap_mat) %in% encode_tfs] = 1
+heatmap_mat["Literature ChIP-seq", colnames(heatmap_mat) %in% lit_tfs] = 1
+heatmap_mat["ReMap ChIP-seq", colnames(heatmap_mat) %in% remap_tfs] = 1
+heatmap_mat["Enrichr Queries", colnames(heatmap_mat) %in% enrichr_tfs] = 1
+heatmap_mat["GTEx Coexpression", colnames(heatmap_mat) %in% gtex_tfs] = 1
+
+#cluster
+ord = hclust(dist(t(heatmap_mat), method = "euclidean"), method = "ward.D" )$order
+ord2 = hclust(dist(heatmap_mat, method = "euclidean"), method = "ward.D")$order
+
+
+heatmap_melt = reshape2::melt(heatmap_mat)
+colnames(heatmap_melt) = c("Library","TF","value")
+heatmap_melt$TF = factor(heatmap_melt$TF, levels = colnames(heatmap_mat)[ord])
+heatmap_melt$Library = factor(heatmap_melt$Library, levels = rownames(heatmap_mat)[order(rownames(heatmap_mat),decreasing = T)])
+
+tf_heat = ggplot(heatmap_melt, aes(x=TF, y = Library))  + geom_tile(aes(fill = value)) + scale_fill_gradient(low = "white", high = "steelblue") + theme(axis.text.x=element_blank(), legend.position="none", axis.ticks=element_blank())
+
+tf_heat
+```
+
+Generate library information plot
+
+```{r}
+archs4_interact = genesetr::toLongDF(chea3::ARCHS4)
+archs4_interact$a = paste(archs4_interact$set_name,archs4_interact$gene)
+archs4_interact = sum(!duplicated(archs4_interact$a))
+
+remap_interact = genesetr::toLongDF(chea3::ReMap)
+remap_interact$a = paste(remap_interact$set_name,remap_interact$gene)
+remap_interact = sum(!duplicated(remap_interact$a))
+
+lit_interact = genesetr::toLongDF(chea3::ChEA)
+lit_interact$a = paste(lit_interact$set_name,lit_interact$gene)
+lit_interact = sum(!duplicated(lit_interact$a))
+
+
+encode_interact = genesetr::toLongDF(chea3::ENCODE)
+encode_interact$a = paste(encode_interact$set_name,encode_interact$gene)
+encode_interact = sum(!duplicated(encode_interact$a))
+
+gtex_interact = genesetr::toLongDF(chea3::GTEx)
+gtex_interact$a = paste(gtex_interact$set_name,gtex_interact$gene)
+gtex_interact = sum(!duplicated(gtex_interact$a))
+
+enrichr_interact = genesetr::toLongDF(chea3::Enrichr)
+enrichr_interact$a = paste(enrichr_interact$set_name,enrichr_interact$gene)
+enrichr_interact = sum(!duplicated(enrichr_interact$a))
+
+libnames = rownames(heatmap_mat)[order()]
+lib_info_df = data.frame(Library = c("ARCHS4 Coexpression","ENCODE ChIP-seq","Enrichr Queries","GTEx Coexpression","Literature ChIP-seq","ReMap ChIP-seq"), 
+  'Unique TFs' = prettyNum(c(length(archs4_tfs), length(encode_tfs), 
+    length(enrichr_tfs), length(gtex_tfs), length(lit_tfs), length(remap_tfs)),big.mark = ",",scientific = F), 
+  'TF Interactions' = prettyNum(c(archs4_interact,encode_interact,enrichr_interact,gtex_interact,lit_interact,remap_interact),big.mark = ",",scientific = F), 
+  'Gene Sets' = prettyNum(c(length(chea3::ARCHS4),length(chea3::ENCODE),
+    length(chea3::Enrichr),length(chea3::GTEx),length(chea3::ChEA),
+    length(chea3::ReMap)),big.mark = ",",scientific = F),
+  'TF Coverage' = rep('XXXXXXXXXXXXXXXXXXXXXXXXXXXX', 6),stringsAsFactors = F)
+colnames(lib_info_df) = gsub("\\."," ",colnames(lib_info_df))
+
+lib_info_table = ggtexttable(lib_info_df, rows = NULL, theme = ttheme("minimal"))
+lib_info_table
+
+```
+
+```{r}
+m_perform_df$Method
+
+m_perform_df$TF_coverage = c(length(integ_tfs), length(integ_tfs), length(archs4_tfs),
+  length(encode_tfs), length(enrichr_tfs), length(gtex_tfs), length(lit_tfs), 
+  length(remap_tfs))
+
+colnames(m_perform_df) = gsub(" ","_",colnames(m_perform_df))
+
+m_auc_summary_plot = ggpubr::ggscatter(data = m_perform_df, x = 'ROC_AUC', y = 'PR_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "ROC AUC", ylab = "PR AUC", size = 4)
+m_auc_summary_plot
+
+```
+
+
+Generate Coverage versus Benchmarking Metric Plots
+
+```{r}
+
+m_roc_coverage_plot = ggpubr::ggscatter(data = m_perform_df, x = 'TF_coverage', y = 'ROC_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "ROC AUC", size = 4)
+m_pr_coverage_plot = ggpubr::ggscatter(data = m_perform_df, x = 'TF_coverage', y = 'PR_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "PR AUC", size = 4)
+m_subset_coverage_plot = ggpubr::ggscatter(data = m_perform_df, x = 'TF_coverage', y = 'Percent_Subset_Recovered', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "Percent Subset Recovered", size = 4, ylim = c(0,18))
+m_tot_coverage_plot = ggpubr::ggscatter(data = m_perform_df, x = 'TF_coverage', y = 'Percent_Total_Recovered', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "Percent Total Recovered", size = 4, ylim = c(0,18))
+
+
+m_roc_coverage_plot
+m_pr_coverage_plot
+m_tot_coverage_plot
+m_subset_coverage_plot
+```
+
+HUMAN
+
+```{r}
+library(goftest)
+
+h_borda_ks = ad.test(h_borda[h_borda$class == 1, "scaled_rank"])
+h_borda_ks
+
+h_toprank_ks = ad.test(h_toprank[h_toprank$class == 1, "scaled_rank"])
+h_toprank_ks
+
+h_chea3_libs_ks = plyr::dlply(h_chea3_libs,plyr::.(library),function(x){
+  return(ad.test(x[x$class == 1, "scaled_rank"]))
+})
+
+h_chea3_libs_ks
+
+h_borda_ks_df = data.frame(Method = "MeanRank", 
+  Pval = signif(-log(h_borda_ks$p.value),4),stringsAsFactors = F)
+
+h_toprank_ks_df = data.frame(Method = "TopRank", Pval = signif(-log(h_toprank_ks$p.value),4), stringsAsFactors = F)
+
+h_libs_ks_df = plyr::ldply(h_chea3_libs_ks,function(x){
+  return(data.frame(Pval = signif(-log(x$p.value),4), stringsAsFactors = F))})
+
+
+
+
+
+```
+
+
+Compute bootstrapped ROC Curves
+
+```{r}
+library(ggplot2)
+
+n=5000
+
+bootstrap_ROCcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    roc = PRROC::roc.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(roc$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + roc$auc
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(FPR = mean(x[,1]), TPR = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+}
+
+#chea3 h_borda
+h_borda_roc = bootstrap_ROCcurve(1-h_borda$scaled_rank[h_borda$class==1],1-h_borda$scaled_rank[h_borda$class==0],n)
+
+#chea3 h_toprank
+h_toprank_roc = bootstrap_ROCcurve(1-h_toprank$scaled_rank[h_toprank$class==1],1-h_toprank$scaled_rank[h_toprank$class==0], n)
+
+
+#chea3 libs
+h_chea3_libs_roc = plyr::dlply(h_chea3_libs,plyr::.(library),function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+
+```
+
+Plot Bootstrapped ROC curves
+```{r}
+h_roc = data.frame()
+
+h_roc = rbind(h_roc, data.frame(Method = "MeanRank",
+  FPR = h_borda_roc$approx$x, TPR = h_borda_roc$approx$y, stringsAsFactors = F))
+
+h_roc = rbind(h_roc, data.frame(Method = "TopRank",
+  FPR = h_toprank_roc$approx$x, TPR = h_toprank_roc$approx$y, stringsAsFactors = F))
+
+h_libs_roc = plyr::ldply(h_chea3_libs_roc,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+h_libs_roc$Method = gsub("--"," ",h_libs_roc$library)
+h_libs_roc$library = NULL
+
+h_roc = rbind(h_roc, h_libs_roc)
+
+h_roc = h_roc[order(h_roc$Method),]
+h_bootstrap_roc_plot = ggline(h_roc, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+h_bootstrap_roc_plot
+
+```
+
+Compute bootstrapped PR curves
+
+```{r}
+
+n=5000
+
+bootstrap_PRcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    pr = PRROC::pr.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(pr$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + pr$auc.integral
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(recall = mean(x[,1]), precision = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+ }
+
+
+#chea3 h_borda
+h_borda_pr = bootstrap_PRcurve(1-h_borda$scaled_rank[h_borda$class==1],1-h_borda$scaled_rank[h_borda$class==0],n)
+
+#chea3 h_toprank
+h_toprank_pr = bootstrap_PRcurve(1-h_toprank$scaled_rank[h_toprank$class==1],1-h_toprank$scaled_rank[h_toprank$class==0], n)
+
+
+#chea3 libs
+h_chea3_libs_pr = plyr::dlply(h_chea3_libs,plyr::.(library),function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+
+```
+
+Plot bootstrapped PR curves
+
+```{r}
+
+h_pr = data.frame()
+
+h_pr = rbind(h_pr, data.frame(Method = "MeanRank",
+  Recall = h_borda_pr$approx$x, Precision = h_borda_pr$approx$y, stringsAsFactors = F))
+
+h_pr = rbind(h_pr, data.frame(Method = "TopRank",
+  Recall = h_toprank_pr$approx$x, Precision = h_toprank_pr$approx$y, stringsAsFactors = F))
+
+h_libs_pr = plyr::ldply(h_chea3_libs_pr,function(lib){
+  return(data.frame(
+    Recall = lib$approx$x, Precision = lib$approx$y, stringsAsFactors = F))
+})
+
+h_libs_pr$Method = gsub("--"," ",h_libs_pr$library)
+h_libs_pr$library = NULL
+
+h_pr = rbind(h_pr, h_libs_pr)
+
+h_pr = h_pr[order(h_pr$Method),]
+h_bootstrap_pr_plot = ggline(h_pr, x = "Recall", y = "Precision", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+h_bootstrap_pr_plot
+
+```
+
+
+Compute and plot bridge plots 
+```{r}
+
+
+h_borda_ecdf = ecdf(h_borda$scaled_rank[h_borda$class == 1])
+
+h_toprank_ecdf = ecdf(h_toprank$scaled_rank[h_toprank$class == 1])
+
+h_chea3_libs_ecdf = plyr::dlply(h_chea3_libs,plyr::.(library),function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+h_rand_ecdf = ecdf(runif(sum(h_borda$class == 1), min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+h_bridge_df = data.frame()
+
+h_borda_bridge = data.frame(x = x, y = h_borda_ecdf(x) - h_rand_ecdf(x), Method = "MeanRank",
+  stringsAsFactors = F)
+h_bridge_df = rbind(h_bridge_df, h_borda_bridge)
+
+h_toprank_bridge = data.frame(x = x, y = h_toprank_ecdf(x) - h_rand_ecdf(x), Method = "TopRank",
+  stringsAsFactors = F)
+h_bridge_df = rbind(h_bridge_df,h_toprank_bridge)
+
+for(i in 1:length(h_chea3_libs_ecdf)){
+  h_lib_bridge = data.frame(x = x, y = h_chea3_libs_ecdf[[i]](x) - h_rand_ecdf(x), 
+    Method = gsub("--"," ", names(h_chea3_libs_ecdf)[i]),stringsAsFactors = F)
+  h_bridge_df = rbind(h_bridge_df, h_lib_bridge)
+}
+
+h_bridge_df = h_bridge_df[order(h_bridge_df$Method),]
+
+h_bridge_plot = ggline(h_bridge_df, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r", ylim = c(0,0.5))
+
+h_bridge_plot
+```
+
+Report Fraction of Benchmarking Sets reported as Rank 1, Rank 2, etc.
+Exported 11x15 inches
+```{r}
+
+
+generateHist = function(num_benchmarking_sets, max_rank, ranks){
+  # breaks = seq(from=10, to= max_rank + 10, by=10)
+  quantiles = seq(from = 0.01, to = 1, by=0.01)
+  breaks = quantile(seq(1,max_rank,1),quantiles)
+  bins = rep(0,length(breaks))
+  for(i in 1:length(breaks)){
+    if(i==1){
+      bins[i] = sum(ranks<=breaks[i])
+    }else{
+      bins[i] = sum(ranks>breaks[i-1] & ranks<=breaks[i])
+    }
+  }
+  tot_bin = bins/num_benchmarking_sets
+  # cum = sapply(breaks, function(x) sum(ranks <= x))
+  # frac_cum = cum/num_benchmarking_sets
+  sub_bin = bins/length(ranks)
+  
+  return(rbind(data.frame(quants = quantiles*100, breaks = breaks, bin = tot_bin*100, type = "total"), data.frame(quants = quantiles*100, breaks = breaks, bin = sub_bin*100, type = "subset")))
+}
+
+breaks_text = as.character(1:100)
+breaks_text[-c(1,25,50,75,100)] = ""
+
+h_borda_hist = generateHist(num_benchmarking_sets = length(unique(h_borda$query_set)),
+  max_rank = max(h_borda$rank),
+  ranks = h_borda[h_borda$class == 1,"rank"]) 
+
+h_toprank_hist = generateHist(num_benchmarking_sets = length(unique(h_toprank$query_set)),
+  max_rank = max(h_toprank$rank),
+  ranks = h_toprank[h_toprank$class == 1,"rank"])
+
+h_lib_hist = plyr::dlply(h_chea3_libs,plyr::.(library),function(lib){
+  df = generateHist(num_benchmarking_sets = length(unique(lib$query_name)),
+  max_rank = max(lib$rank),
+  ranks = lib[lib$class == 1,"rank"])
+  return(cbind(df,data.frame(library = rep(unique(lib$library),nrow(df)))))
+})
+
+h_borda_hist_plot = ggpubr::ggbarplot(h_borda_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = "Integrated MeanRank",position = position_dodge(0.9), ylim = c(0,15)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+h_toprank_hist_plot = ggpubr::ggbarplot(m_toprank_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = "Integrated TopRank",position = position_dodge(0.9), ylim = c(0,15)) + rotate_x_text(45) + rremove("ylab") + scale_x_discrete(labels = breaks_text)
+
+
+h_lib_hist_plots = lapply(h_lib_hist, function(lib){
+
+  return(ggpubr::ggbarplot(lib, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = unique(lib$library),position = position_dodge(0.9), ylim = c(0,15)) + rotate_x_text(45) + rremove("ylab")+ scale_x_discrete(labels = breaks_text) )})
+
+
+h_hist_plot_list = c(list(meanRank = h_borda_hist_plot, h_toprank = h_toprank_hist_plot), h_lib_hist_plots)
+
+
+annotate_figure(ggarrange(plotlist = h_hist_plot_list,ncol = 1, nrow = length(h_hist_plot_list), common.legend = T, legend = "top"),  left = text_grob('Recovered LOF/GOF TFS (%)',size = 14,rot=90))
+
+
+```
+
+
+Generate table of AUCs and pvalues
+
+```{r}
+h_perform_df = data.frame(Method = c("MeanRank","TopRank",gsub("--"," ",names(h_chea3_libs_pr))), 
+  'ROC AUC' = c(signif(h_borda_roc$auc,3),
+  signif(h_toprank_roc$auc,3),
+  signif(as.numeric(unlist(lapply(h_chea3_libs_roc,'[[',1))),3)),
+  'PR AUC' = c(signif(h_borda_pr$auc,3),
+  signif(h_toprank_pr$auc,3),
+  signif(as.numeric(unlist(lapply(h_chea3_libs_pr,'[[',1))),3)),
+  'Percent Total Recovered' = 
+    c(signif(h_borda_hist[h_borda_hist$quant == 1 & h_borda_hist$type == "total","bin"],3),
+      signif(h_toprank_hist[h_toprank_hist$quant == 1 & h_toprank_hist$type == "total","bin"],3), 
+      signif(unlist(lapply(h_lib_hist,function(x){
+        return(x[x$quant == 1 & x$type == "total","bin"])
+      })),3)
+      ),
+  'Percent Subset Recovered' = 
+    c(signif(h_borda_hist[h_borda_hist$quant == 1 & h_borda_hist$type == "subset","bin"],3),
+      signif(h_toprank_hist[h_toprank_hist$quant == 1 & h_toprank_hist$type == "subset","bin"],3), 
+      signif(unlist(lapply(h_lib_hist,function(x){
+        return(x[x$quant == 1 & x$type == "subset","bin"])
+      })),3)
+      ),
+  
+  stringsAsFactors = F)
+colnames(h_perform_df) = gsub("\\.", " ", colnames(h_perform_df))
+  
+h_perform_table = ggtexttable(h_perform_df, rows = NULL, theme = ttheme("minimal"))
+h_perform_table
+```
+
+
+```{r}
+h_perform_df$Method
+
+h_perform_df$TF_coverage = c(length(integ_tfs), length(integ_tfs), length(archs4_tfs),
+  length(encode_tfs), length(enrichr_tfs), length(gtex_tfs), length(lit_tfs), 
+  length(remap_tfs))
+
+colnames(h_perform_df) = gsub(" ","_",colnames(h_perform_df))
+
+h_auc_summary_plot = ggpubr::ggscatter(data = h_perform_df, x = 'ROC_AUC', y = 'PR_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "ROC AUC", ylab = "PR AUC", size = 4)
+h_auc_summary_plot
+
+```
+
+
+Generate Coverage versus Benchmarking Metric Plots
+
+```{r}
+
+h_roc_coverage_plot = ggpubr::ggscatter(data = h_perform_df, x = 'TF_coverage', y = 'ROC_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "ROC AUC", size = 4)
+h_pr_coverage_plot = ggpubr::ggscatter(data = h_perform_df, x = 'TF_coverage', y = 'PR_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "PR AUC", size = 4)
+h_tot_coverage_plot = ggpubr::ggscatter(data = h_perform_df, x = 'TF_coverage', y = 'Percent_Total_Recovered', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "Percent Total Recovered", size = 4, ylim = c(0,18))
+h_sub_coverage_plot = ggpubr::ggscatter(data = h_perform_df, x = 'TF_coverage', y = 'Percent_Subset_Recovered', label = 'Method', repel = T, label.rectangle = F, palette = "jco",  alpha = 0.25, xlab = "TF Coverage", ylab = "Percent Subset Recovered", size = 4, ylim = c(0,18))
+
+
+h_roc_coverage_plot
+h_pr_coverage_plot
+h_tot_coverage_plot
+h_sub_coverage_plot
+
+```
+
+
+Arrange Mouse and Human Plots
+
+Export size: plot1 ?
+plot2 
+```{r}
+ggarrange(h_bootstrap_roc_plot,m_bootstrap_roc_plot,h_bootstrap_pr_plot,m_bootstrap_pr_plot,h_bridge_plot,m_bridge_plot,
+ncol = 2, nrow = 3, common.legend = T, legend = "bottom", labels = "auto") + theme(plot.margin = unit(c(2,1,1,1),"cm"))
+
+ggarrange(h_auc_summary_plot, m_auc_summary_plot, h_roc_coverage_plot, m_roc_coverage_plot, h_pr_coverage_plot, m_pr_coverage_plot, h_tot_coverage_plot, m_tot_coverage_plot, h_sub_coverage_plot, m_subset_coverage_plot, ncol = 2, nrow = 5, labels = "auto") + theme(plot.margin = unit(c(2,1,1,1),"cm"))
+```
+
+Save 
+```{r}
+save.image(file = "/volumes/Backup2/ChEA3_API_Benchmark/mouse_human_benchmarking.Rdata")
+
+```
+
+
+

@@ -1,0 +1,4 @@
+for i in {1..100}
+do
+java -Xmx20G -jar aracne.jar -e /users/summerstudent/ARACNe_input_GTEx/matrix.txt  -o /users/summerstudent/ARACNe_output_GTEx --tfs /users/summerstudent/ARACNe_input_GTEx/tfs.txt --pvalue 1E-8 --seed $i
+done

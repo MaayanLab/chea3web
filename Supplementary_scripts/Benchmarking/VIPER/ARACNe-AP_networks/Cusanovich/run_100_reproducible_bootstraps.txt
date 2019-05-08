@@ -1,0 +1,4 @@
+for i in {1..100}
+do
+java -Xmx5G -jar aracne.jar -e /Volumes/External/Cusanovich/ARACNe_input_Cusanovich/matrix.txt  -o /Volumes/External/Cusanovich/ARACNe_output_Cusanovich --tfs /Volumes/External/Cusanovich/ARACNe_input_Cusanovich/tfs.txt --pvalue 1E-8 --seed $i
+done
