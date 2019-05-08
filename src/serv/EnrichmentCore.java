@@ -220,7 +220,7 @@ public class EnrichmentCore extends HttpServlet {
 
 					for(Integer dupe: duplicated_tf_idx) {
 						int duplicated = dupe;
-						System.out.println(dupe);
+						//System.out.println(dupe);
 						enrichResult.remove(duplicated);
 					}
 

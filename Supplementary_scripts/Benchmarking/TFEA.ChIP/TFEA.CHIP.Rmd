@@ -1,0 +1,47 @@
+---
+title: "Benchmarking Single TF Perturbation Dataset Against Other Available Tools"
+output: html_notebook
+---
+
+
+TFEA.ChIP Benchmark on CREEDS/GEO perturbation data
+(Filter results for site-specific HGNC-approved TFs only)
+
+
+```{r}
+rm(list = ls())
+
+outdir = './TFEAChIP/'
+dir.create(outdir)
+outfile = "TFEA.ChIP_modified_benchmark_bidir_human_perturbs.tsv"
+
+perturbs = chea3::libs[["Perturbations"]]
+perturbs = perturbs[grepl("HUMAN",names(perturbs))]
+results = list()
+for(i in 1:length(perturbs)){
+  experiment = names(perturbs)[i]
+  TF = unlist(strsplit(experiment,"_"))[1]
+  entrez_ids = TFEA.ChIP::GeneID2entrez(perturbs[[i]])
+  conting = TFEA.ChIP::contingency_matrix(entrez_ids)
+  stats = TFEA.ChIP::getCMstats(conting)
+  stats = stats[order(stats$p.value),]
+  stats$TF = genesetr::HGNCapproved(as.character(stats$TF),untranslatable.na = T)
+  stats = stats[!is.na(stats$TF),]
+  stats = stats[stats$TF %in% chea3::tfs,]
+  #keep only the best ranking gene set when multiple gene sets correspond to a single TF
+  stats = stats[!duplicated(stats$TF),]
+  stats$class = 0
+  stats[stats$TF == TF, "class"] = 1
+  stats$rank = rank(stats$p.value, ties.method = "random")
+  stats$scaled_rank = stats$rank/max(stats$rank)
+  results[[experiment]] = data.frame(perturb_experiment = rep(experiment,nrow(stats)), 
+    set_name = stats$TF,
+    scaled_rank = stats$scaled_rank, rank = stats$rank, class = stats$class, stringsAsFactors = F)
+  
+}
+results_df = do.call(rbind, results)
+write.table(results_df,paste(outdir,outfile,sep = ""), row.names = F, col.names = T, quote = F, sep = '\t')
+
+```
+
+

@@ -1,0 +1,530 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Activating UP
+```{r}
+
+
+library(ggpubr)
+
+borda_actup = read.table("/volumes/backup2/ChEA3_up_dn_plots/activ_upmeanrank_results.tsv", header = T, stringsAsFactors = F)
+
+toprank_actup = read.table("/volumes/backup2/ChEA3_up_dn_plots/activ_uptoprank_results.tsv", header = T, stringsAsFactors = F)
+
+chea3_libs_actup = read.table("/volumes/backup2/ChEA3_up_dn_plots/activ_uplibrary_results.tsv", header = T, stringsAsFactors = F)
+
+borda_ecdf_actup = ecdf(borda_actup$scaled_rank[borda_actup$class == 1])
+
+toprank_ecdf_actup = ecdf(toprank_actup$scaled_rank[toprank_actup$class == 1])
+
+chea3_libs_ecdf_actup = plyr::dlply(chea3_libs_actup,plyr::.(library),function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+rand_ecdf_actup = ecdf(runif(sum(borda_actup$class == 1), min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+bridge_df_actup = data.frame()
+
+borda_bridge_actup = data.frame(x = x, y = borda_ecdf_actup(x) - rand_ecdf_actup(x), Method = "MeanRank",
+  stringsAsFactors = F)
+bridge_df_actup = rbind(bridge_df_actup, borda_bridge_actup)
+
+toprank_bridge_actup = data.frame(x = x, y = toprank_ecdf_actup(x) - rand_ecdf_actup(x), Method = "TopRank",
+  stringsAsFactors = F)
+bridge_df_actup = rbind(bridge_df_actup,toprank_bridge_actup)
+
+for(i in 1:length(chea3_libs_ecdf_actup)){
+  lib_bridge = data.frame(x = x, y = chea3_libs_ecdf_actup[[i]](x) - rand_ecdf_actup(x), 
+    Method = gsub("--"," ", names(chea3_libs_ecdf_actup)[i]),stringsAsFactors = F)
+  bridge_df_actup = rbind(bridge_df_actup, lib_bridge)
+}
+
+bridge_df_actup = bridge_df_actup[order(bridge_df_actup$Method),]
+
+bridge_plot_actup = ggline(bridge_df_actup, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r", ylim = c(0,0.5))
+
+bridge_plot_actup
+
+```
+
+Activating DN
+
+```{r}
+
+
+library(ggpubr)
+
+borda_actdn = read.table("/volumes/backup2/ChEA3_up_dn_plots/activ_dnmeanrank_results.tsv", header = T, stringsAsFactors = F)
+
+toprank_actdn = read.table("/volumes/backup2/ChEA3_up_dn_plots/activ_dntoprank_results.tsv", header = T, stringsAsFactors = F)
+
+chea3_libs_actdn = read.table("/volumes/backup2/ChEA3_up_dn_plots/activ_dnlibrary_results.tsv", header = T, stringsAsFactors = F)
+
+borda_ecdf_actdn = ecdf(borda_actdn$scaled_rank[borda_actdn$class == 1])
+
+toprank_ecdf_actdn = ecdf(toprank_actdn$scaled_rank[toprank_actdn$class == 1])
+
+chea3_libs_ecdf_actdn = plyr::dlply(chea3_libs_actdn,plyr::.(library),function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+rand_ecdf_actdn = ecdf(runif(sum(borda_actdn$class == 1), min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+bridge_df_actdn = data.frame()
+
+borda_bridge_actdn = data.frame(x = x, y = borda_ecdf_actdn(x) - rand_ecdf_actdn(x), Method = "MeanRank",
+  stringsAsFactors = F)
+bridge_df_actdn = rbind(bridge_df_actdn, borda_bridge_actdn)
+
+toprank_bridge_actdn = data.frame(x = x, y = toprank_ecdf_actdn(x) - rand_ecdf_actdn(x), Method = "TopRank",
+  stringsAsFactors = F)
+bridge_df_actdn = rbind(bridge_df_actdn,toprank_bridge_actdn)
+
+for(i in 1:length(chea3_libs_ecdf_actdn)){
+  lib_bridge = data.frame(x = x, y = chea3_libs_ecdf_actdn[[i]](x) - rand_ecdf_actdn(x), 
+    Method = gsub("--"," ", names(chea3_libs_ecdf_actdn)[i]),stringsAsFactors = F)
+  bridge_df_actdn = rbind(bridge_df_actdn, lib_bridge)
+}
+
+bridge_df_actdn = bridge_df_actdn[order(bridge_df_actdn$Method),]
+
+bridge_plot_actdn = ggline(bridge_df_actdn, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r", ylim = c(0,0.5))
+
+bridge_plot_actdn
+
+
+```
+
+
+Inactivating UP
+
+```{r}
+
+
+library(ggpubr)
+
+borda_inactup = read.table("/volumes/backup2/ChEA3_up_dn_plots/inactiv_upmeanrank_results.tsv", header = T, stringsAsFactors = F)
+
+toprank_inactup = read.table("/volumes/backup2/ChEA3_up_dn_plots/inactiv_uptoprank_results.tsv", header = T, stringsAsFactors = F)
+
+chea3_libs_inactup = read.table("/volumes/backup2/ChEA3_up_dn_plots/inactiv_uplibrary_results.tsv", header = T, stringsAsFactors = F)
+
+borda_ecdf_inactup = ecdf(borda_inactup$scaled_rank[borda_inactup$class == 1])
+
+toprank_ecdf_inactup = ecdf(toprank_inactup$scaled_rank[toprank_inactup$class == 1])
+
+chea3_libs_ecdf_inactup = plyr::dlply(chea3_libs_inactup,plyr::.(library),function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+rand_ecdf_inactup = ecdf(runif(sum(borda_inactup$class == 1), min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+bridge_df_inactup = data.frame()
+
+borda_bridge_inactup = data.frame(x = x, y = borda_ecdf_inactup(x) - rand_ecdf_inactup(x), Method = "MeanRank",
+  stringsAsFactors = F)
+bridge_df_inactup = rbind(bridge_df_inactup, borda_bridge_inactup)
+
+toprank_bridge_inactup = data.frame(x = x, y = toprank_ecdf_inactup(x) - rand_ecdf_inactup(x), Method = "TopRank",
+  stringsAsFactors = F)
+bridge_df_inactup = rbind(bridge_df_inactup,toprank_bridge_inactup)
+
+for(i in 1:length(chea3_libs_ecdf_inactup)){
+  lib_bridge = data.frame(x = x, y = chea3_libs_ecdf_inactup[[i]](x) - rand_ecdf_inactup(x), 
+    Method = gsub("--"," ", names(chea3_libs_ecdf_inactup)[i]),stringsAsFactors = F)
+  bridge_df_inactup = rbind(bridge_df_inactup, lib_bridge)
+}
+
+bridge_df_inactup = bridge_df_inactup[order(bridge_df_inactup$Method),]
+
+bridge_plot_inactup = ggline(bridge_df_inactup, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r", ylim = c(0,0.5))
+
+bridge_plot_inactup
+
+
+```
+
+Inactivating DN
+
+```{r}
+
+
+library(ggpubr)
+
+borda_inactdn = read.table("/volumes/backup2/ChEA3_up_dn_plots/inactiv_dnmeanrank_results.tsv", header = T, stringsAsFactors = F)
+
+toprank_inactdn = read.table("/volumes/backup2/ChEA3_up_dn_plots/inactiv_dntoprank_results.tsv", header = T, stringsAsFactors = F)
+
+chea3_libs_inactdn = read.table("/volumes/backup2/ChEA3_up_dn_plots/inactiv_dnlibrary_results.tsv", header = T, stringsAsFactors = F)
+
+borda_ecdf_inactdn = ecdf(borda_inactdn$scaled_rank[borda_inactdn$class == 1])
+
+toprank_ecdf_inactdn = ecdf(toprank_inactdn$scaled_rank[toprank_inactdn$class == 1])
+
+chea3_libs_ecdf_inactdn = plyr::dlply(chea3_libs_inactdn,plyr::.(library),function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+rand_ecdf_inactdn = ecdf(runif(sum(borda_inactdn$class == 1), min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+bridge_df_inactdn = data.frame()
+
+borda_bridge_inactdn = data.frame(x = x, y = borda_ecdf_inactdn(x) - rand_ecdf_inactdn(x), Method = "MeanRank",
+  stringsAsFactors = F)
+bridge_df_inactdn = rbind(bridge_df_inactdn, borda_bridge_inactdn)
+
+toprank_bridge_inactdn = data.frame(x = x, y = toprank_ecdf_inactdn(x) - rand_ecdf_inactdn(x), Method = "TopRank",
+  stringsAsFactors = F)
+bridge_df_inactdn = rbind(bridge_df_inactdn,toprank_bridge_inactdn)
+
+for(i in 1:length(chea3_libs_ecdf_inactdn)){
+  lib_bridge = data.frame(x = x, y = chea3_libs_ecdf_inactdn[[i]](x) - rand_ecdf_inactdn(x), 
+    Method = gsub("--"," ", names(chea3_libs_ecdf_inactdn)[i]),stringsAsFactors = F)
+  bridge_df_inactdn = rbind(bridge_df_inactdn, lib_bridge)
+}
+
+bridge_df_inactdn = bridge_df_inactdn[order(bridge_df_inactdn$Method),]
+
+bridge_plot_inactdn = ggline(bridge_df_inactdn, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r", ylim = c(0,0.5))
+
+bridge_plot_inactdn
+
+
+```
+
+Plot all in grid
+```{r}
+ggarrange(bridge_plot_actup, bridge_plot_actdn, bridge_plot_inactup, bridge_plot_inactdn, ncol = 2, nrow = 2, common.legend = T, legend  = "bottom", labels = "auto") + theme(plot.margin = unit(c(2,2,1,1),"cm"))
+```
+Compute bootstrapped ROC Curves
+
+```{r}
+library(ggplot2)
+
+n=5000
+
+bootstrap_ROCcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    roc = PRROC::roc.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(roc$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + roc$auc
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(FPR = mean(x[,1]), TPR = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+}
+
+##INACTIVATING UP
+borda_roc_inactup = bootstrap_ROCcurve(1-borda_inactup$scaled_rank[borda_inactup$class==1],1-borda_inactup$scaled_rank[borda_inactup$class==0],n)
+toprank_roc_inactup = bootstrap_ROCcurve(1-toprank_inactup$scaled_rank[toprank_inactup$class==1],1-toprank_inactup$scaled_rank[toprank_inactup$class==0],n)
+chea3_libs_roc_inactup = plyr::dlply(chea3_libs_inactup,plyr::.(library),function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+##INACTIVATING DN
+
+borda_roc_inactdn = bootstrap_ROCcurve(1-borda_inactdn$scaled_rank[borda_inactdn$class==1],1-borda_inactdn$scaled_rank[borda_inactdn$class==0],n)
+toprank_roc_inactdn = bootstrap_ROCcurve(1-toprank_inactdn$scaled_rank[toprank_inactdn$class==1],1-toprank_inactdn$scaled_rank[toprank_inactdn$class==0],n)
+chea3_libs_roc_inactdn = plyr::dlply(chea3_libs_inactdn,plyr::.(library),function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+##ACTIVATING UP
+
+borda_roc_actup = bootstrap_ROCcurve(1-borda_actup$scaled_rank[borda_actup$class==1],1-borda_actup$scaled_rank[borda_actup$class==0],n)
+toprank_roc_actup = bootstrap_ROCcurve(1-toprank_actup$scaled_rank[toprank_actup$class==1],1-toprank_actup$scaled_rank[toprank_actup$class==0],n)
+chea3_libs_roc_actup = plyr::dlply(chea3_libs_actup,plyr::.(library),function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+##ACTIVATING DN
+borda_roc_actdn = bootstrap_ROCcurve(1-borda_actdn$scaled_rank[borda_actdn$class==1],1-borda_actdn$scaled_rank[borda_actdn$class==0],n)
+toprank_roc_actdn = bootstrap_ROCcurve(1-toprank_actdn$scaled_rank[toprank_actdn$class==1],1-toprank_actdn$scaled_rank[toprank_actdn$class==0],n)
+chea3_libs_roc_actdn = plyr::dlply(chea3_libs_actdn,plyr::.(library),function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+
+```
+
+Plot Bootstrapped ROC curves
+```{r}
+
+#INACTIVATING UP
+
+roc_inactup = data.frame()
+
+roc_inactup = rbind(roc_inactup, data.frame(Method = "MeanRank",
+  FPR = borda_roc_inactup$approx$x, TPR = borda_roc_inactup$approx$y, stringsAsFactors = F))
+
+roc_inactup = rbind(roc_inactup, data.frame(Method = "TopRank",
+  FPR = toprank_roc_inactup$approx$x, TPR = toprank_roc_inactup$approx$y, stringsAsFactors = F))
+
+libs_roc_inactup = plyr::ldply(chea3_libs_roc_inactup,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_roc_inactup$Method = gsub("--"," ",libs_roc_inactup$library)
+libs_roc_inactup$library = NULL
+
+roc_inactup = rbind(roc_inactup, libs_roc_inactup)
+
+roc_inactup = roc_inactup[order(roc_inactup$Method),]
+bootstrap_roc_plot_inactup = ggline(roc_inactup, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+#INACTIVATING DN
+
+roc_inactdn = data.frame()
+
+roc_inactdn = rbind(roc_inactdn, data.frame(Method = "MeanRank",
+  FPR = borda_roc_inactdn$approx$x, TPR = borda_roc_inactdn$approx$y, stringsAsFactors = F))
+
+roc_inactdn = rbind(roc_inactdn, data.frame(Method = "TopRank",
+  FPR = toprank_roc_inactdn$approx$x, TPR = toprank_roc_inactdn$approx$y, stringsAsFactors = F))
+
+libs_roc_inactdn = plyr::ldply(chea3_libs_roc_inactdn,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_roc_inactdn$Method = gsub("--"," ",libs_roc_inactdn$library)
+libs_roc_inactdn$library = NULL
+
+roc_inactdn = rbind(roc_inactdn, libs_roc_inactdn)
+
+roc_inactdn = roc_inactdn[order(roc_inactdn$Method),]
+bootstrap_roc_plot_inactdn = ggline(roc_inactdn, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+#ACTIVATING UP
+roc_actup = data.frame()
+
+roc_actup = rbind(roc_actup, data.frame(Method = "MeanRank",
+  FPR = borda_roc_actup$approx$x, TPR = borda_roc_actup$approx$y, stringsAsFactors = F))
+
+roc_actup = rbind(roc_actup, data.frame(Method = "TopRank",
+  FPR = toprank_roc_actup$approx$x, TPR = toprank_roc_actup$approx$y, stringsAsFactors = F))
+
+libs_roc_actup = plyr::ldply(chea3_libs_roc_actup,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_roc_actup$Method = gsub("--"," ",libs_roc_actup$library)
+libs_roc_actup$library = NULL
+
+roc_actup = rbind(roc_actup, libs_roc_actup)
+
+roc_actup = roc_actup[order(roc_actup$Method),]
+bootstrap_roc_plot_actup = ggline(roc_actup, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+#ACTIVATING DN
+roc_actdn = data.frame()
+
+roc_actdn = rbind(roc_actdn, data.frame(Method = "MeanRank",
+  FPR = borda_roc_actdn$approx$x, TPR = borda_roc_actdn$approx$y, stringsAsFactors = F))
+
+roc_actdn = rbind(roc_actdn, data.frame(Method = "TopRank",
+  FPR = toprank_roc_actdn$approx$x, TPR = toprank_roc_actdn$approx$y, stringsAsFactors = F))
+
+libs_roc_actdn = plyr::ldply(chea3_libs_roc_actdn,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_roc_actdn$Method = gsub("--"," ",libs_roc_actdn$library)
+libs_roc_actdn$library = NULL
+
+roc_actdn = rbind(roc_actdn, libs_roc_actdn)
+
+roc_actdn = roc_actdn[order(roc_actdn$Method),]
+bootstrap_roc_plot_actdn = ggline(roc_actdn, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+#generate roc curve grid
+
+
+```
+
+Compute bootstrapped PR curves
+
+```{r}
+
+n=5000
+
+bootstrap_PRcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    pr = PRROC::pr.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(pr$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + pr$auc.integral
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(recall = mean(x[,1]), precision = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+ }
+
+##INACTIVATING UP
+borda_pr_inactup = bootstrap_PRcurve(1-borda_inactup$scaled_rank[borda_inactup$class==1],1-borda_inactup$scaled_rank[borda_inactup$class==0],n)
+toprank_pr_inactup = bootstrap_PRcurve(1-toprank_inactup$scaled_rank[toprank_inactup$class==1],1-toprank_inactup$scaled_rank[toprank_inactup$class==0],n)
+chea3_libs_pr_inactup = plyr::dlply(chea3_libs_inactup,plyr::.(library),function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+##INACTIVATING DN
+
+borda_pr_inactdn = bootstrap_PRcurve(1-borda_inactdn$scaled_rank[borda_inactdn$class==1],1-borda_inactdn$scaled_rank[borda_inactdn$class==0],n)
+toprank_pr_inactdn = bootstrap_PRcurve(1-toprank_inactdn$scaled_rank[toprank_inactdn$class==1],1-toprank_inactdn$scaled_rank[toprank_inactdn$class==0],n)
+chea3_libs_pr_inactdn = plyr::dlply(chea3_libs_inactdn,plyr::.(library),function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+##ACTIVATING UP
+
+borda_pr_actup = bootstrap_PRcurve(1-borda_actup$scaled_rank[borda_actup$class==1],1-borda_actup$scaled_rank[borda_actup$class==0],n)
+toprank_pr_actup = bootstrap_PRcurve(1-toprank_actup$scaled_rank[toprank_actup$class==1],1-toprank_actup$scaled_rank[toprank_actup$class==0],n)
+chea3_libs_pr_actup = plyr::dlply(chea3_libs_actup,plyr::.(library),function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+##ACTIVATING DN
+borda_pr_actdn = bootstrap_PRcurve(1-borda_actdn$scaled_rank[borda_actdn$class==1],1-borda_actdn$scaled_rank[borda_actdn$class==0],n)
+toprank_pr_actdn = bootstrap_PRcurve(1-toprank_actdn$scaled_rank[toprank_actdn$class==1],1-toprank_actdn$scaled_rank[toprank_actdn$class==0],n)
+chea3_libs_pr_actdn = plyr::dlply(chea3_libs_actdn,plyr::.(library),function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+ggarrange(bootstrap_roc_plot_actup, bootstrap_roc_plot_actdn, bootstrap_roc_plot_inactup, bootstrap_roc_plot_inactdn, ncol = 2, nrow = 2, common.legend = T, legend  = "bottom", labels = "auto")+ theme(plot.margin = unit(c(2,2,1,1),"cm"))
+
+```
+
+Plot bootstrapped PR curves
+
+```{r}
+
+#INACTIVATING UP
+
+pr_inactup = data.frame()
+
+pr_inactup = rbind(pr_inactup, data.frame(Method = "MeanRank",
+  FPR = borda_pr_inactup$approx$x, TPR = borda_pr_inactup$approx$y, stringsAsFactors = F))
+
+pr_inactup = rbind(pr_inactup, data.frame(Method = "TopRank",
+  FPR = toprank_pr_inactup$approx$x, TPR = toprank_pr_inactup$approx$y, stringsAsFactors = F))
+
+libs_pr_inactup = plyr::ldply(chea3_libs_pr_inactup,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_pr_inactup$Method = gsub("--"," ",libs_pr_inactup$library)
+libs_pr_inactup$library = NULL
+
+pr_inactup = rbind(pr_inactup, libs_pr_inactup)
+
+pr_inactup = pr_inactup[order(pr_inactup$Method),]
+bootstrap_pr_plot_inactup = ggline(pr_inactup, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T,ylim = c(0.4,1)) 
+
+#INACTIVATING DN
+
+pr_inactdn = data.frame()
+
+pr_inactdn = rbind(pr_inactdn, data.frame(Method = "MeanRank",
+  FPR = borda_pr_inactdn$approx$x, TPR = borda_pr_inactdn$approx$y, stringsAsFactors = F))
+
+pr_inactdn = rbind(pr_inactdn, data.frame(Method = "TopRank",
+  FPR = toprank_pr_inactdn$approx$x, TPR = toprank_pr_inactdn$approx$y, stringsAsFactors = F))
+
+libs_pr_inactdn = plyr::ldply(chea3_libs_pr_inactdn,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_pr_inactdn$Method = gsub("--"," ",libs_pr_inactdn$library)
+libs_pr_inactdn$library = NULL
+
+pr_inactdn = rbind(pr_inactdn, libs_pr_inactdn)
+
+pr_inactdn = pr_inactdn[order(pr_inactdn$Method),]
+bootstrap_pr_plot_inactdn = ggline(pr_inactdn, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T,ylim = c(0.4,1)) 
+
+#ACTIVATING UP
+pr_actup = data.frame()
+
+pr_actup = rbind(pr_actup, data.frame(Method = "MeanRank",
+  FPR = borda_pr_actup$approx$x, TPR = borda_pr_actup$approx$y, stringsAsFactors = F))
+
+pr_actup = rbind(pr_actup, data.frame(Method = "TopRank",
+  FPR = toprank_pr_actup$approx$x, TPR = toprank_pr_actup$approx$y, stringsAsFactors = F))
+
+libs_pr_actup = plyr::ldply(chea3_libs_pr_actup,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_pr_actup$Method = gsub("--"," ",libs_pr_actup$library)
+libs_pr_actup$library = NULL
+
+pr_actup = rbind(pr_actup, libs_pr_actup)
+
+pr_actup = pr_actup[order(pr_actup$Method),]
+bootstrap_pr_plot_actup = ggline(pr_actup, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T,ylim = c(0.4,1)) 
+
+#ACTIVATING DN
+pr_actdn = data.frame()
+
+pr_actdn = rbind(pr_actdn, data.frame(Method = "MeanRank",
+  FPR = borda_pr_actdn$approx$x, TPR = borda_pr_actdn$approx$y, stringsAsFactors = F))
+
+pr_actdn = rbind(pr_actdn, data.frame(Method = "TopRank",
+  FPR = toprank_pr_actdn$approx$x, TPR = toprank_pr_actdn$approx$y, stringsAsFactors = F))
+
+libs_pr_actdn = plyr::ldply(chea3_libs_pr_actdn,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+libs_pr_actdn$Method = gsub("--"," ",libs_pr_actdn$library)
+libs_pr_actdn$library = NULL
+
+pr_actdn = rbind(pr_actdn, libs_pr_actdn)
+
+pr_actdn = pr_actdn[order(pr_actdn$Method),]
+bootstrap_pr_plot_actdn = ggline(pr_actdn, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T,ylim = c(0.4,1)) 
+
+
+#generate PR curve grid
+
+ggarrange(bootstrap_pr_plot_actup, bootstrap_pr_plot_actdn, bootstrap_pr_plot_inactup, bootstrap_pr_plot_inactdn, ncol = 2, nrow = 2, common.legend = T, legend  = "bottom",labels = "auto")+ theme(plot.margin = unit(c(2,2,1,1),"cm"))
+
+
+```
+

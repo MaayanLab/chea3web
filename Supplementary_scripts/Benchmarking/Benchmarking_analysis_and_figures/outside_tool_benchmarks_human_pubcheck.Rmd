@@ -1,0 +1,517 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Outside tool benchmarking-- HUMAN only 
+
+```{r}
+rm(list = ls())
+
+tfea = read.table('/Volumes/Backup2/ChEA3_outsidetool_benchmarks/TFEAChIP/TFEA.ChIP_modified_benchmark_bidir_human_perturbs.tsv',stringsAsFactors=F, quote="", comment.char="", sep="\t",header = T)
+
+magic = read.table("/volumes/backup2/ChEA3_outsidetool_benchmarks/magicact_results_score_ranked.tsv",stringsAsFactors=F, quote="", comment.char="", sep="\t",header = T)
+
+bart = read.table('/Volumes/Backup2/ChEA3_outsidetool_benchmarks/bart_results_pubversion.tsv',stringsAsFactors=F, quote="", comment.char="", sep="\t",header = T)
+
+#subset to human queries only
+tfea = tfea[grepl("HUMAN",tfea$perturb_experiment),]
+magic = magic[grepl("HUMAN",magic$query_name),]
+bart = bart[grepl("HUMAN",bart$query),]
+
+
+```
+
+Load DoRoTHEA results
+
+```{r}
+dor_creeds_results_dir = "/volumes/Backup2/DoRoTHEA_CREEDS_chdir_sig_results/results_ranked_NES/"
+
+dor_geo_results_dir = "/volumes/backup2/DoRoTHEA_GEORNASEQ_chrdir_sig_results/results_ranked_NES/"
+
+dor_creeds_results_files = list.files(dor_creeds_results_dir)
+dor_geo_results_files = list.files(dor_geo_results_dir)
+
+#combine results from CREEDS and GEO benchmarking datasets
+dor_results = plyr::llply(dor_creeds_results_files,function(filename){
+  creeds_df = read.table(paste(dor_creeds_results_dir,filename,sep = ""),sep = "\t", header = T, quote = "", comment.char = "", stringsAsFactors = F)
+  geo_df = read.table(paste(dor_geo_results_dir,filename,sep = ""),sep = "\t", header = T, quote = "", comment.char = "", stringsAsFactors = F)
+  df = rbind(geo_df,creeds_df)
+  df$regulon = gsub(".tsv","",filename)
+  return(df)
+})
+names(dor_results) = gsub(".tsv","",dor_creeds_results_files)
+
+#rank results, subset to TFS included, determine class
+dor_results = plyr::llply(dor_results,function(results){
+  return(plyr::ddply(results,plyr::.(query_name),function(r){
+    r$set_tf = unlist(sapply(strsplit(unlist(sapply(strsplit(r$set_name," - "),"[[",1)),"_"),"[[",1))
+    r$set_tf = genesetr::HGNCapproved(r$set_tf,untranslatable.na = T)
+    r = r[!is.na(r$set_tf),]
+    r = r[r$set_tf %in% chea3::tfs,]
+    r$query_tf = unlist(sapply(strsplit(r$query_name,"_"),"[[",1))
+    r$rank = rank(-abs(r$nes),ties.method = "random")
+    r$scaled_rank = r$rank/max(r$rank)
+    r$class = 0
+    r[r$set_tf == r$query_tf,"class"] = 1
+    return(r)
+  }))
+})
+
+
+```
+
+Load GTEx VIPER results
+```{r}
+gtexvip_creeds_results_file = "/volumes/Backup2/GTEX_VIPER_CREEDS_chdir_sig_results/gtex_viper_creeds_rank_by_nes.tsv"
+
+gtexvip_geo_results_file = "/volumes/Backup2/GTEX_VIPER_GEORNASEQ_chdir_sig_results/gtex_viper_geoRNASEQ_rank_nes.tsv"
+
+#read in results files
+gtexvip_creeds_results = read.table(gtexvip_creeds_results_file,sep = "\t", header = T, quote = "", comment.char = "", stringsAsFactors = F)
+
+gtexvip_geo_results = read.table(gtexvip_geo_results_file,sep = "\t", header = T, quote = "", comment.char = "", stringsAsFactors = F)
+
+
+#combine results from CREEDS and GEO benchmarking datasets
+gtexvip = rbind(gtexvip_creeds_results,gtexvip_geo_results)
+  
+#rank results, subset to TFS included, determine class
+gtexvip = plyr::ddply(gtexvip,plyr::.(query_name),function(r){
+    r$set_tf = unlist(sapply(strsplit(unlist(sapply(strsplit(r$set_name," - "),"[[",1)),"_"),"[[",1))
+    r$set_tf = genesetr::HGNCapproved(r$set_tf,untranslatable.na = T)
+    r = r[!is.na(r$set_tf),]
+    r = r[r$set_tf %in% chea3::tfs,]
+    r$query_tf = unlist(sapply(strsplit(r$query_name,"_"),"[[",1))
+    r$rank = rank(-abs(r$nes),ties.method = "random")
+    r$scaled_rank = r$rank/max(r$rank)
+    r$class = 0
+    r[r$set_tf == r$query_tf,"class"] = 1
+    return(r)
+ 
+})
+
+```
+
+Generete histograms
+
+```{r}
+library(ggpubr)
+generateHist = function(num_benchmarking_sets, max_rank, ranks){
+  # breaks = seq(from=10, to= max_rank + 10, by=10)
+  quantiles = seq(from = 0.01, to = 1, by=0.01)
+  breaks = quantile(seq(1,max_rank,1),quantiles)
+  bins = rep(0,length(breaks))
+  for(i in 1:length(breaks)){
+    if(i==1){
+      bins[i] = sum(ranks<=breaks[i])
+    }else{
+      bins[i] = sum(ranks>breaks[i-1] & ranks<=breaks[i])
+    }
+  }
+  tot_bin = bins/num_benchmarking_sets
+  # cum = sapply(breaks, function(x) sum(ranks <= x))
+  # frac_cum = cum/num_benchmarking_sets
+  sub_bin = bins/length(ranks)
+  
+  return(rbind(data.frame(quants = quantiles*100, breaks = breaks, bin = tot_bin*100, type = "total"), data.frame(quants = quantiles*100, breaks = breaks, bin = sub_bin*100, type = "subset")))
+}
+
+magic_hist = generateHist(num_benchmarking_sets = length(unique(magic$query_name)),
+  max_rank = max(magic$rank),
+  ranks = magic[magic$class == 1,"rank"])
+
+tfea_hist = generateHist(num_benchmarking_sets = length(unique(tfea$perturb_experiment)),
+  max_rank = max(tfea$rank),
+  ranks = tfea[tfea$class == 1,"rank"])
+
+bart_hist = generateHist(num_benchmarking_sets = length(unique(bart$query)),
+  max_rank = max(bart$rank),
+  ranks = bart[bart$class == 1,"rank"])
+
+dor_hist = lapply(dor_results,function(result){
+  generateHist(num_benchmarking_sets = length(unique(result$query_name)),
+  max_rank = max(result$rank),
+  ranks = result[result$class == 1,"rank"])
+})
+
+custom_breaks = as.character(1:100)
+custom_breaks[-c(1,25,50,75,100)] = ""
+
+gtexvip_hist = generateHist(num_benchmarking_sets = length(unique(gtexvip$query_name)),
+  max_rank = max(gtexvip$rank),
+  ranks = gtexvip[gtexvip$class == 1,"rank"])
+
+magic_hist_plot = ggpubr::ggbarplot(magic_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = "MAGICACT",position = position_dodge(0.9), ylim = c(0,15)) + rotate_x_text(45)  + scale_x_discrete(label = custom_breaks) + rremove("ylab")
+
+gtexvip_hist_plot = ggpubr::ggbarplot(gtexvip_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = "VIPER GTEx Regulon",position = position_dodge(0.9), ylim = c(0,15)) + rotate_x_text(45) + scale_x_discrete(label = custom_breaks) + rremove("ylab")
+
+bart_hist_plot = ggpubr::ggbarplot(bart_hist, x = "quants", y = "bin", color = "type", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", title = "BART", position = position_dodge(0.9),  ylim = c(0,15))  + rotate_x_text(45)  + scale_x_discrete(label = custom_breaks) + rremove("ylab")
+
+tfea_hist_plot = ggpubr::ggbarplot(tfea_hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = "TFEA.ChIP", position = position_dodge(0.9), ylim = c(0,15)) + rotate_x_text(45) + scale_x_discrete(label = custom_breaks) + rremove("ylab")
+
+names(dor_hist) = paste("DoRothEA",gsub("_viperRegulon","",names(dor_hist)),sep = ".")
+
+dor_hist_plots = lapply(names(dor_hist),function(n){
+  hist = dor_hist[[n]]
+  return(ggpubr::ggbarplot(hist, x = "quants", y = "bin", xlab = "Rank Percentile", ylab = "Recovered LOF/GOF TFs (%)", color = "type", title = gsub("\\."," ",n), position = position_dodge(0.9), ylim = c(0,15)) + rotate_x_text(45) + scale_x_discrete(label = custom_breaks) + rremove("ylab"))
+})
+names(dor_hist_plots) = names(dor_hist)
+
+hist_plot_list = list(MAGICACT = magic_hist_plot, TFEA.ChIP = tfea_hist_plot, BART = bart_hist_plot, VIPER.GTEx.Regulon = gtexvip_hist_plot)
+hist_plot_list = c(hist_plot_list,dor_hist_plots)
+
+
+annotate_figure(ggarrange(plotlist = hist_plot_list,ncol = 1, nrow = length(hist_plot_list), common.legend = T, legend = "top"), left = text_grob(label = "Recovered LOF/GOF TFs (%)",rot = 90))
+
+
+```
+
+
+
+
+
+Generate bootstrapped ROC curves
+```{r}
+library(ggplot2)
+
+n=5000
+
+bootstrap_ROCcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    roc = PRROC::roc.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(roc$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + roc$auc
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(FPR = mean(x[,1]), TPR = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+}
+
+#BART
+bart_roc = bootstrap_ROCcurve(1-bart$scaled_rank[bart$class==1],1-bart$scaled_rank[bart$class==0],n)
+
+#TFEA.ChIP
+tfea_roc = bootstrap_ROCcurve(1-tfea$scaled_rank[tfea$class==1],1-tfea$scaled_rank[tfea$class==0],n)
+
+#dorothea
+dor_roc = lapply(dor_results,function(lib){
+  return(bootstrap_ROCcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+#magic
+magic_roc = bootstrap_ROCcurve(1-magic$scaled_rank[magic$class==1],1-magic$scaled_rank[magic$class==0], n)
+
+#gtexvip
+gtexvip_roc = bootstrap_ROCcurve(1-gtexvip$scaled_rank[gtexvip$class==1],1-gtexvip$scaled_rank[gtexvip$class==0], n)
+
+```
+
+Generate ROC plots
+
+```{r}
+roc = data.frame()
+
+roc = rbind(roc, data.frame(Method = "BART",
+  FPR = bart_roc$approx$x, TPR = bart_roc$approx$y, stringsAsFactors = F))
+
+roc = rbind(roc, data.frame(Method = "TFEA.ChIP",
+  FPR = tfea_roc$approx$x, TPR = tfea_roc$approx$y, stringsAsFactors = F))
+
+roc = rbind(roc, data.frame(Method = "MAGICACT",
+  FPR = magic_roc$approx$x, TPR = magic_roc$approx$y, stringsAsFactors = F))
+
+roc = rbind(roc, data.frame(Method = "VIPER GTEx Regulon",
+  FPR = gtexvip_roc$approx$x, TPR = gtexvip_roc$approx$y, stringsAsFactors = F))
+
+dors_roc_df = plyr::ldply(dor_roc,function(lib){
+  return(data.frame(
+    FPR = lib$approx$x, TPR = lib$approx$y, stringsAsFactors = F))
+})
+
+dors_roc_df$Method = paste("DoRothEA", gsub("_viperRegulon","",dors_roc_df$.id))
+dors_roc_df$.id = NULL
+
+roc = rbind(roc, dors_roc_df)
+
+roc = roc[order(roc$Method),]
+bootstrap_roc_plot = ggline(roc, x = "FPR", y = "TPR", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+bootstrap_roc_plot
+```
+
+Generate PR curves
+
+```{r}
+
+n=5000
+
+bootstrap_PRcurve = function(ones, zeros, n){
+  size_group1 = length(ones)
+  sum_AUC = 0
+  curves = list()
+  for(i in 1:n){
+    pr = PRROC::pr.curve(ones, sample(zeros,size_group1), curve = T)
+    curve = as.data.frame(pr$curve)
+    curve$bin = .bincode(curve[,3],seq(0,1,0.0005))
+    sum_AUC = sum_AUC + pr$auc.integral
+    curves[[i]] = curve
+  }
+  curves = do.call(rbind,curves)
+  auc = sum_AUC/n
+  approx = approx(curves[,1],curves[,2],n=100)
+  c = plyr::ddply(curves,plyr::.(bin),function(x){
+    return(data.frame(recall = mean(x[,1]), precision = mean(x[,2])))
+  })
+  return(list(auc = auc, curve = c[,2:3], approx = approx))
+ }
+
+#BART
+bart_pr = bootstrap_PRcurve(1-bart$scaled_rank[bart$class==1],1-bart$scaled_rank[bart$class==0],n)
+
+#TFEA.ChIP
+tfea_pr = bootstrap_PRcurve(1-tfea$scaled_rank[tfea$class==1],1-tfea$scaled_rank[tfea$class==0],n)
+
+#dorothea
+dor_pr = lapply(dor_results,function(lib){
+  return(bootstrap_PRcurve(1-lib$scaled_rank[lib$class==1],1-lib$scaled_rank[lib$class==0],n))
+})
+
+#magic
+magic_pr = bootstrap_PRcurve(1-magic$scaled_rank[magic$class==1],1-magic$scaled_rank[magic$class==0], n)
+
+#gtexvip
+gtexvip_pr = bootstrap_PRcurve(1-gtexvip$scaled_rank[gtexvip$class==1],1-gtexvip$scaled_rank[gtexvip$class==0], n)
+
+
+
+```
+
+Generate PR plots
+
+```{r}
+pr = data.frame()
+
+pr = rbind(pr, data.frame(Method = "BART",
+  Precision = bart_pr$approx$x, Recall = bart_pr$approx$y, stringsAsFactors = F))
+
+pr = rbind(pr, data.frame(Method = "TFEA.ChIP",
+  Precision = tfea_pr$approx$x, Recall = tfea_pr$approx$y, stringsAsFactors = F))
+
+pr = rbind(pr, data.frame(Method = "MAGICACT",
+  Precision = magic_pr$approx$x, Recall = magic_pr$approx$y, stringsAsFactors = F))
+
+pr = rbind(pr, data.frame(Method = "VIPER GTEx Regulon",
+  Precision = gtexvip_pr$approx$x, Recall = gtexvip_pr$approx$y, stringsAsFactors = F))
+
+dors_pr_df = plyr::ldply(dor_pr,function(lib){
+  return(data.frame(
+    Precision = lib$approx$x, Recall = lib$approx$y, stringsAsFactors = F))
+})
+
+dors_pr_df$Method = paste("DoRothEA", gsub("_viperRegulon","",dors_pr_df$.id))
+dors_pr_df$.id = NULL
+
+pr = rbind(pr, dors_pr_df)
+
+pr = pr[order(pr$Method),]
+bootstrap_pr_plot = ggline(pr, x = "Precision", y = "Recall", color = "Method", plot_type = "l",numeric.x.axis = T) 
+
+bootstrap_pr_plot
+```
+
+Compute and plot bridge plots
+
+```{r}
+
+bart_ecdf = ecdf(bart$scaled_rank[bart$class == 1])
+
+tfea_ecdf = ecdf(tfea$scaled_rank[tfea$class == 1])
+
+magic_ecdf = ecdf(magic$scaled_rank[magic$class == 1])
+
+gtexvip_ecdf = ecdf(gtexvip$scaled_rank[gtexvip$class == 1])
+
+dor_ecdfs = lapply(dor_results,function(lib){
+  return(ecdf(lib$scaled_rank[lib$class == 1]))
+})
+
+rand_ecdf = ecdf(runif(1600, min = 0, max = 1))
+
+x = seq(0,1,0.001)
+
+bridge_df = data.frame()
+
+bart_bridge = data.frame(x = x, y = bart_ecdf(x) - rand_ecdf(x), Method = "BART",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df, bart_bridge)
+
+gtexvip_bridge = data.frame(x = x, y = gtexvip_ecdf(x) - rand_ecdf(x), Method = "VIPER GTEx Regulon",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df, gtexvip_bridge)
+
+magic_bridge = data.frame(x = x, y = magic_ecdf(x) - rand_ecdf(x), Method = "MAGICACT",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df, magic_bridge)
+
+tfea_bridge = data.frame(x = x, y = tfea_ecdf(x) - rand_ecdf(x), Method = "TFEA.ChIP",
+  stringsAsFactors = F)
+bridge_df = rbind(bridge_df, tfea_bridge)
+
+for(i in 1:length(dor_ecdfs)){
+  lib_bridge = data.frame(x = x, y = dor_ecdfs[[i]](x) - rand_ecdf(x), 
+    Method = paste("DoRothEA", gsub("_viperRegulon","", names(dor_ecdfs)[i])),stringsAsFactors = F)
+  bridge_df = rbind(bridge_df, lib_bridge)
+}
+
+
+bridge_plot = ggline(bridge_df, x = "x", y = "y", color = "Method", plot_type = "l", numeric.x.axis = T, xlab = "Scaled Rank", ylab = "D(r) - r")
+
+bridge_plot
+
+```
+
+Summary df
+
+```{r}
+
+perform_df2 = data.frame(Method = c("BART",
+  "TFEA.ChIP",
+  "MAGICACT",
+  "VIPER GTEx Regulon",
+  paste("DoRothEA",gsub("_viperRegulon","",names(dor_roc)))), 
+  'ROC AUC' = c(signif(bart_roc$auc,3),
+  signif(tfea_roc$auc,3),
+  signif(magic_roc$auc,3),
+  signif(gtexvip_roc$auc,3),
+  signif(as.numeric(unlist(lapply(dor_roc,'[[',1))),3)),
+  'PR AUC' = c(signif(bart_pr$auc,3),
+  signif(tfea_pr$auc,3),
+  signif(magic_pr$auc,3),
+  signif(gtexvip_pr$auc,3),
+  signif(as.numeric(unlist(lapply(dor_pr,'[[',1))),3)),
+  'Percent Total Recovered' = 
+    c(signif(bart_hist[bart_hist$quants == 1 & as.character(bart_hist$type) == "total","bin"],3),
+      signif(tfea_hist[tfea_hist$quants == 1 & as.character(tfea_hist$type) == "total","bin"],3), 
+      signif(magic_hist[magic_hist$quants == 1 & as.character(magic_hist$type) == "total","bin"],3), 
+      signif(gtexvip_hist[gtexvip_hist$quants == 1 & as.character(gtexvip_hist$type) == "total","bin"],3), 
+      signif(unlist(lapply(dor_hist,function(x){
+        return(x[x$quants == 1  & as.character(x$type) == "total","bin"])
+      })),3)
+      ),
+  'Percent Subset Recovered' = 
+    c(signif(bart_hist[bart_hist$quants == 1 & as.character(bart_hist$type) == "subset","bin"],3),
+      signif(tfea_hist[tfea_hist$quants == 1 & as.character(tfea_hist$type) == "subset","bin"],3), 
+      signif(magic_hist[magic_hist$quants == 1 & as.character(magic_hist$type) == "subset","bin"],3), 
+      signif(gtexvip_hist[gtexvip_hist$quants == 1 & as.character(gtexvip_hist$type) == "subset","bin"],3), 
+      signif(unlist(lapply(dor_hist,function(x){
+        return(x[x$quants == 1  & as.character(x$type) == "subset","bin"])
+      })),3)),
+      
+  
+  stringsAsFactors = F)
+colnames(perform_df2) = gsub("\\.", " ", colnames(perform_df2))
+  
+perform_table2 = ggtexttable(perform_df2, rows = NULL, theme = ttheme("minimal"))
+perform_table2
+
+```
+
+
+Compute summary plots
+
+```{r}
+perform_df2$Method
+bart_tfs = unique(bart$set_name)
+magic_tfs = unique(magic$set_name)
+gtexvip_tfs = unique(gtexvip$set_tf)
+tfea_tfs = unique(tfea$set_name)
+dor_tfs = lapply(dor_results,function(r){
+  return(unique(r$set_tf))
+})
+
+perform_df2$TF_coverage = c(length(bart_tfs), length(tfea_tfs), length(magic_tfs),
+  length(gtexvip_tfs), unlist(lapply(dor_tfs,length)))
+
+colnames(perform_df2) = gsub(" ","_",colnames(perform_df2))
+
+#load ChEA3 human results
+load("/Volumes/Backup2/ChEA3_API_Benchmark/mouse_human_benchmarking.Rdata")
+
+perform_df2$Tool = "Outside Tools"
+h_perform_df$Tool = "ChEA3"
+
+perform_df = rbind(h_perform_df, perform_df2)
+
+auc_summary_plot = ggpubr::ggscatter(data = perform_df, x = 'ROC_AUC', color = 'Tool', y = 'PR_AUC', label = 'Method', repel = T, label.rectangle = F, palette = "aaas",  alpha = 0.25, xlab = "ROC AUC", ylab = "PR AUC", legend = "none", size = 4)
+auc_summary_plot
+```
+
+
+Coverage Plots
+```{r}
+roc_coverage_plot = ggpubr::ggscatter(data = perform_df, x = 'TF_coverage', y = 'ROC_AUC', color = "Tool", label = 'Method', repel = T, label.rectangle = F, palette = "aaas",  alpha = 0.25, xlab = "TF Coverage", ylab = "ROC AUC", size = 4)
+pr_coverage_plot = ggpubr::ggscatter(data = perform_df, x = 'TF_coverage', y = 'PR_AUC', color = "Tool", label = 'Method', repel = T, label.rectangle = F, palette = "aaas",  alpha = 0.25, xlab = "TF Coverage", ylab = "PR AUC", size = 4)
+subset_coverage_plot = ggpubr::ggscatter(data = perform_df, x = 'TF_coverage', y = 'Percent_Subset_Recovered', color = "Tool", label = 'Method', repel = T, label.rectangle = F, palette = "aaas",  alpha = 0.25, xlab = "TF Coverage", ylab = "Percent Subset Recovered", size = 4, ylim = c(0,15))
+total_coverage_plot = ggpubr::ggscatter(data = perform_df, x = 'TF_coverage', y = 'Percent_Total_Recovered', color = "Tool", label = 'Method', repel = T, label.rectangle = F, palette = "aaas", alpha = 0.25, xlab = "TF Coverage", ylab = "Percent Total Recovered", size = 4, ylim = c(0,15))
+
+
+
+
+roc_coverage_plot
+pr_coverage_plot
+subset_coverage_plot
+total_coverage_plot
+
+```
+
+```{r}
+library(gridExtra)
+
+ggarrange(bootstrap_roc_plot,bootstrap_pr_plot,bridge_plot,auc_summary_plot,labels = "auto", common.legend = T, legend = "bottom")
+
+ggarrange(subset_coverage_plot, total_coverage_plot, roc_coverage_plot,pr_coverage_plot,nrow = 2, ncol = 2,labels = "auto",legend = "bottom", common.legend = T)
+
+```
+
+Anderson-Darling Test
+```{r}
+
+library(goftest)
+
+gtexvip_ks = ad.test(gtexvip[gtexvip$class == 1, "scaled_rank"])
+gtexvip_ks
+
+magic_ks = ad.test(magic[magic$class == 1, "scaled_rank"])
+magic_ks
+
+tfea_ks = ad.test(tfea[tfea$class == 1, "scaled_rank"])
+tfea_ks
+
+bart_ks = ad.test(bart[bart$class == 1, "scaled_rank"])
+bart_ks
+
+
+dor_ks = lapply(dor_results,function(x){
+  return(ad.test(x[x$class == 1, "scaled_rank"]))
+})
+dor_ks[["A_viperRegulon"]]
+dor_ks[["B_viperRegulon"]]
+dor_ks[["C_viperRegulon"]]
+dor_ks[["D_viperRegulon"]]
+dor_ks[["E_viperRegulon"]]
+dor_ks[["TOP10score_viperRegulon"]]
+
+
+
+```
+

@@ -1,0 +1,270 @@
+---
+title: "Integrating 'omics to infer global TF behavior"
+output: html_notebook
+---
+
+ChIP-seq libraries
+
+```{r}
+rm(list = ls())
+chipseq = c(chea3::libs[["ChEA"]],chea3::libs[["ENCODE"]],chea3::libs[["ReMap"]])
+```
+
+TF perturbation signatures libraries
+
+```{r}
+sigs = list()
+sigs[["act_up"]] = genesetr::loadGMT("/volumes/Backup2/ChEA3_TF_activ_repressor_roles/up_act.gmt")
+
+sigs[["inact_up"]] = genesetr::loadGMT("/volumes/Backup2/ChEA3_TF_activ_repressor_roles/up_inact.gmt")
+
+sigs[['act_dn']] = genesetr::loadGMT('/volumes/Backup2/ChEA3_TF_activ_repressor_roles/dn_act.gmt')
+
+sigs[['inact_dn']] = genesetr::loadGMT('/volumes/Backup2/ChEA3_TF_activ_repressor_roles/dn_inact.gmt')
+```
+
+Find intersections (i.e. 'a' and 'b' for the contingency tables)
+
+```{r}
+
+intersects = lapply(sigs,function(sig){
+  df = genesetr::pairwiseSetOverlap(sig, chipseq, background = 20000)
+  df$TF = unlist(lapply(strsplit(df$set1,"_"),head,1))
+  df = df[df$TF == unlist(lapply(strsplit(df$set2,"_"),head,1)),]
+  df$id = paste(df$set1,df$set2,sep = ".")
+  return(df)
+})
+
+```
+
+Build contingency table data frames and compute odds ratios + p. values
+
+```{r}
+background = 20000
+activ_idx = match(intersects[["act_up"]]$id, intersects[["act_dn"]]$id)
+activ_df = data.frame(id = intersects[["act_up"]]$id,
+  tf = intersects[["act_up"]]$TF,
+  set1 = intersects[["act_up"]]$set1,
+  set2 = intersects[["act_up"]]$set2,
+  a = intersects[["act_up"]]$intersect, 
+  b = intersects[["act_dn"]][activ_idx,"intersect"],
+  c = intersects[["act_up"]]$len_set1 - intersects[["act_up"]]$intersect,
+  d = intersects[["act_dn"]][activ_idx,"len_set1"] - intersects[["act_dn"]][activ_idx, "intersect"],
+  stringsAsFactors = F)
+
+inactiv_idx = match(intersects[["inact_up"]]$id, intersects[["inact_dn"]]$id)
+inactiv_df = data.frame(id = intersects[["inact_up"]]$id,
+  tf = intersects[["inact_up"]]$TF,
+  set1 = intersects[["inact_up"]]$set1,
+  set2 = intersects[["inact_up"]]$set2,
+  a = intersects[["inact_up"]]$intersect, 
+  b = intersects[["inact_dn"]][inactiv_idx,"intersect"],
+  c = intersects[["inact_up"]]$len_set1 - intersects[["inact_up"]]$intersect,
+  d = intersects[["inact_dn"]][inactiv_idx,"len_set1"] - intersects[["inact_dn"]][inactiv_idx, "intersect"],
+  id1 = intersects[["inact_up"]]$id,
+  id2 = intersects[["inact_dn"]][inactiv_idx,"id"],
+  stringsAsFactors = F)
+
+#compute odds ratios
+activ_df$OR = genesetr::oddsRatio(activ_df$a, activ_df$b, activ_df$c, activ_df$d)
+inactiv_df$OR = genesetr::oddsRatio(inactiv_df$a,inactiv_df$b, inactiv_df$c, inactiv_df$d)
+
+#compute log
+activ_df$log_odds = log(activ_df$OR)
+inactiv_df$neg_log_odds = -log(inactiv_df$OR)
+
+#compute p values
+twosided_FET = function(df){
+  return(plyr::adply(df,1,function(x){
+    tab <- matrix(c(x$a, x$c, x$b, x$d), nrow=2)
+    x$FET.p.val = fisher.test(tab, alternative = "two.sided")$p.value
+    return(x)
+  }))
+}
+activ_df = twosided_FET(activ_df)
+inactiv_df = twosided_FET(inactiv_df)
+
+#correct p values
+activ_df$FET.p.value.BH = p.adjust(activ_df$FET.p.val, method = "BH")
+inactiv_df$FET.p.value.BH = p.adjust(inactiv_df$FET.p.val, method = "BH")
+
+#log p
+activ_df$log.FET.p.value.BH = -log(activ_df$FET.p.value.BH)
+inactiv_df$log.FET.p.value.BH = -log(inactiv_df$FET.p.value.BH)
+
+#remove inf and nans
+activ_df = activ_df[!is.nan(activ_df$OR) & !abs(activ_df$OR)==Inf & !abs(activ_df$log_odds)==Inf,]
+inactiv_df = inactiv_df[!is.nan(inactiv_df$OR) & !abs(inactiv_df$OR)==Inf & !abs(inactiv_df$neg_log_odds)==Inf,]
+
+#indicate significance
+activ_df$sig = "p > 0.05"
+inactiv_df$sig = "p > 0.05"
+activ_df[activ_df$FET.p.value.BH <= 0.05,"sig"] = "p <= 0.05"
+inactiv_df[inactiv_df$FET.p.value.BH <= 0.05,"sig"] = "p <= 0.05"
+
+```
+
+Plot 
+
+```{r}
+library(ggpubr)
+#order axis labels activators -> repressors
+activ_mean_OR = plyr::ddply(activ_df,plyr::.(tf),function(sub){
+  return(data.frame(tf = unique(sub$tf), mean = mean(sub$log_odds), stringsAsFactors = F))
+})
+inactiv_mean_OR = plyr::ddply(inactiv_df,plyr::.(tf),function(sub){
+  return(data.frame(tf = unique(sub$tf), mean = mean(sub$neg_log_odds), stringsAsFactors = F))
+})
+activ_x_scale = activ_mean_OR[order(activ_mean_OR$mean, decreasing = T),]$tf
+inactiv_x_scale = inactiv_mean_OR[order(inactiv_mean_OR$mean, decreasing = T),]$tf
+
+merged_mean_OR = merge(inactiv_mean_OR,activ_mean_OR,by = "tf",all.x = T, all.y = T)
+merged_mean_OR$mean = rowMeans(merged_mean_OR[,c("mean.x","mean.y")],na.rm = T)
+
+merged_x_scale = merged_mean_OR[order(merged_mean_OR$mean,decreasing = T),]$tf
+
+library(ggplot2)
+library(ggthemes)
+library(grid)
+
+
+inactiv_plot = ggplot(inactiv_df, aes(x = tf, y = neg_log_odds, color = log.FET.p.value.BH, shape = sig)) + geom_jitter(size = 1)  + scale_shape_manual(values=c(16,1)) + scale_x_discrete(limits = merged_x_scale) + scale_y_continuous(limits = c(-3,3)) + geom_hline(yintercept=0, linetype="dashed", color = "black") + 
+  scale_colour_gradient(low = "lightblue", high = "midnightblue") + 
+  theme_bw() + theme(panel.border = element_blank(), 
+    axis.ticks = element_line(colour = "gray"),
+        # panel.grid.major = element_blank(),
+    panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "gray")) + xlab("Transcription Factor") + ylab("-log(OR)")+
+labs(color = "-log(p)")+ labs(shape = "")  +theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) + coord_flip()
+
+
+activ_plot = ggplot(activ_df, aes(x = tf, y = log_odds, color = log.FET.p.value.BH, shape = sig)) + geom_jitter(size = 1)  + scale_shape_manual(values=c(16,1)) + scale_x_discrete(limits = merged_x_scale) + scale_y_continuous(limits = c(-3,3)) + geom_hline(yintercept=0, linetype="dashed", color = "black") + 
+  scale_colour_gradient(low = "lightblue", high = "midnightblue") + 
+  theme_bw() + theme(panel.border = element_blank(), 
+    axis.ticks = element_line(colour = "gray"),
+        # panel.grid.major = element_blank(),
+    panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "gray")) + xlab("Transcription Factor") + ylab("log(OR)")+
+labs(color = "-log(p)")+ labs(shape = "") + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))+ coord_flip()
+
+#export pdf 10x30 for nice roomy plot
+#export pdf 6x23 to save space but still readable
+ggarrange(activ_plot, inactiv_plot,  common.legend = TRUE, legend = "bottom")
+
+
+```
+
+Subset to only those ORs that are significant
+
+```{r}
+sig_activ_df = activ_df[activ_df$FET.p.value.BH<=0.05,]
+sig_inactiv_df = inactiv_df[inactiv_df$FET.p.value.BH<=0.05,]
+
+#order axis labels activators -> repressors
+sig_activ_mean_OR = plyr::ddply(sig_activ_df,plyr::.(tf),function(sub){
+  return(data.frame(tf = unique(sub$tf), mean = mean(sub$log_odds), stringsAsFactors = F))
+})
+sig_inactiv_mean_OR = plyr::ddply(sig_inactiv_df,plyr::.(tf),function(sub){
+  return(data.frame(tf = unique(sub$tf), mean = mean(sub$neg_log_odds), stringsAsFactors = F))
+})
+sig_activ_x_scale = sig_activ_mean_OR[order(sig_activ_mean_OR$mean, decreasing = T),]$tf
+sig_inactiv_x_scale = sig_inactiv_mean_OR[order(sig_inactiv_mean_OR$mean, decreasing = T),]$tf
+
+sig_merged_mean_OR = merge(sig_inactiv_mean_OR,sig_activ_mean_OR,by = "tf",all.x = T, all.y = T)
+sig_merged_mean_OR$mean = rowMeans(sig_merged_mean_OR[,c("mean.x","mean.y")],na.rm = T)
+
+sig_merged_x_scale = sig_merged_mean_OR[order(sig_merged_mean_OR$mean,decreasing = T),]$tf
+
+
+#build plots
+sig_inactiv_plot = ggplot(sig_inactiv_df, aes(x = tf, y = neg_log_odds, color = log.FET.p.value.BH)) + geom_jitter(size = 1) + scale_x_discrete(limits = sig_merged_x_scale) + scale_y_continuous(limits = c(-3,3)) + geom_hline(yintercept=0, linetype="dashed", color = "black") + 
+  scale_colour_gradient(low = "lightblue", high = "midnightblue") + 
+  theme_bw() + theme(panel.border = element_blank(), 
+    axis.ticks = element_line(colour = "lightgray"),
+        # panel.grid.major = element_blank(),
+    panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "lightgray")) + xlab("Transcription Factor") + ylab("-log(OR)")+
+labs(color = "-log(p)")+ labs(shape = "")  +theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) + coord_flip()
+
+
+sig_activ_plot = ggplot(sig_activ_df, aes(x = tf, y = log_odds, color = log.FET.p.value.BH)) + geom_jitter(size = 1)   + scale_x_discrete(limits = sig_merged_x_scale) + scale_y_continuous(limits = c(-3,3)) + geom_hline(yintercept=0, linetype="dashed", color = "black") + 
+  scale_colour_gradient(low = "lightblue", high = "midnightblue") + 
+  theme_bw() + theme(panel.border = element_blank(), 
+    axis.ticks = element_line(colour = "lightgray"),
+        # panel.grid.major = element_blank(),
+    panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "lightgray")) + xlab("Transcription Factor") + ylab("log(OR)")+
+labs(color = "-log(p)")+ labs(shape = "") + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))+ coord_flip()
+
+grid.newpage()
+grid.draw(cbind(ggplotGrob(sig_activ_plot), ggplotGrob(sig_inactiv_plot), size = "last"))
+
+library(ggpubr)
+#export pdf 5x10 for readable, efficiently spaced plot
+ggarrange(sig_activ_plot, sig_inactiv_plot,  common.legend = TRUE, legend = "bottom")
+```
+Add TTRUST database to analysis
+```{r}
+
+trust_m = read.table('/volumes/backup2/TRRUST/trrust_rawdata.mouse.tsv',stringsAsFactors = F, comment.char = "", quote = "",sep = "\t",header = F)
+colnames(trust_m) = c("TF","target","action","pub")
+trust_h = read.table('/volumes/backup2/TRRUST/trrust_rawdata.human.tsv',stringsAsFactors = F, comment.char = "", quote = "",sep = "\t",header = F)
+colnames(trust_h) = c("TF","target","action","pub")
+trust_h$TF = genesetr::HGNCapproved(trust_h$TF,untranslatable.na = T)
+trust_h$target = genesetr::HGNCapproved((trust_h$target),untranslatable.na = T)
+trust_m$TF = genesetr::HGNCapproved(toupper(trust_m$TF),untranslatable.na = T)
+trust_m$target = genesetr::HGNCapproved(toupper(trust_m$target),untranslatable.na = T)
+
+trust_m = trust_m[!is.na(trust_m$TF) & !is.na(trust_m$target),]
+trust_h = trust_h[!is.na(trust_h$TF) & !is.na(trust_h$target),]
+
+trust = rbind(trust_m,trust_h)
+
+trust = trust[trust$TF %in% chea3::tfs,]
+
+trust = trust[!duplicated(paste(trust$TF, trust$target, trust$action)),]
+
+act = trust[trust$action == "Activation",]
+repress = trust[trust$action == "Repression",]
+
+act = as.data.frame(table(act$TF))
+repress = as.data.frame(table(repress$TF))
+colnames(act) = c("TF","Activation")
+colnames(repress) = c("TF","Repression")
+
+
+trust_df = merge(act,repress,by = "TF",all.x = T,all.y = T)
+
+
+trust_df[is.na(trust_df$Activation),"Activation"] = 0
+
+trust_df[is.na(trust_df$Repression),"Repression"] = 0
+
+trust_df$total = trust_df$Activation + trust_df$Repression
+
+
+
+trust_df$act_perc = trust_df$Activation/trust_df$total
+trust_df$rep_perc = trust_df$Repression/trust_df$total
+trust_df = trust_df[trust_df$total>=20,]
+trust_plot_df = rbind(data.frame(TF = trust_df$TF, Percent = trust_df$act_perc, Type = "Activation",stringsAsFactors = F ),
+  data.frame(TF = trust_df$TF, Percent = -trust_df$rep_perc, Type = "Repression",stringsAsFactors = F))
+trust_plot_df  = trust_plot_df[trust_plot_df$TF %in% sig_merged_x_scale,]
+
+trust_plot = ggplot(trust_plot_df, aes(x=TF, y=Percent, fill=Type)) + 
+  geom_bar(stat="identity", position="identity") + coord_flip() + scale_x_discrete(limits = sig_merged_x_scale) + scale_y_continuous(breaks = c(-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75), labels=c("75","50","25","0","25","50","75")) + theme_bw() + theme(panel.border = element_blank(), 
+    axis.ticks = element_line(colour = "lightgray"),
+        # panel.grid.major = element_blank(),
+    panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "lightgray")) + xlab("Transcription Factor") + ylab("Percent Targets") + theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+ggarrange(sig_activ_plot, sig_inactiv_plot, trust_plot, legend = "bottom", ncol = 3, nrow = 1, align = "hv", labels = "auto")
+
+```
+
+
