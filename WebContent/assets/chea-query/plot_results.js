@@ -46,15 +46,70 @@ function parseMeanRankLibraries(nr_tfs){
 	return(data);
 }
 
+
+function parseMeanRankLibraries2(nr_tfs){
+	
+	var maxMeanRankScore = Math.max(...chea3Results["Integrated--meanRank"].map(a => a.Score).map(Number));
+	
+	var toptfsdat = chea3Results["Integrated--meanRank"].slice(0,nr_tfs);
+	var tfs = toptfsdat.map(function(x){return x["TF"]})
+	//var libinfo = toptfs[i]["Library"].split(";")
+	var libs = Object.keys(chea3Results).map(function(x){return x.replace("--"," ");});
+	libs = libs.slice(2,libs.length)
+	var datasets = [];
+	
+	//loop through library names
+	for(i=0; i< libs.length; i++){
+		
+		//loop through toptfs 
+		var ranks = Array(tfs.length).fill(null);
+		
+		for(j = 0; j < tfs.length; j++){
+			var ranksinfo = toptfsdat[j]["Library"].split(";").map(function(x){return x.split(",")})
+			
+			//ranks to weighted contribution to mean
+			var c = ranksinfo.length;
+			
+			//get scaled score
+			var score = toptfsdat[j].Score
+			var scaledScore = 1-toptfsdat[j].Score/maxMeanRankScore
+			
+			//loop through each contributing rank
+			for(k = 0; k<ranksinfo.length; k++){
+				if(ranksinfo[k][0] == libs[i]){
+					// console.log(ranksinfo[k][0])
+					ranks[j] = (ranks[j] + (ranksinfo[k][1]/(c*score))*scaledScore).toFixed(3);
+					// console.log(ranks[j])
+				
+				}
+			}
+		}
+		// console.log(ranks)
+		datasets[i] = {label: libs[i],
+				data: ranks,
+				backgroundColor: Array(ranks.length).fill(colorArray[i]),
+				borderWidth: 1}
+				
+				
+	}
+	var data = {
+			labels: tfs,
+			datasets: datasets
+	}	
+	
+	return(data);
+}
+
+
 function parseLibrary(library, nr_tfs) {
 	var results = chea3Results[library].slice(0, nr_tfs),
 		process_score,
 		title, xlab;
 	if (library === 'Integrated--topRank') {
-		process_score = function (x) { return x['Score'] };
+		process_score = function (x) { return 1 - x['Score'] };
 		title = 'Top Scaled TF Ranks from Integrated topRank';
-		label = 'Integrated Scaled Rank';
-		xlab = 'Integrated Scaled Rank';
+		label = '1 - Integrated Scaled Rank';
+		xlab = '1 - Integrated Scaled Rank';
 	} else {
 		process_score = function (x) { return -Math.log10(x['FET p-value']).toFixed(3) };
 		title = 'Top TF Scores from the '+library.replace('--', ' ')+' library';
@@ -82,7 +137,7 @@ function generateBarChart(){
 	
 	if (library === "Integrated--meanRank") {
 
-		var data = parseMeanRankLibraries(nr_tfs);
+		var data = parseMeanRankLibraries2(nr_tfs);
 		// console.log(data);
 
 		new Chart(ctx, {
