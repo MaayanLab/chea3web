@@ -586,11 +586,12 @@ $(document).ready(function () {
 	let url = new URL(window.location.href);
 	let gene = url.searchParams.get("gene");
 	if (gene) {
+		console.log(gene);
 		$('#genelist').val(gene.toUpperCase());
 		let enrich_url = host + "chea3/api/enrich/";
 		let payload = {
 			"query_name" : "gene_set_query",
-			"gene_set" : gene.toUpperCase()
+			"gene_set" : [gene.toUpperCase()]
 		}
 		$('#loading-screen').removeClass('d-none');
 		$.ajax({
@@ -600,6 +601,7 @@ $(document).ready(function () {
 			contentType: "application/json",
 			url : enrich_url,
 			success : function(results) {
+				console.log('succ')
 				displayResults(results);
 			}
 		});
@@ -626,7 +628,7 @@ $(document).ready(function () {
 		var geneset = geneset.map(function(x){return x.toUpperCase()})
 		var uniq_genes = [...new Set(geneset)];
 		var intersect = uniq_genes.filter(value => hgnc.includes(value));
-		var enrich_url = host + "chea3/api/enrich/"; 
+		var enrich_url = host + "chea3/api/enrich/";
 		var payload = {
 				"query_name" : "gene_set_query",
 				"gene_set" : intersect
