@@ -1,1 +1,7 @@
-/build/
+.gradle
+.idea
+build
+docker/chea3.war
+gradle
+gradlew
+gradlew.bat

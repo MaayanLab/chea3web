@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Site made with Mobirise Website Builder v4.8.1, https://mobirise.com -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+	<link rel="shortcut icon" href="assets/images/ChEA3.png" type="image/x-icon">
+	<meta name="description" content="ChEA3 Web Tool">
+	<title>ChEA3</title>
+	<link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+	<link rel="stylesheet" href="assets/tether/tether.min.css">
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+	<link rel="stylesheet" href="assets/socicon/css/styles.css">
+	<link rel="stylesheet" href="assets/dropdown/css/style.css">
+	<link rel="stylesheet" href="assets/theme/css/style.css">
+	<link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+	<link rel="stylesheet" href="assets/networkd3/network_style.css">
+	<!-- <link rel="stylesheet" href="assets/datatables/jquery.dataTables.min.css"> -->
+	<!-- <link rel="stylesheet" href="assets/datatables/buttons.dataTables.min.css"> -->
+	<link rel="stylesheet" href="assets/datatables/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="assets/tooltips/css_tooltips.css">
+	<link rel="stylesheet" href="assets/networkd3/network_options.css">
+	<link rel="stylesheet" href="assets/spectrum/spectrum.css">
+	<link rel="stylesheet" href="assets/chea-query/pretty-headers.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="assets/chea-query/result_scroll.css">
+	<link rel="stylesheet" href="assets/chea-query/submit-query.css">
+	<link rel="stylesheet" href="assets/chea-query/d3barchart.css">
+	<link rel="stylesheet" href="assets/networkd3/netprogressbar.css">
+	<link rel="stylesheet" href="assets/styles.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/chea3home/homepage.css">
+	<link rel="stylesheet" type="text/css" href="assets/chea3home/df_style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
+</head>
+
+<body style="background:white">
+
+	<!-- Loading screen -->
+	<div id="loading-screen" class="mbr-overlay d-none">
+		<div class="c_spinner"></div>
+		<div class="ellipsis"></div>
+	</div>
+
+	<!-- Navigation Bar -->
+	<section class="menu cid-r0JOqR1tf7" id="menu1-0">
+		<nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm"
+			style="min-height: 25px; padding: 0px">
+			<div class="container py-1">
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<div class="hamburger">
+						<span></span> <span></span> <span></span> <span></span>
+					</div>
+				</button>
+				<div class="menu-logo">
+					<div class="navbar-brand" style="margin-left: 10px; min-height: 1rem">
+						<span class="navbar-logo"> <a href="#top"> <img src="assets/images/chea3_logo.png" alt="ChEA3"
+									title="" style="height: 1.5rem;">
+							</a>
+						</span> <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-4"
+								href="#top" style="padding-right:0;margin-right:0"> ChEA3&nbsp
+							</a><a class="navbar-caption text-white display-4"
+								style="padding-left:0;margin-left:0;font-weight:300" href="#top">- ChIP-X Enrichment
+								Analysis Version 3</a></span>
+					</div>
+				</div>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent"
+					style="margin-right: 10px; padding-right: 0px">
+					<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+						<li class="nav-item"><a class="nav-link link text-white display-4"
+								href="index.html#content4-o"><span
+									class="mbri-setting mbr-iconfont mbr-iconfont-btn"></span> About</a>
+						</li>
+						<li class="nav-item"><a class="nav-link link text-white display-4"
+								href="index.html#content4-v"><span
+									class="mbri-idea mbr-iconfont mbr-iconfont-btn"></span>Tutorial</a></li>
+						<li class="nav-item"><a class="nav-link link text-white display-4"
+								href="index.html#content4-z"><span
+									class="mbri-laptop mbr-iconfont mbr-iconfont-btn"></span>API</a></li>
+						<li class="nav-item"><a class="nav-link link text-white display-4"
+								href="https://github.com/MaayanLab/chea3web" target="_blank"><span
+									class="mbri-github mbr-iconfont mbr-iconfont-btn"></span>GitHub</a></li>
+
+						<li class="nav-item"><a class="nav-link link text-white display-4"
+								href="index.html#content4-13"><span
+									class="mbri-save mbr-iconfont mbr-iconfont-btn"></span>Download</a></li>
+					</ul>
+
+					<!-- <a id="hitcount"> <span class="mbr-iconfont mbr-iconfont-btn"></span></a> -->
+
+				</div>
+			</div>
+		</nav>
+	</section>
+
+
+	<!-- Block 1.1: Query Submissions -->
+	<section class="mbr-section" id="homepage" style="background:white;padding-bottom:0">
+			
+			<div class="container" style="background: white">
+			<div class="row" style="background: white">
+				<div class="col-8 offset-2" style="background:white">
+	
+					<div id="tfea-submission">
+						<h1 class="mbr-section-title mbr-bold mbr-fonts-style display-5 mt-5 mb-0 pt-5 pb-0">
+							Submit Your Gene Set for Analysis with ChEA3
+						</h1>
+						<!-- <p class="mbr-text mbr-fonts-style display-7"
+											style="margin-bottom: 0; padding-bottom: 2rem">Discover
+											transcription factors associated with sets of target genes</p> -->
+						<div class="form-container" style="padding: 0; border: ''">
+							<div class="media-container-column" data-form-type="formoid">
+					
+								<form class="mbr-form" action="">
+									<div class="form-group" data-for="message">
+										<button type="button" class="btn btn-link display-7 px-0 py-2" style="color: #28a0c9;" id="example-genelist"
+											type="submit">Example gene list</button>
+										<div class="d-inline-block mx-2">or</div>
+										<input id="file-input" type="file" style="width: 201px;" accept=".txt">
+										<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right"
+											data-trigger="hover" data-title="<div class='px-1 py-2'>What file types can be uploaded?</div>"
+											data-content="<div style = 'max-width:400px' class='px-3 py-2'>CHEA3 supports uploading gene lists as text files containing one gene per line.</div>"
+											data-html="true"></span>
+										<textarea class="form-control 3px pt-2" rows="7" placeholder="Submit gene list with one gene per row."
+											id="genelist" cols=""></textarea>
+					
+									</div>
+					
+									<button type="button" class="btn btn-primary" id="submit-genelist" type="submit"
+										style="padding: .5rem 1.5rem">Submit</button>
+									<br>
+									<span class="display-7" id="genecheck" style="font-size:70%">0 symbols entered, 0
+										duplicates, 0 valid symbols</span>
+										<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-trigger="click" data-title="<div class='px-1 py-2'>What gene symbols are accepted?</div>" data-content="<div style = 'max-width:400px' class='px-3 py-2'>CHEA3 supports <a target='_blank' href ='https://www.genenames.org/'>HGNC-approved</a> gene symbols. Symbols that are not included in this set are not analyzed.</div>" data-html="true"></span>
+	
+								</form>
+					
+							</div>
+						</div>
+					</div>
+	
+				</div>
+	
+			</div> <!-- end row -->
+		</div> <!-- end container -->
+
+	</section>
+	
+	<!-- Block 1.2: Results Page -->
+	<section class="mbr-section d-none" id="results" style="background:white;">
+		<div class="container">
+			<a class="btn btn-primary float-left position-absolute" id="newquerybutton" href="/chea3" style="padding: .5rem 1.5rem">New Query</a>
+			<div class="h1 text-center">Browse CHEA3 Results</div>
+			<hr width="100%" class="my-4">
+
+			<!-- Selection -->
+			<div id="options-row" class="row">
+
+				<!-- Library Selectpicker -->
+				<div class="col-3">
+					<div>Select a library:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-title="<div class='px-1 py-2'>What are libraries?</div>" data-content="<div style = 'max-width:400px' class='px-3 py-2'>Each library is a collection of putative transcription factor targets that your gene set is queried against. The Integrated Results aggregate TF predictions from the six other ChEA3 libraries.</div>" data-html="true"></span></div>
+					<select id="library-selectpicker" class="cursor-pointer" data-header="Select a library:">
+						<optgroup label="Integrated Results">
+							<option data-subtext="Average integrated ranks across libraries" value="Integrated--meanRank">Mean Rank</option>
+							<option data-subtext="Top integrated rank across libraries" value="Integrated--topRank">Top Rank</option>
+						</optgroup>
+						<optgroup label="ChIP-Seq">
+							<option data-subtext="Interactions mined from the ENCODE project" value="ENCODE--ChIP-seq">ENCODE</option>
+							<option data-subtext="Interactions mined from the ReMap project" value="ReMap--ChIP-seq">ReMap</option>
+							<option data-subtext="Interactions mined from the literature" value="Literature--ChIP-seq">Literature</option>
+						</optgroup>
+						<optgroup label="Coexpression">
+							<option data-subtext="TF-target coexpression in the ARCHS4 dataset" value="ARCHS4--Coexpression">ARCHS4</option>
+							<option data-subtext="TF-target coexpression in the GTEx dataset" value="GTEx--Coexpression">GTEx</option>
+						</optgroup>
+						<optgroup label="Co-occurrence">
+							<option data-subtext="TF-target co-occurrence in Enrichr queries" value="Enrichr--Queries">Enrichr</option>
+						</optgroup>
+					</select>
+					</select>
+				</div>
+
+				<!-- Slider -->
+				<div class="col-4 tf-selector d-none">
+					<div>Select TFs to visualize:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div style = 'max-width:400px' class='px-3 py-2'> The top TFs from the selected library are visualized in the Global Network, Local Network, and Bar Chart tabs.</div>" data-html="true"></span></div>
+					<div class="font-italic mt-1" style="font-size: small">Top <span id="nr-selected-tfs">10</span> TFs selected</div>
+					<input id="tf-slider" class="slider w-100" type="range" min="1" max="50" value="10">
+				</div>
+				
+				<!-- Colorpicker -->
+				<div id="colorpicker-col" class="col-3 tf-selector d-none">
+					<div>Select a color:<span class="mbri-question ml-2" data-container="body" data-toggle="popover" data-placement="right" data-trigger="hover" data-title="<div class='px-1 py-2'>Where are the TFs visualized?</div>" data-content="<div style = 'max-width:400px' class='px-3 py-2'>The top TFs from the selected library are visualized in the Global Network, Local Network, and Bar Chart tabs.</div>" data-html="true"></span></div>
+					<input type='text' id="colorpicker"/>
+				</div>
+			</div>
+
+
+
+
+			<!-- Nav -->
+			<nav class="pt-3">
+				<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+					<a class="nav-item nav-link rounded-0 active" id="nav-tables-tab" data-toggle="tab" href="#nav-tables" role="tab"
+						aria-controls="nav-tables" aria-selected="true">Tables</a>
+					<a class="nav-item nav-link rounded-0" id="nav-global-network-tab" data-toggle="tab" href="#nav-global-network" role="tab"
+						aria-controls="nav-global-network" aria-selected="false">Global Network</a>
+					<a class="nav-item nav-link rounded-0" id="nav-local-network-tab" data-toggle="tab" href="#nav-local-network" role="tab"
+						aria-controls="nav-local-network" aria-selected="false">Local Network</a>
+					<a class="nav-item nav-link rounded-0" id="nav-barchart-tab" data-toggle="tab" href="#nav-barchart" role="tab"
+						aria-controls="nav-barchart" aria-selected="false">Bar Chart</a>
+					<a class="nav-item nav-link rounded-0" id="nav-clustergram-tab" data-toggle="tab" href="#nav-clustergram" role="tab"
+						aria-controls="nav-clustergram" aria-selected="false">Clustergram</a>
+				</div>
+			</nav>
+
+			<!-- Tab Content -->
+			<div class="tab-content" id="nav-tabContent">
+				
+				<!-- Tables Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade show active" id="nav-tables" role="tabpanel" aria-labelledby="nav-tables-tab">
+					<div id="tables-wrapper"></div>
+					<div id="results-tables" style="background-color: #333333; min-height: 500px; display: none;"></div>
+				</div>
+				
+
+				<!-- Global Network Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-global-network" role="tabpanel" aria-labelledby="nav-global-network-tab">
+
+					<!-- Ali Code -->
+					<div class="tab-content networkcol" id="pills-tabContent">
+						<div class="tab-pane fade show active" id="pills-coexpression" role="tabpanel" aria-labelledby="pills-coexpression-tab">
+							<div style="background: white" class="networkcol" id="tfnet">
+								<!-- Side network navigation menu -->
+								<div id="netoptsidenav" class="sidenav" style="float: top">
+									<a href="javascript:void(0)" class="closebtn" onclick="closeNav('netoptsidenav')">&times;</a>
+									<a class="nav-link link text-white display-4">
+										<span class="mbri-change-style mbr-iconfont"></span>
+										Color by:
+									</a>
+									<div class="form-group" style="width: 80%; padding-left: 20px" id="colorbyoptions">
+										<select class="form-control" id="colorby" onchange="recolorAllNodes();setGTExLegendView()">
+											<option>Tissue (general)</option>
+											<option>Tissue (specific)</option>
+											<option>GO Enrichment</option>
+											<option>WGCNA modules</option>
+											<option>none</option>
+										</select>
+									</div>
+									<a class="nav-link link text-white display-4" id="gtextablelink" href="#gtextable">GTEx tissue table</a>
+									<a class="nav-link link text-white display-4" onclick="deleteNetwork();zm=1;drawNetwork();">
+										<span class="mbri-drag-n-drop2 mbr-iconfont"> </span>Zoom to fit
+									</a>
+									<a class="nav-link link text-white display-4" onclick="requestFullScreen('tfnet')">
+										<span class="mbri-drag-n-drop mbr-iconfont"></span>
+										Fullscreen
+									</a>
+									<a class="nav-link link text-white display-4" onclick="saveSvg('net_svg','network.svg')">
+										<span class="mbri-camera mbr-iconfont"> </span>
+										Save SVG
+									</a>
+									<!-- Show node labels: auto, always, never -->
+									<div class="checkbox">
+										<a class="nav-link link text-white display-4">
+											<span class="mbri-edit2 mbr-iconfont"></span>
+											Show node labels:
+										</a>
+									</div>
+									<div class="form-group" style="width: 80%; padding-left: 20px">
+										<select class="form-control" id="labelview" onchange="setLabelView()">
+											<option>auto</option>
+											<option>always</option>
+											<option>never</option>
+										</select>
+									</div>
+									<a class="nav-link link text-white display-4">
+										<span class="mbr-iconfont">
+											<input type="checkbox" id="legend_checkbox" class="checkbox-inline" checked="checked" value="1">
+										</span>
+										Show Legend
+									</a>
+								</div>
+								<div style="width:100%;float:right;display:inline;">
+									<span class="mbr-iconfont display-5" style="cursor: pointer;float:right;font-size:1rem" onclick="openNav('netoptsidenav','250px')">&#9776;
+										<h6 class="mbr-iconfont display-5" style="font-size: 1rem; display: inline">Network Options</h6>
+									</span>
+									<div class="form-group" style="width: 175px; float: right; padding-right: 10px">
+										<select class="form-control" id="whichnetwork" onchange="changeNetwork()">
+											<option>GTEx TF Network</option>
+											<option>TCGA TF Network</option>
+											<option>ARCHS4 TF Network</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div> <!-- end coexpression tab -->
+						<div class="tab-pane fade" id="pills-coreg" role="tabpanel" aria-labelledby="pills-coreg-tab">
+							<svg id="coregsvg" width="960" height="600"></svg>
+						</div>
+					</div> <!-- end tab-contents div -->
+
+				</div>
+				
+				<!-- Local Network Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade text-center" id="nav-local-network" role="tabpanel" aria-labelledby="nav-tables-tab">
+					<svg id="coreg-network" height="500" width="1000"></svg>
+				</div>
+				
+				<!-- Barchart Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-barchart" role="tabpanel" aria-labelledby="nav-tables-tab">
+				</div>
+
+				<!-- Clustergrammer Tab -->
+				<div class="tab-pane border-top-0 rounded-bottom px-4 py-3 fade" id="nav-clustergram" role="tabpanel" aria-labelledby="nav-clustergram-tab">
+					<!-- <img src="clustergrammer.png" class="w-100"> -->
+					<iframe id="clustergram-iframe" class="w-100" frameborder="0" height="1000"></iframe> 
+					<div id="clustergram-error" class="text-center py-5 display-5 d-none">
+						Sorry, there has been an error generating the clustergrammer visualization.
+						<br>
+						Please <button type="button" class="btn btn-primary mx-0" onclick="generateClustergram();">click here</button> to try again.
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Block 2: About ChEA3 -->
+	<section class="mbr-section content4 cid-r0K1l83kKh mt-5" style="padding-bottom:0; padding-top:0" id="content4-o">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2 my-3">About
+						ChEA3</h2>
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section article content12 cid-r0K1pQ9Oau" id="content12-q">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+				<!--Citation Column -->
+	
+          <h5>Citation</h5>
+          <div class="citation">
+            <p>
+              <span>Keenan AB, Torre D, Lachmann A, Leong AK, Wojciechowicz M, Utti V, Jagodnik K, Kropiwnicki E, Wang Z, Ma'ayan A (2019) ChEA3: transcription factor enrichment analysis by orthogonal omics integration.
+              <i>Nucleic Acids Research.</i> <br>
+              <span>doi: </span>
+              <a href="https://doi.org/10.1093/nar/gkz446" target="_blank">10.1093/nar/gkz446</a>
+            </span>
+           </p>
+          </div>
+         
+				
+					Transcription factors (TFs) are proteins that control gene expression by binding
+					and unbinding near coding regions to regulate the transcriptional machinery.
+					TF enrichment analysis (TFEA) prioritizes transcription factors based on the overlap
+					between given lists of differentially expressed genes, and previously annotated TF
+					targets assembled from multiple resources. ChEA3 is a web-based TFEA tool. Hence,
+					ChEA3 can aid in identifying the TFs responsible for observed changes in gene expression
+					when comparing control and perturbation samples. In the past, we have developed and
+					published <a
+						href="https://academic.oup.com/bioinformatics/article-lookup/doi/10.1093/bioinformatics/btq466">ChEA</a>
+					and <a href="https://link.springer.com/chapter/10.1007/978-3-642-40511-2_30">ChEA2</a> which are
+					ChIP-seq enrichment analysis tools made of gene set libraries created from published ChIP-seq data
+					extracted
+					from multiple sources. ChEA3 builds upon these prior versions of ChEA by including more libraries,
+					adding benchmarks, and integrative library analyses. <br><br>For ChEA3 the following TF-target gene
+					set
+					libraries were assembled: putative targets as determined by ChIP-seq experiments from
+					<a href="https://www.encodeproject.org/">ENCODE</a>, <a
+						href="http://pedagogix-tagc.univ-mrs.fr/remap/">ReMap</a>,
+					and individual publications; co-expression of TFs with other genes based on processed RNA-seq from
+					<a href="https://gtexportal.org/home/">GTEx</a> and <a
+						href="https://maayanlab.cloud/archs4/">ARCHS4</a>;
+					co-occurrence of TFs with other genes by examining thousands of gene lists submitted to the tool
+					<a href="http://maayanlab.cloud/Enrichr/">Enrichr</a>; and gene signatures resulting from single
+					TF perturbations
+					followed by genome-wide gene expression experiments. The <a href="https://www.encodeproject.org/">ENCODE</a> TF target library contains ChIP-seq 
+					experiments from human and mouse and the Literature ChIP-seq library contains ChIP-seq experiments from
+					human, mouse and rat. <a href="https://gtexportal.org/home/">GTEx</a>, <a
+						href="https://maayanlab.cloud/archs4/">ARCHS4</a>, and <a
+						href="http://pedagogix-tagc.univ-mrs.fr/remap/">ReMap</a> libraries were constructed from human data. <br><br>The ChEA3 web application outputs
+					enrichment
+					results in the form of searchable, sortable data tables for each library and integration method.
+					Using various benchmarks, we found that integrating libraries boosts the performance of ranking TFs
+					correctly.
+					<br><br>
+					<strong>Transcription Factor Target Over-representation Analysis</strong> -
+					The goal of ChEA3 is to predict transcription factors (TFs) associated with user-input sets of
+					genes.
+					Discrete query gene sets are compared to
+					<a href="index.html#content4-13">ChEA3 libraries</a> of TF target gene sets assembled from multiple
+					orthogonal
+					'omics' datasets. The Fisher's Exact Test, with a background size of 20,000, is used to compare the input gene set to the TF target
+					gene sets in
+					order to determine which TFs may be most closely associated with the input gene set.
+					<br>
+					<br>
+
+					<strong>Input</strong> - Users can submit a set of human or mouse gene symbols for transcription
+					factor enrichment analysis.
+					The input gene set can be derived from a variety of sources. Commonly, the gene set may be a set of
+					differentially expressed genes,
+					with the goal of forming hypotheses about which TFs might be responsible for the changes in gene
+					expression. However,
+					input from GWAS studies or whole-genome CRISPR-KO screen hits can be used as input to identify
+					common regulators for
+					these sets of genes.
+					<br>
+					<br>
+
+					<strong>TF Co-expression Network Visualizations</strong> - The ChEA3 application displays a scatter plot of points
+					representing human transcription
+					factors based on their co-expression similarity. This TF coexpression network was constructed by
+					conducting a <a
+						href="https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/">Weighted Gene
+						Co-expression Network Analysis (WGCNA)</a> over human TF expression data. WGCNs were constructed from <a
+						href="https://gtexportal.org/home/">GTEx</a> samples, <a href = "https://portal.gdc.cancer.gov">TCGA</a> samples, and 
+						<a
+						href="https://maayanlab.cloud/archs4/">ARCHS4</a> samples.
+					The network layouts were determined using Allegro Edge-Repulsive Strong Clustering in <a
+						href="https://cytoscape.org">Cytoscape</a>. For the <a
+						href="https://gtexportal.org/home/">GTEx</a> networks, WGCNA TF module summary expression profiles, also
+					known as Eigen-genes,
+					were correlated with gene expression profiles from all <a
+						href="https://gtexportal.org/home/">GTEx</a> tissue samples to determine strong
+					module-tissue associations. Each <a
+						href="https://gtexportal.org/home/">GTEx</a> WGCN module may be colored by its most
+					highly correlated tissue. Tissues are aggregated into more general tissue types (e.g. brain) and
+					more specific tissue types (e.g. cerebellum, frontal cortex):
+
+					<table class="table table-striped" id="gtextable"
+						style="width: auto !important; margin-left: auto; margin-right: auto;">
+						<thead>
+							<tr>
+								<th style="text-align: center; color:#767676"> General Tissue </th>
+								<th style="text-align: center; color:#767676"> Specific Tissue </th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style="text-align:left;"> Adipose Tissue </td>
+								<td style="text-align:left;"> Adipose - Subcutaneous </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Adrenal Gland </td>
+								<td style="text-align:left;"> Adrenal Gland </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Blood </td>
+								<td style="text-align:left;"> Whole Blood </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Blood </td>
+								<td style="text-align:left;"> Cells - EBV-transformed lymphocytes </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Blood Vessel </td>
+								<td style="text-align:left;"> Artery - Tibial </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Brain </td>
+								<td style="text-align:left;"> Brain - Cerebellum </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Brain </td>
+								<td style="text-align:left;"> Brain - Frontal Cortex (BA9) </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Brain </td>
+								<td style="text-align:left;"> Brain - Spinal cord (cervical c-1) </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Colon </td>
+								<td style="text-align:left;"> Colon - Sigmoid </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Colon </td>
+								<td style="text-align:left;"> Colon - Transverse </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Esophagus </td>
+								<td style="text-align:left;"> Esophagus - Muscularis </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Esophagus </td>
+								<td style="text-align:left;"> Esophagus - Mucosa </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Heart </td>
+								<td style="text-align:left;"> Heart - Atrial Appendage </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Liver </td>
+								<td style="text-align:left;"> Liver </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Muscle </td>
+								<td style="text-align:left;"> Muscle - Skeletal </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Nerve </td>
+								<td style="text-align:left;"> Nerve - Tibial </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Pancreas </td>
+								<td style="text-align:left;"> Pancreas </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Pituitary </td>
+								<td style="text-align:left;"> Pituitary </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Prostate </td>
+								<td style="text-align:left;"> Prostate </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Skin </td>
+								<td style="text-align:left;"> Skin - Sun Exposed (Lower leg) </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Skin </td>
+								<td style="text-align:left;"> Cells - Transformed fibroblasts </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Testis </td>
+								<td style="text-align:left;"> Testis </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Thyroid </td>
+								<td style="text-align:left;"> Thyroid </td>
+							</tr>
+							<tr>
+								<td style="text-align:left;"> Uterus </td>
+								<td style="text-align:left;"> Uterus </td>
+							</tr>
+						</tbody>
+					</table>
+
+					<a
+						href="https://gtexportal.org/home/">GTEx</a> modules may also be colored by the top GO enrichment term. <a href = "https://portal.gdc.cancer.gov">TCGA</a> module Eigen-genes were correlated with tumor gene expression
+					profiles to determine strong module-tumor type associations. Each <a href = "https://portal.gdc.cancer.gov">TCGA</a> WGCN module may be colored by its most highly correlated
+					tumor type. Finally, the <a
+						href="https://maayanlab.cloud/archs4/">ARCHS4</a> module Eigen-genes were correlated with <a
+						href="https://maayanlab.cloud/archs4/">ARCHS4</a> tissue types. The <a
+						href="https://maayanlab.cloud/archs4/">ARCHS4</a> network modules may be colored
+					 by the most highly correlated tissue type.
+					<br>
+					<br>
+
+					<strong>Benchmarking Predictions</strong> - The performance of each library and integration method
+					was benchmarked using <a href="assets/tflibs/Single-TF_Perturbations.gmt" download">946 single-TF
+						loss-of-function (LOF) and gain-of-function (GOF) experiments</a>
+					mined from GEO with microarray and RNA-seq readouts. These TF LOF/GOF experiments are composed of 503 mouse experiments and
+					433 human experiments. Gene sets were generated from the
+					differentially
+					expressed genes of these experiments and submitted to the ChEA3 API. The positive class consists of
+					ranks assigned by ChEA3 to the TF perturbed in each experiment.
+					The negative class consists of ranks assigned by ChEA3 to TFs not perturbed in the experiment. The
+					areas under the receiver operating characteristic
+					(ROC) and precision-recall (PR) curves were used to evaluate how well ChEA3 ranked the true
+					perturbed TF. Each library has a different number of TFs covered. To enable comparison, the negative
+					class
+					was downsampled to the size of the positive class to generate PR curves such that a random
+					classifier has an AUC of 0.5. These PR curves were bootstrapped 5,000 times to generate mean PR AUCs
+					and composite
+					PR curves. ROC curves were generated using the same bootstrapping method.
+					<br>
+					<br>
+
+					<img style="width:95%;position:relative" src="./assets/chea3home/images/FIG1.png">
+					<strong> Figure 1. Performance of the ChEA3 libraries and integration techniques in recovering the perturbed TFs from 946 TF LOF and GOF experiments from the benchmark dataset. </strong>
+					 a) Mean ROC AUC and mean PR AUC over 5,000 bootstrapped ROC and PR curves; b) Composite ROC curves generated from 5,000 boostrapped curves; 
+					 c) Composite PR curves generated from 5,000 bootstrapped curves; d) The deviation of the cumulative distribution 
+					 from uniform of the scaled rankings of each perturbed TF in the benchmarking dataset. 
+					 Anderson-Darling test of uniformity: MeanRank p = 6.34 x 10<sup>-7</sup>; TopRank p = 6.34 x 10<sup>-7</sup>; ARCHS4 p = 6.34 x 10<sup>-7</sup>; ENCODE p = 2.06 x 10<sup>-6</sup>; 
+					 Enrichr Queries p = 6.83 x 10<sup>-7</sup>; GTEx p = 6.45 x 10<sup>-7</sup>; Literature ChIP-seq p = 1.28 x 10<sup>-6</sup>; ReMap p = 1.02 x 10<sup>-6</sup>.
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="mbr-section content4 cid-r0K2mj4vt0" id="content4-v">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2">
+						Tutorial</h2>
+					<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						Discover transcription factors associated with your gene set</h3>
+					<!-- <div class="mbr-section-btn align-center py-4">
+						<a class="btn btn-black-outline display-4"
+							href="index.html#video1-b"><span
+							class="mbri-video mbr-iconfont mbr-iconfont-btn"></span>LIVE DEMO</a>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="mbr-section article content11 cid-r0K2ncv4vg" id="content11-w">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+					<ol>
+						<li><strong>Submit Your Query</strong> - Submit a query with one gene symbol per row in the 
+							text box, or upload a text file with one gene symbol per line.
+							ChEA3 accepts HGNC-approved gene symbols and will discard probe names, transcript IDs,
+							and other unrecognizable IDs that have not been converted to gene symbols. ChEA3 accepts 
+							only HGNC-approved gene symbols but does not consider the case of the letters. 
+							Therefore, the tool can accept genes from other species that have orthologs with 
+							gene symbols that directly map to human symbols. You can
+							use the example gene set available as a link above the submission box to gain
+							familiarity with the expected format. Once submitting your query, you will be presented
+							with the results page. Most gene set queries are processed in less than 30 seconds.
+							<img src="./assets/chea3home/images/example_geneset.gif" style="width:100%">
+							<br><br>
+							<img src="./assets/chea3home/images/load_geneset_from_file.gif" style="width:100%">
+							</li>
+
+						<li><strong>Navigating Your Results</strong> - Results tables from the integration methods MeanRank and TopRank 
+						and from each ChEA3 TF target library are accessible from a dropdown menu.
+						The MeanRank table is by default the first table shown because it performed the best in the ChEA3 benchmark. Tables may
+							be searched by entering terms in the search box, sorted by column by clicking on the
+							column header, and copied to the clipboard by clicking on the Copy button. Results
+							for the ChEA3 TF target libraries are sorted by the Fisher's Exact Test p-value.
+							This provides a ranking of transcription factors whose putative transcriptional targets
+							are most closely similar to the query set. Integrated results, which take into account
+							results from all libraries, are sorted in ascending order by score. Lower scores indicate
+							more relevancy to the transcription factor. The top 100 results returned for each table. The full TF ranking and results
+							for each integration method and library may be downloaded as a tab-separated (tsv) file using a link found at the footer of each
+							results table. Full results are also available via the
+							<a href="index.html#content4-z">ChEA3 API</a>.
+							<img src="./assets/chea3home/images/view_tables.gif" style="width:100%"></li>
+
+
+						<li><strong>Visualizing Your Results</strong> - A global transcription factor co-expression
+							network, a local results-specific co-regulatory network, bar charts, and a clustergram are
+							available to aid in interpreting the results.
+							<ul>
+							<br>
+							  <li><strong>TF Co-expression Networks</strong></li>
+							  
+							  The TF co-expression networks are provided to help users visualize their top ranking transcription factors
+							in the context of the larger human transcriptional regulatory network. There are three networks generated from GTEx,
+							TCGA, and ARCHS4 expression data. Users may toggle between these three networks using the dropdown menu. 
+							<img
+								src="./assets/chea3home/images/coexpression_network2.gif" style="width:100%">
+							
+							
+							The slider above the network designates the number of TFs to highlight in the network. The TFs that are highlighted are the top results
+							from the library that is selected from library selection dropdown menu. 
+							Network node coloring options provide additional information about the tissues or tumor types the transcription factors may be
+							most active. The network may be zoomed, panned, and saved as an SVG image. There are other options, for
+							example, hiding the legend or switching to full screen. These options can be accessed by clicking
+						    the "Network Options" hamburger.<img
+								src="./assets/chea3home/images/coexpression_network1.gif" style="width:100%"> 
+								<br><br>
+								 </li>
+							  
+							  <li><strong>TF Co-regulatory Networks</strong></li>
+							  TF-TF co-regulatory networks are dynamically generated using the top results of the selected library. Edges between TFs are defined 
+							  by evidence from the ChEA3 libraries and are directed where ChIP-seq evidence supports the interaction. The supporting evidence for each
+							  edge is summarized in a tooltip that appears upon hovering over each edge. The slider above the network indicates the number of top TF results 
+							  to include in the network from the library results indicated in the library selection dropdown.
+							  <img
+								src="./assets/chea3home/images/coreg_network.gif" style="width:100%"> 
+							  <li><strong>Bar Charts</strong></li>
+							  Bar charts corresponding to the top TFs of the selected library display the -log10(pvalue) for ChEA TF target library results, and an integrated
+							  rank score for the integrated library results. The numer of top TFs on the y-axis may be modifed using the slider.
+							  							  <img
+								src="./assets/chea3home/images/barchart.gif" style="width:100%"> 
+							  
+							  <li>Clustergram</li>
+							  The interactive clustergram shows the overlapping query gene targets among top library results.
+							   <img
+								src="./assets/chea3home/images/clustergrammer.gif" style="width:100%"> 
+							</ul> 
+							
+					</ol>
+					<br>
+					<br>
+					<strong>Run ChEA3 Locally</strong> - The ChEA3 Docker image is available on <a
+						href="https://hub.docker.com/r/maayanlab/chea3">DockerHub</a>. In order to run
+					the ChEA3 web application locally, Docker must be installed.
+					To install Docker, please visit <a href="https://docs.docker.com/install/" target="_blank">https://docs.docker.com/install/</a>.
+					<br><br>
+					Pull the ChEA3 Docker image
+					<pre style="width: 100%; overflow-x: scroll; white-space: nowrap">$docker pull maayanlab/chea3</pre>
+
+					Run ChEA3 locally on port 5000
+					<pre
+						style="width: 100%; overflow-x: scroll; white-space: nowrap">$docker run -p 5000:8080 maayanlab/chea3</pre>
+
+					In your web browser:
+					<pre style="width: 100%; overflow-x: scroll; white-space: nowrap">localhost:5000/chea3/</pre>
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- <section class="cid-r0JPyXePkb" id="video1-b">
+
+
+		<figure class="mbr-figure align-center container">
+			<div class="video-block" style="width: 66%;"></div>
+		</figure>
+	</section> -->
+
+	<section class="mbr-section content4 cid-r0K2ViwrYH" style="padding-bottom:0" id="content4-z">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2">API</h2>
+					<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+						ChEA3 has an API to enable programmatic access for querying the ChEA3 database</h3>
+
+				</div>
+			</div>
+		</div>
+
+
+		<section class="mbr-section article content1 cid-r0K4JJbbUf" id="content1-11" style="padding-bottom:0">
+
+
+			<div class="container">
+				<div class="media-container-row">
+					<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
+						The ChEA3 REST API uses POST to transport user submitted JSON-formatted gene sets and JSON-formatted
+						query results between the ChEA3 server and the user’s script. The user gene set and optional
+						additional information are encoded in JSON format.
+						<br><br>
+						<strong>Method:</strong> POST<br>
+						<strong>URL:</strong> /chea3/api/enrich/<br>
+						<strong>Returns:</strong> JSON array of ChEA3 library result objects<br>
+						<strong>Parameters:</strong> <table style="display:inline-table;border-collapse:collapse;border-spacing:0" class="tg"><tr><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">query_name</th><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">String</th></tr><tr><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">gene_set</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:left;vertical-align:top">An array of strings</td></tr></table>
+						<br><br>
+						
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="mbr-section article content11 cid-r0K4Kn3FRS" id="content11-12" style="padding-bottom:0px">
+
+
+			<div class="container">
+				<div class="media-container-row">
+					<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+						<ol>
+							<li><strong>Command-line Example</strong> - The following returns results from all ChEA3
+								libraries in JSON format:
+								<pre
+									style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -d '{"query_name":"myQuery", "gene_set":["FOXM1","SMAD9","MYC","SMAD3","STAT1","STAT3"]}' -H 'Content-Type: application/json' https://maayanlab.cloud/chea3/api/enrich/</pre>
+								Redirect the JSON-formatted results to a file:
+								<pre
+									style="width: 100%; overflow-x: scroll; white-space: nowrap">$ curl -d '{"query_name":"myQuery", "gene_set":["FOXM1","SMAD9","MYC","SMAD3","STAT1","STAT3"]}' -H 'Content-Type: application/json' https://maayanlab.cloud/chea3/api/enrich/ > results.json</pre>
+								</a></li>
+							<!-- <li><strong>Python Example</strong> - 
+								<pre
+								style="width: 100%; overflow-x: scroll; white-space: nowrap"></pre></li> -->
+							<li><strong>R Example</strong> -
+								<pre style="width: 100%; overflow-x: scroll">
+									rm(list = ls())
+									library(httr)
+									library(jsonlite)
+									
+									genes = c("SMAD9","FOXO1","MYC","STAT1",'STAT3',"SMAD3")
+									
+									url = "https://maayanlab.cloud/chea3/api/enrich/"
+									encode = "json"
+									payload = list(query_name = "myQuery", gene_set = genes)
+									
+									#POST to ChEA3 server
+									response = POST(url = url, body = payload, encode = encode)
+									json = content(response, "text")
+									
+									#results as list of R dataframes
+									results = fromJSON(json)
+								
+								</pre>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+
+	<!-- DOWNLOAD LIBRARIES SECTION -->
+
+	<section class="mbr-section content4 cid-r0K4Mm8LAA" style="padding-bottom:0" id="content4-13">
+
+
+		<div class="container">
+			<div class="media-container-row">
+				<div class="title col-12 col-md-8">
+					<h2 class="align-center pb-3 mbr-fonts-style display-2">
+						Download</h2>
+
+
+				</div>
+				
+			</div>
+			"Primary" libraries are used by ChEA3 to conduct TF target over-representation analysis, "Benchmarking" libraries were used to 
+			benchmark ChEA3, and "Additional" libraries are available as an additional resource to the community.
+		</div>
+	</section>
+	
+	<div class="container">
+			<div class="media-container-row">
+	
+	<head><title> </title></head>
+  
+  <body>
+    <table border="1" class="dataframe mystyle">
+  <thead>
+    <tr style="text-align: initial; text-align: center; color:#767676">
+      <th>Library</th>
+      <th>Library Type</th>
+      <th>Total TFs</th>
+      <th>Unique TFs</th>
+      <th>Average Gene Set Length</th>
+      <th>Unique Interactions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/ARCHS4_Coexpression.gmt" download>ARCHS4_Coexpression</a></td>
+      <td>Primary</td>
+      <td>1628</td>
+      <td>1628</td>
+      <td>300.0</td>
+      <td>480504</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/ENCODE_ChIP-seq.gmt" download>ENCODE_ChIP-seq</a></td>
+      <td>Primary</td>
+      <td>552</td>
+      <td>118</td>
+      <td>1570.4</td>
+      <td>392667</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/Enrichr_Queries.gmt" download>Enrichr_Queries</a></td>
+      <td>Primary</td>
+      <td>1404</td>
+      <td>1404</td>
+      <td>297.7</td>
+      <td>409279</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/GTEx_Coexpression.gmt" download>GTEx_Coexpression</a></td>
+      <td>Primary</td>
+      <td>1607</td>
+      <td>1607</td>
+      <td>300.0</td>
+      <td>468672</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/Literature_ChIP-seq.gmt" download>Literature_ChIP-seq</a></td>
+      <td>Primary</td>
+      <td>307</td>
+      <td>164</td>
+      <td>1264.1</td>
+      <td>340547</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/ReMap_ChIP-seq.gmt" download>ReMap_ChIP-seq</a></td>
+      <td>Primary</td>
+      <td>297</td>
+      <td>297</td>
+      <td>1405.8</td>
+      <td>417025</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/Cusanovich_shRNA_TFs.gmt" download>Cusanovich_shRNA_TFs</a></td>
+      <td>Benchmarking</td>
+      <td>49</td>
+      <td>49</td>
+      <td>600.0</td>
+      <td>29394</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/Single-TF_Perturbations.gmt" download>Single-TF_Perturbations (TFpertGEOupdn)</a></td>
+      <td>Benchmarking</td>
+      <td>946</td>
+      <td>323</td>
+      <td>538.1</td>
+      <td>365679</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFpertGEOup.gmt" download>TFpertGEOup</a></td>
+      <td>Benchmarking</td>
+      <td>946</td>
+      <td>323</td>
+      <td>274.4</td>
+      <td>206641</td>
+    </tr>
+        <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFpertGEOdn.gmt" download>TFpertGEOdn</a></td>
+      <td>Benchmarking</td>
+      <td>946</td>
+      <td>323</td>
+      <td>263.7</td>
+      <td>197654</td>
+    </tr>
+            <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFpertGEO200.gmt" download>TFpertGEO200</a></td>
+      <td>Benchmarking</td>
+      <td>946</td>
+      <td>323</td>
+      <td>200</td>
+      <td>143600</td>
+    </tr>
+             <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFpertGEO1000.gmt" download>TFpertGEO1000</a></td>
+      <td>Benchmarking</td>
+      <td>946</td>
+      <td>323</td>
+      <td>1000</td>
+      <td>649130</td>
+    </tr>
+     <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/HuMAP.gmt" download>HuMAP_TF_PPIs</a></td>
+      <td>Additional</td>
+      <td>460</td>
+      <td>460</td>
+      <td>18.5</td>
+      <td>7561</td>
+    </tr>
+     <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/BioGRID_low_throughput.gmt" download>BioGRID_TF_PPI_low_throughput</a></td>
+      <td>Additional</td>
+      <td>498</td>
+      <td>498</td>
+      <td>7.3</td>
+      <td>3046</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_generif.gmt" download>TFs_generif</a></td>
+      <td>Additional</td>
+      <td>686</td>
+      <td>686</td>
+      <td>79.5</td>
+      <td>51999</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_generif_predicted_autorif_cooccurrence.gmt" download>TFs_generif_predicted_autorif_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>686</td>
+      <td>686</td>
+      <td>200.0</td>
+      <td>132732</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_generif_predicted_coexpression_ARCHS4.gmt" download>TFs_generif_predicted_coexpression_ARCHS4</a></td>
+      <td>Additional</td>
+      <td>686</td>
+      <td>686</td>
+      <td>200.0</td>
+      <td>136973</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_generif_predicted_enrichr_cooccurrence.gmt" download>TFs_generif_predicted_enrichr_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>686</td>
+      <td>686</td>
+      <td>200.0</td>
+      <td>135897</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_generif_predicted_generif_cooccurrence.gmt" download>TFs_generif_predicted_generif_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>686</td>
+      <td>686</td>
+      <td>200.0</td>
+      <td>137135</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_generif_predicted_tagger_cooccurrence.gmt" download>TFs_generif_predicted_tagger_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>686</td>
+      <td>686</td>
+      <td>200.0</td>
+      <td>132083</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_tagger.gmt" download>TFs_tagger</a></td>
+      <td>Additional</td>
+      <td>1390</td>
+      <td>1390</td>
+      <td>145.5</td>
+      <td>187598</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_tagger_predicted_autorif_cooccurrence.gmt" download>TFs_tagger_predicted_autorif_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>1390</td>
+      <td>1390</td>
+      <td>198.5</td>
+      <td>263726</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_tagger_predicted_coexpression_ARCHS4.gmt" download>TFs_tagger_predicted_coexpression_ARCHS4</a></td>
+      <td>Additional</td>
+      <td>1390</td>
+      <td>1390</td>
+      <td>200.0</td>
+      <td>277376</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_tagger_predicted_enrichr_cooccurrence.gmt" download>TFs_tagger_predicted_enrichr_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>1387</td>
+      <td>1387</td>
+      <td>200.0</td>
+      <td>270434</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_tagger_predicted_generif_cooccurrence.gmt" download>TFs_tagger_predicted_generif_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>1387</td>
+      <td>1387</td>
+      <td>199.8</td>
+      <td>277104</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/TFs_tagger_predicted_tagger_cooccurrence.gmt" download>TFs_tagger_predicted_tagger_cooccurrence</a></td>
+      <td>Additional</td>
+      <td>1390</td>
+      <td>1390</td>
+      <td>199.8</td>
+      <td>258758</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/adipose.TFs.gmt" download>adipose.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>473758</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/all_tissues.TFs.gmt" download>all_tissues.TFs</a></td>
+      <td>Additional</td>
+      <td>1596</td>
+      <td>1596</td>
+      <td>300.0</td>
+      <td>468078</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/brain.TFs.gmt" download>brain.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>481106</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/breast.TFs.gmt" download>breast.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>474941</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/cervix.TFs.gmt" download>cervix.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>476307</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/circulatory.TFs.gmt" download>circulatory.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>475219</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/colon.TFs.gmt" download>colon.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>476183</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/endocrine_glands.TFs.gmt" download>endocrine_glands.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>475620</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/fibroblast.TFs.gmt" download>fibroblast.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>476848</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/heart.TFs.gmt" download>heart.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>472195</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/hematopoietic.TFs.gmt" download>hematopoietic.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>478836</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/innate_immunity.TFs.gmt" download>innate_immunity.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>475804</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/liver.TFs.gmt" download>liver.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>473139</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/lung.TFs.gmt" download>lung.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>474951</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/lymphatic.TFs.gmt" download>lymphatic.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>473749</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/muscle.TFs.gmt" download>muscle.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>474280</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/osteoblast.TFs.gmt" download>osteoblast.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>472586</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/other_lower_GI.TFs.gmt" download>other_lower_GI.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>477124</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/ovary.TFs.gmt" download>ovary.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>474686</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/pancreas.TFs.gmt" download>pancreas.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>474226</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/prostate.TFs.gmt" download>prostate.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>473895</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/retina.TFs.gmt" download>retina.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>472304</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/skin.TFs.gmt" download>skin.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>477857</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/upper_GI.TFs.gmt" download>upper_GI.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>476742</td>
+    </tr>
+    <tr>
+      <td><a style="text-decoration:none" href="assets/tflibs/urinary.TFs.gmt" download>urinary.TFs</a></td>
+      <td>Additional</td>
+      <td>1620</td>
+      <td>1620</td>
+      <td>300.0</td>
+      <td>471313</td>
+    </tr>
+  </tbody>
+</table>
+	
+	
+	
+	</div></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 	<h3 -->
+<!-- 						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5"> -->
+<!-- 						Libraries used for ChEA3 enrichment analysis</h3> -->
+	
+
+<!-- 	<section class="features5 cid-r0K1ARyThe" id="features5-r"> -->
+
+
+<!-- 		<div class="container"> -->
+		
+  
+<!-- 			<div class="media-container-row"> -->
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/ARCHS4_Coexpression.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer; display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a href="https://maayanlab.cloud/archs4/">ARCHS4</a> -->
+<!-- 							Coexpression</h4> -->
+<!-- 							<div id = "module" class = "container"> -->
+							
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse"  -->
+<!-- 							style="text-align: justify" id="collapseARCHS" aria-expanded="false"> -->
+<!-- 							<a href="https://maayanlab.cloud/archs4/">ARCHS4</a> -->
+<!-- 							is a massive RNA-seq reprocessing effort containing over 150,000 -->
+<!-- 							human and mouse samples from GEO. The ARCHS4 TF co-expression -->
+<!-- 							library was generated by randomly sampling 50,000 human RNA-seq -->
+<!-- 							samples from ARCHS4, building a gene-gene Pearson correlation -->
+<!-- 							matrix, and then taking the 300 genes with the greatest absolute value  -->
+<!-- 							of the Pearson correlation coefficient with each of 1,618 unique human -->
+<!-- 							transcription factors for a total of 1,618 gene sets. The library -->
+<!-- 							encompasses 485,400 putative TF-gene interactions. -->
+<!-- 						</p> -->
+<!-- 						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseARCHS" aria-expanded="false" aria-controls="collapseARCHS"></a> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+			
+<!-- 				</div> -->
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/GTEx_Coexpression.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer; display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a href="https://gtexportal.org/home/">GTEx</a> -->
+<!-- 							Coexpression</h4> -->
+<!-- 							<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "collapseGTEx" aria_expanded = "false" -->
+<!-- 							style="text-align: justify"> -->
+<!-- 							The <a href="https://gtexportal.org/home/">Genotype-Tissue Expression (GTEx)</a> -->
+<!-- 							project is a public resource dedicated to cataloguing tissue-specific -->
+<!-- 							gene expression and regulation. Samples were collected from 53 healthy tissue sites across almost 1000 individuals,  -->
+<!-- 							for molecular assays including whole-genome sequencing, whole-exome sequencing, and RNA-seq.  -->
+<!-- 							All human GTEx RNA-seq samples -->
+<!-- 							were used to build a gene-gene Pearson correlation matrix across -->
+<!-- 							all tissues available.  -->
+<!-- 						 	The 300 genes with the greatest absolute value  -->
+<!-- 							of the Pearson correlation coefficient for each of 1,598 unique human -->
+<!-- 							transcription were used to build the TF gene set library. The -->
+<!-- 							library encompasses 479,400 putative TF-gene interactions. -->
+<!-- 						</p> -->
+<!-- 						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseGTEx" aria-expanded="false" aria-controls="collapseGTEx"></a> -->
+<!-- 						</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+				
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/Enrichr_Queries.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer; display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a -->
+<!-- 								href="http://maayanlab.cloud/Enrichr/" >Enrichr</a> -->
+<!-- 							Queries</h4> -->
+<!-- 							<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" -->
+<!-- 							style="text-align: justify" id="enrichrCollapse" aria-expanded = "false"> -->
+<!-- 							User-submitted gene lists were copied from the <a -->
+<!-- 								href="http://maayanlab.cloud/Enrichr/" >Enrichr</a> -->
+<!-- 							for a total of 1,097,157 unique lists.  Enrichr example lists, lists used for internal testing, lists with greater than 2000 genes, lists with less than 2 genes, and lists from IP addresses that submitted >1000 lists were filtered out which resulted in 293,747 unique gene lists remaining for co-occurrence analysis.  -->
+<!-- For each TF <i>i</i> defined in a census of 1404 TFs, the probability of co-occurrence of the transcription factor TF<sub>i</sub> and a gene g<sub>j</sub> P(TF<sub>i</sub> ∩ g<sub>j</sub>) was computed for all genes in G. This is essentially the count of the number of times TF<sub>i</sub> and g<sub>j</sub> appear together in the same list across the user-submitted gene lists. The top 300 co-occurring genes for each TF<sub>i</sub> were used. to generate the GMT gene lists. -->
+<!-- The library encompasses 419,114 -->
+<!-- 							TF-gene interactions. -->
+<!-- 						</p> -->
+<!-- 						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#enrichrCollapse" aria-expanded="false" aria-controls="enrichrCollapse"></a> -->
+<!-- 					</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+
+<!-- 				</div> -->
+<!-- 			</div> -->
+		
+<!-- 	</section> -->
+
+<!-- 	<section class="features5 cid-r0K1D0ndDf" id="features5-s"> -->
+
+
+<!-- 		<div class="container"> -->
+<!-- 			<div class="media-container-row "> -->
+			
+<!-- 							<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 					<div class = "center"> -->
+<!-- 						<a href="assets/tflibs/ReMap_ChIP-seq.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer; display:table; margin:0 auto"></span></a> -->
+<!-- 							</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box mbr-fonts-style"> -->
+<!-- 						<h4 class="card-title py-3 display-7" style="text-align:center"><a href="http://pedagogix-tagc.univ-mrs.fr/remap/" -->
+<!-- 								>ReMap</a> ChIP-seq</h4> -->
+<!-- 					<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "remapCollapse" aria-expanded = "false" -->
+<!-- 							style="text-align: justify"> -->
+<!-- 							The ReMap ChIP-seq library was generated using BED files from the -->
+<!-- 							<a href="http://pedagogix-tagc.univ-mrs.fr/remap/" -->
+<!-- 								>ReMap Project</a>. BED files were annotated with -->
+<!-- 							a <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003342">distance-weighted peak-to-gene model</a> and the top 10% of -->
+<!-- 							transcription start sites were assigned to each of 300 unique TFs -->
+<!-- 							to generate putative target sets, encompassing 422,025 TF-gene -->
+<!-- 							interactions. -->
+<!-- 						</p> -->
+<!-- 						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#remapCollapse" aria-expanded="false" aria-controls="remapCollapse"></a> -->
+<!-- 					</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/ENCODE_ChIP-seq.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer; display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a -->
+<!-- 								href="https://www.encodeproject.org/" >ENCODE</a> -->
+<!-- 							ChIP-seq</h4> -->
+<!-- 							<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "encodeCollapse" aria-expanded = "false" -->
+<!-- 							style="text-align: justify"> -->
+<!-- 							TF target gene sets were generated for the web tool <a -->
+<!-- 								href="http://maayanlab.cloud/Enrichr/">Enrichr</a> -->
+<!-- 							using uniformly reprocessed <a -->
+<!-- 								href="https://www.encodeproject.org/">ENCODE</a> -->
+<!-- 							TF ChIP-seq experiments. Peak calling on alignment files was conducted using the MACs software. Peaks -->
+<!-- 							were then sorted by distance to the transcription start site and 2000 peaks at most were retained for each -->
+<!-- 							experiment. The library encompasses 552 ChIP-seq experiments of 118 unique TFs. The library contains 867,121  -->
+<!-- 							TF-gene interactions. -->
+<!-- 						</p> -->
+<!-- 												<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#encodeCollapse" aria-expanded="false" aria-controls="encodeCollapse"></a> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/Literature_ChIP-seq.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer;  display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a href="https://academic.oup.com/bioinformatics/article/26/19/2438/230298" >Literature -->
+<!-- 							ChIP-seq </a>(ChEA)</h4> -->
+<!-- 							<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" id = "collapseLit" aria-expanded = "false"  -->
+<!-- 							style="text-align: justify"> -->
+<!-- 							This library is derived from TF ChIP-seq and ChIP-ChIP experiments mined from -->
+<!-- 							supplemental data in the literature. Previous versions of this -->
+<!-- 							library were used in <a -->
+<!-- 								href="https://academic.oup.com/bioinformatics/article/26/19/2438/230298" -->
+<!-- 								target="_blank">ChEA</a> and <a -->
+<!-- 								href="https://link.springer.com/chapter/10.1007/978-3-642-40511-2_30" -->
+<!-- 								target="_blank">ChEA2</a>. The library gene set metadata includes the PubMed ID number -->
+<!-- 								for the publication from which the experiment originated, as well as the species, assay and the cell- or tissue-type. -->
+<!-- 								This library encompasses 463 ChIP-seq and ChIP-ChIP experiments across 282 publications. The gene sets -->
+<!-- 								are associated with 194 unique TFs and contains 623,233 TF-gene interactions. -->
+								
+<!-- 						</p> -->
+<!-- 						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseLit" aria-expanded="false" aria-controls="collapseLit"></a> -->
+						
+<!-- 					</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
+<!-- 	<h3 -->
+<!-- 						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5"> -->
+<!-- 						Benchmarking Libraries</h3> -->
+						
+<!-- 						<section class="features5 cid-r0K1D0ndDf" id="features5-s"> -->
+
+
+<!-- 		<div class="container"> -->
+<!-- 			<div class="media-container-row"> -->
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/Single-TF_Perturbations.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfonto" style="cursor: pointer; display:table; margin:0 aut"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center">TF LOF/GOF Experiments</h4> -->
+<!-- 						<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" aria-expanded = "false" id = "collapsePert" -->
+<!-- 							style="text-align: justify"> -->
+<!-- 							Single-TF perturbation experiments including knockdowns, knockouts, overexpression,  -->
+<!-- 							and chemical inhibition followed by genome-wide microarray profiling were manually  -->
+<!-- 							curated by the crowd for the from <a href="https://www.nature.com/articles/ncomms12846">CREEDS</a>.  -->
+<!-- 							An additional 160 single-TF perturbation from RNA-seq experiments were manually curated from GEO by  -->
+<!-- 							first programmatically searching <a href = "https://maayanlab.cloud/archs4/">ARCHS4</a> metadata for potential studies that contain relevant signatures.  -->
+<!-- 							The top 300 upregulated, and the top 300 downregulated genes were used to compose TF perturbation experiment -  -->
+<!-- 							associated gene sets for a total of 786 gene sets associated with 275 unique site-specific TFs.  -->
+<!-- 						</p> -->
+<!-- 						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapsePert" aria-expanded="false" aria-controls="collapsePert"></a> -->
+						
+<!-- 					</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/Cusanovich_TF_shRNA.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer;  display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a href ="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50588" >TF shRNA Experiments</a></h4> -->
+<!-- 						<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" aria-expanded = "false" id="collapseCus" -->
+<!-- 							style="text-align: justify" > -->
+<!-- 							The top 300 upregulated and top 300 downregulated genes from each of 49 unique TF shRNA knockdowns by <a href = "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004226"><i>Cusanovich et al.</i></a> were used to generate 49 TF perturbation-associated gene sets.  -->
+<!-- 						</p> -->
+<!-- 							<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseCus" aria-expanded="false" aria-controls="collapseCus"></a> -->
+						
+<!-- 					</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
+						
+						
+<!-- 	<h3 -->
+<!-- 						class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5"> -->
+<!-- 						Additional Libraries</h3> -->
+<!-- 		<section class="features5 cid-r0K1D0ndDf" id="features5-s"> -->
+		
+<!-- 		<div class="container"> -->
+<!-- 		<p>The gmts in this section are included solely as additional sources of information that might be of interest to ChEA3 users.  -->
+<!-- 		These sets are not used by the tool in performing over-representation analysis. In the future, some of these sets may be validated and  -->
+<!-- 		included in subsequent versions of the ChEA3 tool.</p> -->
+<!-- 			<div class="media-container-row"> -->
+
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/tf_humap_ppi.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer; display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a href = "http://proteincomplexes.org">Hu.MAP</a> TF PPIs</h4> -->
+<!-- 						<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse"  -->
+<!-- 							style="text-align: justify" aria-expanded = "false" id="collapseHuMap"> -->
+<!-- 							<a href = "http://proteincomplexes.org">Hu.MAP</a> integrates large-scale affinity purification mass-spec datasets. All putative protein interacters with each TF were -->
+<!-- 							used to generate this TF PPI library.  -->
+<!-- 						</p> -->
+<!-- 							<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#collapseHuMap" aria-expanded="false" aria-controls="collapseHuMap"></a> -->
+						
+<!-- 						</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+					
+
+				
+<!-- 				<div class="card p-3 col-12 col-md-6 col-lg-3"> -->
+<!-- 					<div class="card-img pb-3"> -->
+<!-- 						<a href="assets/tflibs/tf_iref_ppi.gmt" download><span -->
+<!-- 							class="mbri-save mbr-iconfont" style="cursor: pointer; display:table; margin:0 auto"></span></a> -->
+<!-- 					</div> -->
+<!-- 					<div class="card-box"> -->
+<!-- 						<h4 class="card-title py-3 mbr-fonts-style display-7" style="text-align:center"><a href = "http://wodaklab.org/iRefWeb/">iRefWeb</a> TF PPIs</h4> -->
+<!-- 						<div id = "module" class = "container"> -->
+<!-- 						<p class="mbr-text mbr-fonts-style display-7 collapse" aria-expanded = "false" id = "irefCollapse" -->
+<!-- 							style="text-align: justify"> -->
+<!-- 							iRefWeb integrates PPIs from several major public PPI databases. PPIs from the <a href = "https://thebiogrid.org/">BioGRID</a>, <a href = "http://mips.helmholtz-muenchen.de/proj/ppi/">MPPI</a>, -->
+<!-- 							 <a href = "http://mips.helmholtz-muenchen.de/corum/">CORUM</a>,  -->
+<!-- 							and <a href = "http://www.hprd.org/">HPRD</a> databases -->
+<!-- 							are included in this library. -->
+<!-- 						</p> -->
+<!-- 						<a id="showmoreless" role="button" class="collapsed" data-toggle="collapse" href="#irefCollapse" aria-expanded="false" aria-controls="irefCollapse"></a> -->
+						
+<!-- 					</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+
+
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
+						
+<!-- <section class="accordion1 cid-rnbkpN1hCU" id="accordion1-d" style="background-color:#FFFFFF;margin:50px;padding:50px"> -->
+
+    
+
+    
+<!--     <div class="container"> -->
+<!--         <div class="media-container-row"> -->
+<!--             <div class="col-12 col-md-8"> -->
+<!--                 <div class="section-head text-center space30"> -->
+<!--                     <h2 class="mbr-section-title pb-5 mbr-fonts-style display-2"> -->
+<!--                         ChEA3 FAQ -->
+<!--                     </h2> -->
+<!--                 </div> -->
+<!--                 <div class="clearfix"></div> -->
+<!--                 <div id="bootstrap-accordion_9" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true"> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingOne"> -->
+<!--                             <a role="button" class="panel-title collapsed text-black" data-toggle="collapse" data-core="" href="#collapse1_9" aria-expanded="false" aria-controls="collapse1"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> -->
+<!--                                     Which species are included in ChEA3 and what type of gene ids or symbols are accepted? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse1_9" class="panel-collapse noScroll collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                   The ARCHS4, GTEx, and ReMap ChEA3 libraries were constructed with human samples. The Enrichr Queries library was constructed with HGNC-mappable gene symbols. The ENCODE and Literature  -->
+<!--                                   ChIP-seq libraries were constructed with both mouse and human samples. -->
+<!--                                   ChEA3 accepts HGNC-approved gene symbols for the user-submitted query gene set. Frequently, these symbols map directly to mouse symbols (ChEA3 is not case-sensitive). ChEA3 has been -->
+<!--                                   validated against a benchmarking set of mouse experiments, which performed comparably to a set of human experiments. Therefore, we recommend ChEA3 for use with human and mouse sets. -->
+<!--                                   Note that the mouse gene symbols that do not map directly to HGNC-approved human gene symbols will not be considered by the tool. -->
+<!--                                   </p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingTwo"> -->
+<!--                             <a role="button" class="collapsed panel-title text-black" data-toggle="collapse" data-core="" href="#collapse2_9" aria-expanded="false" aria-controls="collapse2"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> Does ChEA3 indicate the direction of TF activity? -->
+<!--                                </h4> -->
+<!--                             </a> -->
+                            
+<!--                         </div> -->
+<!--                         <div id="collapse2_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                 ... -->
+<!--                                  </p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingThree"> -->
+<!--                             <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse3_9" aria-expanded="false" aria-controls="collapse3"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Should I input upregulated genes, downregulated genes, or a query set that is upregulated and downregulated genes combined? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse3_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                    Benchmarking results indicate...</p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                     <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingFour"> -->
+<!--                             <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse4_9" aria-expanded="false" aria-controls="collapse4"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which is the best results library to use? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse4_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                    Benchmarking results indicate...</p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                      <div class="card"> -->
+<!--                         <div class="card-header" role="tab" id="headingFive"> -->
+<!--                             <a role="button" class="collapsed text-black panel-title" data-toggle="collapse" data-core="" href="#collapse5_9" aria-expanded="false" aria-controls="collapse5"> -->
+<!--                                 <h4 class="mbr-fonts-style display-7"> -->
+<!--                                     <span class="sign mbr-iconfont mbri-arrow-down inactive"></span>  Which transcription factors are covered by ChEA3? -->
+<!--                                 </h4> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div id="collapse5_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#bootstrap-accordion_9"> -->
+<!--                             <div class="panel-body p-4"> -->
+<!--                                 <p class="mbr-fonts-style panel-text display-7"> -->
+<!--                                    Transcription factors identified by Lambert et al. in their census of site-specific human transcription factors are considered. Of these, only symbols that  -->
+<!--                                    are <a href="https://www.genenames.org">mappable to HGNC-approved symbols</a>. Of these xx TFs, ChEA3 coveres xx. The two transcritpon factors not included in  -->
+<!--                                    ChEA3 are DUX1 and DUX3  those that are -->
+<!--                                    HGNC-mappable </p> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+                    
+                    
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+<!-- </section> -->
+
+	<!--Footer-->
+	<div class="row px-5 justify-content-center">
+		<!--Citation Column -->
+	<div class="col-md-4 col-sm small px-5">
+          <h5>Citation</h5>
+          <div class="citation">
+            <p>
+              <span>Keenan AB, Torre D, Lachmann A, Leong AK, Wojciechowicz M, Utti V, Jagodnik K, Kropiwnicki E, Wang Z, Ma'ayan A (2019) ChEA3: transcription factor enrichment analysis by orthogonal omics integration.
+              <i>Nucleic Acids Research.</i> <br>
+              <span>doi: </span>
+              <a href="https://doi.org/10.1093/nar/gkz446" target="_blank">10.1093/nar/gkz446</a>
+            </span>
+           </p>
+          </div>
+         </div>
+        
+
+		<!-- Affiliations Column -->
+		<div class="col-md-4 col-sm small">
+			<h5 class="mb-3">Affiliations</h5>
+			<div><a class="black" href="http://icahn.mssm.edu/research/labs/maayan-laboratory" target="_blank">The
+					Ma'ayan Lab</a></div>
+			<div><a class="black" href="http://www.lincs-dcic.org/" target="_blank">BD2K-LINCS Data
+					Coordination and Integration Center (DCIC)</a></div>
+			<div><a class="black" href="http://www.lincsproject.org/">NIH LINCS program</a></div>
+			<div><a class="black" href="https://nihdatacommons.us/" target="_blank">Data Commons Pilot
+					Project
+					Consortium (DCPPC)</a></div>
+			<div><a class="black" href="https://druggablegenome.net/KMC_ISMMS" target="_blank">NIH
+					Illuminating the Druggable Genome (IDG) Program</a></div>
+			<div><a class="black" href="http://icahn.mssm.edu/" target="_blank">Icahn School of Medicine at
+					Mount Sinai</a></div>
+			<div><a class="black" href="http://icahn.mssm.edu/research/bioinformatics" target="_blank">Mount
+					Sinai Center for Bioinformatics</a></div>
+		</div>
+
+		<!-- License Column -->
+		<div class="col-md-2 col-sm small">
+			<h5 class="mb-3">License</h5>
+			<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+				<img alt="Creative Commons License" style="border-width:0;"
+					src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png">
+			</a>
+			<div class="micro mt-2">
+				<p>All contents on this site are covered by the <a rel="license"
+						href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
+						Commons Attribution 4.0 International License</a>.</p>
+			</div>
+		</div>
+
+		<!-- Logo Column -->
+		<div class="col-md-3 col-sm px-5 mt-3">
+			<a href="http://icahn.mssm.edu/research/bioinformatics" target="_blank">
+				<img src="https://maayanlab.cloud/archs4/images/mountsinai.png" class="w-100 px-3">
+			</a>
+		</div>
+	</div>
+
+	<iframe id="dwnld_iframe" style="display: none;"></iframe>
+	-->
+	<script type="text/javascript">
+		var host = "https://maayanlab.cloud/";
+	</script>
+	<script src="assets/web/assets/jquery/jquery-3.3.1.min.js" type="text/javascript"></script>
+	<script src="assets/popper/popper.min.js" type="text/javascript"></script>
+	<!-- 	bootstrap v4  -->
+	<script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+
+	<!--a bunch of d3 scripts-->
+	<script src="assets/d3/d3.v4.min.js" type="text/javascript"></script>
+	<!-- <script src="assets/d3/d3.v5.min.js"></script> -->
+	<script src="https://d3js.org/d3-selection-multi.v1.js"></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+
+	<!--bootstrap/mobirise--->
+
+	<script src="assets/tether/tether.min.js" type="text/javascript"></script>
+
+	<script src="assets/smoothscroll/smooth-scroll.js" type="text/javascript"></script>
+	<script src="assets/touchswipe/jquery.touch-swipe.min.js" type="text/javascript"></script>
+	<script src="assets/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+	<script src="assets/datatables/dataTables.buttons.min.js" type="text/javascript"></script>
+	<script src="assets/datatables/jszip.min.js" type="text/javascript"></script>
+	<script src="assets/datatables/buttons.html5.min.js" type="text/javascript"></script>
+	<script src="assets/datatables/pdfmake.min.js" type="text/javascript"></script>
+	<script src="assets/datatables/vfs_fonts.js" type="text/javascript"></script>
+	<script src="assets/mbr-switch-arrow/mbr-switch-arrow.js" type="text/javascript"></script>
+	<script src="assets/sociallikes/social-likes.js" type="text/javascript"></script>
+	<script src="assets/dropdown/js/script.min.js" type="text/javascript"></script>
+	<script src="assets/theme/js/script.js" type="text/javascript"></script>
+	<script src="assets/chea-query/download_results.js" type="text/javascript"></script>
+
+	<script src="assets/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+	<script src="assets/datatables/buttons.colVis.min.js" type="text/javascript"></script>
+	<script src="assets/spectrum/spectrum.js" type="text/javascript"></script>
+	<script src="https://d3js.org/d3-array.v1.min.js" type="text/javascript"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"
+		type="text/javascript"></script>
+	<!-- <script src="assets/hitcounter.js"></script> -->
+
+
+
+	<!-- OpenCPU scripts -->
+	<script src="assets/chea-query/generateCoregNetwork.js" type="text/javascipt"></script>
+	<script src="assets/chea-query/color-array.js" type="text/javascript"></script>
+	<script src="assets/chea-query/plot_results.js" type="text/javascript"></script>
+	<script src="assets/chea-query/generate_clustergram.js" type="text/javascript"></script>
+	<script src="assets/chea-query/generate_coreg_network.js" type="text/javascript"></script>
+	<script src="assets/chea-query/submit-query2.js" type="text/javascript"></script>
+	<script src="assets/networkd3/tissue_legends.js" type="text/javascript"></script>
+	<script src="assets/networkd3/network3.js" type="text/javascript"></script>
+	<script src="assets/chea-query/generateCoregNetwork.js" type="text/javascript"></script>
+	<script src="assets/chea3home/chea3homepage.js" type="text/javascript"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-6277639-43"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-6277639-43');
+		$('[data-toggle="popover"]').popover();
+
+	</script>
+	<script type="text/javascript">if ((location.protocol != 'https:') && (location.hostname != 'localhost')){location.href = 'https:' + window.location.href.substring(window.location.protocol.length);}</script>
+
+
+
+
+</body>
+
+</html>
