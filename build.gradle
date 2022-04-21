@@ -29,20 +29,20 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.json', name: 'json', version: '20190722'
-    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.510'
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
-    compile group: 'com.googlecode.json-simple', name:'json-simple', version:'1.1'
+    implementation group: 'org.json', name: 'json', version: '20190722'
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.510'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+    implementation group: 'com.googlecode.json-simple', name:'json-simple', version:'1.1'
 
 
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-    compile group: 'javax.servlet', name: 'jsp-api', version: '2.0'
+    implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    implementation group: 'javax.servlet', name: 'jsp-api', version: '2.0'
     def tomcatVersion = '9.0.16'
     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
             "org.apache.tomcat.embed:tomcat-embed-logging-juli:9.0.0.M6",
             "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 
-    compile group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: "${tomcatVersion}"
+    implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: "${tomcatVersion}"
     testImplementation 'junit:junit:4.12'
 }
 
